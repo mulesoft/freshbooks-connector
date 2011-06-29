@@ -1,0 +1,89 @@
+package org.mule.modules.freshbooks;
+
+import org.custommonkey.xmlunit.XMLTestCase;
+import org.custommonkey.xmlunit.XMLUnit;
+import org.mule.modules.freshbooks.model.Request;
+import org.mule.modules.freshbooks.model.Response;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLFilterImpl;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.sax.SAXSource;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+public abstract class RequestAndResponseTest extends XMLTestCase {
+    protected void assertRequest(String file, Request req) throws IOException, SAXException, JAXBException {
+        JAXBContext jc = JAXBContext.newInstance(Request.class);
+        Marshaller marshaller = jc.createMarshaller();
+        OutputStream stream = new OutputStream() {
+            private StringBuilder string = new StringBuilder();
+
+            @Override
+            public void write(int b) throws IOException {
+                this.string.append((char) b);
+            }
+
+            //Netbeans IDE automatically overrides this toString()
+            public String toString() {
+                return this.string.toString();
+            }
+        };
+
+        marshaller.marshal(req, stream);
+
+        String expected = getResourceAsString(getClass().getClassLoader().getResourceAsStream(file));
+        String output = stream.toString();
+
+        XMLUnit.setIgnoreComments(true);
+        XMLUnit.setIgnoreWhitespace(true);
+        assertXMLEqual(expected, output);
+    }
+
+    private static String getResourceAsString(InputStream in) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
+        byte[] buf = new byte[1024];
+        int sz = 0;
+        try {
+            while (true) {
+                sz = in.read(buf);
+
+                baos.write(buf, 0, sz);
+                if (sz < buf.length)
+                    break;
+            }
+        } finally {
+            try {
+                in.close();
+            } catch (Exception e) {
+
+            }
+        }
+        return new String(baos.toByteArray());
+    }
+
+    protected Response parseResponse(String file) throws JAXBException, SAXException, ParserConfigurationException {
+        JAXBContext jc = JAXBContext.newInstance(Response.class);
+        Unmarshaller unmarshaller = jc.createUnmarshaller();
+
+                // Create the XMLReader
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        XMLReader reader = factory.newSAXParser().getXMLReader();
+
+        // The filter class to set the correct namespace
+        XMLFilterImpl xmlFilter = new XMLNamespaceFilter(reader);
+        reader.setContentHandler(unmarshaller.getUnmarshallerHandler());
+        SAXSource source = new SAXSource(xmlFilter, new InputSource(getClass().getClassLoader().getResourceAsStream(file)));
+
+        return (Response)unmarshaller.unmarshal(source);
+    }
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<request method="category.create">
+  <category>
+    <name>Gasoline</name>  <!-- (Required) Category name -->
+  </category>
+</request>
