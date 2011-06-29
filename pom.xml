@@ -6,9 +6,9 @@
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-freshbooks</artifactId>
     <packaging>cloud-connector</packaging>
-    <name>Mule Freshbooks Connector</name>
+    <name>Mule Freshbooks Connector (Beta)</name>
     <version>1.0-SNAPSHOT</version>
-    <description>Mule Connector for Freshbooks</description>
+    <description>FreshBooks is an online invoicing software as a service for freelancers, small businesses, agencies, and professionals. It is produced by the software company 2ndSite Inc. which is located in Toronto, Ontario, Canada. The product includes a myriad of other related features, such as time tracking, expense tracking, recurring billing, online payment collection, the ability to mail invoices through the U.S. Post, and support tickets.</description>
     <url>http://www.muleforge.org/projects/mule-module-freshbooks</url>
 
     <properties>
@@ -186,4 +186,26 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+	<scm>
+	    <connection>scm:git:git://github.com:mulesoft/freshbooks-connector.git</connection>
+	    <developerConnection>
+	            scm:git:git@github.com:mulesoft/freshbooks-connector.git
+	        </developerConnection>
+	    <url>http://github.com/mulesoft/freshbooks-connector</url>
+	  </scm>
+
+	  <distributionManagement>
+	    <repository>
+	      <id>muleforge-releases</id>
+	      <name>MuleForge Snapshot Repository</name>
+	      <url>http://repository.mulesoft.org/releases/</url>
+	    </repository>
+	    <snapshotRepository>
+	      <id>muleforge-snapshots</id>
+	      <name>MuleForge Repository</name>
+	      <url>http://repository.mulesoft.org/snapshots/</url>
+	      <uniqueVersion>false</uniqueVersion>
+	    </snapshotRepository>
+	  </distributionManagement>
 </project>
