@@ -1,0 +1,92 @@
+<!-- BEGIN_INCLUDE(freshbooks:create-category) -->
+    <freshbooks:create-category name="#[header:categoryName]"/>
+<!-- END_INCLUDE(freshbooks:create-category) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:update-category) -->
+    <freshbooks:update-category categoryId="#[header:categoryId]" name="#[header:categoryName]"/>
+<!-- END_INCLUDE(freshbooks:update-category) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-category) -->
+    <freshbooks:get-category categoryId="#[header:categoryId]"/>
+<!-- END_INCLUDE(freshbooks:get-category) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-category) -->
+    <freshbooks:delete-category categoryId="#[header:categoryId]"/>
+<!-- END_INCLUDE(freshbooks:delete-category) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-categories) -->
+    <freshbooks:list-categories/>
+<!-- END_INCLUDE(freshbooks:list-categories) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:create-client) -->
+    <freshbooks:create-client firstName="#[header:firstName]"
+                              lastName="#[header:lastName]"
+                              organization="#[header:organization]"
+                              email="#[header:email]"
+                              username="#[header:username]"
+                              password="#[header:password]"
+                              workPhone="#[header:workPhone]"
+                              homePhone="#[header:homePhone]"
+                              mobile="#[header:mobile]"
+                              fax="#[header:fax]"
+                              language="#[header:language]"
+                              currencyCode="#[header:currencyCode]"
+                              notes="#[header:notes]"
+                              primaryStreet1="#[header:primaryStreet1]"
+                              primaryStreet2="#[header:primaryStreet2]"
+                              primaryCity="#[header:primaryCity]"
+                              primaryState="#[header:primaryState]"
+                              primaryCountry="#[header:primaryCountry]"
+                              primaryZipCode="#[header:primaryZipCode]"
+                              secondaryStreet1="#[header:secondaryStreet1]"
+                              secondaryStreet2="#[header:secondaryStreet2]"
+                              secondaryCity="#[header:secondaryCity]"
+                              secondaryState="#[header:secondaryState]"
+                              secondaryCountry="#[header:secondaryCountry]"
+                              secondaryZipCode="#[header:secondaryZipCode]"
+                              vatName="#[header:vatName]"
+                              vatNumber="#[header:vatNumber]" />
+<!-- END_INCLUDE(freshbooks:create-client) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:update-client) -->
+    <freshbooks:update-client clientId="#[header:clientId]"
+                              firstName="#[header:firstName]"
+                              lastName="#[header:lastName]"
+                              organization="#[header:organization]"
+                              email="#[header:email]"
+                              username="#[header:username]"
+                              password="#[header:password]"
+                              workPhone="#[header:workPhone]"
+                              homePhone="#[header:homePhone]"
+                              mobile="#[header:mobile]"
+                              fax="#[header:fax]"
+                              language="#[header:language]"
+                              currencyCode="#[header:currencyCode]"
+                              notes="#[header:notes]"
+                              primaryStreet1="#[header:primaryStreet1]"
+                              primaryStreet2="#[header:primaryStreet2]"
+                              primaryCity="#[header:primaryCity]"
+                              primaryState="#[header:primaryState]"
+                              primaryCountry="#[header:primaryCountry]"
+                              primaryZipCode="#[header:primaryZipCode]"
+                              secondaryStreet1="#[header:secondaryStreet1]"
+                              secondaryStreet2="#[header:secondaryStreet2]"
+                              secondaryCity="#[header:secondaryCity]"
+                              secondaryState="#[header:secondaryState]"
+                              secondaryCountry="#[header:secondaryCountry]"
+                              secondaryZipCode="#[header:secondaryZipCode]"
+                              vatName="#[header:vatName]"
+                              vatNumber="#[header:vatNumber]" />
+<!-- END_INCLUDE(freshbooks:update-client) -->
+     
+<!-- BEGIN_INCLUDE(freshbooks:get-client) -->
+    <freshbooks:get-client clientId="#[header:clientId]" />
+<!-- END_INCLUDE(freshbooks:get-client) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-client) -->
+    <freshbooks:delete-client clientId="#[header:clientId]" />
+<!-- END_INCLUDE(freshbooks:delete-client) -->
+     
+<!-- BEGIN_INCLUDE(freshbooks:list-clients) -->
+    <freshbooks:list-clients/>
+<!-- END_INCLUDE(freshbooks:list-clients) -->

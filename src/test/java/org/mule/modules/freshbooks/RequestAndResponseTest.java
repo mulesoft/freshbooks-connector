@@ -1,13 +1,19 @@
+/**
+ * Mule Freshbooks Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+
 package org.mule.modules.freshbooks;
 
-import org.custommonkey.xmlunit.XMLTestCase;
-import org.custommonkey.xmlunit.XMLUnit;
-import org.mule.modules.freshbooks.model.Request;
-import org.mule.modules.freshbooks.model.Response;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLFilterImpl;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -16,17 +22,23 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.sax.SAXSource;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+
+import org.custommonkey.xmlunit.XMLTestCase;
+import org.custommonkey.xmlunit.XMLUnit;
+import org.mule.modules.freshbooks.model.Request;
+import org.mule.modules.freshbooks.model.Response;
+import org.springframework.core.io.ClassPathResource;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLFilterImpl;
 
 public abstract class RequestAndResponseTest extends XMLTestCase {
     protected void assertRequest(String file, Request req) throws IOException, SAXException, JAXBException {
         JAXBContext jc = JAXBContext.newInstance(Request.class);
         Marshaller marshaller = jc.createMarshaller();
         OutputStream stream = new OutputStream() {
-            private StringBuilder string = new StringBuilder();
+            private final StringBuilder string = new StringBuilder();
 
             @Override
             public void write(int b) throws IOException {
@@ -34,14 +46,15 @@ public abstract class RequestAndResponseTest extends XMLTestCase {
             }
 
             //Netbeans IDE automatically overrides this toString()
+            @Override
             public String toString() {
                 return this.string.toString();
             }
         };
 
         marshaller.marshal(req, stream);
-
-        String expected = getResourceAsString(getClass().getClassLoader().getResourceAsStream(file));
+        String expected = getResourceAsString(new ClassPathResource(file).getInputStream());
+        //String expected = getResourceAsString(getClass().getClassLoader().getResourceAsStream(file));
         String output = stream.toString();
 
         XMLUnit.setIgnoreComments(true);

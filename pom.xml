@@ -5,30 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-freshbooks</artifactId>
-    <packaging>cloud-connector</packaging>
+    <packaging>mule-module</packaging>
     <name>Mule Freshbooks Connector (Beta)</name>
     <version>1.0-SNAPSHOT</version>
     <description>FreshBooks is an online invoicing software as a service for freelancers, small businesses, agencies, and professionals. It is produced by the software company 2ndSite Inc. which is located in Toronto, Ontario, Canada. The product includes a myriad of other related features, such as time tracking, expense tracking, recurring billing, online payment collection, the ability to mail invoices through the U.S. Post, and support tickets.</description>
     <url>http://www.muleforge.org/projects/mule-module-freshbooks</url>
 
-    <properties>
-        <mule.version>3.1.0</mule.version>
-        <!-- Tools properties -->
-        <eclipsePluginVersion>2.8</eclipsePluginVersion>
-        <vmtype>org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType</vmtype>
-        <!-- Jersey client is JDK6 only -->
-        <jdk.name>JavaSE-1.6</jdk.name>
-        <jdk.version>1.6</jdk.version>
-    </properties>
-
+    <parent>
+        <groupId>org.mule.tools.devkit</groupId>
+        <artifactId>mule-devkit-parent</artifactId>
+        <version>3.3-RC3</version>
+    </parent>
+    
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-webdav</artifactId>
-                <version>1.0-beta-2</version>
-            </extension>
-        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -37,91 +26,27 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
-                    <encoding>ISO-8859-1</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>${eclipsePluginVersion}</version>
-                <configuration>
-                    <!-- by default download all sources when generating project files -->
-                    <downloadSources>true</downloadSources>
-                    <classpathContainers>
-                        <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER/${vmtype}/${jdk.name}
-                        </classpathContainer>
-                    </classpathContainers>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-idea-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <jdkName>${jdk.version}</jdkName>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.mule.tools</groupId>
-                <artifactId>mule-cloud-connector-maven-plugin</artifactId>
-                <version>2.0.15</version>
-                <extensions>true</extensions>
-            </plugin>
-
-            <!-- The release distribution for this project -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <finalName>${project.artifactId}-${project.version}</finalName>
-                    <descriptors>
-                        <descriptor>assembly.xml</descriptor>
-                    </descriptors>
-                    <appendAssemblyId>false</appendAssemblyId>
-                </configuration>
+                    <compilerId>eclipse</compilerId>
+                  </configuration>
+                    <dependencies>
+                       <dependency>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-compiler-eclipse</artifactId>
+                           <version>1.8.4</version>
+                       </dependency>
+                 </dependencies>
             </plugin>
         </plugins>
     </build>
 
     <dependencies>
-        <!-- Mule Dependencies -->
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-spring-config</artifactId>
-            <version>${mule.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-xml</artifactId>
-            <version>${mule.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- for testing -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.tests</groupId>
-            <artifactId>mule-tests-functional</artifactId>
-            <version>${mule.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.tools</groupId>
-            <artifactId>mule-cloud-connector-annotations</artifactId>
-            <version>2.0.15</version>
-        </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
             <version>3.1</version>
         </dependency>
+        
+        <!-- for testing -->
         <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
@@ -131,12 +56,6 @@
     </dependencies>
 
     <repositories>
-        <repository>
-            <id>codehaus-repo</id>
-            <name>MuleForge Release Repository</name>
-            <url>http://repository.codehaus.org/</url>
-            <layout>default</layout>
-        </repository>
         <repository>
             <id>muleforge-releases</id>
             <name>MuleForge Releases Repository</name>
@@ -149,43 +68,7 @@
             <url>http://repository.mulesoft.org/snapshots/</url>
             <layout>default</layout>
         </repository>
-        <repository>
-            <id>codehaus-mule-repo</id>
-            <name>Codehaus Repository</name>
-            <url>http://dist.codehaus.org/mule/dependencies/maven2</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>dev.java.net</id>
-            <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2/</url>
-        </repository>
     </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>muleforge-plugin-releases</id>
-            <name>Muleforge Release Repository</name>
-            <url>http://repository.mulesoft.org/releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>muleforge-plugin-snapshots</id>
-            <name>Muleforge Snapshot Repository</name>
-            <url>http://repository.mulesoft.org/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 
 	<scm>
 	    <connection>scm:git:git://github.com:mulesoft/freshbooks-connector.git</connection>
@@ -194,18 +77,4 @@
 	        </developerConnection>
 	    <url>http://github.com/mulesoft/freshbooks-connector</url>
 	  </scm>
-
-	  <distributionManagement>
-	    <repository>
-	      <id>muleforge-releases</id>
-	      <name>MuleForge Snapshot Repository</name>
-	      <url>http://repository.mulesoft.org/releases/</url>
-	    </repository>
-	    <snapshotRepository>
-	      <id>muleforge-snapshots</id>
-	      <name>MuleForge Repository</name>
-	      <url>http://repository.mulesoft.org/snapshots/</url>
-	      <uniqueVersion>false</uniqueVersion>
-	    </snapshotRepository>
-	  </distributionManagement>
 </project>

@@ -5,26 +5,32 @@
       xmlns:freshbooks="http://www.mulesoft.org/schema/mule/freshbooks"
       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
-                          http://www.mulesoft.org/schema/mule/freshbooks http://www.mulesoft.org/schema/mule/freshbooks/1.0-SNAPSHOT/mule-freshbooks.xsd">
+                          http://www.mulesoft.org/schema/mule/freshbooks http://www.mulesoft.org/schema/mule/freshbooks/1.0/mule-freshbooks.xsd">
 
     <freshbooks:config apiUrl="https://mulesoft.freshbooks.com/api/2.1/xml-in"
                        authenticationToken="d2712de2609e665e03948614ad7197fc"/>
 
     <flow name="categoryFlow">
-        <freshbooks:create-category name="MuleSoftFTW"/>
-        <freshbooks:get-category categoryId="#[payload]"/>
-        <freshbooks:update-category categoryId="#[bean:Id]" name="MuleSoftFTW2"/>
-        <freshbooks:delete-category categoryId="#[bean:Id]"/>
+        <freshbooks:create-category name="#[header:name]" />
+        <freshbooks:get-category categoryId="#[header:categoryId]" />
+        <freshbooks:update-category categoryId="#[header:categoryId]"  
+                                    name="#[header:name]" />
+        <freshbooks:delete-category categoryId="#[header:categoryId]" />
         <freshbooks:list-categories/>
     </flow>
 
     <flow name="clientFlow">
-        <freshbooks:create-client firstName="Emiliano" lastName="Lesende" organization="MuleSoft, Inc."
-                                  email="emiliano.lesende@mulesource.com"/>
-        <freshbooks:get-client clientId="#[payload]"/>
-        <freshbooks:update-client clientId="#[bean:Id]" firstName="Ross" lastName="#[bean:lastName]" organization="#[bean:organization]"
-                                  email="#[bean:email]"/>
-        <freshbooks:delete-client clientId="#[bean:Id]"/>
+        <freshbooks:create-client firstName="#[header:firstName]" 
+                                  lastName="#[header:lastName]" 
+                                  organization="#[header:organization]" 
+                                  email="#[header:email]" />
+        <freshbooks:get-client clientId="#[header:clientId]"/>
+        <freshbooks:update-client clientId="#[header:clientId]" 
+                                  firstName="#[header:firstName]" 
+                                  lastName="#[header:lastName]" 
+                                  organization="#[header:organization]" 
+                                  email="#[header:email]" />
+        <freshbooks:delete-client clientId="#[header:clientId]" />
         <freshbooks:list-clients/>
     </flow>
 </mule>
