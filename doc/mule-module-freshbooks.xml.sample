@@ -90,3 +90,72 @@
 <!-- BEGIN_INCLUDE(freshbooks:list-clients) -->
     <freshbooks:list-clients/>
 <!-- END_INCLUDE(freshbooks:list-clients) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:create-invoice) -->
+    <freshbooks:create-invoice clientId="#[header:clientId]"
+                               number="#[header:number]"
+                               status="#[header:status]"
+                               date="#[header:date]"
+                               poNumber="#[header:poNumber]"
+                               discount="#[header:discount]"
+                               notes="#[header:notes]"
+                               currencyCode="#[header:currencyCode]"
+                               terms="#[header:terms]"
+                               returnUri="#[header:returnUri]"
+                               firstName="#[header:firstName]"
+                               lastName="#[header:lastName]"
+                               organization="#[header:organization]"
+                               primaryStreet1="#[header:primaryStreet1]"
+                               primaryStreet2="#[header:primaryStreet2]"
+                               primaryCity="#[header:primaryCity]"
+                               primaryState="#[header:primaryState]"
+                               primaryCountry="#[header:primaryCountry]"
+                               primaryCode="#[header:primaryCode]"
+                               language="#[header:language]"
+                               vatName="#[header:vatName]"
+                               vatNumber="#[header:vatNumber]" >
+        <freshbooks:contacts ref="#[header:contacts]" />
+        <freshbooks:lines ref="#[header:lines]" />
+    </freshbooks:update-invoice>
+<!-- END_INCLUDE(freshbooks:create-invoice) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:update-invoice) -->
+    <freshbooks:update-invoice invoiceId="#[header:invoiceId]"
+                               clientId="#[header:clientId]"
+                               number="#[header:number]"
+                               status="#[header:status]"
+                               date="#[header:date]"
+                               poNumber="#[header:poNumber]"
+                               discount="#[header:discount]"
+                               notes="#[header:notes]"
+                               currencyCode="#[header:currencyCode]"
+                               terms="#[header:terms]"
+                               returnUri="#[header:returnUri]"
+                               firstName="#[header:firstName]"
+                               lastName="#[header:lastName]"
+                               organization="#[header:organization]"
+                               primaryStreet1="#[header:primaryStreet1]"
+                               primaryStreet2="#[header:primaryStreet2]"
+                               primaryCity="#[header:primaryCity]"
+                               primaryState="#[header:primaryState]"
+                               primaryCountry="#[header:primaryCountry]"
+                               primaryCode="#[header:primaryCode]"
+                               language="#[header:language]"
+                               vatName="#[header:vatName]"
+                               vatNumber="#[header:vatNumber]" >
+        <freshbooks:contacts ref="#[header:contacts]" />
+        <freshbooks:lines ref="#[header:lines]" />
+    </freshbooks:update-invoice>
+<!-- END_INCLUDE(freshbooks:update-invoice) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-invoice) -->
+    <freshbooks:get-invoice invoiceId="#[header:invoiceId]" />
+<!-- END_INCLUDE(freshbooks:invoice-invoice) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-invoice) -->
+    <freshbooks:delete-invoice invoiceId="#[header:invoiceId]" />
+<!-- END_INCLUDE(freshbooks:delete-invoice) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-invoices) -->
+    <freshbooks:list-invoices />
+<!-- END_INCLUDE(freshbooks:list-invoices) -->

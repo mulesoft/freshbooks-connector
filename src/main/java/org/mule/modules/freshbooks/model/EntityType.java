@@ -13,6 +13,8 @@ public enum EntityType {
     
     INVOICE(Invoice.class, "Invoices", InvoiceRequest.class, InvoiceResponse.class),
     
+    ITEM(Item.class, "Items", ItemRequest.class, ItemResponse.class),
+    
     PAYMENT(Payment.class, "Payments", PaymentRequest.class, PaymentResponse.class);
     
     private Class<?> type;

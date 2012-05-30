@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Client {
+public class Client extends BaseRole {
 
     @XmlElement(name = "client_id", required = false)
     protected String id;

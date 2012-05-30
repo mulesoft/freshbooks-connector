@@ -13,6 +13,10 @@
  */
 package org.mule.modules.freshbooks;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
@@ -28,6 +32,9 @@ import org.mule.modules.freshbooks.model.Category;
 import org.mule.modules.freshbooks.model.Client;
 import org.mule.modules.freshbooks.model.Clients;
 import org.mule.modules.freshbooks.model.EntityType;
+import org.mule.modules.freshbooks.model.Invoice;
+import org.mule.modules.freshbooks.model.InvoiceStatusEnum;
+import org.mule.modules.freshbooks.model.Invoices;
 import org.mule.modules.utils.mom.JaxbMapObjectMappers;
 
 import com.zauberlabs.commons.mom.MapObjectMapper;
@@ -308,6 +315,7 @@ public class FreshbooksModule {
                              @Optional String vatName,
                              @Optional String vatNumber) {
         Client client = (Client) mom.unmap(new MapBuilder()
+                        .with("id", clientId)
                         .with("firstName", firstName)
                         .with("lastName", lastName)
                         .with("organization", organization)
@@ -321,12 +329,12 @@ public class FreshbooksModule {
                         .with("language", language)
                         .with("currencyCode", currencyCode)
                         .with("notes", notes)
-                        .with("primaryStreet1", primaryStreet1)
-                        .with("primaryStreet2", primaryStreet2)
-                        .with("primaryCity", primaryCity)
-                        .with("primaryState", primaryState)
-                        .with("primaryCountry", primaryCountry)
-                        .with("primaryZipCode", primaryZipCode)
+                        .with("street1", primaryStreet1)
+                        .with("street2", primaryStreet2)
+                        .with("city", primaryCity)
+                        .with("state", primaryState)
+                        .with("country", primaryCountry)
+                        .with("zipCode", primaryZipCode)
                         .with("secondaryStreet1", secondaryStreet1)
                         .with("secondaryStreet2", secondaryStreet2)
                         .with("secondaryCity", secondaryCity)
@@ -362,7 +370,8 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public void deleteClient(String clientId) {
+    public void deleteClient(String clientId) 
+    {
         freshbooksClient.delete(EntityType.CLIENT, clientId);
     }
 
@@ -375,14 +384,244 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public Clients listClients() {
+    public Clients listClients() 
+    {
         return (Clients) freshbooksClient.list(EntityType.CLIENT);
     }
 
+    /**
+     * <p>Create a new invoice complete with line items. If successful, returns 
+     * the invoice_id of the newly created invoice.</p>
+     * <p>
+     *  * If you don't specify an invoice number, it will increment from the last one.<br/>
+     *  * You may optionally specify a different address on the invoice; otherwise the 
+     *  address will be pulled from your client's details.<br/>
+     *  * You may optionally specify a return_uri element. If provided, users will be 
+     *  presented with a link to the URI when they pay the invoice.</p>
+     *  
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-invoice}
+     * 
+     * @param clientId         Client being invoiced.
+     * @param contacts         List of Contact.
+     * @param number           Number.
+     * @param status           Status. One of sent, viewed or draft. Defaults to draft.
+     * @param date             Date. If not supplied, defaults to today's date.
+     * @param poNumber         PO Number.
+     * @param discount         Percent Discount.
+     * @param notes            Notes.
+     * @param currencyCode     Currency Code. Defaults to your base currency.
+     * @param terms            Terms.
+     * @param returnUri        Return URI.
+     * @param firstName        First Name.
+     * @param lastName         Last Name.
+     * @param organization     Organization.
+     * @param primaryStreet1   Primary street address.
+     * @param primaryStreet2   Primary street address 2.
+     * @param primaryCity      Primary city.
+     * @param primaryState     Primary state.
+     * @param primaryCountry   Primary country.
+     * @param primaryZipCode   Primary zip code.
+     * @param language         Language code, defaults to the client's language.
+     * @param vatName          VAT Name. If set, shown with vat_name under client address.
+     * @param vatNumber        VatNumber.
+     * @param lines            List of Line. Specify one or more line elements.
+     * @return The invoiceId.
+     * @throws FreshbooksException
+     */
     @Processor
-    public String createInvoice()
+    public String createInvoice(String clientId,
+                                @Optional List<Map<String, Object>> contacts,
+                                @Optional String number,
+                                @Optional InvoiceStatusEnum status,
+                                @Optional String date,
+                                @Optional String poNumber,
+                                @Optional Double discount,
+                                @Optional String notes,
+                                @Optional String currencyCode,
+                                @Optional String terms,
+                                @Optional String returnUri,
+                                @Optional String firstName,
+                                @Optional String lastName,
+                                @Optional String organization,
+                                @Optional String primaryStreet1,
+                                @Optional String primaryStreet2,
+                                @Optional String primaryCity,
+                                @Optional String primaryState,
+                                @Optional String primaryCountry,
+                                @Optional String primaryCode,
+                                @Optional String language,
+                                @Optional String vatName,
+                                @Optional String vatNumber,
+                                @Optional List<Map<String, Object>> lines)
     {
-        return "";
+        Invoice invoice = (Invoice) mom.unmap(new MapBuilder()
+                .with("clientId", clientId)
+                .with("contacts", contacts)
+                .with("number", number)
+                .with("status", status)
+                .with("date", date)
+                .with("poNumber", poNumber)
+                .with("discount", BigDecimal.valueOf(discount))
+                .with("notes", notes)
+                .with("currencyCode", currencyCode)
+                .with("terms", terms)
+                .with("returnUri", returnUri)
+                .with("firstName", firstName)
+                .with("lastName", lastName)
+                .with("organization", organization)
+                .with("street1", primaryStreet1)
+                .with("street2", primaryStreet2)
+                .with("city", primaryCity)
+                .with("state", primaryState)
+                .with("country", primaryCountry)
+                .with("code", primaryCode)
+                .with("language", language)
+                .with("vatName", vatName)
+                .with("vatNumber", vatNumber)
+                .with("lines", lines)
+                .build()
+             , Invoice.class);
+
+        return freshbooksClient.create(EntityType.INVOICE, invoice);
+    }
+    
+    /**
+     * <p>Update an existing invoice with the given invoice_id. Any invoice fields left 
+     * out of the request will remain unchanged.</p>
+     * <p> * If you do not specify a lines element, the existing lines will remain unchanged. 
+     * If you do specify lines elements the original ones will be replaced by the new ones.</p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-invoice}
+     * 
+     * @param invoiceId        Invoice to update.
+     * @param clientId         Client being invoiced.
+     * @param contacts         List of Contact.
+     * @param number           Number.
+     * @param status           Status. One of sent, viewed or draft. Defaults to draft.
+     * @param date             Date. If not supplied, defaults to today's date.
+     * @param poNumber         PO Number.
+     * @param discount         Percent Discount.
+     * @param notes            Notes.
+     * @param currencyCode     Currency Code. Defaults to your base currency.
+     * @param terms            Terms.
+     * @param returnUri        Return URI.
+     * @param firstName        First Name.
+     * @param lastName         Last Name.
+     * @param organization     Organization.
+     * @param primaryStreet1   Primary street address.
+     * @param primaryStreet2   Primary street address 2.
+     * @param primaryCity      Primary city.
+     * @param primaryState     Primary state.
+     * @param primaryCountry   Primary country.
+     * @param primaryZipCode   Primary zip code.
+     * @param language         Language code, defaults to the client's language.
+     * @param vatName          VAT Name. If set, shown with vat_name under client address.
+     * @param vatNumber        VatNumber.
+     * @param lines            List of Line. Specify one or more line elements.
+     * @throws FreshbooksException
+     */
+    @Processor 
+    public void updateInvoice(String invoiceId,
+                              String clientId,
+                              @Optional List<Map<String, Object>> contacts,
+                              @Optional String number,
+                              @Optional InvoiceStatusEnum status,
+                              @Optional String date,
+                              @Optional String poNumber,
+                              @Optional Double discount,
+                              @Optional String notes,
+                              @Optional String currencyCode,
+                              @Optional String terms,
+                              @Optional String returnUri,
+                              @Optional String firstName,
+                              @Optional String lastName,
+                              @Optional String organization,
+                              @Optional String primaryStreet1,
+                              @Optional String primaryStreet2,
+                              @Optional String primaryCity,
+                              @Optional String primaryState,
+                              @Optional String primaryCountry,
+                              @Optional String primaryCode,
+                              @Optional String language,
+                              @Optional String vatName,
+                              @Optional String vatNumber,
+                              @Optional List<Map<String, Object>> lines)
+    {
+        Invoice invoice = (Invoice) mom.unmap(new MapBuilder()
+                .with("id", invoiceId)
+                .with("clientId", clientId)
+                .with("contacts", contacts)
+                .with("number", number)
+                .with("status", status)
+                .with("date", date)
+                .with("poNumber", poNumber)
+                .with("discount", BigDecimal.valueOf(discount))
+                .with("notes", notes)
+                .with("currencyCode", currencyCode)
+                .with("terms", terms)
+                .with("returnUri", returnUri)
+                .with("firstName", firstName)
+                .with("lastName", lastName)
+                .with("organization", organization)
+                .with("street1", primaryStreet1)
+                .with("street2", primaryStreet2)
+                .with("city", primaryCity)
+                .with("state", primaryState)
+                .with("country", primaryCountry)
+                .with("code", primaryCode)
+                .with("language", language)
+                .with("vatName", vatName)
+                .with("vatNumber", vatNumber)
+                .with("lines", lines)
+                .build()
+             , Invoice.class);
+        
+        freshbooksClient.update(EntityType.INVOICE, invoice);
+    }
+    
+    /**
+     * <p>Return the complete invoice details associated with the given invoice_id.</p>
+     * <p> * You can use the links element to provide your customers with direct links to 
+     * the invoice for editing, viewing by the client and viewing by an administrator.</p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-invoice}
+     * 
+     * @param invoiceId Id of the Invoice to be retrieved.
+     * @return The invoice retrieved.
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Invoice getInvoice(String invoiceId)
+    {
+        return (Invoice) freshbooksClient.get(EntityType.INVOICE, invoiceId);
+    }
+    
+    /**
+     * Delete an existing invoice.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-invoice}
+     * 
+     * @param invoiceId Id of the Invoice to be deleted
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deleteInvoice(String invoiceId)
+    {
+        freshbooksClient.delete(EntityType.INVOICE, invoiceId);
+    }
+    
+    /**
+     * Returns a list of invoice summaries. Results are ordered by descending invoice_id.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-invoices}
+     * 
+     * @return A list of Invoices
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Invoices listInvoices()
+    {
+        return (Invoices) freshbooksClient.list(EntityType.INVOICE);
     }
     
     @PostConstruct

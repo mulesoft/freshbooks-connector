@@ -1,5 +1,6 @@
 package org.mule.modules.freshbooks.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Invoice extends BaseRole {
     
-    @XmlElement(name = "invoice_id")
+    @XmlElement(name = "invoice_id", required = false)
     protected String id;
     @XmlElement(name = "client_id")
     protected String clientId;
@@ -31,7 +32,7 @@ public class Invoice extends BaseRole {
 //  <!-- Percent discount (Optional) -->  
 //  <discount>10</discount>  
     @XmlElement(name = "discount", required = false)
-    protected String discount;
+    protected BigDecimal discount;
     @XmlElement(name = "notes", required = false)
     protected String notes;
 
@@ -105,11 +106,11 @@ public class Invoice extends BaseRole {
         this.poNumber = poNumber;
     }
 
-    public String getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 
