@@ -6,9 +6,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType
-public class Invoices extends Paged<Invoice> {
-    @XmlElement(name="invoice")
-    public ArrayList<Invoice> getInvoices() {
+public class Items extends Paged<Item> {
+    @XmlElement(name = "item")
+    public ArrayList<Item> getItems() {
         return getContents();
     }
 }
