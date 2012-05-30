@@ -14,29 +14,30 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlType
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Credit {
+public class BaseResponse {
+
     @XmlAttribute
-	String currency;
-    @XmlElement
-	double amount;
+    private String status;
+    @XmlElement(name = "error", required = false)
+    private String error;
 
-    public String getCurrency() {
-        return currency;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public double getAmount() {
-        return amount;
+    public String getError() {
+        return error;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setError(String error) {
+        this.error = error;
     }
 }

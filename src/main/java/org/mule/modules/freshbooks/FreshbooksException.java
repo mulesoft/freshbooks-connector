@@ -10,7 +10,7 @@
 
 package org.mule.modules.freshbooks;
 
-public class FreshbooksException extends Exception {
+public class FreshbooksException extends RuntimeException {
     public FreshbooksException(String message) {
         super(message);
     }

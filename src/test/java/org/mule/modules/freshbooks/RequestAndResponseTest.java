@@ -25,8 +25,8 @@ import javax.xml.transform.sax.SAXSource;
 
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.mule.modules.freshbooks.model.Request;
-import org.mule.modules.freshbooks.model.Response;
+import org.mule.modules.freshbooks.model.BaseRequest;
+import org.mule.modules.freshbooks.model.BaseResponse;
 import org.springframework.core.io.ClassPathResource;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -34,8 +34,8 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLFilterImpl;
 
 public abstract class RequestAndResponseTest extends XMLTestCase {
-    protected void assertRequest(String file, Request req) throws IOException, SAXException, JAXBException {
-        JAXBContext jc = JAXBContext.newInstance(Request.class);
+    protected void assertRequest(String file, BaseRequest req) throws IOException, SAXException, JAXBException {
+        JAXBContext jc = JAXBContext.newInstance(BaseRequest.class);
         Marshaller marshaller = jc.createMarshaller();
         OutputStream stream = new OutputStream() {
             private final StringBuilder string = new StringBuilder();
@@ -84,8 +84,8 @@ public abstract class RequestAndResponseTest extends XMLTestCase {
         return new String(baos.toByteArray());
     }
 
-    protected Response parseResponse(String file) throws JAXBException, SAXException, ParserConfigurationException {
-        JAXBContext jc = JAXBContext.newInstance(Response.class);
+    protected BaseResponse parseResponse(String file) throws JAXBException, SAXException, ParserConfigurationException {
+        JAXBContext jc = JAXBContext.newInstance(BaseResponse.class);
         Unmarshaller unmarshaller = jc.createUnmarshaller();
 
                 // Create the XMLReader
@@ -97,6 +97,6 @@ public abstract class RequestAndResponseTest extends XMLTestCase {
         reader.setContentHandler(unmarshaller.getUnmarshallerHandler());
         SAXSource source = new SAXSource(xmlFilter, new InputSource(getClass().getClassLoader().getResourceAsStream(file)));
 
-        return (Response)unmarshaller.unmarshal(source);
+        return (BaseResponse)unmarshaller.unmarshal(source);
     }
 }

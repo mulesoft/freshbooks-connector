@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 
 public class CategoryTest extends RequestAndResponseTest {
     public void testCreateRequest() throws JAXBException, IOException, SAXException {
-        Request req = new Request();
+        CategoryRequest req = new CategoryRequest();
         Category cat = new Category();
         req.setCategory(cat);
         cat.setName("Gasoline");
@@ -30,13 +30,13 @@ public class CategoryTest extends RequestAndResponseTest {
     }
 
     public void testCreateResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
-        Response response = parseResponse("model/response/category.create.xml");
+        BaseResponse response = parseResponse("model/response/category.create.xml");
 
         assertEquals("12", response.getCategoryId());
     }
 
     public void testUpdateRequest() throws JAXBException, IOException, SAXException {
-        Request req = new Request();
+        CategoryRequest req = new CategoryRequest();
         Category cat = new Category();
         req.setCategory(cat);
         cat.setName("Gasoline");
@@ -47,11 +47,11 @@ public class CategoryTest extends RequestAndResponseTest {
     }
 
     public void testUpdateResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
-        Response response = parseResponse("model/response/category.update.xml");
+        BaseResponse response = parseResponse("model/response/category.update.xml");
     }
 
     public void testListResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
-        Response response = parseResponse("model/response/category.list.xml");
+        BaseResponse response = parseResponse("model/response/category.list.xml");
         assertEquals(2, response.getCategories().size());
     }
 }

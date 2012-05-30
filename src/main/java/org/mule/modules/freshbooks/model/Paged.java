@@ -10,12 +10,12 @@
 
 package org.mule.modules.freshbooks.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlAttribute;
 
 public class Paged<T> implements Iterable<T> {
     int page;

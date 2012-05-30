@@ -13,42 +13,24 @@
  */
 package org.mule.modules.freshbooks;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
+import javax.annotation.PostConstruct;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.sax.SAXSource;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.log4j.Logger;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.modules.freshbooks.api.DefaultFreshbooksClient;
+import org.mule.modules.freshbooks.api.FreshbooksClient;
 import org.mule.modules.freshbooks.model.Categories;
 import org.mule.modules.freshbooks.model.Category;
 import org.mule.modules.freshbooks.model.Client;
 import org.mule.modules.freshbooks.model.Clients;
-import org.mule.modules.freshbooks.model.Request;
-import org.mule.modules.freshbooks.model.Response;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLFilterImpl;
+import org.mule.modules.freshbooks.model.EntityType;
+import org.mule.modules.utils.mom.JaxbMapObjectMappers;
+
+import com.zauberlabs.commons.mom.MapObjectMapper;
 
 /**
  *
@@ -61,6 +43,8 @@ import org.xml.sax.helpers.XMLFilterImpl;
 public class FreshbooksModule {
     private static final Logger LOGGER = Logger.getLogger(FreshbooksModule.class);
 
+    private final MapObjectMapper mom = JaxbMapObjectMappers.defaultWithPackage("org.mule.modules.freshbooks.model").build();
+    
     /**
      * Authentication Token
      */
@@ -71,9 +55,9 @@ public class FreshbooksModule {
      * Api URL
      */
     @Configurable
-    private URL apiUrl;
+    private String apiUrl;
 
-    private transient HttpClient client;
+    private FreshbooksClient freshbooksClient;
 
     public String getAuthenticationToken() {
         return authenticationToken;
@@ -83,102 +67,12 @@ public class FreshbooksModule {
         this.authenticationToken = authenticationToken;
     }
 
-    public URL getApiUrl() {
+    public String getApiUrl() {
         return apiUrl;
     }
 
-    public void setApiUrl(URL apiUrl) {
+    public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
-    }
-
-    private HttpClient getClient() {
-        if (client == null) {
-            client = new HttpClient();
-            client.getParams().setAuthenticationPreemptive(true);
-            client.getState().setCredentials(new AuthScope(apiUrl.getHost(), 443, AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
-        }
-        return client;
-    }
-
-    private Response sendRequest(Request request) throws FreshbooksException {
-        try {
-            String requestString = marshalRequest(request);
-
-            PostMethod method = new PostMethod(apiUrl.toString());
-            try {
-                method.setContentChunked(false);
-                method.setDoAuthentication(true);
-                method.setFollowRedirects(false);
-                method.setRequestEntity(new StringRequestEntity(requestString, "text/xml", "utf-8"));
-                method.getParams().setContentCharset("utf-8");
-
-                getClient().executeMethod(method);
-                InputStream is = method.getResponseBodyAsStream();
-                Response response = unmarshalResponse(is);
-                if (!"ok".equals(response.getStatus())) {
-                    throw new FreshbooksException(response.getError());
-                }
-                return response;
-            } catch (HttpException e) {
-                LOGGER.error(e.getMessage());
-                throw new FreshbooksException(e);
-            } catch (UnsupportedEncodingException e) {
-                LOGGER.error(e.getMessage());
-                throw new FreshbooksException(e);
-            } catch (IOException e) {
-                LOGGER.error(e.getMessage());
-                throw new FreshbooksException(e);
-            } catch (SAXException e) {
-                LOGGER.error(e.getMessage());
-                throw new FreshbooksException(e);
-            } catch (ParserConfigurationException e) {
-                LOGGER.error(e.getMessage());
-                throw new FreshbooksException(e);
-            } finally {
-                method.releaseConnection();
-            }
-        } catch (JAXBException e) {
-            LOGGER.error(e.getMessage());
-            throw new FreshbooksException(e);
-        }
-    }
-
-    private Response unmarshalResponse(InputStream is) throws JAXBException, SAXException, ParserConfigurationException {
-        JAXBContext jc = JAXBContext.newInstance(Response.class);
-        Unmarshaller unmarshaller = jc.createUnmarshaller();
-
-        // Create the XMLReader
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        XMLReader reader = factory.newSAXParser().getXMLReader();
-
-        // The filter class to set the correct namespace
-        XMLFilterImpl xmlFilter = new XMLNamespaceFilter(reader);
-        reader.setContentHandler(unmarshaller.getUnmarshallerHandler());
-        SAXSource source = new SAXSource(xmlFilter, new InputSource(is));
-
-        return (Response) unmarshaller.unmarshal(source);
-    }
-
-    private String marshalRequest(Request request) throws JAXBException {
-        JAXBContext jc = JAXBContext.newInstance(Request.class);
-        Marshaller marshaller = jc.createMarshaller();
-        OutputStream requestStream = new OutputStream() {
-            private final StringBuilder string = new StringBuilder();
-
-            @Override
-            public void write(int b) throws IOException {
-                this.string.append((char) b);
-            }
-
-            //Netbeans IDE automatically overrides this toString()
-            @Override
-            public String toString() {
-                return this.string.toString();
-            }
-        };
-
-        marshaller.marshal(request, requestStream);
-        return requestStream.toString();
     }
 
     /**
@@ -190,14 +84,11 @@ public class FreshbooksModule {
      * @return The category id
      */
     @Processor
-    public String createCategory(String name) throws FreshbooksException {
-        Category cat = new Category();
-        Request req = new Request();
-        req.setCategory(cat);
-        req.setMethod("category.create");
-        cat.setName(name);
+    public String createCategory(String name) {
+        Category category = new Category();
+        category.setName(name);
 
-        return sendRequest(req).getCategoryId();
+        return freshbooksClient.create(EntityType.CATEGORY, category);
     }
 
     /**
@@ -209,15 +100,12 @@ public class FreshbooksModule {
      * @param name       New name
      */
     @Processor
-    public void updateCategory(int categoryId, String name) throws FreshbooksException {
-        Category cat = new Category();
-        Request req = new Request();
-        req.setCategory(cat);
-        req.setMethod("category.update");
-        cat.setName(name);
-        cat.setId(Integer.toString(categoryId));
-
-        sendRequest(req);
+    public void updateCategory(String categoryId, String name) {
+        Category category = new Category();
+        category.setName(name);
+        category.setId(categoryId);
+        
+        freshbooksClient.update(EntityType.CATEGORY, category);
     }
 
     /**
@@ -229,12 +117,8 @@ public class FreshbooksModule {
      * @return A {@link Category} object
      */
     @Processor
-    public Category getCategory(int categoryId) throws FreshbooksException {
-        Request req = new Request();
-        req.setMethod("category.get");
-        req.setCategoryId(Integer.toString(categoryId));
-
-        return sendRequest(req).getCategory();
+    public Category getCategory(String categoryId) {
+        return (Category) freshbooksClient.get(EntityType.CATEGORY, categoryId);
     }
 
     /**
@@ -245,12 +129,8 @@ public class FreshbooksModule {
      * @param categoryId The Id of the category to delete
      */
     @Processor
-    public void deleteCategory(int categoryId) throws FreshbooksException {
-        Request req = new Request();
-        req.setMethod("category.delete");
-        req.setCategoryId(Integer.toString(categoryId));
-
-        sendRequest(req);
+    public void deleteCategory(String categoryId) {
+        freshbooksClient.delete(EntityType.CATEGORY, categoryId);
     }
 
     /**
@@ -262,11 +142,8 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public Categories listCategories() throws FreshbooksException {
-        Request req = new Request();
-        req.setMethod("category.list");
-
-        return sendRequest(req).getCategories();
+    public Categories listCategories() {
+        return (Categories) freshbooksClient.list(EntityType.CATEGORY);
     }
 
     /**
@@ -331,88 +208,38 @@ public class FreshbooksModule {
                                @Optional String secondaryCountry,
                                @Optional String secondaryZipCode,
                                @Optional String vatName,
-                               @Optional String vatNumber) throws FreshbooksException {
-        Client cli = new Client();
-        Request req = new Request();
-        req.setClient(cli);
-        req.setMethod("client.create");
-
-        cli.setFirstName(firstName);
-        cli.setLastName(lastName);
-        cli.setOrganization(organization);
-        cli.setEmail(email);
-        if (username != null) {
-            cli.setUsername(username);
-        }
-        if (password != null) {
-            cli.setPassword(password);
-        }
-        if (workPhone != null) {
-            cli.setWorkPhone(workPhone);
-        }
-        if (mobile != null) {
-            cli.setMobile(mobile);
-        }
-        if (fax != null) {
-            cli.setFax(fax);
-        }
-        if (homePhone != null) {
-            cli.setHomePhone(homePhone);
-        }
-        if (language != null) {
-            cli.setLanguage(language);
-        }
-        if (currencyCode != null) {
-            cli.setCurrencyCode(currencyCode);
-        }
-        if (notes != null) {
-            cli.setNotes(notes);
-        }
-        if (primaryStreet1 != null) {
-            cli.setStreet1(primaryStreet1);
-        }
-        if (primaryStreet2 != null) {
-            cli.setStreet2(primaryStreet2);
-        }
-        if (primaryCity != null) {
-            cli.setCity(primaryCity);
-        }
-        if (primaryState != null) {
-            cli.setState(primaryState);
-        }
-        if (primaryCountry != null) {
-            cli.setCountry(primaryCountry);
-        }
-        if (primaryZipCode != null) {
-            cli.setCode(primaryZipCode);
-        }
-
-        if (secondaryStreet1 != null) {
-            cli.setSecondaryStreet1(secondaryStreet1);
-        }
-        if (secondaryStreet2 != null) {
-            cli.setSecondaryStreet2(secondaryStreet2);
-        }
-        if (secondaryCity != null) {
-            cli.setSecondaryCity(secondaryCity);
-        }
-        if (secondaryState != null) {
-            cli.setSecondaryState(secondaryState);
-        }
-        if (secondaryCountry != null) {
-            cli.setSecondaryCountry(secondaryCountry);
-        }
-        if (secondaryZipCode != null) {
-            cli.setSecondaryCode(secondaryZipCode);
-        }
-        if (vatName != null) {
-            cli.setVatName(vatName);
-        }
-        if (vatNumber != null) {
-            cli.setVatNumber(vatNumber);
-        }
-
-        return sendRequest(req).getClientId();
+                               @Optional String vatNumber) {
+        
+        Client client = (Client) mom.unmap(new MapBuilder()
+                          .with("firstName", firstName)
+                          .with("lastName", lastName)
+                          .with("organization", organization)
+                          .with("email", email)
+                          .with("username", username)
+                          .with("password", password)
+                          .with("workPhone", workPhone)
+                          .with("homePhone", homePhone)
+                          .with("mobile", mobile)
+                          .with("fax", fax)
+                          .with("language", language)
+                          .with("currencyCode", currencyCode)
+                          .with("notes", notes)
+                          .with("primaryStreet1", primaryStreet1)
+                          .with("primaryStreet2", primaryStreet2)
+                          .with("primaryCity", primaryCity)
+                          .with("primaryState", primaryState)
+                          .with("primaryCountry", primaryCountry)
+                          .with("primaryZipCode", primaryZipCode)
+                          .with("secondaryStreet1", secondaryStreet1)
+                          .with("secondaryStreet2", secondaryStreet2)
+                          .with("secondaryCity", secondaryCity)
+                          .with("secondaryState", secondaryState)
+                          .with("secondaryCountry", secondaryCountry)
+                          .with("secondaryZipCode", secondaryZipCode)
+                          .with("vatName", vatName)
+                          .with("vatNumber", vatNumber)
+                        , Client.class);
+        return freshbooksClient.create(EntityType.CLIENT, client);
     }
 
     /**
@@ -452,7 +279,7 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public void updateClient(Long clientId, 
+    public void updateClient(String clientId, 
                              String firstName, 
                              String lastName, 
                              String organization,
@@ -479,89 +306,37 @@ public class FreshbooksModule {
                              @Optional String secondaryCountry,
                              @Optional String secondaryZipCode,
                              @Optional String vatName,
-                             @Optional String vatNumber) throws FreshbooksException {
-        Client cli = new Client();
-        Request req = new Request();
-        req.setClient(cli);
-        req.setMethod("client.update");
-
-        cli.setId(clientId);
-        cli.setFirstName(firstName);
-        cli.setLastName(lastName);
-        cli.setOrganization(organization);
-        cli.setEmail(email);
-        if (username != null) {
-            cli.setUsername(username);
-        }
-        if (password != null) {
-            cli.setPassword(password);
-        }
-        if (workPhone != null) {
-            cli.setWorkPhone(workPhone);
-        }
-        if (mobile != null) {
-            cli.setMobile(mobile);
-        }
-        if (fax != null) {
-            cli.setFax(fax);
-        }
-        if (homePhone != null) {
-            cli.setHomePhone(homePhone);
-        }
-        if (language != null) {
-            cli.setLanguage(language);
-        }
-        if (currencyCode != null) {
-            cli.setCurrencyCode(currencyCode);
-        }
-        if (notes != null) {
-            cli.setNotes(notes);
-        }
-        if (primaryStreet1 != null) {
-            cli.setStreet1(primaryStreet1);
-        }
-        if (primaryStreet2 != null) {
-            cli.setStreet2(primaryStreet2);
-        }
-        if (primaryCity != null) {
-            cli.setCity(primaryCity);
-        }
-        if (primaryState != null) {
-            cli.setState(primaryState);
-        }
-        if (primaryCountry != null) {
-            cli.setCountry(primaryCountry);
-        }
-        if (primaryZipCode != null) {
-            cli.setCode(primaryZipCode);
-        }
-
-        if (secondaryStreet1 != null) {
-            cli.setSecondaryStreet1(secondaryStreet1);
-        }
-        if (secondaryStreet2 != null) {
-            cli.setSecondaryStreet2(secondaryStreet2);
-        }
-        if (secondaryCity != null) {
-            cli.setSecondaryCity(secondaryCity);
-        }
-        if (secondaryState != null) {
-            cli.setSecondaryState(secondaryState);
-        }
-        if (secondaryCountry != null) {
-            cli.setSecondaryCountry(secondaryCountry);
-        }
-        if (secondaryZipCode != null) {
-            cli.setSecondaryCode(secondaryZipCode);
-        }
-        if (vatName != null) {
-            cli.setVatName(vatName);
-        }
-        if (vatNumber != null) {
-            cli.setVatNumber(vatNumber);
-        }
-
-        sendRequest(req);
+                             @Optional String vatNumber) {
+        Client client = (Client) mom.unmap(new MapBuilder()
+                        .with("firstName", firstName)
+                        .with("lastName", lastName)
+                        .with("organization", organization)
+                        .with("email", email)
+                        .with("username", username)
+                        .with("password", password)
+                        .with("workPhone", workPhone)
+                        .with("homePhone", homePhone)
+                        .with("mobile", mobile)
+                        .with("fax", fax)
+                        .with("language", language)
+                        .with("currencyCode", currencyCode)
+                        .with("notes", notes)
+                        .with("primaryStreet1", primaryStreet1)
+                        .with("primaryStreet2", primaryStreet2)
+                        .with("primaryCity", primaryCity)
+                        .with("primaryState", primaryState)
+                        .with("primaryCountry", primaryCountry)
+                        .with("primaryZipCode", primaryZipCode)
+                        .with("secondaryStreet1", secondaryStreet1)
+                        .with("secondaryStreet2", secondaryStreet2)
+                        .with("secondaryCity", secondaryCity)
+                        .with("secondaryState", secondaryState)
+                        .with("secondaryCountry", secondaryCountry)
+                        .with("secondaryZipCode", secondaryZipCode)
+                        .with("vatName", vatName)
+                        .with("vatNumber", vatNumber)
+                      , Client.class);
+        freshbooksClient.update(EntityType.CLIENT, client);
     }
 
     /**
@@ -574,12 +349,8 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public Client getClient(Long clientId) throws FreshbooksException {
-        Request req = new Request();
-        req.setMethod("client.get");
-        req.setClientId(Long.toString(clientId));
-
-        return sendRequest(req).getClient();
+    public Client getClient(String clientId) {
+        return (Client) freshbooksClient.get(EntityType.CLIENT, clientId);
     }
 
     /**
@@ -591,12 +362,8 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public void deleteClient(Long clientId) throws FreshbooksException {
-        Request req = new Request();
-        req.setMethod("client.delete");
-        req.setClientId(Long.toString(clientId));
-
-        sendRequest(req);
+    public void deleteClient(String clientId) {
+        freshbooksClient.delete(EntityType.CLIENT, clientId);
     }
 
     /**
@@ -608,11 +375,22 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public Clients listClients() throws FreshbooksException {
-        Request req = new Request();
-        req.setMethod("client.list");
-
-        return sendRequest(req).getClients();
+    public Clients listClients() {
+        return (Clients) freshbooksClient.list(EntityType.CLIENT);
     }
 
+    @Processor
+    public String createInvoice()
+    {
+        return "";
+    }
+    
+    @PostConstruct
+    public void init()
+    {
+        if (freshbooksClient == null )
+        {
+            freshbooksClient = new DefaultFreshbooksClient(apiUrl, authenticationToken);
+        }
+    }
 }
