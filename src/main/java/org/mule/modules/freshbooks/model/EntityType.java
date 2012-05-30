@@ -5,9 +5,15 @@ import org.mule.modules.freshbooks.FreshbooksException;
 
 public enum EntityType {
     
+    CALLBACK(Callback.class, "Callbacks", CallbackRequest.class, CallbackResponse.class),
+    
     CATEGORY(Category.class, "Categories", CategoryRequest.class, CategoryResponse.class),
     
-    CLIENT(Client.class, "Clients", ClientRequest.class, ClientResponse.class);
+    CLIENT(Client.class, "Clients", ClientRequest.class, ClientResponse.class),
+    
+    INVOICE(Invoice.class, "Invoices", InvoiceRequest.class, InvoiceResponse.class),
+    
+    PAYMENT(Payment.class, "Payments", PaymentRequest.class, PaymentResponse.class);
     
     private Class<?> type;
     private String plural;
