@@ -14,11 +14,21 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
+@XmlSeeAlso({
+    CategoryResponse.class,
+    CallbackResponse.class,
+    ClientResponse.class,
+    InvoiceResponse.class,
+    ItemResponse.class,
+    PaymentResponse.class
+})
+
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BaseResponse {
+@XmlType(name = "response", namespace = "http://www.freshbooks.com/api/")
+public abstract class BaseResponse {
 
     @XmlAttribute
     private String status;

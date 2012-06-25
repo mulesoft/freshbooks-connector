@@ -1,0 +1,1255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="FreshBookApi"  xmlns:FreshBookApi="FreshBookApi" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<element name="category.category.create.Request" type="FreshBookApi:category.category.create.Request"/>
+	<complexType name="category.category.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="category" type="FreshBookApi:CategoryDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="category.category.create.Results" type="FreshBookApi:category.category.create.Results"/>
+	<complexType name="category.category.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="category_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="category.category.delete.Request" type="FreshBookApi:category.category.delete.Request"/>
+	<complexType name="category.category.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="category_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="category.category.get.Request" type="FreshBookApi:category.category.get.Request"/>
+	<complexType name="category.category.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="category_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="category.category.get.Results" type="FreshBookApi:category.category.get.Results"/>
+	<complexType name="category.category.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="category" type="FreshBookApi:CategoryDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="category.category.list.Request" type="FreshBookApi:category.category.list.Request"/>
+	<complexType name="category.category.list.Request">
+		<sequence/>
+	</complexType>
+	<element name="category.category.list.Results" type="FreshBookApi:category.category.list.Results"/>
+	<complexType name="category.category.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="pagepage" type="FreshBookApi:CategoryDetailArray"/>
+		</sequence>
+	</complexType>
+	<element name="category.category.update.Request" type="FreshBookApi:category.category.update.Request"/>
+	<complexType name="category.category.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="category" type="FreshBookApi:CategoryUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="CategoryDefinition" type="FreshBookApi:CategoryDefinition"/>
+	<complexType name="CategoryDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="CategoryDetailArray" type="FreshBookApi:CategoryDetailArray"/>
+	<complexType name="CategoryDetailArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="category" type="FreshBookApi:CategoryUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="CategoryUpdate" type="FreshBookApi:CategoryUpdate"/>
+	<complexType name="CategoryUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="category_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="client.client.create.Request" type="FreshBookApi:client.client.create.Request"/>
+	<complexType name="client.client.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client" type="FreshBookApi:ClientDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="client.client.create.Results" type="FreshBookApi:client.client.create.Results"/>
+	<complexType name="client.client.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="client.client.delete.Request" type="FreshBookApi:client.client.delete.Request"/>
+	<complexType name="client.client.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="client.client.get.Request" type="FreshBookApi:client.client.get.Request"/>
+	<complexType name="client.client.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="client.client.get.Results" type="FreshBookApi:client.client.get.Results"/>
+	<complexType name="client.client.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client" type="FreshBookApi:ClientDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="client.client.list.Request" type="FreshBookApi:client.client.list.Request"/>
+	<complexType name="client.client.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="email" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="username" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="page" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="client.client.list.Results" type="FreshBookApi:client.client.list.Results"/>
+	<complexType name="client.client.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="clients" type="FreshBookApi:ClientDetailArray"/>
+		</sequence>
+	</complexType>
+	<element name="client.client.update.Request" type="FreshBookApi:client.client.update.Request"/>
+	<complexType name="client.client.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="Client" type="FreshBookApi:ClientUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="ClientDefinition" type="FreshBookApi:ClientDefinition"/>
+	<complexType name="ClientDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="email" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="username" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="password" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="work_phone" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="home_phone" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="mobile" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="fax" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_code" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="ClientDetail" type="FreshBookApi:ClientDetail"/>
+	<complexType name="ClientDetail">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="username" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="email" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="ClientDetailArray" type="FreshBookApi:ClientDetailArray"/>
+	<complexType name="ClientDetailArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="client" type="FreshBookApi:ClientDetail"/>
+		</sequence>
+	</complexType>
+	<element name="ClientUpdate" type="FreshBookApi:ClientUpdate"/>
+	<complexType name="ClientUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="email" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="username" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="password" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="work_phone" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="home_phone" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="mobile" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="fax" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="s_code" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.create.Request" type="FreshBookApi:estimate.estimate.create.Request"/>
+	<complexType name="estimate.estimate.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate" type="FreshBookApi:EstimateDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.create.Results" type="FreshBookApi:estimate.estimate.create.Results"/>
+	<complexType name="estimate.estimate.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.delete.Request" type="FreshBookApi:estimate.estimate.delete.Request"/>
+	<complexType name="estimate.estimate.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.get.Request" type="FreshBookApi:estimate.estimate.get.Request"/>
+	<complexType name="estimate.estimate.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.get.Results" type="FreshBookApi:estimate.estimate.get.Results"/>
+	<complexType name="estimate.estimate.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate" type="FreshBookApi:estimate.estimate.list.Results"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.list.Request" type="FreshBookApi:estimate.estimate.list.Request"/>
+	<complexType name="estimate.estimate.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date_from" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date_to" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="page" type="integer"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="integer"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.list.Results" type="FreshBookApi:estimate.estimate.list.Results"/>
+	<complexType name="estimate.estimate.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimates" type="FreshBookApi:EstimateDetailArray"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.sendByEmail.Request" type="FreshBookApi:estimate.estimate.sendByEmail.Request"/>
+	<complexType name="estimate.estimate.sendByEmail.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="estimate.estimate.sendByEmail.Results" type="FreshBookApi:estimate.estimate.sendByEmail.Results"/>
+	<complexType name="estimate.estimate.sendByEmail.Results">
+		<sequence/>
+	</complexType>
+	<element name="estimate.estimate.update.Request" type="FreshBookApi:estimate.estimate.update.Request"/>
+	<complexType name="estimate.estimate.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate" type="FreshBookApi:EstimateUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="EstimateDefinition" type="FreshBookApi:EstimateDefinition"/>
+	<complexType name="EstimateDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="po_number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="discount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="terms" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="lines" type="FreshBookApi:EstimateLineArray"/>
+		</sequence>
+	</complexType>
+	<element name="EstimateDetail" type="FreshBookApi:EstimateDetail"/>
+	<complexType name="EstimateDetail">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="url" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="auth_url" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="links" type="FreshBookApi:EstimateLink"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="po_number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="discount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="terms" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="lines" type="FreshBookApi:EstimateLineArray"/>
+		</sequence>
+	</complexType>
+	<element name="EstimateDetailArray" type="FreshBookApi:EstimateDetailArray"/>
+	<complexType name="EstimateDetailArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="estimate" type="FreshBookApi:EstimateDetail"/>
+		</sequence>
+	</complexType>
+	<element name="EstimateLine" type="FreshBookApi:EstimateLine"/>
+	<complexType name="EstimateLine">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="unit_cost" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="quantity" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_percent" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="EstimateLineArray" type="FreshBookApi:EstimateLineArray"/>
+	<complexType name="EstimateLineArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="line" type="FreshBookApi:EstimateLine"/>
+		</sequence>
+	</complexType>
+	<element name="EstimateLink" type="FreshBookApi:EstimateLink"/>
+	<complexType name="EstimateLink">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_view" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="view" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="EstimateUpdate" type="FreshBookApi:EstimateUpdate"/>
+	<complexType name="EstimateUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="estimate_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="po_number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="discount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="terms" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="lines" type="FreshBookApi:EstimateLineArray"/>
+		</sequence>
+	</complexType>
+	<element name="expense.expense.create.Request" type="FreshBookApi:expense.expense.create.Request"/>
+	<complexType name="expense.expense.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expense" type="FreshBookApi:ExpenseDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="expense.expense.create.Results" type="FreshBookApi:expense.expense.create.Results"/>
+	<complexType name="expense.expense.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expense_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="expense.expense.delete.Request" type="FreshBookApi:expense.expense.delete.Request"/>
+	<complexType name="expense.expense.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expense_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="expense.expense.get.Request" type="FreshBookApi:expense.expense.get.Request"/>
+	<complexType name="expense.expense.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expense_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="expense.expense.get.Results" type="FreshBookApi:expense.expense.get.Results"/>
+	<complexType name="expense.expense.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expense" type="FreshBookApi:ExpenseUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="expense.expense.list.Request" type="FreshBookApi:expense.expense.list.Request"/>
+	<complexType name="expense.expense.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="expense.expense.list.Results" type="FreshBookApi:expense.expense.list.Results"/>
+	<complexType name="expense.expense.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expenses" type="FreshBookApi:ExpenseListArray"/>
+		</sequence>
+	</complexType>
+	<element name="expense.expense.update.Request" type="FreshBookApi:expense.expense.update.Request"/>
+	<complexType name="expense.expense.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expense" type="FreshBookApi:ExpenseUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="ExpenseDefinition" type="FreshBookApi:ExpenseDefinition"/>
+	<complexType name="ExpenseDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="staff_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="category_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_amount" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="ExpenseDetail" type="FreshBookApi:ExpenseDetail"/>
+	<complexType name="ExpenseDetail">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expense_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="staff_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="category_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="ExpenseListArray" type="FreshBookApi:ExpenseListArray"/>
+	<complexType name="ExpenseListArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="expense" type="FreshBookApi:ExpenseDetail"/>
+		</sequence>
+	</complexType>
+	<element name="ExpenseUpdate" type="FreshBookApi:ExpenseUpdate"/>
+	<complexType name="ExpenseUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="expense_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="staff_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="category_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_amount" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.create.Request" type="FreshBookApi:invoice.invoice.create.Request"/>
+	<complexType name="invoice.invoice.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice" type="FreshBookApi:InvoiceDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.create.Results" type="FreshBookApi:invoice.invoice.create.Results"/>
+	<complexType name="invoice.invoice.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.delete.Request" type="FreshBookApi:invoice.invoice.delete.Request"/>
+	<complexType name="invoice.invoice.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.get.Request" type="FreshBookApi:invoice.invoice.get.Request"/>
+	<complexType name="invoice.invoice.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.get.Results" type="FreshBookApi:invoice.invoice.get.Results"/>
+	<complexType name="invoice.invoice.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice" type="FreshBookApi:InvoiceDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.list.Request" type="FreshBookApi:invoice.invoice.list.Request"/>
+	<complexType name="invoice.invoice.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="recurring_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date_from" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date_to" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="page" type="integer"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="integer"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.list.Results" type="FreshBookApi:invoice.invoice.list.Results"/>
+	<complexType name="invoice.invoice.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoices" type="FreshBookApi:InvoiceListArray"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.sendByEmail.Request" type="FreshBookApi:invoice.invoice.sendByEmail.Request"/>
+	<complexType name="invoice.invoice.sendByEmail.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.sendByEmail.Results" type="FreshBookApi:invoice.invoice.sendByEmail.Results"/>
+	<complexType name="invoice.invoice.sendByEmail.Results">
+		<sequence/>
+	</complexType>
+	<element name="invoice.invoice.SnailMail.Request" type="FreshBookApi:invoice.invoice.SnailMail.Request"/>
+	<complexType name="invoice.invoice.SnailMail.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="invoice.invoice.SnailMail.Results" type="FreshBookApi:invoice.invoice.SnailMail.Results"/>
+	<complexType name="invoice.invoice.SnailMail.Results">
+		<sequence/>
+	</complexType>
+	<element name="invoice.invoice.update.Request" type="FreshBookApi:invoice.invoice.update.Request"/>
+	<complexType name="invoice.invoice.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice" type="FreshBookApi:InvoiceUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceDefinition" type="FreshBookApi:InvoiceDefinition"/>
+	<complexType name="InvoiceDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="po_number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="discount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="terms" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="lines" type="FreshBookApi:InvoiceLineDetailArray"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceDetail" type="FreshBookApi:InvoiceDetail"/>
+	<complexType name="InvoiceDetail">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="number" type="string"/>
+			<element maxOccurs="unbounded" minOccurs="1" name="links" type="FreshBookApi:InvoiceLink"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount_outstanding" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceDetailLine" type="FreshBookApi:InvoiceDetailLine"/>
+	<complexType name="InvoiceDetailLine">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="unit_cost" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="quantity" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_percent" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceLine" type="FreshBookApi:InvoiceLine"/>
+	<complexType name="InvoiceLine">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="unit_cost" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="quantity" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_percent" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceLineArray" type="FreshBookApi:InvoiceLineArray"/>
+	<complexType name="InvoiceLineArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="line" type="FreshBookApi:InvoiceLine"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceLineDetailArray" type="FreshBookApi:InvoiceLineDetailArray"/>
+	<complexType name="InvoiceLineDetailArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="line" type="FreshBookApi:InvoiceDetailLine"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceLink" type="FreshBookApi:InvoiceLink"/>
+	<complexType name="InvoiceLink">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_view" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="view" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceListArray" type="FreshBookApi:InvoiceListArray"/>
+	<complexType name="InvoiceListArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="invoice" type="FreshBookApi:InvoiceDetail"/>
+		</sequence>
+	</complexType>
+	<element name="InvoiceUpdate" type="FreshBookApi:InvoiceUpdate"/>
+	<complexType name="InvoiceUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="po_number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="discount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="terms" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="lines" type="FreshBookApi:InvoiceLineArray"/>
+		</sequence>
+	</complexType>
+	<element name="item.item.create.Request" type="FreshBookApi:item.item.create.Request"/>
+	<complexType name="item.item.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="item" type="FreshBookApi:ItemDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="item.item.create.Results" type="FreshBookApi:item.item.create.Results"/>
+	<complexType name="item.item.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="item_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="item.item.delete.Request" type="FreshBookApi:item.item.delete.Request"/>
+	<complexType name="item.item.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="item_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="item.item.delete.Results" type="FreshBookApi:item.item.delete.Results"/>
+	<complexType name="item.item.delete.Results">
+		<sequence/>
+	</complexType>
+	<element name="item.item.get.Request" type="FreshBookApi:item.item.get.Request"/>
+	<complexType name="item.item.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="item_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="item.item.get.Results" type="FreshBookApi:item.item.get.Results"/>
+	<complexType name="item.item.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="item" type="FreshBookApi:ItemUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="item.item.list.Request" type="FreshBookApi:item.item.list.Request"/>
+	<complexType name="item.item.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="page" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="item.item.list.Results" type="FreshBookApi:item.item.list.Results"/>
+	<complexType name="item.item.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="items" type="FreshBookApi:ItemListArray"/>
+		</sequence>
+	</complexType>
+	<element name="item.item.update.Request" type="FreshBookApi:item.item.update.Request"/>
+	<complexType name="item.item.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="item" type="FreshBookApi:ItemUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="ItemDefinition" type="FreshBookApi:ItemDefinition"/>
+	<complexType name="ItemDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="unit_cost" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="quantity" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="inventory" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="ItemListArray" type="FreshBookApi:ItemListArray"/>
+	<complexType name="ItemListArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="item" type="FreshBookApi:ItemUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="ItemUpdate" type="FreshBookApi:ItemUpdate"/>
+	<complexType name="ItemUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="item_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="unit_cost" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="quantity" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="inventory" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="payment.payment.create.Request" type="FreshBookApi:payment.payment.create.Request"/>
+	<complexType name="payment.payment.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="payment" type="FreshBookApi:PaymentDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="payment.payment.create.Results" type="FreshBookApi:payment.payment.create.Results"/>
+	<complexType name="payment.payment.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="payment_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="payment.payment.get.Request" type="FreshBookApi:payment.payment.get.Request"/>
+	<complexType name="payment.payment.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="payment_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="payment.payment.get.Results" type="FreshBookApi:payment.payment.get.Results"/>
+	<complexType name="payment.payment.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="payment" type="FreshBookApi:PaymentUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="payment.payment.list.Request" type="FreshBookApi:payment.payment.list.Request"/>
+	<complexType name="payment.payment.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date_from" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date_to" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="page" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="payment.payment.list.Results" type="FreshBookApi:payment.payment.list.Results"/>
+	<complexType name="payment.payment.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="payments" type="FreshBookApi:PaymentListArray"/>
+		</sequence>
+	</complexType>
+	<element name="payment.payment.update.Request" type="FreshBookApi:payment.payment.update.Request"/>
+	<complexType name="payment.payment.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="payment" type="FreshBookApi:PaymentUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="PaymentDefinition" type="FreshBookApi:PaymentDefinition"/>
+	<complexType name="PaymentDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="type" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="PaymentDetail" type="FreshBookApi:PaymentDetail"/>
+	<complexType name="PaymentDetail">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="payment_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="invoice_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="type" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="PaymentListArray" type="FreshBookApi:PaymentListArray"/>
+	<complexType name="PaymentListArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="payment" type="FreshBookApi:PaymentDetail"/>
+		</sequence>
+	</complexType>
+	<element name="PaymentUpdate" type="FreshBookApi:PaymentUpdate"/>
+	<complexType name="PaymentUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="payment_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="project.project.create.Request" type="FreshBookApi:project.project.create.Request"/>
+	<complexType name="project.project.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project" type="FreshBookApi:ProjectDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="project.project.create.Results" type="FreshBookApi:project.project.create.Results"/>
+	<complexType name="project.project.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="project.project.delete.Request" type="FreshBookApi:project.project.delete.Request"/>
+	<complexType name="project.project.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="project.project.delete.Results" type="FreshBookApi:project.project.delete.Results"/>
+	<complexType name="project.project.delete.Results">
+		<sequence/>
+	</complexType>
+	<element name="project.project.get.Request" type="FreshBookApi:project.project.get.Request"/>
+	<complexType name="project.project.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="project.project.get.Results" type="FreshBookApi:project.project.get.Results"/>
+	<complexType name="project.project.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project" type="FreshBookApi:ProjectUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="project.project.list.Request" type="FreshBookApi:project.project.list.Request"/>
+	<complexType name="project.project.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="page" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="task_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="project.project.list.Results" type="FreshBookApi:project.project.list.Results"/>
+	<complexType name="project.project.list.Results">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="project" type="FreshBookApi:ProjectUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="project.project.update.Request" type="FreshBookApi:project.project.update.Request"/>
+	<complexType name="project.project.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project" type="FreshBookApi:ProjectUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="ProjectDefinition" type="FreshBookApi:ProjectDefinition"/>
+	<complexType name="ProjectDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="bill_method" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="rate" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tasks" type="FreshBookApi:ProjectTaskArray"/>
+		</sequence>
+	</complexType>
+	<element name="ProjectListArray" type="FreshBookApi:ProjectListArray"/>
+	<complexType name="ProjectListArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="project" type="FreshBookApi:ProjectUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="ProjectTaskArray" type="FreshBookApi:ProjectTaskArray"/>
+	<complexType name="ProjectTaskArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="task_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="ProjectUpdate" type="FreshBookApi:ProjectUpdate"/>
+	<complexType name="ProjectUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="bill_method" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="rate" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tasks" type="FreshBookApi:ProjectTaskArray"/>
+		</sequence>
+	</complexType>
+	<element name="recurring.recurring.create.Request" type="FreshBookApi:recurring.recurring.create.Request"/>
+	<complexType name="recurring.recurring.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurring" type="FreshBookApi:RecurringDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="recurring.recurring.create.Results" type="FreshBookApi:recurring.recurring.create.Results"/>
+	<complexType name="recurring.recurring.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurring_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="recurring.recurring.delete.Request" type="FreshBookApi:recurring.recurring.delete.Request"/>
+	<complexType name="recurring.recurring.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurring_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="recurring.recurring.get.Request" type="FreshBookApi:recurring.recurring.get.Request"/>
+	<complexType name="recurring.recurring.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurring_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="recurring.recurring.get.Results" type="FreshBookApi:recurring.recurring.get.Results"/>
+	<complexType name="recurring.recurring.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurring" type="FreshBookApi:RecurringDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="recurring.recurring.list.Request" type="FreshBookApi:recurring.recurring.list.Request"/>
+	<complexType name="recurring.recurring.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="page" type="integer"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="integer"/>
+		</sequence>
+	</complexType>
+	<element name="recurring.recurring.list.Results" type="FreshBookApi:recurring.recurring.list.Results"/>
+	<complexType name="recurring.recurring.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurrings" type="FreshBookApi:RecurringListArray"/>
+		</sequence>
+	</complexType>
+	<element name="recurring.recurring.update.Request" type="FreshBookApi:recurring.recurring.update.Request"/>
+	<complexType name="recurring.recurring.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurring" type="FreshBookApi:RecurringUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="RecurringDefinition" type="FreshBookApi:RecurringDefinition"/>
+	<complexType name="RecurringDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="stopped" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="occurrences" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="frequency" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="send_email" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="send_snail_mail" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="po_number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="discount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="terms" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="lines" type="FreshBookApi:RecurringDetailLine"/>
+		</sequence>
+	</complexType>
+	<element name="RecurringDetail" type="FreshBookApi:RecurringDetail"/>
+	<complexType name="RecurringDetail">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurring_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="RecurringDetailLine" type="FreshBookApi:RecurringDetailLine"/>
+	<complexType name="RecurringDetailLine">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="amount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="unit_cost" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="quantity" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_percent" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="RecurringLine" type="FreshBookApi:RecurringLine"/>
+	<complexType name="RecurringLine">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="unit_cost" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="quantity" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax1_percent" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="tax2_percent" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="RecurringLineArray" type="FreshBookApi:RecurringLineArray"/>
+	<complexType name="RecurringLineArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="line" type="FreshBookApi:RecurringLine"/>
+		</sequence>
+	</complexType>
+	<element name="RecurringLineDetailArray" type="FreshBookApi:RecurringLineDetailArray"/>
+	<complexType name="RecurringLineDetailArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="line" type="FreshBookApi:RecurringDetailLine"/>
+		</sequence>
+	</complexType>
+	<element name="RecurringListArray" type="FreshBookApi:RecurringListArray"/>
+	<complexType name="RecurringListArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="recurring" type="FreshBookApi:RecurringDetail"/>
+		</sequence>
+	</complexType>
+	<element name="RecurringUpdate" type="FreshBookApi:RecurringUpdate"/>
+	<complexType name="RecurringUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="recurring_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="client_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="stopped" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="occurrences" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="frequency" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="send_email" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="send_snail_mail" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="status" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="po_number" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="discount" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="terms" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="first_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="last_name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="organization" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street1" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_street2" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_city" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_state" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_country" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="p_code" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="lines" type="FreshBookApi:RecurringLineArray"/>
+		</sequence>
+	</complexType>
+	<element name="staff.staff.get.Request" type="FreshBookApi:staff.staff.get.Request"/>
+	<complexType name="staff.staff.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="staff_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="staff.staff.get.Results" type="FreshBookApi:staff.staff.get.Results"/>
+	<complexType name="staff.staff.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="staff" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="staff.staff.list.Request" type="FreshBookApi:staff.staff.list.Request"/>
+	<complexType name="staff.staff.list.Request">
+		<sequence/>
+	</complexType>
+	<element name="staff.staff.list.Results" type="FreshBookApi:staff.staff.list.Results"/>
+	<complexType name="staff.staff.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="staff_members" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="task.task.create.Request" type="FreshBookApi:task.task.create.Request"/>
+	<complexType name="task.task.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="task" type="FreshBookApi:TaskDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="task.task.create.Results" type="FreshBookApi:task.task.create.Results"/>
+	<complexType name="task.task.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="task_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="task.task.delete.Request" type="FreshBookApi:task.task.delete.Request"/>
+	<complexType name="task.task.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="task_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="task.task.delete.Results" type="FreshBookApi:task.task.delete.Results"/>
+	<complexType name="task.task.delete.Results">
+		<sequence/>
+	</complexType>
+	<element name="task.task.get.Request" type="FreshBookApi:task.task.get.Request"/>
+	<complexType name="task.task.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="task_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="task.task.get.Results" type="FreshBookApi:task.task.get.Results"/>
+	<complexType name="task.task.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="task" type="FreshBookApi:TaskUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="task.task.list.Request" type="FreshBookApi:task.task.list.Request"/>
+	<complexType name="task.task.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="page" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="task.task.list.Results" type="FreshBookApi:task.task.list.Results"/>
+	<complexType name="task.task.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="tasks" type="FreshBookApi:TaskListArray"/>
+		</sequence>
+	</complexType>
+	<element name="task.task.update.Request" type="FreshBookApi:task.task.update.Request"/>
+	<complexType name="task.task.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="task" type="FreshBookApi:TaskUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="TaskDefinition" type="FreshBookApi:TaskDefinition"/>
+	<complexType name="TaskDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="rate" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="billable" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="TaskListArray" type="FreshBookApi:TaskListArray"/>
+	<complexType name="TaskListArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="task" type="FreshBookApi:TaskUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="TaskUpdate" type="FreshBookApi:TaskUpdate"/>
+	<complexType name="TaskUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="task_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="name" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="description" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="rate" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="billable" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="time_entry.time_entry.create.Request" type="FreshBookApi:time_entry.time_entry.create.Request"/>
+	<complexType name="time_entry.time_entry.create.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="time_entry" type="FreshBookApi:TimeEntryDefinition"/>
+		</sequence>
+	</complexType>
+	<element name="time_entry.time_entry.create.Results" type="FreshBookApi:time_entry.time_entry.create.Results"/>
+	<complexType name="time_entry.time_entry.create.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="time_entry_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="time_entry.time_entry.delete.Request" type="FreshBookApi:time_entry.time_entry.delete.Request"/>
+	<complexType name="time_entry.time_entry.delete.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="time_entry_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="time_entry.time_entry.delete.Results" type="FreshBookApi:time_entry.time_entry.delete.Results"/>
+	<complexType name="time_entry.time_entry.delete.Results">
+		<sequence/>
+	</complexType>
+	<element name="time_entry.time_entry.get.Request" type="FreshBookApi:time_entry.time_entry.get.Request"/>
+	<complexType name="time_entry.time_entry.get.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="time_entry_id" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="time_entry.time_entry.get.Results" type="FreshBookApi:time_entry.time_entry.get.Results"/>
+	<complexType name="time_entry.time_entry.get.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="time_entry" type="FreshBookApi:TimeEntryUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="time_entry.time_entry.list.Request" type="FreshBookApi:time_entry.time_entry.list.Request"/>
+	<complexType name="time_entry.time_entry.list.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="task_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date_from" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date_to" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="page" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="per_page" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="time_entry.time_entry.list.Results" type="FreshBookApi:time_entry.time_entry.list.Results"/>
+	<complexType name="time_entry.time_entry.list.Results">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="time_entries" type="FreshBookApi:TimeEntryListArray"/>
+		</sequence>
+	</complexType>
+	<element name="time_entry.time_entry.update.Request" type="FreshBookApi:time_entry.time_entry.update.Request"/>
+	<complexType name="time_entry.time_entry.update.Request">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="time_entry" type="FreshBookApi:TimeEntryUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="TimeEntryDefinition" type="FreshBookApi:TimeEntryDefinition"/>
+	<complexType name="TimeEntryDefinition">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="task_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="hours" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="TimeEntryListArray" type="FreshBookApi:TimeEntryListArray"/>
+	<complexType name="TimeEntryListArray">
+		<sequence>
+			<element maxOccurs="unbounded" minOccurs="1" name="time_entry" type="FreshBookApi:TimeEntryUpdate"/>
+		</sequence>
+	</complexType>
+	<element name="TimeEntryUpdate" type="FreshBookApi:TimeEntryUpdate"/>
+	<complexType name="TimeEntryUpdate">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="time_entry_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="project_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="task_id" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="hours" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="notes" type="string"/>
+			<element maxOccurs="1" minOccurs="1" name="date" type="string"/>
+		</sequence>
+	</complexType>
+</schema>

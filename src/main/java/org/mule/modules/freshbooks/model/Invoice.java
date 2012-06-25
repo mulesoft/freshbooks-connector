@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.Line;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -24,6 +23,9 @@ public class Invoice extends BaseRole {
     @XmlElement(name = "status", required = false)
     protected InvoiceStatusEnum status;
 //    <!-- If not supplied, defaults to today's date (Optional) -->  
+//         @XmlElement
+//         @XmlSchemaType(name="date")
+//         public XMLGregorianCalendar date;
 //TODO    <date>2007-06-23</date> 
     @XmlElement(name = "date", required = false)
     protected String date;

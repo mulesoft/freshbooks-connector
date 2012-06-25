@@ -4,7 +4,8 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name = "InvoiceStatusEnum")
+
+@XmlType(namespace="InvoiceStatusEnum", name="InvoiceStatusEnum")
 @XmlEnum
 public enum InvoiceStatusEnum {
 

@@ -50,7 +50,7 @@ import com.zauberlabs.commons.mom.MapObjectMapper;
 public class FreshbooksModule {
     private static final Logger LOGGER = Logger.getLogger(FreshbooksModule.class);
 
-    private final MapObjectMapper mom = JaxbMapObjectMappers.defaultWithPackage("org.mule.modules.freshbooks.model").build();
+    private final MapObjectMapper mom = JaxbMapObjectMappers.defaultWithPackage("org.mule.modules.freshbooks.schema").build();
     
     /**
      * Authentication Token
@@ -97,6 +97,19 @@ public class FreshbooksModule {
 
         return freshbooksClient.create(EntityType.CATEGORY, category);
     }
+//    @Processor
+//    public String createCategory(String name, 
+//                                 @Optional String tax1, 
+//                                 @Optional String tax2) {
+//
+//        CategoryDefinition categoryDefinition = (CategoryDefinition) mom.unmap(new MapBuilder()
+//            .with("name", name)
+//            .with("tax1", tax1)
+//            .with("tax2", tax2)
+//          , CategoryDefinition.class);
+//        
+//        return freshbooksClient.create(EntityType.CATEGORY, category);
+//    }
 
     /**
      * Update an existing expense category with the given category_id. Any category fields left out of the request will remain unchanged.
@@ -448,11 +461,12 @@ public class FreshbooksModule {
                                 @Optional String primaryCity,
                                 @Optional String primaryState,
                                 @Optional String primaryCountry,
-                                @Optional String primaryCode,
+                                @Optional String primaryZipCode,
                                 @Optional String language,
                                 @Optional String vatName,
                                 @Optional String vatNumber,
-                                @Optional List<Map<String, Object>> lines)
+                                @Optional List<Map<String, Object>> lines
+                                )
     {
         Invoice invoice = (Invoice) mom.unmap(new MapBuilder()
                 .with("clientId", clientId)
@@ -474,7 +488,7 @@ public class FreshbooksModule {
                 .with("city", primaryCity)
                 .with("state", primaryState)
                 .with("country", primaryCountry)
-                .with("code", primaryCode)
+                .with("code", primaryZipCode)
                 .with("language", language)
                 .with("vatName", vatName)
                 .with("vatNumber", vatNumber)
@@ -541,7 +555,7 @@ public class FreshbooksModule {
                               @Optional String primaryCity,
                               @Optional String primaryState,
                               @Optional String primaryCountry,
-                              @Optional String primaryCode,
+                              @Optional String primaryZipCode,
                               @Optional String language,
                               @Optional String vatName,
                               @Optional String vatNumber,
@@ -568,7 +582,7 @@ public class FreshbooksModule {
                 .with("city", primaryCity)
                 .with("state", primaryState)
                 .with("country", primaryCountry)
-                .with("code", primaryCode)
+                .with("code", primaryZipCode)
                 .with("language", language)
                 .with("vatName", vatName)
                 .with("vatNumber", vatNumber)

@@ -13,53 +13,50 @@ package org.mule.modules.freshbooks;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
-import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.sax.SAXSource;
 
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.mule.modules.freshbooks.model.BaseRequest;
-import org.mule.modules.freshbooks.model.BaseResponse;
+import org.mule.modules.freshbooks.model.EntityType;
 import org.springframework.core.io.ClassPathResource;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLFilterImpl;
 
 public abstract class RequestAndResponseTest extends XMLTestCase {
-    protected void assertRequest(String file, BaseRequest req) throws IOException, SAXException, JAXBException {
-        JAXBContext jc = JAXBContext.newInstance(BaseRequest.class);
-        Marshaller marshaller = jc.createMarshaller();
-        OutputStream stream = new OutputStream() {
-            private final StringBuilder string = new StringBuilder();
-
-            @Override
-            public void write(int b) throws IOException {
-                this.string.append((char) b);
-            }
-
-            //Netbeans IDE automatically overrides this toString()
-            @Override
-            public String toString() {
-                return this.string.toString();
-            }
-        };
-
-        marshaller.marshal(req, stream);
-        String expected = getResourceAsString(new ClassPathResource(file).getInputStream());
-        //String expected = getResourceAsString(getClass().getClassLoader().getResourceAsStream(file));
-        String output = stream.toString();
-
+    protected void assertRequest(String file, Object req) throws IOException, SAXException, JAXBException {
+//        JAXBContext jc = JAXBContext.newInstance(BaseRequest.class);
+//        Marshaller marshaller = jc.createMarshaller();
+//        OutputStream stream = new OutputStream() {
+//            private final StringBuilder string = new StringBuilder();
+//
+//            @Override
+//            public void write(int b) throws IOException {
+//                this.string.append((char) b);
+//            }
+//
+//            //Netbeans IDE automatically overrides this toString()
+//            @Override
+//            public String toString() {
+//                return this.string.toString();
+//            }
+//        };
+//
+//        marshaller.marshal(req, stream);
+//        String expected = getResourceAsString(new ClassPathResource(file).getInputStream());
+//        //String expected = getResourceAsString(getClass().getClassLoader().getResourceAsStream(file));
+//        String output = stream.toString();
+//
+//        XMLUnit.setIgnoreComments(true);
+//        XMLUnit.setIgnoreWhitespace(true);
+//        assertXMLEqual(expected, output);
+        
+        JAXBElement jaxbElement = FreshbooksMessageUtils.getInstance().createJaxbElement(req);
+        String documentToPost = FreshbooksMessageUtils.getInstance().getXmlDocument(jaxbElement);
         XMLUnit.setIgnoreComments(true);
         XMLUnit.setIgnoreWhitespace(true);
-        assertXMLEqual(expected, output);
+        assertXMLEqual(getResourceAsString(new ClassPathResource(file).getInputStream()), documentToPost);
     }
 
     private static String getResourceAsString(InputStream in) throws IOException {
@@ -84,19 +81,21 @@ public abstract class RequestAndResponseTest extends XMLTestCase {
         return new String(baos.toByteArray());
     }
 
-    protected BaseResponse parseResponse(String file) throws JAXBException, SAXException, ParserConfigurationException {
-        JAXBContext jc = JAXBContext.newInstance(BaseResponse.class);
-        Unmarshaller unmarshaller = jc.createUnmarshaller();
-
-                // Create the XMLReader
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        XMLReader reader = factory.newSAXParser().getXMLReader();
-
-        // The filter class to set the correct namespace
-        XMLFilterImpl xmlFilter = new XMLNamespaceFilter(reader);
-        reader.setContentHandler(unmarshaller.getUnmarshallerHandler());
-        SAXSource source = new SAXSource(xmlFilter, new InputSource(getClass().getClassLoader().getResourceAsStream(file)));
-
-        return (BaseResponse)unmarshaller.unmarshal(source);
+    protected Object parseResponse(String file, EntityType type) throws JAXBException, SAXException, ParserConfigurationException, IOException {
+        return FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(new ClassPathResource(file).getInputStream()));
+//        JAXBContext jc = JAXBContext.newInstance(BaseResponse.class);
+//        Unmarshaller unmarshaller = jc.createUnmarshaller();
+//
+//                // Create the XMLReader
+//        SAXParserFactory factory = SAXParserFactory.newInstance();
+//        XMLReader reader = factory.newSAXParser().getXMLReader();
+//
+//        // The filter class to set the correct namespace
+//        XMLFilterImpl xmlFilter = new XMLNamespaceFilter(reader);
+//        reader.setContentHandler(unmarshaller.getUnmarshallerHandler());
+//        SAXSource source = new SAXSource(xmlFilter, new InputSource(getClass().getClassLoader().getResourceAsStream(file)));
+//
+//        return unmarshaller.unmarshal(source);
+        
     }
 }

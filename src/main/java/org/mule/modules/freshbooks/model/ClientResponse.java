@@ -1,7 +1,9 @@
 package org.mule.modules.freshbooks.model;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "response")
 public class ClientResponse extends BaseResponse {
 
     @XmlElement(name = "client_id", nillable=true)

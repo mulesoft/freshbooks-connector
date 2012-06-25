@@ -1,7 +1,10 @@
 package org.mule.modules.freshbooks.model;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
+//@XmlRootElement(namespace = "http://www.freshbooks.com/api/", name = "request")
+@XmlType(name = "CategoryRequest")
 public class CategoryRequest extends BaseRequest {
     
     @XmlElement(name = "category_id")

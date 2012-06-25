@@ -1,7 +1,9 @@
 package org.mule.modules.freshbooks.model;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "request")
 public class CallbackRequest extends BaseRequest {
     
     @XmlElement(name = "callback_id")

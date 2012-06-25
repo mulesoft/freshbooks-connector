@@ -13,11 +13,21 @@ package org.mule.modules.freshbooks.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
+@XmlSeeAlso({
+    CategoryRequest.class,
+    CallbackRequest.class,
+    ClientRequest.class,
+    InvoiceRequest.class,
+    ItemRequest.class,
+    PaymentRequest.class
+})
+
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BaseRequest {
+@XmlType(name = "request")
+public abstract class BaseRequest {
     
     @XmlAttribute
     private String method;

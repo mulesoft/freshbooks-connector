@@ -1,29 +1,32 @@
 package org.mule.modules.freshbooks.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Contact {
     
     @XmlElement(name = "contact_id", required = false)
-    String id;
+    protected String id;
     
     @XmlElement(name = "username", required = false)
-    String username;
+    protected String username;
     
     @XmlElement(name = "first_name", required = false)
-    String firstName;
+    protected String firstName;
     
     @XmlElement(name = "last_name", required = false)
-    String lastName;
+    protected String lastName;
     
     @XmlElement(name = "email", required = false)
-    String email;
+    protected String email;
     
     @XmlElement(name = "phone1", required = false)
-    String phone1;
+    protected String phone1;
     
     @XmlElement(name = "phone2", required = false)
-    String phone2;
+    protected String phone2;
 
     /**
      * @return the id

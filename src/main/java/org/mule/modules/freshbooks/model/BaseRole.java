@@ -3,9 +3,18 @@ package org.mule.modules.freshbooks.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
+@XmlSeeAlso({
+    Client.class,
+    Invoice.class
+})
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseRole {
 
     @XmlElement(name = "first_name", required = false)

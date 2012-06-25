@@ -30,7 +30,7 @@ public class CategoryTest extends RequestAndResponseTest {
     }
 
     public void testCreateResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
-        BaseResponse response = parseResponse("model/response/category.create.xml");
+        CategoryResponse response = (CategoryResponse) parseResponse("model/response/category.create.xml", EntityType.CATEGORY);
 
         assertEquals("12", response.getCategoryId());
     }
@@ -47,11 +47,11 @@ public class CategoryTest extends RequestAndResponseTest {
     }
 
     public void testUpdateResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
-        BaseResponse response = parseResponse("model/response/category.update.xml");
+        CategoryResponse response = (CategoryResponse) parseResponse("model/response/category.update.xml", EntityType.CATEGORY);
     }
 
     public void testListResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
-        BaseResponse response = parseResponse("model/response/category.list.xml");
+        CategoryResponse response = (CategoryResponse) parseResponse("model/response/category.list.xml", EntityType.CATEGORY);
         assertEquals(2, response.getCategories().size());
     }
 }
