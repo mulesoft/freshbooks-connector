@@ -5,18 +5,18 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "item")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Item { 
-    @XmlElement(name = "name")
+    @XmlElement(namespace = "http://www.freshbooks.com/api/")
     protected String name;
-    @XmlElement(name = "description", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String description;
-    @XmlElement(name = "unit_cost", required = false)
+    @XmlElement(name = "unit_cost", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String unitCost;
-    @XmlElement(name = "quantity", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected Integer quantity;
-    @XmlElement(name = "inventory", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String inventory;
 
     public String getName() {

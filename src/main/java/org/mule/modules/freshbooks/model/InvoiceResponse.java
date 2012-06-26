@@ -1,18 +1,19 @@
 package org.mule.modules.freshbooks.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "response")
 public class InvoiceResponse extends BaseResponse {
     
-    @XmlElement(name = "invoice_id", nillable = true)
     private String invoiceId;
-    @XmlElement(name = "invoice", required = false)
     private Invoice invoice;
-    @XmlElement(name = "invoices", required = false)
     private Invoices invoices;
 
+    public InvoiceResponse(Response response) {
+        initBaseResponseFields(response);
+        invoiceId = response.getInvoiceId();
+        invoice = response.getInvoice();
+        invoices = response.getInvoices();
+    }
+    
     public String getInvoiceId() {
         return invoiceId;
     }

@@ -5,19 +5,19 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "callback")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Callback {
-    @XmlElement(name = "callback_id", required = false)
+    @XmlElement(name = "callback_id", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String id;
-    @XmlElement(name = "event", required = true)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = true)
     protected String event;
-    @XmlElement(name = "uri", required = true)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = true)
     protected String uri;
-    @XmlElement(name = "verifier", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String verifier;
     //TODO Boolean? it sends only 0 or 1
-    @XmlElement(name = "verified", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected Integer verified;
     
     public String getEvent() {

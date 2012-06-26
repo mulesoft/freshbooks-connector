@@ -1,18 +1,19 @@
 package org.mule.modules.freshbooks.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "response")
 public class ClientResponse extends BaseResponse {
 
-    @XmlElement(name = "client_id", nillable=true)
     private String clientId;
-    @XmlElement(name = "client", required = false)
     private Client client;
-    @XmlElement(name = "clients", required = false)
     private Clients clients;
 
+    public ClientResponse(Response response) {
+        initBaseResponseFields(response);
+        clientId = response.getClientId();
+        client = response.getClient();
+        clients = response.getClients();
+    }
+    
     public String getClientId() {
         return clientId;
     }

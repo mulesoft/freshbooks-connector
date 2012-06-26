@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType
 public class Items extends Paged<Item> {
-    @XmlElement(name = "item")
+    @XmlElement(name = "item", namespace = "http://www.freshbooks.com/api/")
     public ArrayList<Item> getItems() {
         return getContents();
     }

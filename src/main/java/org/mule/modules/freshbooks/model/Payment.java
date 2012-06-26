@@ -7,26 +7,26 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "payment")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Payment {
     
-    @XmlElement(name = "payment_id", required = false)
+    @XmlElement(name = "payment_id", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String id;
-    @XmlElement(name = "client_id", required = false)
+    @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String clientId;
-    @XmlElement(name = "invoice_id", required = false)
+    @XmlElement(name = "invoice_id", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String invoiceId;
 //    <date>2007-05-30</date>             <!-- Default value is today's date (Optional) -->  
-    @XmlElement(name = "date", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String date;
-    @XmlElement(name = "amount", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected BigDecimal amount;
-    @XmlElement(name = "currency_code", required = false)
+    @XmlElement(name = "currency_code", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String currencyCode;
-    @XmlElement(name = "type", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String type;
-    @XmlElement(name = "notes", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String notes;
 
     public String getId() {

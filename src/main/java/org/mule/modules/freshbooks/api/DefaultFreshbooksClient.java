@@ -1,18 +1,13 @@
 package org.mule.modules.freshbooks.api;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -22,14 +17,11 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 import org.mule.modules.freshbooks.FreshbooksException;
-import org.mule.modules.freshbooks.XMLNamespaceFilter;
+import org.mule.modules.freshbooks.FreshbooksMessageUtils;
 import org.mule.modules.freshbooks.model.BaseRequest;
 import org.mule.modules.freshbooks.model.BaseResponse;
 import org.mule.modules.freshbooks.model.EntityType;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLFilterImpl;
+import org.mule.modules.freshbooks.model.Response;
 
 public class DefaultFreshbooksClient implements FreshbooksClient
 {
@@ -54,74 +46,51 @@ public class DefaultFreshbooksClient implements FreshbooksClient
 
     private BaseResponse sendRequest(EntityType type, BaseRequest request) 
     {
+        String requestString = marshalRequest(request);
+
+        BaseResponse response;
+        PostMethod method = new PostMethod(apiUrl.toString());
         try {
-            String requestString = marshalRequest(request);
+            method.setContentChunked(false);
+            method.setDoAuthentication(true);
+            method.setFollowRedirects(false);
+            method.setRequestEntity(new StringRequestEntity(requestString, "text/xml", "utf-8"));
+            method.getParams().setContentCharset("utf-8");
 
-            PostMethod method = new PostMethod(apiUrl.toString());
-            try {
-                method.setContentChunked(false);
-                method.setDoAuthentication(true);
-                method.setFollowRedirects(false);
-                method.setRequestEntity(new StringRequestEntity(requestString, "text/xml", "utf-8"));
-                method.getParams().setContentCharset("utf-8");
-
-                client.executeMethod(method);
-                InputStream is = method.getResponseBodyAsStream();
-                BaseResponse response = unmarshalResponse(type, is);
-                if (!"ok".equals(response.getStatus())) {
-                    throw new FreshbooksException(response.getError());
-                }
-                return response;
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage());
-                throw new FreshbooksException(e);
-            } finally {
-                method.releaseConnection();
-            }
-        } catch (JAXBException e) {
+            client.executeMethod(method);
+            InputStream is = method.getResponseBodyAsStream();
+            response = unmarshalResponse(type, is);
+        } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            throw new FreshbooksException(e);
+        } finally {
+            method.releaseConnection();
+        }
+        if (!"ok".equals(response.getStatus())) {
+            throw new FreshbooksException(response.getError());
+        }
+        return response;
+    }
+
+    private BaseResponse unmarshalResponse(EntityType type, InputStream is) 
+    {
+        Response response;
+        try {
+            response = (Response) FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(is));
+            return (BaseResponse) type.getResponseClass().getDeclaredConstructor(Response.class).newInstance(response);
+        } catch (Exception e) {
             throw new FreshbooksException(e);
         }
     }
 
-    private BaseResponse unmarshalResponse(EntityType type, InputStream is) throws JAXBException, SAXException, ParserConfigurationException 
+    private String marshalRequest(BaseRequest request)
     {
-        JAXBContext jc = JAXBContext.newInstance(type.getResponseClass());
-        Unmarshaller unmarshaller = jc.createUnmarshaller();
-
-        // Create the XMLReader
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        XMLReader reader = factory.newSAXParser().getXMLReader();
-
-        // The filter class to set the correct namespace
-        XMLFilterImpl xmlFilter = new XMLNamespaceFilter(reader);
-        reader.setContentHandler(unmarshaller.getUnmarshallerHandler());
-        SAXSource source = new SAXSource(xmlFilter, new InputSource(is));
-
-        return (BaseResponse) unmarshaller.unmarshal(source);
-    }
-
-    private String marshalRequest(BaseRequest request) throws JAXBException 
-    {
-        JAXBContext jc = JAXBContext.newInstance(BaseRequest.class);
-        Marshaller marshaller = jc.createMarshaller();
-        OutputStream requestStream = new OutputStream() {
-            private final StringBuilder string = new StringBuilder();
-
-            @Override
-            public void write(int b) throws IOException {
-                this.string.append((char) b);
-            }
-
-            //Netbeans IDE automatically overrides this toString()
-            @Override
-            public String toString() {
-                return this.string.toString();
-            }
-        };
-
-        marshaller.marshal(request, requestStream);
-        return requestStream.toString();
+        JAXBElement jaxbElement = FreshbooksMessageUtils.getInstance().createJaxbElement(request);
+        try {
+            return FreshbooksMessageUtils.getInstance().getXmlDocument(jaxbElement);
+        } catch (JAXBException e) {
+            throw new FreshbooksException(e);
+        }
     }
     
     @Override
@@ -200,5 +169,27 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         } catch (Exception e) {
             throw new FreshbooksException(e.getMessage());
         }
+    }
+    
+    private static String getResourceAsString(InputStream in) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
+        byte[] buf = new byte[1024];
+        int sz = 0;
+        try {
+            while (true) {
+                sz = in.read(buf);
+
+                baos.write(buf, 0, sz);
+                if (sz < buf.length)
+                    break;
+            }
+        } finally {
+            try {
+                in.close();
+            } catch (Exception e) {
+
+            }
+        }
+        return new String(baos.toByteArray());
     }
 }

@@ -14,14 +14,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Credit {
     @XmlAttribute
 	String currency;
-    @XmlElement
+    @XmlElement(namespace = "http://www.freshbooks.com/api/")
 	double amount;
 
     public String getCurrency() {

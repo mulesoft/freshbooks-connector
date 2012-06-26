@@ -1,17 +1,18 @@
 package org.mule.modules.freshbooks.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "response")
 public class CallbackResponse extends BaseResponse {
-    @XmlElement(name = "callback_id", nillable=true)
     private String callbackId;
-    @XmlElement(name = "callback", required = false)
     private Callback callback;
-    @XmlElement(name = "categories", required = false)
     private Callbacks callbacks;
-
+    
+    public CallbackResponse(Response response) {
+        initBaseResponseFields(response);
+        callbackId = response.getCallbackId();
+        callback = response.getCallback();
+        callbacks = response.getCallbacks();
+    }
+    
     public String getCallbackId() {
         return callbackId;
     }

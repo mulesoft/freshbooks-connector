@@ -7,25 +7,25 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Contact {
     
-    @XmlElement(name = "contact_id", required = false)
+    @XmlElement(name = "contact_id", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String id;
     
-    @XmlElement(name = "username", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String username;
     
-    @XmlElement(name = "first_name", required = false)
+    @XmlElement(name = "first_name", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String firstName;
     
-    @XmlElement(name = "last_name", required = false)
+    @XmlElement(name = "last_name", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String lastName;
     
-    @XmlElement(name = "email", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String email;
     
-    @XmlElement(name = "phone1", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String phone1;
     
-    @XmlElement(name = "phone2", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String phone2;
 
     /**

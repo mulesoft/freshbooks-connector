@@ -48,10 +48,12 @@ public class CategoryTest extends RequestAndResponseTest {
 
     public void testUpdateResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
         CategoryResponse response = (CategoryResponse) parseResponse("model/response/category.update.xml", EntityType.CATEGORY);
+        assertEquals("ok", response.getStatus());
     }
 
     public void testListResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
         CategoryResponse response = (CategoryResponse) parseResponse("model/response/category.list.xml", EntityType.CATEGORY);
         assertEquals(2, response.getCategories().size());
+        assertEquals("Food" , response.getCategories().get(0).getName());
     }
 }

@@ -10,49 +10,49 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType
+@XmlType(namespace = "http://www.freshbooks.com/api/", name="invoice")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Invoice extends BaseRole {
     
-    @XmlElement(name = "invoice_id", required = false)
+    @XmlElement(name = "invoice_id", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String id;
-    @XmlElement(name = "client_id")
+    @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/")
     protected String clientId;
-    @XmlElement(name = "number", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String number;
-    @XmlElement(name = "status", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected InvoiceStatusEnum status;
 //    <!-- If not supplied, defaults to today's date (Optional) -->  
-//         @XmlElement
+//         @XmlElement(namespace = "http://www.freshbooks.com/api/")
 //         @XmlSchemaType(name="date")
 //         public XMLGregorianCalendar date;
 //TODO    <date>2007-06-23</date> 
-    @XmlElement(name = "date", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String date;
-    @XmlElement(name = "po_number", required = false)
+    @XmlElement(name = "po_number", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String poNumber;
 //  <!-- Percent discount (Optional) -->  
 //  <discount>10</discount>  
-    @XmlElement(name = "discount", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected BigDecimal discount;
-    @XmlElement(name = "notes", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String notes;
 
 //    <!-- Currency Code, defaults to your base currency (Optional) -->  
 //    <currency_code>CAD</currency_code>
-    @XmlElement(name = "currency_code", required = false)
+    @XmlElement(name = "currency_code", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String currencyCode;
 //    <!-- Terms (Optional) -->  
 //    <terms>Payment due in 30 days.</terms>
-    @XmlElement(name = "terms", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String terms;
     
 //  <!-- Return URI (Optional) -->  
 //  <return_uri>http://example.com/account</return_uri> 
-    @XmlElement(name = "return_url", required = false)
+    @XmlElement(name = "return_url", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String returnUri;
     @XmlElements({
-        @XmlElement(name = "line", type = Line.class, required = false)
+        @XmlElement(name = "line", namespace = "http://www.freshbooks.com/api/", type = Line.class, required = false)
     })
     protected List<Line> lines;
     

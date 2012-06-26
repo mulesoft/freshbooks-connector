@@ -19,44 +19,44 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType
+@XmlType(namespace = "http://www.freshbooks.com/api/", name="client")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Client extends BaseRole {
 
-    @XmlElement(name = "client_id", required = false)
+    @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String id;
-    @XmlElement(name = "currency_code", required = false)
+    @XmlElement(name = "currency_code", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String currencyCode;
-    @XmlElement(name = "email")
+    @XmlElement(namespace = "http://www.freshbooks.com/api/")
     protected String email;
-    @XmlElement(name = "username", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String username;
-    @XmlElement(name = "password", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String password;
-    @XmlElement(name = "work_phone", required = false)
+    @XmlElement(name = "work_phone", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String workPhone;
-    @XmlElement(name = "home_phone", required = false)
+    @XmlElement(name = "home_phone", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String homePhone;
-    @XmlElement(name = "mobile", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String mobile;
-    @XmlElement(name = "fax", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String fax;
-    @XmlElement(name = "notes", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String notes;
-    @XmlElement(name = "s_street1", required = false)
+    @XmlElement(name = "s_street1", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String secondaryStreet1;
-    @XmlElement(name = "s_street2", required = false)
+    @XmlElement(name = "s_street2", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String secondaryStreet2;
-    @XmlElement(name = "s_city", required = false)
+    @XmlElement(name = "s_city", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String secondaryCity;
-    @XmlElement(name = "s_state", required = false)
+    @XmlElement(name = "s_state", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String secondaryState;
-    @XmlElement(name = "s_country", required = false)
+    @XmlElement(name = "s_country", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String secondaryCountry;
-    @XmlElement(name = "s_code", required = false)
+    @XmlElement(name = "s_code", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String secondaryCode;
     @XmlElements({
-            @XmlElement(name = "credit", type = Credit.class, required = false)
+            @XmlElement(name = "credit", namespace = "http://www.freshbooks.com/api/", type = Credit.class, required = false)
     })
     protected List<Credit> credits;
 

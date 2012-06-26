@@ -9,7 +9,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.dom4j.io.XMLWriter;
 import org.mule.modules.freshbooks.model.ObjectFactory;
+import org.xml.sax.helpers.XMLFilterImpl;
 
 public class FreshbooksMessageUtils
 {   
@@ -101,11 +103,14 @@ public class FreshbooksMessageUtils
      * @return
      * @throws JAXBException
      */
-    public String getXmlDocument(JAXBElement<? extends Object> objectToMarshall) throws JAXBException
+    public String getXmlDocument(Object objectToMarshall) throws JAXBException
     {
+        XMLFilterImpl filter = new XMLNullNamespaceFilter(null);
         StringWriter writer = new StringWriter();
+        XMLWriter xmlWriter = new XMLWriter(writer);
         Marshaller marshaller = createMarshaller();
-        marshaller.marshal(objectToMarshall, writer);
+        filter.setContentHandler(xmlWriter);
+        marshaller.marshal(objectToMarshall, filter);
         String documentToPost = writer.toString();
         return documentToPost;
     }
@@ -121,7 +126,6 @@ public class FreshbooksMessageUtils
     public Object parseResponse(String responseString) throws JAXBException
     {
         Unmarshaller unmarshaller = createUnmarshaller();
-//        return unmarshaller.unmarshal(new StringReader(responseString));
         final Object unmarshalledObject = unmarshaller.unmarshal(new StringReader(responseString));
         JAXBElement<Object> jaxb = (JAXBElement<Object>)unmarshalledObject;
 

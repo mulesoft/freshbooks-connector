@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType
 public class Clients extends Paged<Client> {
-    @XmlElement(name="client")
+    @XmlElement(name="client", namespace = "http://www.freshbooks.com/api/")
     public ArrayList<Client> getClients() {
         return getContents();
     }

@@ -1,17 +1,18 @@
 package org.mule.modules.freshbooks.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "response")
 public class ItemResponse extends BaseResponse {
-    @XmlElement(name = "item_id", nillable=true)
     private String itemId;
-    @XmlElement(name = "item", required = false)
     private Item item;
-    @XmlElement(name = "items", required = false)
     private Items items;
 
+    public ItemResponse(Response response) {
+        initBaseResponseFields(response);
+        itemId = response.getItemId();
+        item = response.getItem();
+        items = response.getItems();
+    }
+    
     public String getItemId() {
         return itemId;
     }

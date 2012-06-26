@@ -18,9 +18,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "http://www.freshbooks.com/api/", name="category")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Category {
-    @XmlElement
+    @XmlElement(namespace = "http://www.freshbooks.com/api/")
     private String name;
-    @XmlElement(name = "category_id")
+    @XmlElement(name = "category_id", namespace = "http://www.freshbooks.com/api/")
     private String id;
 
     public String getName() {

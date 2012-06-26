@@ -17,32 +17,32 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseRole {
 
-    @XmlElement(name = "first_name", required = false)
+    @XmlElement(name = "first_name", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String firstName;
-    @XmlElement(name = "last_name", required = false)
+    @XmlElement(name = "last_name", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String lastName;
-    @XmlElement(name = "organization", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String organization;
-    @XmlElement(name = "p_street1", required = false)
+    @XmlElement(name = "p_street1", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String street1;
-    @XmlElement(name = "p_street2", required = false)
+    @XmlElement(name = "p_street2", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String street2;
-    @XmlElement(name = "p_city", required = false)
+    @XmlElement(name = "p_city", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String city;
-    @XmlElement(name = "p_state", required = false)
+    @XmlElement(name = "p_state", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String state;
-    @XmlElement(name = "p_country", required = false)
+    @XmlElement(name = "p_country", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String country;
-    @XmlElement(name = "p_code", required = false)
+    @XmlElement(name = "p_code", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String code;
-    @XmlElement(name = "language", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     protected String language;
-    @XmlElement(name = "vat_name", required = false)
+    @XmlElement(name = "vat_name", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String vatName;
-    @XmlElement(name = "vat_number", required = false)
+    @XmlElement(name = "vat_number", namespace = "http://www.freshbooks.com/api/", required = false)
     protected String vatNumber;
     @XmlElements({
-        @XmlElement(name = "contact", type = Contact.class, required = false)
+        @XmlElement(name = "contact",  namespace = "http://www.freshbooks.com/api/", type = Contact.class, required = false)
     })
     protected List<Contact> contacts;
     
