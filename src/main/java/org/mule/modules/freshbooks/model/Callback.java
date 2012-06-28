@@ -9,16 +9,22 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Callback {
     @XmlElement(name = "callback_id", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String id;
+    private String id;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = true)
-    protected String event;
+    private String event;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = true)
-    protected String uri;
+    private String uri;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String verifier;
-    //TODO Boolean? it sends only 0 or 1
+    private String verifier;
+    //Boolean but it sends only 0 or 1
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected Integer verified;
+    private Integer verified;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String updated;
+    
+    public String getUpdated() {
+        return updated;
+    }
     
     public String getEvent() {
         return event;
@@ -44,12 +50,15 @@ public class Callback {
         this.id = id;
     }
 
-    public Integer getVerified() {
-        return verified;
+    public boolean getVerified() {
+        return verified != null && verified == 1;
     }
 
-    public void setVerified(Integer verified) {
-        this.verified = verified;
+    public void setVerified(boolean verified) {
+        if(verified)
+            this.verified = 1;
+        else
+            this.verified = 0;
     }
     
     public String getVerifier() {

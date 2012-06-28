@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<response xmlns="http://www.freshbooks.com/api/" status="ok">  
+  <callbacks page="1" per_page="25" pages="1" total="2">  
+    <callback>  
+      <callback_id>20</callback_id>  
+      <uri>http://example.com/webhooks/ready</uri>  
+      <event>invoice.create</event>  
+      <verified>0</verified>  
+    </callback>  
+    <callback>  
+      <callback_id>21</callback_id>  
+      <uri>http://example.com/webhooks/ready</uri>  
+      <event>invoice.create</event>  
+      <verified>1</verified>  
+    </callback>  
+  </callbacks>  
+</response>  

@@ -10,7 +10,11 @@ public class PaymentRequest extends BaseRequest {
     private String paymentId;
     @XmlElement(name = "payment")
     private Payment payment;
-
+    @XmlElement(name = "client_id")
+    private String clientId;
+    @XmlElement(name = "invoice_id")
+    private String invoiceId;
+    
     public String getPaymentId() {
         return paymentId;
     }
@@ -25,5 +29,21 @@ public class PaymentRequest extends BaseRequest {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(String invoiceId) {
+        this.invoiceId = invoiceId;
     }
 }

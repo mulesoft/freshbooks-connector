@@ -15,9 +15,9 @@ public class ObjectFactory {
     private final static QName _Callbacks_QNAME = new QName("http://www.freshbooks.com/api/", "callbacks");
     private final static QName _CallbackRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
     
-    private final static QName _Category_QNAME = new QName("", "category");
-    private final static QName _Categories_QNAME = new QName("", "categories");
-    private final static QName _CategoryRequest_QNAME = new QName("", "request");
+    private final static QName _Category_QNAME = new QName("http://www.freshbooks.com/api/", "category");
+    private final static QName _Categories_QNAME = new QName("http://www.freshbooks.com/api/", "categories");
+    private final static QName _CategoryRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
     
     private final static QName _Client_QNAME = new QName("http://www.freshbooks.com/api/", "client");
     private final static QName _Clients_QNAME = new QName("http://www.freshbooks.com/api/", "clients");
@@ -34,6 +34,12 @@ public class ObjectFactory {
     private final static QName _Payment_QNAME = new QName("http://www.freshbooks.com/api/", "payment");
     private final static QName _Payments_QNAME = new QName("http://www.freshbooks.com/api/", "payments");
     private final static QName _PaymentRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
+    private final static QName _Contact_QNAME = new QName("http://www.freshbooks.com/api/", "contact");
+    private final static QName _Contacts_QNAME = new QName("http://www.freshbooks.com/api/", "contacts");
+    
+    private final static QName _Credit_QNAME = new QName("http://www.freshbooks.com/api/", "credit");
+    private final static QName _Credits_QNAME = new QName("http://www.freshbooks.com/api/", "credits");
     
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.modules.freshbooks.model
@@ -160,6 +166,38 @@ public class ObjectFactory {
      */
     public Payments createPayments() {
         return new Payments();
+    }
+    
+    /**
+     * Create an instance of {@link Contact }
+     * 
+     */
+    public Contact createContact() {
+        return new Contact();
+    }
+    
+    /**
+     * Create an instance of {@link Contacts }
+     * 
+     */
+    public Contacts createContacts() {
+        return new Contacts();
+    }
+    
+    /**
+     * Create an instance of {@link Credit }
+     * 
+     */
+    public Credit createCredit() {
+        return new Credit();
+    }
+    
+    /**
+     * Create an instance of {@link Credits }
+     * 
+     */
+    public Credits createCredits() {
+        return new Credits();
     }
     
     /**
@@ -332,5 +370,41 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "PaymentRequest")
     public JAXBElement<PaymentRequest> createPaymentRequest(PaymentRequest value) {
         return new JAXBElement<PaymentRequest>(_PaymentRequest_QNAME, PaymentRequest.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Credit }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Credit")
+    public JAXBElement<Credit> createCredit(Credit value) {
+        return new JAXBElement<Credit>(_Credit_QNAME, Credit.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Credits }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Credits")
+    public JAXBElement<Credits> createCredits(Credits value) {
+        return new JAXBElement<Credits>(_Credits_QNAME, Credits.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Contact }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Contact")
+    public JAXBElement<Contact> createContact(Contact value) {
+        return new JAXBElement<Contact>(_Contact_QNAME, Contact.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Contacts }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Contacts")
+    public JAXBElement<Contacts> createContacts(Contacts value) {
+        return new JAXBElement<Contacts>(_Contacts_QNAME, Contacts.class, null, value);
     }
 }

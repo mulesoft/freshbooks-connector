@@ -13,6 +13,8 @@ public enum InvoiceStatusEnum {
         DRAFT("draft"),
         @XmlEnumValue("sent")
         SENT("sent"),
+        @XmlEnumValue("paid")
+        PAID("paid"),
         @XmlEnumValue("viewed")
         VIEWED("viewed");
         

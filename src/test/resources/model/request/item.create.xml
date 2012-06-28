@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<request method="item.create">  
+  <item>  
+    <name>Fuzzy Slippers</name>  
+    <description>Extra soft</description>   <!-- (Optional) -->  
+    <unit_cost>59.99</unit_cost>            <!-- (Optional) -->  
+    <quantity>1</quantity>                  <!-- (Optional) -->  
+    <inventory>10</inventory>               <!-- By default, inventory is not tracked (Optional) -->  
+  </item>  
+</request>  

@@ -3,30 +3,32 @@ package org.mule.modules.freshbooks.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(namespace = "http://www.freshbooks.com/api/", name="contact")
 public class Contact {
     
     @XmlElement(name = "contact_id", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String id;
+    private String id;
     
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String username;
+    private String username;
     
     @XmlElement(name = "first_name", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String firstName;
+    private String firstName;
     
     @XmlElement(name = "last_name", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String lastName;
+    private String lastName;
     
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String email;
+    private String email;
     
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String phone1;
+    private String phone1;
     
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String phone2;
+    private String phone2;
 
     /**
      * @return the id

@@ -1,5 +1,7 @@
 package org.mule.modules.freshbooks.model;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -7,9 +9,12 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Line {
 
+    @XmlElement(name = "line_id", namespace = "http://www.freshbooks.com/api/", required = false)
+    private String id;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    private String name;
-    
+    private BigDecimal amount;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String name;    
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String description;
     @XmlElement(name = "unit_cost", namespace = "http://www.freshbooks.com/api/", required = false)
@@ -21,28 +26,19 @@ public class Line {
     @XmlElement(name = "tax2_name", namespace = "http://www.freshbooks.com/api/", required = false)
     private String tax2Name;
     @XmlElement(name = "tax1_percent", namespace = "http://www.freshbooks.com/api/", required = false)
-    private String tax1Percent;
+    private BigDecimal tax1Percent;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    private String tax2Percent;
+    private BigDecimal tax2Percent;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private LineTypeEnum type;
-//  <lines>     <!-- Specify one or more line elements (Optional) -->  
-//    <line>  
-//      <name>Yard Work</name>                       <!-- (Optional) -->  
-//      <description>Mowed the lawn.</description>   <!-- (Optional) -->  
-//      <unit_cost>10</unit_cost>                    <!-- Default is 0 -->  
-//      <quantity>4</quantity>                       <!-- Default is 0 -->  
-//      <tax1_name>GST</tax1_name>                   <!-- (Optional) -->  
-//      <tax2_name>PST</tax2_name>                   <!-- (Optional) -->  
-//      <tax1_percent>5</tax1_percent>               <!-- (Optional) -->  
-//      <tax2_percent>8</tax2_percent>               <!-- (Optional) -->  
-//      <type>Item</type>                            <!-- (Optional) -->  
-//   <!-- One of 'Item' or 'Time'. If omitted, the line's type defaults to 'Item' -->  
-//    </line>  
-//  </lines>  
-//</invoice>
     
+    public String getId() {
+        return id;
+    }
     
+    public BigDecimal getAmount() {
+        return amount;
+    }
     
     public LineTypeEnum getType() {
         if(type == null)
@@ -144,28 +140,28 @@ public class Line {
     /**
      * @return the tax1Percent
      */
-    public String getTax1Percent() {
+    public BigDecimal getTax1Percent() {
         return tax1Percent;
     }
 
     /**
      * @param tax1Percent the tax1Percent to set
      */
-    public void setTax1Percent(String tax1Percent) {
+    public void setTax1Percent(BigDecimal tax1Percent) {
         this.tax1Percent = tax1Percent;
     }
 
     /**
      * @return the tax2Percent
      */
-    public String getTax2Percent() {
+    public BigDecimal getTax2Percent() {
         return tax2Percent;
     }
 
     /**
      * @param tax2Percent the tax2Percent to set
      */
-    public void setTax2Percent(String tax2Percent) {
+    public void setTax2Percent(BigDecimal tax2Percent) {
         this.tax2Percent = tax2Percent;
     }
 }

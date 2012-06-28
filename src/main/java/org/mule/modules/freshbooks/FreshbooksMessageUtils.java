@@ -111,8 +111,7 @@ public class FreshbooksMessageUtils
         Marshaller marshaller = createMarshaller();
         filter.setContentHandler(xmlWriter);
         marshaller.marshal(objectToMarshall, filter);
-        String documentToPost = writer.toString();
-        return documentToPost;
+        return writer.toString();
     }
     
     /**
@@ -126,8 +125,7 @@ public class FreshbooksMessageUtils
     public Object parseResponse(String responseString) throws JAXBException
     {
         Unmarshaller unmarshaller = createUnmarshaller();
-        final Object unmarshalledObject = unmarshaller.unmarshal(new StringReader(responseString));
-        JAXBElement<Object> jaxb = (JAXBElement<Object>)unmarshalledObject;
+        JAXBElement<Object> jaxb = (JAXBElement<Object>) unmarshaller.unmarshal(new StringReader(responseString));
 
         return jaxb.getValue();
     }

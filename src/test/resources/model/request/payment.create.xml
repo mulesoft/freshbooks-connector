@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<request method="payment.create">  
+  <payment>  
+    <client_id>13</client_id>           <!-- Optional -->  
+    <invoice_id>207</invoice_id>        <!-- Associate this payment with an invoice (Optional) -->  
+    <date>2007-05-30</date>             <!-- Default value is today's date (Optional) -->  
+    <amount>129.88</amount>             <!-- Default is zero (Optional) -->  
+    <currency_code>CAD</currency_code>  <!-- Default is system's base currency (Optional) -->  
+    <type>Check</type>                  <!-- Default is Check (Optional) -->  
+    <notes>Prompt payment!</notes>      <!-- (Optional) -->  
+  </payment>  
+</request>  

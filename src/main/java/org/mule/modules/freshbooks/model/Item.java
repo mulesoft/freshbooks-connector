@@ -1,5 +1,7 @@
 package org.mule.modules.freshbooks.model;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -7,18 +9,44 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(namespace = "http://www.freshbooks.com/api/", name = "item")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Item { 
+public class Item {
+    @XmlElement(name = "item_id", namespace = "http://www.freshbooks.com/api/")
+    private String id;
     @XmlElement(namespace = "http://www.freshbooks.com/api/")
-    protected String name;
+    private String name;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String description;
+    private String description;
     @XmlElement(name = "unit_cost", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String unitCost;
+    private BigDecimal unitCost;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected Integer quantity;
+    private Integer quantity;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String inventory;
-
+    private Integer inventory;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String updated;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private FolderTypes folder;
+    
+    public String getUpdated() {
+        return updated;
+    }
+    
+    public FolderTypes getFolder() {
+        return folder;
+    }
+    
+    public void setFolder(FolderTypes folder) {
+        this.folder = folder;
+    }
+    
+    public String getId() {
+        return id;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public String getName() {
         return name;
     }
@@ -35,11 +63,11 @@ public class Item {
         this.description = description;
     }
 
-    public String getUnitCost() {
+    public BigDecimal getUnitCost() {
         return unitCost;
     }
 
-    public void setUnitCost(String unitCost) {
+    public void setUnitCost(BigDecimal unitCost) {
         this.unitCost = unitCost;
     }
 
@@ -51,11 +79,11 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public String getInventory() {
+    public Integer getInventory() {
         return inventory;
     }
 
-    public void setInventory(String inventory) {
+    public void setInventory(Integer inventory) {
         this.inventory = inventory;
     }
 

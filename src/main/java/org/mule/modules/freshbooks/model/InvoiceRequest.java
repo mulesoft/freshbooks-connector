@@ -11,6 +11,15 @@ public class InvoiceRequest extends BaseRequest {
     @XmlElement(name = "invoice")
     private Invoice invoice;
 
+    @XmlElement(name = "client_id")
+    private String clientId;  
+    @XmlElement(name = "recurring_id")
+    private String recurringId;
+    @XmlElement
+    private InvoiceStatusEnum status;
+    @XmlElement
+    private String number;
+    
     public String getInvoiceId() {
         return invoiceId;
     }
@@ -25,5 +34,37 @@ public class InvoiceRequest extends BaseRequest {
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getRecurringId() {
+        return recurringId;
+    }
+
+    public void setRecurringId(String recurringId) {
+        this.recurringId = recurringId;
+    }
+
+    public InvoiceStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(InvoiceStatusEnum status) {
+        this.status = status;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

@@ -12,22 +12,28 @@ import javax.xml.bind.annotation.XmlType;
 public class Payment {
     
     @XmlElement(name = "payment_id", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String id;
+    private String id;
     @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String clientId;
+    private String clientId;
     @XmlElement(name = "invoice_id", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String invoiceId;
+    private String invoiceId;
 //    <date>2007-05-30</date>             <!-- Default value is today's date (Optional) -->  
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String date;
+    private String date;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected BigDecimal amount;
+    private BigDecimal amount;
     @XmlElement(name = "currency_code", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String currencyCode;
+    private String currencyCode;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String type;
+    private PaymentTypes type;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String notes;
+    private String notes;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String updated;
+    
+    public String getUpdated() {
+        return updated;
+    }
 
     public String getId() {
         return id;
@@ -77,11 +83,11 @@ public class Payment {
         this.currencyCode = currencyCode;
     }
 
-    public String getType() {
+    public PaymentTypes getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PaymentTypes type) {
         this.type = type;
     }
 

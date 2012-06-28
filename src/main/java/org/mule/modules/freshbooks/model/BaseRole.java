@@ -1,12 +1,10 @@
 package org.mule.modules.freshbooks.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlSeeAlso({
@@ -18,33 +16,32 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public abstract class BaseRole {
 
     @XmlElement(name = "first_name", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String firstName;
+    private String firstName;
     @XmlElement(name = "last_name", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String lastName;
+    private String lastName;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String organization;
+    private String organization;
     @XmlElement(name = "p_street1", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String street1;
+    private String street1;
     @XmlElement(name = "p_street2", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String street2;
+    private String street2;
     @XmlElement(name = "p_city", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String city;
+    private String city;
     @XmlElement(name = "p_state", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String state;
+    private String state;
     @XmlElement(name = "p_country", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String country;
+    private String country;
     @XmlElement(name = "p_code", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String code;
+    private String code;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String language;
+    private String language;
     @XmlElement(name = "vat_name", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String vatName;
+    private String vatName;
     @XmlElement(name = "vat_number", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String vatNumber;
-    @XmlElements({
-        @XmlElement(name = "contact",  namespace = "http://www.freshbooks.com/api/", type = Contact.class, required = false)
-    })
-    protected List<Contact> contacts;
+    private String vatNumber;
+    
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Contacts contacts;
     
     public String getFirstName() {
         return firstName;
@@ -143,9 +140,8 @@ public abstract class BaseRole {
     }
     
     public List<Contact> getContacts() {
-        if(contacts == null) {
-            contacts = new ArrayList<Contact>();
-        }
-        return contacts;
+        if(contacts == null)
+            contacts = new Contacts();
+        return contacts.getContacts();
     }
 }

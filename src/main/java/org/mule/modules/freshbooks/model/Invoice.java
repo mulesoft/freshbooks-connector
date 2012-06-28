@@ -1,13 +1,11 @@
 package org.mule.modules.freshbooks.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(namespace = "http://www.freshbooks.com/api/", name="invoice")
@@ -15,46 +13,87 @@ import javax.xml.bind.annotation.XmlType;
 public class Invoice extends BaseRole {
     
     @XmlElement(name = "invoice_id", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String id;
+    private String id;
     @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/")
-    protected String clientId;
+    private String clientId;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String number;
+    private String number;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected InvoiceStatusEnum status;
+    private BigDecimal amount;
+    @XmlElement(name = "amount_outstanding", namespace = "http://www.freshbooks.com/api/", required = false)
+    private BigDecimal amountOutstanding;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private InvoiceStatusEnum status;
 //    <!-- If not supplied, defaults to today's date (Optional) -->  
 //         @XmlElement(namespace = "http://www.freshbooks.com/api/")
 //         @XmlSchemaType(name="date")
 //         public XMLGregorianCalendar date;
-//TODO    <date>2007-06-23</date> 
+//         <date>2007-06-23</date> 
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String date;
+    private String date;
     @XmlElement(name = "po_number", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String poNumber;
-//  <!-- Percent discount (Optional) -->  
-//  <discount>10</discount>  
+    private String poNumber;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected BigDecimal discount;
+    private BigDecimal discount;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String notes;
-
-//    <!-- Currency Code, defaults to your base currency (Optional) -->  
-//    <currency_code>CAD</currency_code>
+    private String notes;
     @XmlElement(name = "currency_code", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String currencyCode;
-//    <!-- Terms (Optional) -->  
-//    <terms>Payment due in 30 days.</terms>
+    private String currencyCode;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String terms;
-    
-//  <!-- Return URI (Optional) -->  
-//  <return_uri>http://example.com/account</return_uri> 
+    private String terms;
     @XmlElement(name = "return_url", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String returnUri;
-    @XmlElements({
-        @XmlElement(name = "line", namespace = "http://www.freshbooks.com/api/", type = Line.class, required = false)
-    })
-    protected List<Line> lines;
+    private String returnUri;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Lines lines;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private FolderTypes folder;
+    @XmlElement(name = "recurring_id", namespace = "http://www.freshbooks.com/api/", required = false)
+    private String recurringId;
+    @XmlElement(name = "staff_id", namespace = "http://www.freshbooks.com/api/", required = false)
+    private String staffId;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String updated;
+    
+    /*    <invoice>        
+    <url deprecated="true">https://2ndsite.freshbooks.com/view/St2gThi6rA2t7RQ</url> <!-- (Read-only) -->  
+    <auth_url deprecated="true">https://2ndsite.freshbooks.com/invoices/344</auth_url> <!-- (Read-only) -->  
+    <links>  
+      <client_view>https://2ndsite.freshbooks.com/view/St2gThi6rA2t7RQ</client_view> <!-- (Read-only) -->  
+      <view>https://2ndsite.freshbooks.com/invoices/344</view> <!-- (Read-only) -->  
+      <edit>https://2ndsite.freshbooks.com/invoices/344/edit</edit> <!-- (Read-only) -->  
+    </links>  
+  </invoice>  */
+    public String getRecurringId() {
+        return recurringId;
+    }
+    
+    public String getUpdated() {
+        return updated;
+    }
+    
+    public String getStaffId() {
+        return staffId;
+    }
+    
+    public void setFolder(String staffId) {
+        this.staffId = staffId;
+    }
+    
+    public FolderTypes getFolder() {
+        return folder;
+    }
+    
+    public void setFolder(FolderTypes folder) {
+        this.folder = folder;
+    }
+    
+    public BigDecimal getAmountOutstanding() {
+        return amountOutstanding;
+    }
+    
+    public BigDecimal getAmount() {
+        return amount;
+    }
     
     public InvoiceStatusEnum getStatus() {
         if (status == null) {
@@ -149,9 +188,8 @@ public class Invoice extends BaseRole {
     }
     
     public List<Line> getLines() {
-        if(lines == null) {
-            lines = new ArrayList<Line>();
-        }
-        return lines;
+        if(lines == null)
+            lines = new Lines();
+        return lines.getLines();
     }
 }

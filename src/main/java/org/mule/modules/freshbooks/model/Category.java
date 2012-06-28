@@ -22,6 +22,12 @@ public class Category {
     private String name;
     @XmlElement(name = "category_id", namespace = "http://www.freshbooks.com/api/")
     private String id;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String updated;
+    
+    public String getUpdated() {
+        return updated;
+    }
 
     public String getName() {
         return name;

@@ -15,15 +15,15 @@
     <!-- (Optional) -->
     <home_phone>(555) 234-5678</home_phone>
     <!-- (Optional) -->
-    <mobile></mobile>
+<!--     <mobile></mobile> -->
     <!-- (Optional) -->
-    <fax></fax>
+<!--     <fax></fax> -->
     <!-- See language.list for codes. (Optional) -->
     <language>en</language>
     <!-- (Optional) -->
     <currency_code>USD</currency_code>
     <!-- (Optional) -->
-    <notes></notes>
+<!--     <notes></notes> -->
 
     <!-- Primary address (All optional) -->
     <p_street1>123 Fake St.</p_street1>
@@ -34,15 +34,15 @@
     <p_code>553132</p_code>
 
     <!-- Secondary address (All optional) -->
-    <s_street1></s_street1>
+<!--     <s_street1></s_street1>
     <s_street2></s_street2>
     <s_city></s_city>
     <s_state></s_state>
     <s_country></s_country>
-    <s_code></s_code>
+    <s_code></s_code> -->
     <!-- e.g. 'VAT Number' (Optional) -->
-    <vat_name></vat_name>
+<!--     <vat_name></vat_name> -->
     <!-- If set, shown with vat_name under client address (Optional) -->
-    <vat_number></vat_number>
+<!--     <vat_number></vat_number> -->
   </client>
 </request>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<request method="callback.create">  
+  <callback>  
+    <event>invoice.update</event>  
+    <!-- Must be a valid HTTP URI -->  
+    <uri>http://example.com/webhooks/ready</uri>  
+  </callback>  
+</request>

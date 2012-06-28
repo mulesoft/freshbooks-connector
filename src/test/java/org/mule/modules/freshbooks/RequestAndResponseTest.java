@@ -19,7 +19,6 @@ import javax.xml.bind.JAXBException;
 
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.mule.modules.freshbooks.model.EntityType;
 import org.mule.modules.freshbooks.model.Response;
 import org.springframework.core.io.ClassPathResource;
 import org.xml.sax.SAXException;
@@ -56,11 +55,15 @@ public abstract class RequestAndResponseTest extends XMLTestCase {
         return new String(baos.toByteArray());
     }
 
-    protected Object parseResponse(String file, EntityType type) {
-        Response response;
+    protected Response parseResponse(String file) {
+//        Response response;
         try {
-            response = (Response) FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(new ClassPathResource(file).getInputStream()));
-            return type.getResponseClass().getDeclaredConstructor(Response.class).newInstance(response);
+//            response = (Response) FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(new ClassPathResource(file).getInputStream()));
+//            return type.getResponseClass().getDeclaredConstructor(Response.class).newInstance(response);
+//        } catch (Exception e) {
+//            throw new FreshbooksException(e);
+//        }
+            return (Response) FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(new ClassPathResource(file).getInputStream()));
         } catch (Exception e) {
             throw new FreshbooksException(e);
         }

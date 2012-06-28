@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<response xmlns="http://www.freshbooks.com/api/" status="ok">  
+  <payments page="1" per_page="10" pages="23" total="221">  
+    <payment>  
+      <payment_id>165</payment_id>  
+      <invoice_id>203</invoice_id>  
+      <date>2007-03-02 12:04:11</date>  
+      <type>VISA</type>  
+      <notes></notes>  
+      <client_id>43</client_id>  
+      <currency_code>CAD</currency_code> <!-- Only returned for credits -->  
+      <updated>2009-08-12 09:00:00</updated> <!-- (Read-only) -->  
+      <gateway_transaction> <!-- (Read-only) --> <!-- Only returned for online payments -->  
+          <reference_id>2156858189</reference_id>  
+          <gateway_name>Authorize.Net</gateway_name>  
+      </gateway_transaction>  
+      <amount>301.21</amount>  
+    </payment>  
+  </payments>  
+</response>  
+

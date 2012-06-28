@@ -10,13 +10,11 @@
 
 package org.mule.modules.freshbooks.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(namespace = "http://www.freshbooks.com/api/", name="client")
@@ -24,42 +22,48 @@ import javax.xml.bind.annotation.XmlType;
 public class Client extends BaseRole {
 
     @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String id;
+    private String id;
     @XmlElement(name = "currency_code", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String currencyCode;
+    private String currencyCode;
     @XmlElement(namespace = "http://www.freshbooks.com/api/")
-    protected String email;
+    private String email;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String username;
+    private String username;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String password;
+    private String password;
     @XmlElement(name = "work_phone", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String workPhone;
+    private String workPhone;
     @XmlElement(name = "home_phone", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String homePhone;
+    private String homePhone;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String mobile;
+    private String mobile;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String fax;
+    private String fax;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String notes;
+    private String notes;
     @XmlElement(name = "s_street1", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String secondaryStreet1;
+    private String secondaryStreet1;
     @XmlElement(name = "s_street2", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String secondaryStreet2;
+    private String secondaryStreet2;
     @XmlElement(name = "s_city", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String secondaryCity;
+    private String secondaryCity;
     @XmlElement(name = "s_state", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String secondaryState;
+    private String secondaryState;
     @XmlElement(name = "s_country", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String secondaryCountry;
+    private String secondaryCountry;
     @XmlElement(name = "s_code", namespace = "http://www.freshbooks.com/api/", required = false)
-    protected String secondaryCode;
-    @XmlElements({
-            @XmlElement(name = "credit", namespace = "http://www.freshbooks.com/api/", type = Credit.class, required = false)
-    })
-    protected List<Credit> credits;
-
+    private String secondaryCode;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Credit credit;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Credits credits;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String updated;
+    
+    public String getUpdated() {
+        return updated;
+    }
+    
     public String getId() {
         return id;
     }
@@ -179,14 +183,13 @@ public class Client extends BaseRole {
     public void setSecondaryCode(String secondaryCode) {
         this.secondaryCode = secondaryCode;
     }
-
+    
     public List<Credit> getCredits() {
-        if(credits == null) {
-            credits = new ArrayList<Credit>();
-        }
-        return credits;
+        if(credits == null)
+            credits = new Credits();
+        return credits.getCredits();
     }
-
+    
     public String getCurrencyCode() {
         return currencyCode;
     }
@@ -194,4 +197,14 @@ public class Client extends BaseRole {
     public void setCurrencyCode(String currencyCode) {
         this.currencyCode = currencyCode;
     }
+
+    public Credit getCredit() {
+        return credit;
+    }
+    
+    public void setCredit(Credit credit) {
+        this.credit = credit;
+    }
+    
+    
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -19,9 +20,10 @@ import org.apache.log4j.Logger;
 import org.mule.modules.freshbooks.FreshbooksException;
 import org.mule.modules.freshbooks.FreshbooksMessageUtils;
 import org.mule.modules.freshbooks.model.BaseRequest;
-import org.mule.modules.freshbooks.model.BaseResponse;
 import org.mule.modules.freshbooks.model.EntityType;
+import org.mule.modules.freshbooks.model.Paged;
 import org.mule.modules.freshbooks.model.Response;
+import org.mule.modules.utils.pagination.PaginatedIterable;
 
 public class DefaultFreshbooksClient implements FreshbooksClient
 {
@@ -44,11 +46,11 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         this.client.getState().setCredentials(new AuthScope(this.apiUrl.getHost(), 443, AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
     }
 
-    private BaseResponse sendRequest(EntityType type, BaseRequest request) 
+    private Response sendRequest(BaseRequest request) 
     {
         String requestString = marshalRequest(request);
 
-        BaseResponse response;
+        Response response;
         PostMethod method = new PostMethod(apiUrl.toString());
         try {
             method.setContentChunked(false);
@@ -59,7 +61,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
 
             client.executeMethod(method);
             InputStream is = method.getResponseBodyAsStream();
-            response = unmarshalResponse(type, is);
+            response = unmarshalResponse(is);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw new FreshbooksException(e);
@@ -72,12 +74,11 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         return response;
     }
 
-    private BaseResponse unmarshalResponse(EntityType type, InputStream is) 
+    private Response unmarshalResponse(InputStream is) 
     {
-        Response response;
         try {
-            response = (Response) FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(is));
-            return (BaseResponse) type.getResponseClass().getDeclaredConstructor(Response.class).newInstance(response);
+            return (Response) FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(is));
+            //return (BaseResponse) type.getResponseClass().getDeclaredConstructor(Response.class).newInstance(response);
         } catch (Exception e) {
             throw new FreshbooksException(e);
         }
@@ -117,7 +118,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         
         request.setMethod(type.getResourceName() + "." + typeOfRequest);
 
-        BaseResponse response = sendRequest(type, request);
+        Response response = sendRequest(request);
         try {
             return (String) response.getClass().getMethod("get" + type.getSimpleName() + "Id").invoke(response);
         } catch (Exception e) {
@@ -149,7 +150,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         
         request.setMethod(type.getResourceName() + "." + typeOfRequest);
 
-        BaseResponse response = sendRequest(type, request);
+        Response response = sendRequest(request);
         try {
             return response.getClass().getMethod("get" + type.getSimpleName()).invoke(response);
         } catch (Exception e) {
@@ -158,17 +159,43 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public Object list(EntityType type) 
+    public <T> Iterable<T> list(final EntityType type) 
     {
-        BaseRequest request = type.getRequest();
-        request.setMethod(type.getResourceName() + ".list");
+        return new PaginatedIterable<T, Paged<T>>(){
 
-        BaseResponse response = sendRequest(type, request);
-        try {
-            return response.getClass().getMethod("get" + type.getNameForLists()).invoke(response);
-        } catch (Exception e) {
-            throw new FreshbooksException(e.getMessage());
-        }
+            @Override
+            protected Paged<T> firstPage() {
+                return askAnEspecificPage(1);
+            }
+
+            @Override
+            protected boolean hasNextPage(Paged<T> arg0) {
+                return arg0.getPage() < arg0.getPages();
+            }
+
+            @Override
+            protected Paged<T> nextPage(Paged<T> arg0) {
+                return askAnEspecificPage(arg0.getPage()+1);
+            }
+
+            @Override
+            protected Iterator<T> pageIterator(Paged<T> arg0) {
+                return arg0.iterator();
+            }
+            
+            private Paged<T> askAnEspecificPage(Integer pageNumber) {
+                BaseRequest request = type.getRequest();
+                request.setMethod(type.getResourceName() + ".list");
+                request.setPage(pageNumber);
+                
+                Response response = sendRequest(request);
+                try {
+                    return (Paged<T>) response.getClass().getMethod("get" + type.getNameForLists()).invoke(response);
+                } catch (Exception e) {
+                    throw new FreshbooksException(e.getMessage());
+                }
+            }
+        };
     }
     
     private static String getResourceAsString(InputStream in) throws IOException {

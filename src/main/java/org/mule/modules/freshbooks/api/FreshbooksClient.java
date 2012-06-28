@@ -12,5 +12,5 @@ public interface FreshbooksClient {
     
     public void delete(EntityType type, String id);
     
-    public Object list(EntityType type);
+    public <T> Iterable<T> list(EntityType type);
 }

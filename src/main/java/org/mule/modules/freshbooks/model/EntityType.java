@@ -5,29 +5,27 @@ import org.mule.modules.freshbooks.FreshbooksException;
 
 public enum EntityType {
     
-    CALLBACK(Callback.class, "Callbacks", CallbackRequest.class, CallbackResponse.class),
+    CALLBACK(Callback.class, "Callbacks", CallbackRequest.class),
     
-    CATEGORY(Category.class, "Categories", CategoryRequest.class, CategoryResponse.class),
+    CATEGORY(Category.class, "Categories", CategoryRequest.class),
     
-    CLIENT(Client.class, "Clients", ClientRequest.class, ClientResponse.class),
+    CLIENT(Client.class, "Clients", ClientRequest.class),
     
-    INVOICE(Invoice.class, "Invoices", InvoiceRequest.class, InvoiceResponse.class),
+    INVOICE(Invoice.class, "Invoices", InvoiceRequest.class),
     
-    ITEM(Item.class, "Items", ItemRequest.class, ItemResponse.class),
+    ITEM(Item.class, "Items", ItemRequest.class),
     
-    PAYMENT(Payment.class, "Payments", PaymentRequest.class, PaymentResponse.class);
+    PAYMENT(Payment.class, "Payments", PaymentRequest.class);
     
     private Class<?> type;
     private String plural;
     private Class<?> requestClazz;
-    private Class<?> responseClazz;
     
-    private EntityType(Class<?> clazz, String plural, Class<?> requestClazz, Class<?> responseClazz)
+    private EntityType(Class<?> clazz, String plural, Class<?> requestClazz)
     {
         this.type = clazz;
         this.plural = plural;
         this.requestClazz = requestClazz;
-        this.responseClazz = responseClazz;
     }
     
     public Class<?> getType()
@@ -57,10 +55,5 @@ public enum EntityType {
         } catch (Exception e) {
             throw new FreshbooksException(e.getMessage());
         }
-    }
-    
-    public Class<?> getResponseClass()
-    {
-        return responseClazz;
     }
 }

@@ -13,14 +13,16 @@ package org.mule.modules.freshbooks.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(namespace = "http://www.freshbooks.com/api/", name="credit")
 public class Credit {
     @XmlAttribute
-	String currency;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/")
-	double amount;
+    private String currency;
+    @XmlValue
+	private Double value;
 
     public String getCurrency() {
         return currency;
@@ -30,11 +32,11 @@ public class Credit {
         this.currency = currency;
     }
 
-    public double getAmount() {
-        return amount;
+    public Double getValue() {
+        return value;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setValue(Double value) {
+        this.value = value;
     }
 }

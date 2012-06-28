@@ -27,14 +27,11 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.modules.freshbooks.api.DefaultFreshbooksClient;
 import org.mule.modules.freshbooks.api.FreshbooksClient;
-import org.mule.modules.freshbooks.model.Categories;
 import org.mule.modules.freshbooks.model.Category;
 import org.mule.modules.freshbooks.model.Client;
-import org.mule.modules.freshbooks.model.Clients;
 import org.mule.modules.freshbooks.model.EntityType;
 import org.mule.modules.freshbooks.model.Invoice;
 import org.mule.modules.freshbooks.model.InvoiceStatusEnum;
-import org.mule.modules.freshbooks.model.Invoices;
 import org.mule.modules.utils.mom.JaxbMapObjectMappers;
 
 import com.zauberlabs.commons.mom.MapObjectMapper;
@@ -81,7 +78,7 @@ public class FreshbooksModule {
     public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
     }
-
+    
     /**
      * Create a new category. If successful, returns the category id of the newly created item.
      * 
@@ -149,8 +146,8 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public Categories listCategories() {
-        return (Categories) freshbooksClient.list(EntityType.CATEGORY);
+    public Iterable<Category> listCategories() {
+        return freshbooksClient.<Category>list(EntityType.CATEGORY);
     }
 
     /**
@@ -384,9 +381,9 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public Clients listClients() 
+    public Iterable<Client> listClients() 
     {
-        return (Clients) freshbooksClient.list(EntityType.CLIENT);
+        return freshbooksClient.<Client>list(EntityType.CLIENT);
     }
 
     /**
@@ -616,13 +613,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-invoices}
      * 
-     * @return A list of Invoices
+     * @return A iterable of Invoices
      * @throws FreshbooksException.
      */
     @Processor
-    public Invoices listInvoices()
+    public Iterable<Invoice> listInvoices()
     {
-        return (Invoices) freshbooksClient.list(EntityType.INVOICE);
+        return freshbooksClient.<Invoice>list(EntityType.INVOICE);
     }
     
     @PostConstruct

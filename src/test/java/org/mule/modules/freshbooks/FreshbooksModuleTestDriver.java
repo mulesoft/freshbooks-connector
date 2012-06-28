@@ -13,12 +13,21 @@
  */
 package org.mule.modules.freshbooks;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
-
-import org.mule.modules.freshbooks.FreshbooksModule;
 
 public class FreshbooksModuleTestDriver
 {
+    private static FreshbooksModule module;
+    
+    @BeforeClass
+    public static void init()
+    {
+        module = new FreshbooksModule();
+        module.setApiUrl("https://mulesofttest.freshbooks.com/api/2.1/xml-in");
+        module.setAuthenticationToken("4d8a62a53ec1b3426a625abd039babd9");
+        module.init();
+    }
     @Test
     public void invokeSomeMethodOnTheCloudConnector()
     {
@@ -33,5 +42,11 @@ public class FreshbooksModuleTestDriver
         Object result = connector.someMethod("sample input");
         assertEquals("expected output", result);
      */
+    }
+    @Test
+    public void createACategoryAndDeleteIt()
+    {
+        String categoryId = module.createCategory("MegaMarket3");
+        module.deleteCategory(categoryId);
     }
 }

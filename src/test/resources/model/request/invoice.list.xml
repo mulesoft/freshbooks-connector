@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<request method="invoice.list">  
+  <!-- Filter by client (Optional) -->  
+  <client_id>3</client_id>  
+  <!-- Filter by recurring id (Optional) -->  
+  <recurring_id>10</recurring_id>  
+  <!-- Filter by status (Optional) -->  
+  <status>draft</status>  
+  <!-- Returns invoices with a number like this arg (Optional) -->  
+  <number>FB00004</number>  
+  <!-- Return invoices dated after this arg (Optional) -->  
+  <date_from>2007-01-01</date_from>  
+  <!-- Return invoices dated before this arg (Optional) -->  
+  <date_to>2007-04-01</date_to>  
+  <!-- Return invoices modified after this arg (Optional) -->  
+  <updated_from>2007-01-01 00:00:00</updated_from>  
+  <!-- Return invoices modified before this arg (Optional) -->  
+  <updated_to>2007-01-02 00:00:00</updated_to>  
+  <!-- Page number to return, default is 1 (Optional) -->  
+  <page>1</page>  
+  <!-- Number of results per page, default is 25 (Optional) -->  
+  <per_page>10</per_page>  
+  <!-- One of 'active', 'archived', 'deleted' (Optional)-->  
+  <folder>active</folder>  
+</request>  

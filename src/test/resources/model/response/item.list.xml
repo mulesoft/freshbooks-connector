@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<response xmlns="http://www.freshbooks.com/api/" status="ok">  
+  <items page="1" per_page="10" pages="4" total="47">  
+    <item>  
+      <item_id>18</item_id>  
+      <name>Cheap Slippers</name>  
+      <description>Super tight!</description>  
+      <unit_cost>34.99</unit_cost>  
+      <quantity>10</quantity>  
+      <folder>active</folder>  
+      <inventory></inventory>  
+    </item>  
+    <item>  
+      <item_id>17</item_id>  
+      <name>Yard Work</name>  
+      <description>Gardening, trimming, etc.</description>  
+      <unit_cost>17.50</unit_cost>  
+      <quantity>4</quantity>  
+      <folder>active</folder>  
+      <inventory></inventory>  
+    </item>  
+  </items>  
+</response> 
