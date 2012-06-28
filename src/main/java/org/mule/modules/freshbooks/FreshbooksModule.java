@@ -27,11 +27,14 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.modules.freshbooks.api.DefaultFreshbooksClient;
 import org.mule.modules.freshbooks.api.FreshbooksClient;
+import org.mule.modules.freshbooks.model.Callback;
 import org.mule.modules.freshbooks.model.Category;
 import org.mule.modules.freshbooks.model.Client;
 import org.mule.modules.freshbooks.model.EntityType;
 import org.mule.modules.freshbooks.model.Invoice;
 import org.mule.modules.freshbooks.model.InvoiceStatusEnum;
+import org.mule.modules.freshbooks.model.WCallback;
+import org.mule.modules.freshbooks.model.WCallbackRequest;
 import org.mule.modules.utils.mom.JaxbMapObjectMappers;
 
 import com.zauberlabs.commons.mom.MapObjectMapper;
@@ -77,6 +80,105 @@ public class FreshbooksModule {
 
     public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
+    }
+    
+    /**
+     * Create a new callback for a specific event or a set of events.
+     *
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-callback}
+     *
+     * <p>Valid events</p>
+     * <p> * all</p>
+     * <p> * category</p>
+     * <p> * category.create</p>
+     * <p> * category.delete</p>
+     * <p> * category.update</p>
+     * <p> * client</p>
+     * <p> * client.create</p>
+     * <p> * client.delete</p>
+     * <p> * client.update</p>
+     * <p> * estimate</p>
+     * <p> * estimate.create</p>
+     * <p> * estimate.delete</p>
+     * <p> * estimate.sendByEmail</p>
+     * <p> * estimate.update</p>
+     * <p> * expense</p>
+     * <p> * expense.create</p>
+     * <p> * expense.delete</p>
+     * <p> * expense.update</p>
+     * <p> * invoice</p>
+     * <p> * invoice.create</p>
+     * <p> * invoice.delete</p>
+     * <p> * invoice.dispute</p>
+     * <p> * invoice.pastdue.1</p>
+     * <p> * invoice.pastdue.2</p>
+     * <p> * invoice.pastdue.3</p>
+     * <p> * invoice.sendByEmail</p>
+     * <p> * invoice.sendBySnailMail</p>
+     * <p> * invoice.update</p>
+     * <p> * item</p>
+     * <p> * item.create</p>
+     * <p> * item.delete</p>
+     * <p> * item.update</p>
+     * <p> * payment</p>
+     * <p> * payment.create</p>
+     * <p> * payment.delete</p>
+     * <p> * payment.update</p>
+     * <p> * project</p>
+     * <p> * project.create</p>
+     * <p> * project.delete</p>
+     * <p> * project.update</p>
+     * <p> * recurring</p>
+     * <p> * recurring.create</p>
+     * <p> * recurring.delete</p>
+     * <p> * recurring.update</p>
+     * <p> * staff</p>
+     * <p> * staff.create</p>
+     * <p> * staff.delete</p>
+     * <p> * staff.update</p>
+     * <p> * task</p>
+     * <p> * task.create</p>
+     * <p> * task.delete</p>
+     * <p> * task.update</p>
+     * <p> * time_entry</p>
+     * <p> * time_entry.create</p>
+     * <p> * time_entry.delete</p>
+     * <p> * time_entry.update</p>
+     * @param wCallback wrapper of a {@link Callback}
+     * @return callback id
+     */
+    @Processor
+    public String createCallback(@Optional @Default("#[payload]") WCallback wCallback)
+    {
+        return freshbooksClient.create(EntityType.CALLBACK, wCallback.getCallback());
+    }
+    
+    /**
+     * Return a list of registered callbacks. You can optionally filter by event or uri.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-callbacks}
+     * 
+     * @param wCallbackRequest wrapper of a {@link WCallbackRequest}
+     * @return iterable of callbacks
+     */
+    @Processor
+    public Iterable<Callback> listCallbacks(@Optional @Default("#[payload]") WCallbackRequest wCallbackRequest)
+    {
+        return freshbooksClient.list(EntityType.CALLBACK, wCallbackRequest.getCallbackRequest());
+    }
+
+    /**
+     * Deletes a callback.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-callback}
+     * 
+     * @param wCallback wrapper of a {@link WCallback}
+     * @param wCallback
+     */
+    @Processor
+    public void deleteCallback(@Optional @Default("#[payload]") WCallback wCallback)
+    {
+        freshbooksClient.delete(EntityType.CALLBACK, wCallback.getCallback().getId());
     }
     
     /**

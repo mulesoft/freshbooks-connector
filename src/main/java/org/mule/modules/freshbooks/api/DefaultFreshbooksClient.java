@@ -159,7 +159,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public <T> Iterable<T> list(final EntityType type) 
+    public <T> Iterable<T> list(final EntityType type, final BaseRequest request) 
     {
         return new PaginatedIterable<T, Paged<T>>(){
 
@@ -184,7 +184,6 @@ public class DefaultFreshbooksClient implements FreshbooksClient
             }
             
             private Paged<T> askAnEspecificPage(Integer pageNumber) {
-                BaseRequest request = type.getRequest();
                 request.setMethod(type.getResourceName() + ".list");
                 request.setPage(pageNumber);
                 

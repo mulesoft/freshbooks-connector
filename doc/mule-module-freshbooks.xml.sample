@@ -1,3 +1,15 @@
+<!-- BEGIN_INCLUDE(freshbooks:create-calllback) -->
+    <freshbooks:create-callback/>
+<!-- END_INCLUDE(freshbooks:create-callback) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-calllbacks) -->
+    <freshbooks:list-callbacks/>
+<!-- END_INCLUDE(freshbooks:list-callbacks) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-calllback) -->
+    <freshbooks:delete-callback/>
+<!-- END_INCLUDE(freshbooks:delete-callback) -->
+
 <!-- BEGIN_INCLUDE(freshbooks:create-category) -->
     <freshbooks:create-category name="#[header:categoryName]"/>
 <!-- END_INCLUDE(freshbooks:create-category) -->

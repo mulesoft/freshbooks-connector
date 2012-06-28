@@ -1,5 +1,6 @@
 package org.mule.modules.freshbooks.api;
 
+import org.mule.modules.freshbooks.model.BaseRequest;
 import org.mule.modules.freshbooks.model.EntityType;
 
 public interface FreshbooksClient {
@@ -12,5 +13,5 @@ public interface FreshbooksClient {
     
     public void delete(EntityType type, String id);
     
-    public <T> Iterable<T> list(EntityType type);
+    public <T> Iterable<T> list(EntityType type, BaseRequest request);
 }
