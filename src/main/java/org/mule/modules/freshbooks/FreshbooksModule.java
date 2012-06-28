@@ -28,13 +28,20 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.modules.freshbooks.api.DefaultFreshbooksClient;
 import org.mule.modules.freshbooks.api.FreshbooksClient;
 import org.mule.modules.freshbooks.model.Callback;
+import org.mule.modules.freshbooks.model.CallbackRequest;
 import org.mule.modules.freshbooks.model.Category;
+import org.mule.modules.freshbooks.model.CategoryRequest;
 import org.mule.modules.freshbooks.model.Client;
+import org.mule.modules.freshbooks.model.ClientRequest;
 import org.mule.modules.freshbooks.model.EntityType;
 import org.mule.modules.freshbooks.model.Invoice;
 import org.mule.modules.freshbooks.model.InvoiceStatusEnum;
 import org.mule.modules.freshbooks.model.WCallback;
 import org.mule.modules.freshbooks.model.WCallbackRequest;
+import org.mule.modules.freshbooks.model.WCategory;
+import org.mule.modules.freshbooks.model.WCategoryRequest;
+import org.mule.modules.freshbooks.model.WClient;
+import org.mule.modules.freshbooks.model.WClientRequest;
 import org.mule.modules.utils.mom.JaxbMapObjectMappers;
 
 import com.zauberlabs.commons.mom.MapObjectMapper;
@@ -158,7 +165,7 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-callbacks}
      * 
-     * @param wCallbackRequest wrapper of a {@link WCallbackRequest}
+     * @param wCallbackRequest wrapper of a {@link CallbackRequest}
      * @return iterable of callbacks
      */
     @Processor
@@ -172,7 +179,7 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-callback}
      * 
-     * @param wCallback wrapper of a {@link WCallback}
+     * @param wCallback wrapper of a {@link Callback}
      * @param wCallback
      */
     @Processor
@@ -186,15 +193,12 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-category}
      * 
-     * @param name The name of the category
+     * @param wCategory wrapper of a {@link Category}
      * @return The category id
      */
     @Processor
-    public String createCategory(String name) {
-        Category category = new Category();
-        category.setName(name);
-
-        return freshbooksClient.create(EntityType.CATEGORY, category);
+    public String createCategory(@Optional @Default("#[payload]") WCategory wCategory) {
+        return freshbooksClient.create(EntityType.CATEGORY, wCategory.getCategory());
     }
 
     /**
@@ -202,16 +206,12 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-category}
      *
-     * @param categoryId ID of the category to update
+     * @param wCategory wrapper of a {@link Category}
      * @param name       New name
      */
     @Processor
-    public void updateCategory(String categoryId, String name) {
-        Category category = new Category();
-        category.setName(name);
-        category.setId(categoryId);
-        
-        freshbooksClient.update(EntityType.CATEGORY, category);
+    public void updateCategory(@Optional @Default("#[payload]") WCategory wCategory) {
+        freshbooksClient.update(EntityType.CATEGORY, wCategory.getCategory());
     }
 
     /**
@@ -219,12 +219,12 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-category}
      *
-     * @param categoryId The Id of the category to retrieve
+     * @param wCategory wrapper of a {@link Category}
      * @return A {@link Category} object
      */
     @Processor
-    public Category getCategory(String categoryId) {
-        return (Category) freshbooksClient.get(EntityType.CATEGORY, categoryId);
+    public Category getCategory(@Optional @Default("#[payload]") WCategory wCategory) {
+        return (Category) freshbooksClient.get(EntityType.CATEGORY, wCategory.getCategory().getId());
     }
 
     /**
@@ -232,11 +232,11 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-category}
      *
-     * @param categoryId The Id of the category to delete
+     * @param wCategory wrapper of a {@link Category}
      */
     @Processor
-    public void deleteCategory(String categoryId) {
-        freshbooksClient.delete(EntityType.CATEGORY, categoryId);
+    public void deleteCategory(@Optional @Default("#[payload]") WCategory wCategory) {
+        freshbooksClient.delete(EntityType.CATEGORY, wCategory.getCategory().getId());
     }
 
     /**
@@ -244,12 +244,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-categories}
      *
-     * @return A list of categories
+     * @param wCategoryRequest wrapper of a {@link CategoryRequest}
+     * @return A iterable of categories
      * @throws FreshbooksException
      */
     @Processor
-    public Iterable<Category> listCategories() {
-        return freshbooksClient.<Category>list(EntityType.CATEGORY);
+    public Iterable<Category> listCategories(@Optional @Default("#[payload]") WCategoryRequest wCategoryRequest) {
+        return freshbooksClient.<Category>list(EntityType.CATEGORY, wCategoryRequest.getCategoryRequest());
     }
 
     /**
@@ -257,193 +258,26 @@ public class FreshbooksModule {
      *
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-client}
      *
-     * @param firstName        First name
-     * @param lastName         Last name
-     * @param organization     Organization
-     * @param email            Email
-     * @param username         Username
-     * @param password         Password. Defaults to random password.
-     * @param workPhone        Work phone
-     * @param homePhone        Home phone
-     * @param mobile           Mobile
-     * @param fax              Fax
-     * @param language         Language
-     * @param currencyCode     Currency code
-     * @param notes            Notes
-     * @param primaryStreet1   Primary street address
-     * @param primaryStreet2   Primary street address 2
-     * @param primaryCity      Primary city
-     * @param primaryState     Primary state
-     * @param primaryCountry   Primary country
-     * @param primaryZipCode   Primary zip code
-     * @param secondaryStreet1 Secondary street address
-     * @param secondaryStreet2 Secondary street address 2
-     * @param secondaryCity    Secondary city
-     * @param secondaryState   Secondary state
-     * @param secondaryCountry Secondary country
-     * @param secondaryZipCode Secondary zip code
-     * @param vatName          VAT name
-     * @param vatNumber        VAT number
+     * @param wClient wrapper of a {@link Client}
      * @return The id of the new client
      * @throws FreshbooksException
      */
     @Processor
-    public String createClient(String firstName, 
-                               String lastName, 
-                               String organization,
-                               String email, 
-                               @Optional String username,
-                               @Optional String password,
-                               @Optional String workPhone,
-                               @Optional String homePhone,
-                               @Optional String mobile,
-                               @Optional String fax,
-                               @Optional @Default("en") String language,
-                               @Optional String currencyCode,
-                               @Optional String notes,
-                               @Optional String primaryStreet1,
-                               @Optional String primaryStreet2,
-                               @Optional String primaryCity,
-                               @Optional String primaryState,
-                               @Optional String primaryCountry,
-                               @Optional String primaryZipCode,
-                               @Optional String secondaryStreet1,
-                               @Optional String secondaryStreet2,
-                               @Optional String secondaryCity,
-                               @Optional String secondaryState,
-                               @Optional String secondaryCountry,
-                               @Optional String secondaryZipCode,
-                               @Optional String vatName,
-                               @Optional String vatNumber) {
-        
-        Client client = (Client) mom.unmap(new MapBuilder()
-                          .with("firstName", firstName)
-                          .with("lastName", lastName)
-                          .with("organization", organization)
-                          .with("email", email)
-                          .with("username", username)
-                          .with("password", password)
-                          .with("workPhone", workPhone)
-                          .with("homePhone", homePhone)
-                          .with("mobile", mobile)
-                          .with("fax", fax)
-                          .with("language", language)
-                          .with("currencyCode", currencyCode)
-                          .with("notes", notes)
-                          .with("primaryStreet1", primaryStreet1)
-                          .with("primaryStreet2", primaryStreet2)
-                          .with("primaryCity", primaryCity)
-                          .with("primaryState", primaryState)
-                          .with("primaryCountry", primaryCountry)
-                          .with("primaryZipCode", primaryZipCode)
-                          .with("secondaryStreet1", secondaryStreet1)
-                          .with("secondaryStreet2", secondaryStreet2)
-                          .with("secondaryCity", secondaryCity)
-                          .with("secondaryState", secondaryState)
-                          .with("secondaryCountry", secondaryCountry)
-                          .with("secondaryZipCode", secondaryZipCode)
-                          .with("vatName", vatName)
-                          .with("vatNumber", vatNumber)
-                        , Client.class);
-        return freshbooksClient.create(EntityType.CLIENT, client);
+    public String createClient(@Optional @Default("#[payload]") WClient wClient) {
+        return freshbooksClient.create(EntityType.CLIENT, wClient.getClient());
     }
 
     /**
      * Update the details of the client with the given client_id. Any fields not referenced in the request will remain unchanged.
      *
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-client}
-     *
-     * @param clientId         Client Id to update
-     * @param firstName        First name
-     * @param lastName         Last name
-     * @param organization     Organization
-     * @param email            Email
-     * @param username         Username
-     * @param password         Password. Defaults to random password.
-     * @param workPhone        Work phone
-     * @param homePhone        Home phone
-     * @param mobile           Mobile
-     * @param fax              Fax
-     * @param language         Language
-     * @param currencyCode     Currency code
-     * @param notes            Notes
-     * @param primaryStreet1   Primary street address
-     * @param primaryStreet2   Primary street address 2
-     * @param primaryCity      Primary city
-     * @param primaryState     Primary state
-     * @param primaryCountry   Primary country
-     * @param primaryZipCode   Primary zip code
-     * @param secondaryStreet1 Secondary street address
-     * @param secondaryStreet2 Secondary street address 2
-     * @param secondaryCity    Secondary city
-     * @param secondaryState   Secondary state
-     * @param secondaryCountry Secondary country
-     * @param secondaryZipCode Secondary zip code
-     * @param vatName          VAT name
-     * @param vatNumber        VAT number
+     * @param wClient wrapper of a {@link Client}
      * @return The id of the new client
      * @throws FreshbooksException
      */
     @Processor
-    public void updateClient(String clientId, 
-                             String firstName, 
-                             String lastName, 
-                             String organization,
-                             String email, 
-                             @Optional String username,
-                             @Optional String password,
-                             @Optional String workPhone,
-                             @Optional String homePhone,
-                             @Optional String mobile,
-                             @Optional String fax,
-                             @Optional String language,
-                             @Optional String currencyCode,
-                             @Optional String notes,
-                             @Optional String primaryStreet1,
-                             @Optional String primaryStreet2,
-                             @Optional String primaryCity,
-                             @Optional String primaryState,
-                             @Optional String primaryCountry,
-                             @Optional String primaryZipCode,
-                             @Optional String secondaryStreet1,
-                             @Optional String secondaryStreet2,
-                             @Optional String secondaryCity,
-                             @Optional String secondaryState,
-                             @Optional String secondaryCountry,
-                             @Optional String secondaryZipCode,
-                             @Optional String vatName,
-                             @Optional String vatNumber) {
-        Client client = (Client) mom.unmap(new MapBuilder()
-                        .with("id", clientId)
-                        .with("firstName", firstName)
-                        .with("lastName", lastName)
-                        .with("organization", organization)
-                        .with("email", email)
-                        .with("username", username)
-                        .with("password", password)
-                        .with("workPhone", workPhone)
-                        .with("homePhone", homePhone)
-                        .with("mobile", mobile)
-                        .with("fax", fax)
-                        .with("language", language)
-                        .with("currencyCode", currencyCode)
-                        .with("notes", notes)
-                        .with("street1", primaryStreet1)
-                        .with("street2", primaryStreet2)
-                        .with("city", primaryCity)
-                        .with("state", primaryState)
-                        .with("country", primaryCountry)
-                        .with("zipCode", primaryZipCode)
-                        .with("secondaryStreet1", secondaryStreet1)
-                        .with("secondaryStreet2", secondaryStreet2)
-                        .with("secondaryCity", secondaryCity)
-                        .with("secondaryState", secondaryState)
-                        .with("secondaryCountry", secondaryCountry)
-                        .with("secondaryZipCode", secondaryZipCode)
-                        .with("vatName", vatName)
-                        .with("vatNumber", vatNumber)
-                      , Client.class);
-        freshbooksClient.update(EntityType.CLIENT, client);
+    public void updateClient(@Optional @Default("#[payload]") WClient wClient) {
+        freshbooksClient.update(EntityType.CLIENT, wClient.getClient());
     }
 
     /**
@@ -451,41 +285,40 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-client}
      * 
-     * @param clientId the id of the client to retrieve
+     * @param wClient wrapper of a {@link Client}
      * @return A {@link Client}
      * @throws FreshbooksException
      */
     @Processor
-    public Client getClient(String clientId) {
-        return (Client) freshbooksClient.get(EntityType.CLIENT, clientId);
+    public Client getClient(@Optional @Default("#[payload]") WClient wClient) {
+        return (Client) freshbooksClient.get(EntityType.CLIENT, wClient.getClient().getId());
     }
 
     /**
      * Delete the client with the given client_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-client}
-     *
-     * @param clientId the id of the client to retrieve
+     * @param wClient wrapper of a {@link Client}
      * @throws FreshbooksException
      */
     @Processor
-    public void deleteClient(String clientId) 
+    public void deleteClient(@Optional @Default("#[payload]") WClient wClient) 
     {
-        freshbooksClient.delete(EntityType.CLIENT, clientId);
+        freshbooksClient.delete(EntityType.CLIENT, wClient.getClient().getId());
     }
 
     /**
      * Returns a list of client summaries in order of descending client_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-clients}
-     *
+     * @param wClientRequest wrapper of a {@link ClientRequest}
      * @return A list of clients
      * @throws FreshbooksException
      */
     @Processor
-    public Iterable<Client> listClients() 
+    public Iterable<Client> listClients(@Optional @Default("#[payload]") WClientRequest wClientRequest) 
     {
-        return freshbooksClient.<Client>list(EntityType.CLIENT);
+        return freshbooksClient.<Client>list(EntityType.CLIENT, wClientRequest.getClientRequest());
     }
 
     /**
@@ -500,30 +333,6 @@ public class FreshbooksModule {
      *  
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-invoice}
      * 
-     * @param clientId         Client being invoiced.
-     * @param contacts         List of Contact.
-     * @param number           Number.
-     * @param status           Status. One of sent, viewed or draft. Defaults to draft.
-     * @param date             Date. If not supplied, defaults to today's date.
-     * @param poNumber         PO Number.
-     * @param discount         Percent Discount.
-     * @param notes            Notes.
-     * @param currencyCode     Currency Code. Defaults to your base currency.
-     * @param terms            Terms.
-     * @param returnUri        Return URI.
-     * @param firstName        First Name.
-     * @param lastName         Last Name.
-     * @param organization     Organization.
-     * @param primaryStreet1   Primary street address.
-     * @param primaryStreet2   Primary street address 2.
-     * @param primaryCity      Primary city.
-     * @param primaryState     Primary state.
-     * @param primaryCountry   Primary country.
-     * @param primaryZipCode   Primary zip code.
-     * @param language         Language code, defaults to the client's language.
-     * @param vatName          VAT Name. If set, shown with vat_name under client address.
-     * @param vatNumber        VatNumber.
-     * @param lines            List of Line. Specify one or more line elements.
      * @return The invoiceId.
      * @throws FreshbooksException
      */
