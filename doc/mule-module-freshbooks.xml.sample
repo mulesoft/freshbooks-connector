@@ -1,29 +1,29 @@
-<!-- BEGIN_INCLUDE(freshbooks:create-calllback) -->
+<!-- BEGIN_INCLUDE(freshbooks:create-callback) -->
     <freshbooks:create-callback/>
 <!-- END_INCLUDE(freshbooks:create-callback) -->
 
-<!-- BEGIN_INCLUDE(freshbooks:list-calllbacks) -->
+<!-- BEGIN_INCLUDE(freshbooks:list-callbacks) -->
     <freshbooks:list-callbacks/>
 <!-- END_INCLUDE(freshbooks:list-callbacks) -->
 
-<!-- BEGIN_INCLUDE(freshbooks:delete-calllback) -->
+<!-- BEGIN_INCLUDE(freshbooks:delete-callback) -->
     <freshbooks:delete-callback/>
 <!-- END_INCLUDE(freshbooks:delete-callback) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:create-category) -->
-    <freshbooks:create-category name="#[header:categoryName]"/>
+    <freshbooks:create-category/>
 <!-- END_INCLUDE(freshbooks:create-category) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:update-category) -->
-    <freshbooks:update-category categoryId="#[header:categoryId]" name="#[header:categoryName]"/>
+    <freshbooks:update-category/>
 <!-- END_INCLUDE(freshbooks:update-category) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:get-category) -->
-    <freshbooks:get-category categoryId="#[header:categoryId]"/>
+    <freshbooks:get-category/>
 <!-- END_INCLUDE(freshbooks:get-category) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:delete-category) -->
-    <freshbooks:delete-category categoryId="#[header:categoryId]"/>
+    <freshbooks:delete-category/>
 <!-- END_INCLUDE(freshbooks:delete-category) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:list-categories) -->
@@ -31,72 +31,19 @@
 <!-- END_INCLUDE(freshbooks:list-categories) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:create-client) -->
-    <freshbooks:create-client firstName="#[header:firstName]"
-                              lastName="#[header:lastName]"
-                              organization="#[header:organization]"
-                              email="#[header:email]"
-                              username="#[header:username]"
-                              password="#[header:password]"
-                              workPhone="#[header:workPhone]"
-                              homePhone="#[header:homePhone]"
-                              mobile="#[header:mobile]"
-                              fax="#[header:fax]"
-                              language="#[header:language]"
-                              currencyCode="#[header:currencyCode]"
-                              notes="#[header:notes]"
-                              primaryStreet1="#[header:primaryStreet1]"
-                              primaryStreet2="#[header:primaryStreet2]"
-                              primaryCity="#[header:primaryCity]"
-                              primaryState="#[header:primaryState]"
-                              primaryCountry="#[header:primaryCountry]"
-                              primaryZipCode="#[header:primaryZipCode]"
-                              secondaryStreet1="#[header:secondaryStreet1]"
-                              secondaryStreet2="#[header:secondaryStreet2]"
-                              secondaryCity="#[header:secondaryCity]"
-                              secondaryState="#[header:secondaryState]"
-                              secondaryCountry="#[header:secondaryCountry]"
-                              secondaryZipCode="#[header:secondaryZipCode]"
-                              vatName="#[header:vatName]"
-                              vatNumber="#[header:vatNumber]" />
+    <freshbooks:create-client/>
 <!-- END_INCLUDE(freshbooks:create-client) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:update-client) -->
-    <freshbooks:update-client clientId="#[header:clientId]"
-                              firstName="#[header:firstName]"
-                              lastName="#[header:lastName]"
-                              organization="#[header:organization]"
-                              email="#[header:email]"
-                              username="#[header:username]"
-                              password="#[header:password]"
-                              workPhone="#[header:workPhone]"
-                              homePhone="#[header:homePhone]"
-                              mobile="#[header:mobile]"
-                              fax="#[header:fax]"
-                              language="#[header:language]"
-                              currencyCode="#[header:currencyCode]"
-                              notes="#[header:notes]"
-                              primaryStreet1="#[header:primaryStreet1]"
-                              primaryStreet2="#[header:primaryStreet2]"
-                              primaryCity="#[header:primaryCity]"
-                              primaryState="#[header:primaryState]"
-                              primaryCountry="#[header:primaryCountry]"
-                              primaryZipCode="#[header:primaryZipCode]"
-                              secondaryStreet1="#[header:secondaryStreet1]"
-                              secondaryStreet2="#[header:secondaryStreet2]"
-                              secondaryCity="#[header:secondaryCity]"
-                              secondaryState="#[header:secondaryState]"
-                              secondaryCountry="#[header:secondaryCountry]"
-                              secondaryZipCode="#[header:secondaryZipCode]"
-                              vatName="#[header:vatName]"
-                              vatNumber="#[header:vatNumber]" />
+    <freshbooks:update-client/>
 <!-- END_INCLUDE(freshbooks:update-client) -->
      
 <!-- BEGIN_INCLUDE(freshbooks:get-client) -->
-    <freshbooks:get-client clientId="#[header:clientId]" />
+    <freshbooks:get-client/>
 <!-- END_INCLUDE(freshbooks:get-client) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:delete-client) -->
-    <freshbooks:delete-client clientId="#[header:clientId]" />
+    <freshbooks:delete-client/>
 <!-- END_INCLUDE(freshbooks:delete-client) -->
      
 <!-- BEGIN_INCLUDE(freshbooks:list-clients) -->
@@ -104,70 +51,61 @@
 <!-- END_INCLUDE(freshbooks:list-clients) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:create-invoice) -->
-    <freshbooks:create-invoice clientId="#[header:clientId]"
-                               number="#[header:number]"
-                               status="#[header:status]"
-                               date="#[header:date]"
-                               poNumber="#[header:poNumber]"
-                               discount="#[header:discount]"
-                               notes="#[header:notes]"
-                               currencyCode="#[header:currencyCode]"
-                               terms="#[header:terms]"
-                               returnUri="#[header:returnUri]"
-                               firstName="#[header:firstName]"
-                               lastName="#[header:lastName]"
-                               organization="#[header:organization]"
-                               primaryStreet1="#[header:primaryStreet1]"
-                               primaryStreet2="#[header:primaryStreet2]"
-                               primaryCity="#[header:primaryCity]"
-                               primaryState="#[header:primaryState]"
-                               primaryCountry="#[header:primaryCountry]"
-                               primaryCode="#[header:primaryCode]"
-                               language="#[header:language]"
-                               vatName="#[header:vatName]"
-                               vatNumber="#[header:vatNumber]" >
-        <freshbooks:contacts ref="#[header:contacts]" />
-        <freshbooks:lines ref="#[header:lines]" />
-    </freshbooks:update-invoice>
+    <freshbooks:create-invoice />
 <!-- END_INCLUDE(freshbooks:create-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:update-invoice) -->
-    <freshbooks:update-invoice invoiceId="#[header:invoiceId]"
-                               clientId="#[header:clientId]"
-                               number="#[header:number]"
-                               status="#[header:status]"
-                               date="#[header:date]"
-                               poNumber="#[header:poNumber]"
-                               discount="#[header:discount]"
-                               notes="#[header:notes]"
-                               currencyCode="#[header:currencyCode]"
-                               terms="#[header:terms]"
-                               returnUri="#[header:returnUri]"
-                               firstName="#[header:firstName]"
-                               lastName="#[header:lastName]"
-                               organization="#[header:organization]"
-                               primaryStreet1="#[header:primaryStreet1]"
-                               primaryStreet2="#[header:primaryStreet2]"
-                               primaryCity="#[header:primaryCity]"
-                               primaryState="#[header:primaryState]"
-                               primaryCountry="#[header:primaryCountry]"
-                               primaryCode="#[header:primaryCode]"
-                               language="#[header:language]"
-                               vatName="#[header:vatName]"
-                               vatNumber="#[header:vatNumber]" >
-        <freshbooks:contacts ref="#[header:contacts]" />
-        <freshbooks:lines ref="#[header:lines]" />
-    </freshbooks:update-invoice>
+    <freshbooks:update-invoice />
 <!-- END_INCLUDE(freshbooks:update-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:get-invoice) -->
-    <freshbooks:get-invoice invoiceId="#[header:invoiceId]" />
+    <freshbooks:get-invoice/>
 <!-- END_INCLUDE(freshbooks:invoice-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:delete-invoice) -->
-    <freshbooks:delete-invoice invoiceId="#[header:invoiceId]" />
+    <freshbooks:delete-invoice/>
 <!-- END_INCLUDE(freshbooks:delete-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:list-invoices) -->
     <freshbooks:list-invoices />
 <!-- END_INCLUDE(freshbooks:list-invoices) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:create-item) -->
+    <freshbooks:create-item />
+<!-- END_INCLUDE(freshbooks:create-item) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:update-item) -->
+    <freshbooks:update-item />
+<!-- END_INCLUDE(freshbooks:update-item) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-item) -->
+    <freshbooks:get-item/>
+<!-- END_INCLUDE(freshbooks:invoice-item) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-item) -->
+    <freshbooks:delete-item/>
+<!-- END_INCLUDE(freshbooks:delete-item) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-items) -->
+    <freshbooks:list-items />
+<!-- END_INCLUDE(freshbooks:list-items) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:create-payment) -->
+    <freshbooks:create-payment />
+<!-- END_INCLUDE(freshbooks:create-payment) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:update-payment) -->
+    <freshbooks:update-payment />
+<!-- END_INCLUDE(freshbooks:update-payment) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-payment) -->
+    <freshbooks:get-payment/>
+<!-- END_INCLUDE(freshbooks:invoice-payment) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-payment) -->
+    <freshbooks:delete-payment/>
+<!-- END_INCLUDE(freshbooks:delete-payment) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-payments) -->
+    <freshbooks:list-payments />
+<!-- END_INCLUDE(freshbooks:list-payments) -->

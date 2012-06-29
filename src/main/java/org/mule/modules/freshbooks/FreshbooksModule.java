@@ -13,10 +13,6 @@
  */
 package org.mule.modules.freshbooks;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
@@ -35,13 +31,23 @@ import org.mule.modules.freshbooks.model.Client;
 import org.mule.modules.freshbooks.model.ClientRequest;
 import org.mule.modules.freshbooks.model.EntityType;
 import org.mule.modules.freshbooks.model.Invoice;
-import org.mule.modules.freshbooks.model.InvoiceStatusEnum;
+import org.mule.modules.freshbooks.model.InvoiceRequest;
+import org.mule.modules.freshbooks.model.Item;
+import org.mule.modules.freshbooks.model.ItemRequest;
+import org.mule.modules.freshbooks.model.Payment;
+import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.WCallback;
 import org.mule.modules.freshbooks.model.WCallbackRequest;
 import org.mule.modules.freshbooks.model.WCategory;
 import org.mule.modules.freshbooks.model.WCategoryRequest;
 import org.mule.modules.freshbooks.model.WClient;
 import org.mule.modules.freshbooks.model.WClientRequest;
+import org.mule.modules.freshbooks.model.WInvoice;
+import org.mule.modules.freshbooks.model.WInvoiceRequest;
+import org.mule.modules.freshbooks.model.WItem;
+import org.mule.modules.freshbooks.model.WItemRequest;
+import org.mule.modules.freshbooks.model.WPayment;
+import org.mule.modules.freshbooks.model.WPaymentRequest;
 import org.mule.modules.utils.mom.JaxbMapObjectMappers;
 
 import com.zauberlabs.commons.mom.MapObjectMapper;
@@ -312,7 +318,7 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-clients}
      * @param wClientRequest wrapper of a {@link ClientRequest}
-     * @return A list of clients
+     * @return A iterable of clients
      * @throws FreshbooksException
      */
     @Processor
@@ -332,66 +338,14 @@ public class FreshbooksModule {
      *  presented with a link to the URI when they pay the invoice.</p>
      *  
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-invoice}
-     * 
+     * @param wInvoice wrapper of a {@link Invoice}
      * @return The invoiceId.
      * @throws FreshbooksException
      */
     @Processor
-    public String createInvoice(String clientId,
-                                @Optional List<Map<String, Object>> contacts,
-                                @Optional String number,
-                                @Optional InvoiceStatusEnum status,
-                                @Optional String date,
-                                @Optional String poNumber,
-                                @Optional Double discount,
-                                @Optional String notes,
-                                @Optional String currencyCode,
-                                @Optional String terms,
-                                @Optional String returnUri,
-                                @Optional String firstName,
-                                @Optional String lastName,
-                                @Optional String organization,
-                                @Optional String primaryStreet1,
-                                @Optional String primaryStreet2,
-                                @Optional String primaryCity,
-                                @Optional String primaryState,
-                                @Optional String primaryCountry,
-                                @Optional String primaryZipCode,
-                                @Optional String language,
-                                @Optional String vatName,
-                                @Optional String vatNumber,
-                                @Optional List<Map<String, Object>> lines
-                                )
+    public String createInvoice(@Optional @Default("#[payload]") WInvoice wInvoice)
     {
-        Invoice invoice = (Invoice) mom.unmap(new MapBuilder()
-                .with("clientId", clientId)
-                .with("contacts", contacts)
-                .with("number", number)
-                .with("status", status)
-                .with("date", date)
-                .with("poNumber", poNumber)
-                .with("discount", BigDecimal.valueOf(discount))
-                .with("notes", notes)
-                .with("currencyCode", currencyCode)
-                .with("terms", terms)
-                .with("returnUri", returnUri)
-                .with("firstName", firstName)
-                .with("lastName", lastName)
-                .with("organization", organization)
-                .with("street1", primaryStreet1)
-                .with("street2", primaryStreet2)
-                .with("city", primaryCity)
-                .with("state", primaryState)
-                .with("country", primaryCountry)
-                .with("code", primaryZipCode)
-                .with("language", language)
-                .with("vatName", vatName)
-                .with("vatNumber", vatNumber)
-                .with("lines", lines)
-                .build()
-             , Invoice.class);
-
-        return freshbooksClient.create(EntityType.INVOICE, invoice);
+        return freshbooksClient.create(EntityType.INVOICE, wInvoice.getInvoice());
     }
     
     /**
@@ -402,90 +356,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-invoice}
      * 
-     * @param invoiceId        Invoice to update.
-     * @param clientId         Client being invoiced.
-     * @param contacts         List of Contact.
-     * @param number           Number.
-     * @param status           Status. One of sent, viewed or draft. Defaults to draft.
-     * @param date             Date. If not supplied, defaults to today's date.
-     * @param poNumber         PO Number.
-     * @param discount         Percent Discount.
-     * @param notes            Notes.
-     * @param currencyCode     Currency Code. Defaults to your base currency.
-     * @param terms            Terms.
-     * @param returnUri        Return URI.
-     * @param firstName        First Name.
-     * @param lastName         Last Name.
-     * @param organization     Organization.
-     * @param primaryStreet1   Primary street address.
-     * @param primaryStreet2   Primary street address 2.
-     * @param primaryCity      Primary city.
-     * @param primaryState     Primary state.
-     * @param primaryCountry   Primary country.
-     * @param primaryZipCode   Primary zip code.
-     * @param language         Language code, defaults to the client's language.
-     * @param vatName          VAT Name. If set, shown with vat_name under client address.
-     * @param vatNumber        VatNumber.
-     * @param lines            List of Line. Specify one or more line elements.
+     * @param wInvoice wrapper of a {@link Invoice}
      * @throws FreshbooksException
      */
     @Processor 
-    public void updateInvoice(String invoiceId,
-                              String clientId,
-                              @Optional List<Map<String, Object>> contacts,
-                              @Optional String number,
-                              @Optional InvoiceStatusEnum status,
-                              @Optional String date,
-                              @Optional String poNumber,
-                              @Optional Double discount,
-                              @Optional String notes,
-                              @Optional String currencyCode,
-                              @Optional String terms,
-                              @Optional String returnUri,
-                              @Optional String firstName,
-                              @Optional String lastName,
-                              @Optional String organization,
-                              @Optional String primaryStreet1,
-                              @Optional String primaryStreet2,
-                              @Optional String primaryCity,
-                              @Optional String primaryState,
-                              @Optional String primaryCountry,
-                              @Optional String primaryZipCode,
-                              @Optional String language,
-                              @Optional String vatName,
-                              @Optional String vatNumber,
-                              @Optional List<Map<String, Object>> lines)
+    public void updateInvoice(@Optional @Default("#[payload]") WInvoice wInvoice)
     {
-        Invoice invoice = (Invoice) mom.unmap(new MapBuilder()
-                .with("id", invoiceId)
-                .with("clientId", clientId)
-                .with("contacts", contacts)
-                .with("number", number)
-                .with("status", status)
-                .with("date", date)
-                .with("poNumber", poNumber)
-                .with("discount", BigDecimal.valueOf(discount))
-                .with("notes", notes)
-                .with("currencyCode", currencyCode)
-                .with("terms", terms)
-                .with("returnUri", returnUri)
-                .with("firstName", firstName)
-                .with("lastName", lastName)
-                .with("organization", organization)
-                .with("street1", primaryStreet1)
-                .with("street2", primaryStreet2)
-                .with("city", primaryCity)
-                .with("state", primaryState)
-                .with("country", primaryCountry)
-                .with("code", primaryZipCode)
-                .with("language", language)
-                .with("vatName", vatName)
-                .with("vatNumber", vatNumber)
-                .with("lines", lines)
-                .build()
-             , Invoice.class);
-        
-        freshbooksClient.update(EntityType.INVOICE, invoice);
+        freshbooksClient.update(EntityType.INVOICE, wInvoice.getInvoice());
     }
     
     /**
@@ -495,14 +372,14 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-invoice}
      * 
-     * @param invoiceId Id of the Invoice to be retrieved.
+     * @param wInvoice wrapper of a {@link Invoice}
      * @return The invoice retrieved.
      * @throws FreshbooksException.
      */
     @Processor
-    public Invoice getInvoice(String invoiceId)
+    public Invoice getInvoice(@Optional @Default("#[payload]") WInvoice wInvoice)
     {
-        return (Invoice) freshbooksClient.get(EntityType.INVOICE, invoiceId);
+        return (Invoice) freshbooksClient.get(EntityType.INVOICE, wInvoice.getInvoice().getId());
     }
     
     /**
@@ -510,27 +387,180 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-invoice}
      * 
-     * @param invoiceId Id of the Invoice to be deleted
+     * @param wInvoice wrapper of a {@link Invoice}
      * @throws FreshbooksException.
      */
     @Processor
-    public void deleteInvoice(String invoiceId)
+    public void deleteInvoice(@Optional @Default("#[payload]") WInvoice wInvoice)
     {
-        freshbooksClient.delete(EntityType.INVOICE, invoiceId);
+        freshbooksClient.delete(EntityType.INVOICE, wInvoice.getInvoice().getId());
     }
     
     /**
      * Returns a list of invoice summaries. Results are ordered by descending invoice_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-invoices}
-     * 
+     * @param wInvoiceRequest wrapper of a {@link InvoiceRequest}
      * @return A iterable of Invoices
      * @throws FreshbooksException.
      */
     @Processor
-    public Iterable<Invoice> listInvoices()
+    public Iterable<Invoice> listInvoices(@Optional @Default("#[payload]") WInvoiceRequest wInvoiceRequest)
     {
-        return freshbooksClient.<Invoice>list(EntityType.INVOICE);
+        return freshbooksClient.<Invoice>list(EntityType.INVOICE, wInvoiceRequest.getInvoiceRequest());
+    }
+    
+    /**
+     * <p>Create a new item and return the corresponding item_id. </p>
+     *  
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-item}
+     * @param wItem wrapper of a {@link Item}
+     * @return The itemId.
+     * @throws FreshbooksException
+     */
+    @Processor
+    public String createItem(@Optional @Default("#[payload]") WItem wItem)
+    {
+        return freshbooksClient.create(EntityType.ITEM, wItem.getItem());
+    }
+    
+    /**
+     * <p>Update an existing item. All fields aside from the item_id are optional; 
+     * by omitting a field, the existing value will remain unchanged. </p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-item}
+     * 
+     * @param wItem wrapper of a {@link Item}
+     * @throws FreshbooksException
+     */
+    @Processor 
+    public void updateItem(@Optional @Default("#[payload]") WItem wItem)
+    {
+        freshbooksClient.update(EntityType.ITEM, wItem.getItem());
+    }
+    
+    /**
+     * <p>Get an existing item with the given item_id. </p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-item}
+     * 
+     * @param wItem wrapper of a {@link Item}
+     * @return The item retrieved.
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Item getItem(@Optional @Default("#[payload]") WItem wItem)
+    {
+        return (Item) freshbooksClient.get(EntityType.ITEM, wItem.getItem().getId());
+    }
+    
+    /**
+     * Delete an existing item.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-item}
+     * 
+     * @param wItem wrapper of a {@link Item}
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deleteItem(@Optional @Default("#[payload]") WItem wItem)
+    {
+        freshbooksClient.delete(EntityType.ITEM, wItem.getItem().getId());
+    }
+    
+    /**
+     * Returns a list of items, ordered by descending item_id. 
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-items}
+     * @param wItemRequest wrapper of a {@link ItemRequest}
+     * @return A iterable of Items
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<Item> listItems(@Optional @Default("#[payload]") WItemRequest wItemRequest)
+    {
+        return freshbooksClient.<Item>list(EntityType.ITEM, wItemRequest.getItemRequest());
+    }
+    
+    /**
+     * Create a new payment and returns the corresponding payment_id.
+     * <p>This function can have one of three possible effects depending on the presence of invoice_id and client_id:</p>
+     * <p> * If you specify an invoice_id only, the payment will be recorded as an invoice payment.</p>
+     * <p> * If you specify a client_id only, the payment will be recorded as a client credit.</p>
+     * <p> * If you specify both an invoice_id and client_id, the payment will be recorded as an invoice payment, 
+     * and the amount will be subtracted from the client's credit.</p>
+     * <p>Note that 'currency_code' can only be provided when creating a credit, not a regular payment. Regular payments 
+     * will default to the currency code of the invoice they are being made against.</p> 
+     *  
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-payment}
+     * @param wPayment wrapper of a {@link Payment}
+     * @return The paymentId.
+     * @throws FreshbooksException
+     */
+    @Processor
+    public String createPayment(@Optional @Default("#[payload]") WPayment wPayment)
+    {
+        return freshbooksClient.create(EntityType.PAYMENT, wPayment.getPayment());
+    }
+    
+    /**
+     * <p>Update an existing payment. All fields besides payment_id are optional - unpassed 
+     * fields will retain their existing value.</p>
+     * <p>Note that 'currency_code' can only be provided when updating a credit, not a regular payment. 
+     * Regular payments will default to the currency code of the invoice they are being made against.</p> 
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-payment}
+     * 
+     * @param wPayment wrapper of a {@link Payment}
+     * @throws FreshbooksException
+     */
+    @Processor 
+    public void updatePayment(@Optional @Default("#[payload]") WPayment wPayment)
+    {
+        freshbooksClient.update(EntityType.PAYMENT, wPayment.getPayment());
+    }
+    
+    /**
+     * <p>Retrieve payment details according to payment_id. </p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-payment}
+     * 
+     * @param wPayment wrapper of a {@link Payment}
+     * @return The payment retrieved.
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Payment getPayment(@Optional @Default("#[payload]") WPayment wPayment)
+    {
+        return (Payment) freshbooksClient.get(EntityType.PAYMENT, wPayment.getPayment().getId());
+    }
+    
+    /**
+     * Permanently delete a payment. This will modify the status of the associated invoice if required.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-payment}
+     * 
+     * @param wPayment wrapper of a {@link Payment}
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deletePayment(@Optional @Default("#[payload]") WPayment wPayment)
+    {
+        freshbooksClient.delete(EntityType.PAYMENT, wPayment.getPayment().getId());
+    }
+    
+    /**
+     * Returns a list of payment summaries. Results are ordered by descending payment_id.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-payments}
+     * @param wPaymentRequest wrapper of a {@link PaymentRequest}
+     * @return A iterable of Payments
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<Payment> listPayments(@Optional @Default("#[payload]") WPaymentRequest wPaymentRequest)
+    {
+        return freshbooksClient.<Payment>list(EntityType.PAYMENT, wPaymentRequest.getPaymentRequest());
     }
     
     @PostConstruct
