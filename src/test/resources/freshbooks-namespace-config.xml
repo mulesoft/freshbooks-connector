@@ -11,26 +11,49 @@
                        authenticationToken="d2712de2609e665e03948614ad7197fc"/>
 
     <flow name="categoryFlow">
-        <freshbooks:create-category name="#[header:name]" />
-        <freshbooks:get-category categoryId="#[header:categoryId]" />
-        <freshbooks:update-category categoryId="#[header:categoryId]"  
-                                    name="#[header:name]" />
-        <freshbooks:delete-category categoryId="#[header:categoryId]" />
+        <freshbooks:create-category/>
+        <freshbooks:get-category/>
+        <freshbooks:update-category />
+        <freshbooks:delete-category />
         <freshbooks:list-categories/>
     </flow>
 
     <flow name="clientFlow">
-        <freshbooks:create-client firstName="#[header:firstName]" 
-                                  lastName="#[header:lastName]" 
-                                  organization="#[header:organization]" 
-                                  email="#[header:email]" />
-        <freshbooks:get-client clientId="#[header:clientId]"/>
-        <freshbooks:update-client clientId="#[header:clientId]" 
-                                  firstName="#[header:firstName]" 
-                                  lastName="#[header:lastName]" 
-                                  organization="#[header:organization]" 
-                                  email="#[header:email]" />
-        <freshbooks:delete-client clientId="#[header:clientId]" />
+        <freshbooks:create-client />
+        <freshbooks:get-client />
+        <freshbooks:update-client />
+        <freshbooks:delete-client />
         <freshbooks:list-clients/>
     </flow>
+    
+    <flow name="itemFlow">
+        <freshbooks:create-item />
+        <freshbooks:get-item />
+        <freshbooks:update-item />
+        <freshbooks:delete-item />
+        <freshbooks:list-items/>
+    </flow>
+    
+    <flow name="invoiceFlow">
+        <freshbooks:create-invoice />
+        <freshbooks:get-invoice />
+        <freshbooks:update-invoice />
+        <freshbooks:delete-invoice />
+        <freshbooks:list-invoices/>
+    </flow>
+    
+    <flow name="paymentFlow">
+        <freshbooks:create-payment />
+        <freshbooks:get-payment />
+        <freshbooks:update-payment />
+        <freshbooks:delete-payment />
+        <freshbooks:list-payments/>
+    </flow>
+    
+    <flow name="callbackFlow">
+        <freshbooks:create-callback />
+        <freshbooks:delete-callback />
+        <freshbooks:list-callbacks/>
+    </flow>
+    
 </mule>

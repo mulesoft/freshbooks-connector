@@ -36,24 +36,6 @@
                        </dependency>
                  </dependencies>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <packageName>org.mule.modules.quickbooks.schema</packageName>
-                    <schemaDirectory>src/main/resources/schema</schemaDirectory>
-                    <schemaFiles>
-                        FreshBooksApi.xsd
-                    </schemaFiles>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

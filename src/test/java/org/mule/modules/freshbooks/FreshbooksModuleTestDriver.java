@@ -15,6 +15,8 @@ package org.mule.modules.freshbooks;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mule.modules.freshbooks.model.Category;
+import org.mule.modules.freshbooks.model.WCategory;
 
 public class FreshbooksModuleTestDriver
 {
@@ -46,7 +48,13 @@ public class FreshbooksModuleTestDriver
     @Test
     public void createACategoryAndDeleteIt()
     {
-        String categoryId = module.createCategory("MegaMarket3");
-        module.deleteCategory(categoryId);
+        Category cat =  new Category();
+        cat.setName("MegaMarket3");
+        WCategory wCategory = new WCategory();
+        wCategory.setCategory(cat);
+        
+        String categoryId = module.createCategory(wCategory);
+        cat.setId(categoryId);
+        module.deleteCategory(wCategory);
     }
 }
