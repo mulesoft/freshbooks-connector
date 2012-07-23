@@ -28,9 +28,9 @@
             <version>3.1</version>
         </dependency>
             <dependency>
-            <groupId>org.mule.modules</groupId>
+            <groupId>com.mulesoft.modules</groupId>
             <artifactId>mule-modules-utils</artifactId>
-            <version>1.0</version>
+            <version>1.1.2</version>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
