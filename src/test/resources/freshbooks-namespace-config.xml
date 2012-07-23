@@ -12,7 +12,7 @@
 
     <flow name="categoryFlow">
         <freshbooks:create-category/>
-        <freshbooks:get-category/>
+        <freshbooks:get-category categoryId="#[groovy:payload.id]" />
         <freshbooks:update-category />
         <freshbooks:delete-category />
         <freshbooks:list-categories/>
@@ -20,7 +20,7 @@
 
     <flow name="clientFlow">
         <freshbooks:create-client />
-        <freshbooks:get-client />
+        <freshbooks:get-client clientId="#[groovy:payload.id]" />
         <freshbooks:update-client />
         <freshbooks:delete-client />
         <freshbooks:list-clients/>
@@ -28,7 +28,7 @@
     
     <flow name="itemFlow">
         <freshbooks:create-item />
-        <freshbooks:get-item />
+        <freshbooks:get-item itemId="#[groovy:payload.id]" />
         <freshbooks:update-item />
         <freshbooks:delete-item />
         <freshbooks:list-items/>
@@ -36,7 +36,7 @@
     
     <flow name="invoiceFlow">
         <freshbooks:create-invoice />
-        <freshbooks:get-invoice />
+        <freshbooks:get-invoice invoiceId="#[groovy:payload.id]" />
         <freshbooks:update-invoice />
         <freshbooks:delete-invoice />
         <freshbooks:list-invoices/>
@@ -44,7 +44,7 @@
     
     <flow name="paymentFlow">
         <freshbooks:create-payment />
-        <freshbooks:get-payment />
+        <freshbooks:get-payment paymentId="#[groovy:payload.id]" />
         <freshbooks:update-payment />
         <freshbooks:delete-payment />
         <freshbooks:list-payments/>

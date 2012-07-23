@@ -53,8 +53,7 @@ public class FreshbooksModuleTestDriver
         WCategory wCategory = new WCategory();
         wCategory.setCategory(cat);
         
-        String categoryId = module.createCategory(wCategory);
-        cat.setId(categoryId);
-        module.deleteCategory(wCategory);
+        WCategory category = module.createCategory(wCategory);
+        module.deleteCategory(category);
     }
 }
