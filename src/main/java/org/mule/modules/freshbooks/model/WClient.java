@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WClient {
     private Client client;
 
+    public WClient(Client client) {
+        this.client = client;
+    }
+    
+    public WClient() {
+        
+    }
+    
     /**
      * @return the client
      */

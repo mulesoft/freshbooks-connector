@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WCallback {
     private Callback callback;
 
+    public WCallback() {
+        
+    }
+    
+    public WCallback(Callback callback) {
+        this.callback = callback;
+    }
+    
     /**
      * @return the callback
      */

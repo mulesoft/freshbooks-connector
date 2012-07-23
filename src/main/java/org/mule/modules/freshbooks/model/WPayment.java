@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WPayment {
     private Payment payment;
 
+    public WPayment() {
+        
+    }
+    
+    public WPayment(Payment payment) {
+        this.payment = payment;
+    }
+    
     /**
      * @return the payment
      */

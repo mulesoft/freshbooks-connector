@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WInvoice {
     private Invoice invoice;
 
+    public WInvoice() {
+        
+    }
+    
+    public WInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+    
     /**
      * @return the invoice
      */

@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WItem {
     private Item item;
 
+    public WItem() {       
+
+    }
+
+    public WItem(Item item) {
+        this.item = item;
+    }
+    
     /**
      * @return the item
      */

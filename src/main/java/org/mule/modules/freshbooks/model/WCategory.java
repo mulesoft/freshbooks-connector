@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WCategory {
     private Category category;
 
+    public WCategory() {
+        
+    }
+    
+    public WCategory(Category category) {
+        this.category = category;
+    }
+    
     /**
      * @return the category
      */
