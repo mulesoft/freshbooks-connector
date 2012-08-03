@@ -20,11 +20,13 @@ import java.util.Iterator;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 import org.mule.modules.freshbooks.FreshbooksException;
@@ -40,7 +42,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     private static final Logger LOGGER = Logger.getLogger(DefaultFreshbooksClient.class);
 
     private final URL apiUrl;
-    private transient HttpClient client;
+    private transient DefaultHttpClient client;
     
     public DefaultFreshbooksClient(String apiUrl, String authenticationToken) 
     {
@@ -51,9 +53,8 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         } catch (MalformedURLException e) {
             throw new FreshbooksException(e.getMessage());
         }
-        this.client = new HttpClient();
-        this.client.getParams().setAuthenticationPreemptive(true);
-        this.client.getState().setCredentials(new AuthScope(this.apiUrl.getHost(), 443, AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
+        this.client = new DefaultHttpClient();
+        this.client.getCredentialsProvider().setCredentials(new AuthScope(this.apiUrl.getHost(), 443, AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
     }
 
     private Response sendRequest(BaseRequest request) 
@@ -61,22 +62,19 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         String requestString = marshalRequest(request);
 
         Response response;
-        PostMethod method = new PostMethod(apiUrl.toString());
+        HttpUriRequest uriRequest = new HttpPost(apiUrl.toString());
         try {
-            method.setContentChunked(false);
-            method.setDoAuthentication(true);
-            method.setFollowRedirects(false);
-            method.setRequestEntity(new StringRequestEntity(requestString, "text/xml", "utf-8"));
-            method.getParams().setContentCharset("utf-8");
-
-            client.executeMethod(method);
-            InputStream is = method.getResponseBodyAsStream();
+            ((HttpPost) uriRequest).setEntity(new StringEntity(requestString, "utf-8"));
+            uriRequest.addHeader("Content-Type", "text/xml");
+            
+            HttpResponse httpResponse = client.execute(uriRequest);
+            InputStream is = httpResponse.getEntity().getContent();
             response = unmarshalResponse(is);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw new FreshbooksException(e);
         } finally {
-            method.releaseConnection();
+            ((HttpPost) uriRequest).releaseConnection();
         }
         if (!"ok".equals(response.getStatus())) {
             throw new FreshbooksException(response.getError());
