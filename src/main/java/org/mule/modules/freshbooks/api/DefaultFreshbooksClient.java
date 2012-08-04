@@ -10,12 +10,15 @@
 
 package org.mule.modules.freshbooks.api;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -27,6 +30,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 import org.mule.modules.freshbooks.FreshbooksException;
@@ -167,7 +171,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public <T> Iterable<T> list(final EntityType type, final BaseRequest request) 
+    public <T> Iterable<T> listPaged(final EntityType type, final BaseRequest request) 
     {
         return new PaginatedIterable<T, Paged<T>>(){
 
@@ -205,25 +209,49 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         };
     }
     
-    private static String getResourceAsString(InputStream in) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
-        byte[] buf = new byte[1024];
-        int sz = 0;
-        try {
-            while (true) {
-                sz = in.read(buf);
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> Iterable<T> list(final EntityType type, final BaseRequest request) 
+    {
+        Integer pageNumber = 0;
+        Boolean hasMoreResults = true;
+        List<T> listOfResults = new ArrayList<T>();
+        Paged<T> results;
 
-                baos.write(buf, 0, sz);
-                if (sz < buf.length)
-                    break;
-            }
-        } finally {
+        request.setMethod(type.getResourceName() + ".list");
+        
+        while(hasMoreResults) {
+            
+            pageNumber++;
+            request.setPage(pageNumber);
+            
+            Response response = sendRequest(request);            
+
             try {
-                in.close();
-            } catch (Exception e) {
-
+                results = (Paged<T>) response.getClass().getMethod("get" + type.getNameForLists()).invoke(response);
+            } catch (IllegalArgumentException e) {
+                throw new FreshbooksException(e.getMessage());
+            } catch (SecurityException e) {
+                throw new FreshbooksException(e.getMessage());
+            } catch (IllegalAccessException e) {
+                throw new FreshbooksException(e.getMessage());
+            } catch (InvocationTargetException e) {
+                throw new FreshbooksException(e.getMessage());
+            } catch (NoSuchMethodException e) {
+                throw new FreshbooksException(e.getMessage());
             }
+            
+            hasMoreResults = results.getTotal() >= results.getPerPage(); 
+            
+            listOfResults.addAll(results.getContents());
         }
-        return new String(baos.toByteArray());
+        
+        return listOfResults;
+    }
+    
+    private static String getResourceAsString(InputStream in) throws IOException {
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(in, writer, "UTF-8");
+        return writer.toString();
     }
 }
