@@ -45,6 +45,10 @@
 <!-- BEGIN_INCLUDE(freshbooks:delete-client) -->
     <freshbooks:delete-client/>
 <!-- END_INCLUDE(freshbooks:delete-client) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:undelete-client) -->
+    <freshbooks:undelete-client/>
+<!-- END_INCLUDE(freshbooks:undelete-client) -->
      
 <!-- BEGIN_INCLUDE(freshbooks:list-clients) -->
     <freshbooks:list-clients/>
@@ -65,6 +69,10 @@
 <!-- BEGIN_INCLUDE(freshbooks:delete-invoice) -->
     <freshbooks:delete-invoice/>
 <!-- END_INCLUDE(freshbooks:delete-invoice) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:undelete-invoice) -->
+    <freshbooks:undelete-invoice/>
+<!-- END_INCLUDE(freshbooks:undelete-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:list-invoices) -->
     <freshbooks:list-invoices />

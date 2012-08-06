@@ -313,6 +313,21 @@ public class FreshbooksModule {
     {
         freshbooksClient.delete(EntityType.CLIENT, client.getClient().getId());
     }
+    
+    /**
+     * Undelete a client
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:undelete-client}
+     * @param client wrapper of a {@link Client}
+     * @return the undeleted client id
+     * @throws FreshbooksException
+     */
+    @Processor
+    public String undeleteClient(@Optional @Default("#[payload]") WClient client) 
+    {
+        freshbooksClient.undelete(EntityType.CLIENT, client.getClient().getId());
+        return client.getClient().getId();
+    }
 
     /**
      * Returns a list of client summaries in order of descending client_id.
@@ -399,6 +414,22 @@ public class FreshbooksModule {
     public void deleteInvoice(@Optional @Default("#[payload]") WInvoice invoice)
     {
         freshbooksClient.delete(EntityType.INVOICE, invoice.getInvoice().getId());
+    }
+    
+    /**
+     * Undelete an invoice
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:undelete-invoice}
+     * 
+     * @param invoice wrapper of a {@link Invoice}
+     * @return The undeleted invoice id
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public String undeleteInvoice(@Optional @Default("#[payload]") WInvoice invoice)
+    {
+        freshbooksClient.undelete(EntityType.INVOICE, invoice.getInvoice().getId());
+        return invoice.getInvoice().getId();
     }
     
     /**

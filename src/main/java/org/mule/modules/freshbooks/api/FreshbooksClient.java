@@ -26,4 +26,6 @@ public interface FreshbooksClient {
     public <T> Iterable<T> list(EntityType type, BaseRequest request);
 
     public <T> Iterable<T> listPaged(EntityType type, BaseRequest request);
+    
+    public void undelete(EntityType type, String id);
 }
