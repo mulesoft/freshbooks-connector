@@ -1,0 +1,7 @@
+org.mule.modules.freshbooks
+org.mule.modules.freshbooks.adapters
+org.mule.modules.freshbooks.api
+org.mule.modules.freshbooks.config
+org.mule.modules.freshbooks.model
+org.mule.modules.freshbooks.processors
+

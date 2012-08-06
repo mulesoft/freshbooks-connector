@@ -1,0 +1,3353 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Documentation for Mule Freshbooks Connector (Beta)." />
+
+<link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.ico" />
+<title>
+
+  FreshbooksModule
+
+
+| Mule Freshbooks Connector (Beta)
+
+</title>
+<link href="../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../../../assets/mule-developer-prettify.css" rel="stylesheet" type="text/css" />
+<link href="../../../../../assets/customizations.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+<script src="../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/jquery-toc.js" type="text/javascript"></script>
+<script src="../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
+<script src="../../../../../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../../../../../", "../../../../../assets/");
+</script>
+<script src="../../../../../assets/mule-developer-reference.js" type="text/javascript"></script>
+<script src="../../../../../assets/navtree_data.js" type="text/javascript"></script>
+<script src="../../../../../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Freshbooks Connector (Beta)";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
+</head>
+
+<body class="">
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">Mule Freshbooks Connector (Beta)</span>
+    
+    <ul id="header-tabs" class="">
+    
+    	<li id="guide"><a href="../../../../../guide/install.html">
+	    	<span class="en">Install Guide</span>
+    	</a></li>
+    
+    	<li id="java"><a href="../../../../../java/packages.html">
+	    	<span class="en">Java API Reference</span>
+    	</a></li>
+    
+    	<li id="mule"><a href="../../../../../mule/modules.html">
+	    	<span class="en">Mule API Reference</span>
+    	</a></li>
+    
+    </ul>
+    </div>
+    <div id="headerRight">
+      <a href="http://www.mulesoft.com" tabindex="-1">
+      <img src="../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
+      
+  <div id="search" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../../../../../')"
+                      onkeyup="return search_changed(event, false, '../../../../../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+  <div class="g-section g-tpl-240" id="body-content">
+    <div class="g-unit g-first side-nav-resizable" id="side-nav">
+      <div id="swapper">
+        <div id="nav-panels">
+          <div id="resize-packages-nav">
+            <div id="packages-nav">
+              <div id="index-links">
+                <a href="../../../../../java/packages.html"  >Package Index</a> |
+                <a href="../../../../../java/classes.html" >Class Index</a>
+              </div>
+              <ul>
+                
+    <li class="selected api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/package-summary.html">org.mule.modules.freshbooks</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/adapters/package-summary.html">org.mule.modules.freshbooks.adapters</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/api/package-summary.html">org.mule.modules.freshbooks.api</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/config/package-summary.html">org.mule.modules.freshbooks.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/model/package-summary.html">org.mule.modules.freshbooks.model</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/processors/package-summary.html">org.mule.modules.freshbooks.processors</a></li>
+              </ul><br/>
+            </div> <!-- end packages -->
+          </div> <!-- end resize-packages -->
+          <div id="classes-nav">
+            <ul>
+              
+              
+    <li><h2>Classes</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksMessageUtils.html">FreshbooksMessageUtils</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></li>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/freshbooks/MapBuilder.html">MapBuilder</a></li>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/freshbooks/XMLNullNamespaceFilter.html">XMLNullNamespaceFilter</a></li>
+      </ul>
+    </li>
+              
+              
+              
+    <li><h2>Exceptions</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></li>
+      </ul>
+    </li>
+              
+            </ul><br/>
+          </div><!-- end classes -->
+        </div><!-- end nav-panels -->
+        <div id="nav-tree" style="display:none">
+          <div id="index-links">
+            <a href="../../../../../packages.html"  >Package Index</a> | 
+            <a href="../../../../../classes.html" >Class Index</a>
+          </div>
+        </div><!-- end nav-tree -->
+      </div><!-- end swapper -->
+    </div> <!-- end side-nav -->
+    <script>
+      if (!isMobile) {
+        $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
+        chooseDefaultNav();
+        if ($("#nav-tree").is(':visible')) {
+          init_default_navtree("../../../../../");
+        } else {
+          addLoadEvent(function() {
+            scrollIntoView("packages-nav");
+            scrollIntoView("classes-nav");
+          });
+        }
+        $("#swapper").css({borderBottom:"2px solid #aaa"});
+      } else {
+        swapNav(); // tree view should be used on mobile
+      }
+    </script>
+
+
+
+<div class="g-unit" id="doc-content">
+
+<div id="api-info-block">
+
+
+
+  
+   
+  
+  
+  
+  
+
+
+<div class="sum-details-links">
+
+
+Summary:
+
+
+
+
+
+
+
+  <a href="#lfields">Fields</a>
+  
+
+
+
+  &#124; <a href="#pubctors">Ctors</a>
+  
+
+
+
+  &#124; <a href="#pubmethods">Methods</a>
+  
+
+
+
+  &#124; <a href="#inhmethods">Inherited Methods</a>
+
+&#124; <a href="#" onclick="return toggleAllClassInherited()" id="toggleAllClassInherited">[Expand All]</a>
+
+</div><!-- end sum-details-links -->
+<div class="api-level">
+  
+
+
+  
+  
+
+</div>
+</div><!-- end api-info-block -->
+
+
+<!-- ======== START OF CLASS DATA ======== -->
+
+<div id="jd-header">
+    public
+     
+     
+    
+    class
+<h1>FreshbooksModule</h1>
+
+
+
+  
+    extends Object<br/>
+  
+  
+  
+
+  
+  
+  
+
+
+</div><!-- end header -->
+
+<div id="naMessage"></div>
+
+<div id="jd-content" class="api apilevel-">
+<table class="jd-inheritance-table">
+
+
+    <tr>
+        
+        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Object</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+        
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.freshbooks.FreshbooksModule</td>
+    </tr>
+    
+
+</table>
+
+
+
+
+<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-direct" class="jd-expando-trigger closed"
+          ><img id="subclasses-direct-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>Known Direct Subclasses
+
+  <div id="subclasses-direct">
+      <div id="subclasses-direct-list"
+              class="jd-inheritedlinks"
+              
+              >
+          
+            
+              <a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleCapabilitiesAdapter.html">FreshbooksModuleCapabilitiesAdapter</a>
+            
+          
+      </div>
+      <div id="subclasses-direct-summary"
+              style="display: none;"
+              >
+  <table class="jd-sumtable-expando">
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleCapabilitiesAdapter.html">FreshbooksModuleCapabilitiesAdapter</a></td>
+              <td class="jd-descrcol" width="100%">A <code>FreshbooksModuleCapabilitiesAdapter</code> is a wrapper around <code><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
+          </tr>
+  </table>
+      </div>
+  </div>
+</td></tr></table>
+
+
+
+<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-indirect" class="jd-expando-trigger closed"
+          ><img id="subclasses-indirect-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>Known Indirect Subclasses
+
+  <div id="subclasses-indirect">
+      <div id="subclasses-indirect-list"
+              class="jd-inheritedlinks"
+              
+              >
+          
+            
+              <a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleLifecycleAdapter.html">FreshbooksModuleLifecycleAdapter</a>
+            
+          
+      </div>
+      <div id="subclasses-indirect-summary"
+              style="display: none;"
+              >
+  <table class="jd-sumtable-expando">
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleLifecycleAdapter.html">FreshbooksModuleLifecycleAdapter</a></td>
+              <td class="jd-descrcol" width="100%">A <code>FreshbooksModuleLifecycleAdapter</code> is a wrapper around <code><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
+          </tr>
+  </table>
+      </div>
+  </div>
+</td></tr></table>
+
+
+<div class="jd-descr">
+
+
+<h2>Class Overview</h2>
+<p>FreshBooks</p>
+
+
+
+
+
+</div><!-- jd-descr -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="jd-descr">
+
+
+<h2>Summary</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
+
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#apiUrl">apiUrl</a></td>
+          <td class="jd-descrcol" width="100%">Api URL
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#authenticationToken">authenticationToken</a></td>
+          <td class="jd-descrcol" width="100%">Authentication Token
+</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../java/org/mule/modules/freshbooks/api/FreshbooksClient.html">FreshbooksClient</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#freshbooksClient">freshbooksClient</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+
+</table>
+
+
+
+
+
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<table id="pubctors" class="jd-sumtable"><tr><th colspan="12">Public Constructors</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            </nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#FreshbooksModule()">FreshbooksModule</a></span>()</nobr>
+        
+  </td></tr>
+
+
+
+</table>
+
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createCallback(org.mule.modules.freshbooks.model.WCallback)">createCallback</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</nobr>
+        
+        <div class="jd-descrdiv">Create a new callback for a specific event or a set of events.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createCategory(org.mule.modules.freshbooks.model.WCategory)">createCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</nobr>
+        
+        <div class="jd-descrdiv">Create a new category.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createClient(org.mule.modules.freshbooks.model.WClient)">createClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</nobr>
+        
+        <div class="jd-descrdiv">Create a new client and return the corresponding client_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createInvoice(org.mule.modules.freshbooks.model.WInvoice)">createInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</nobr>
+        
+        <div class="jd-descrdiv"><p>Create a new invoice complete with line items.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createItem(org.mule.modules.freshbooks.model.WItem)">createItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</nobr>
+        
+        <div class="jd-descrdiv"><p>Create a new item and return the corresponding item_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createPayment(org.mule.modules.freshbooks.model.WPayment)">createPayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</nobr>
+        
+        <div class="jd-descrdiv">Create a new payment and returns the corresponding payment_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteCallback(org.mule.modules.freshbooks.model.WCallback)">deleteCallback</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</nobr>
+        
+        <div class="jd-descrdiv">Deletes a callback.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteCategory(org.mule.modules.freshbooks.model.WCategory)">deleteCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</nobr>
+        
+        <div class="jd-descrdiv">Delete an existing expense category.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteClient(org.mule.modules.freshbooks.model.WClient)">deleteClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</nobr>
+        
+        <div class="jd-descrdiv">Delete the client with the given client_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteInvoice(org.mule.modules.freshbooks.model.WInvoice)">deleteInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</nobr>
+        
+        <div class="jd-descrdiv">Delete an existing invoice.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteItem(org.mule.modules.freshbooks.model.WItem)">deleteItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</nobr>
+        
+        <div class="jd-descrdiv">Delete an existing item.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deletePayment(org.mule.modules.freshbooks.model.WPayment)">deletePayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</nobr>
+        
+        <div class="jd-descrdiv">Permanently delete a payment.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getApiUrl()">getApiUrl</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getAuthenticationToken()">getAuthenticationToken</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getCategory(java.lang.String)">getCategory</a></span>(String categoryId)</nobr>
+        
+        <div class="jd-descrdiv">Return the complete category details associated with the given category_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getClient(java.lang.String)">getClient</a></span>(String clientId)</nobr>
+        
+        <div class="jd-descrdiv">Return the client details associated with the given client_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getInvoice(java.lang.String)">getInvoice</a></span>(String invoiceId)</nobr>
+        
+        <div class="jd-descrdiv"><p>Return the complete invoice details associated with the given invoice_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getItem(java.lang.String)">getItem</a></span>(String itemId)</nobr>
+        
+        <div class="jd-descrdiv"><p>Get an existing item with the given item_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getPayment(java.lang.String)">getPayment</a></span>(String paymentId)</nobr>
+        
+        <div class="jd-descrdiv"><p>Retrieve payment details according to payment_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#init()">init</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listCallbacks(org.mule.modules.freshbooks.model.WCallbackRequest)">listCallbacks</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallbackRequest.html">WCallbackRequest</a> callbackRequest)</nobr>
+        
+        <div class="jd-descrdiv">Return a list of registered callbacks.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listCategories(org.mule.modules.freshbooks.model.WCategoryRequest)">listCategories</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategoryRequest.html">WCategoryRequest</a> categoryRequest)</nobr>
+        
+        <div class="jd-descrdiv">Returns a list of expense categories.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listClients(org.mule.modules.freshbooks.model.WClientRequest)">listClients</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClientRequest.html">WClientRequest</a> clientRequest)</nobr>
+        
+        <div class="jd-descrdiv">Returns a list of client summaries in order of descending client_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listInvoices(org.mule.modules.freshbooks.model.WInvoiceRequest)">listInvoices</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoiceRequest.html">WInvoiceRequest</a> invoiceRequest)</nobr>
+        
+        <div class="jd-descrdiv">Returns a list of invoice summaries.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listItems(org.mule.modules.freshbooks.model.WItemRequest)">listItems</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItemRequest.html">WItemRequest</a> itemRequest)</nobr>
+        
+        <div class="jd-descrdiv">Returns a list of items, ordered by descending item_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listPayments(org.mule.modules.freshbooks.model.WPaymentRequest)">listPayments</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPaymentRequest.html">WPaymentRequest</a> paymentRequest)</nobr>
+        
+        <div class="jd-descrdiv">Returns a list of payment summaries.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#setApiUrl(java.lang.String)">setApiUrl</a></span>(String apiUrl)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#setAuthenticationToken(java.lang.String)">setAuthenticationToken</a></span>(String authenticationToken)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#undeleteClient(org.mule.modules.freshbooks.model.WClient)">undeleteClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</nobr>
+        
+        <div class="jd-descrdiv">Undelete a client
+ 
+ </div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#undeleteInvoice(org.mule.modules.freshbooks.model.WInvoice)">undeleteInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</nobr>
+        
+        <div class="jd-descrdiv">Undelete an invoice
+ 
+ </div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateCategory(org.mule.modules.freshbooks.model.WCategory)">updateCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</nobr>
+        
+        <div class="jd-descrdiv">Update an existing expense category with the given category_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateClient(org.mule.modules.freshbooks.model.WClient)">updateClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</nobr>
+        
+        <div class="jd-descrdiv">Update the details of the client with the given client_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateInvoice(org.mule.modules.freshbooks.model.WInvoice)">updateInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</nobr>
+        
+        <div class="jd-descrdiv"><p>Update an existing invoice with the given invoice_id.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateItem(org.mule.modules.freshbooks.model.WItem)">updateItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</nobr>
+        
+        <div class="jd-descrdiv"><p>Update an existing item.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updatePayment(org.mule.modules.freshbooks.model.WPayment)">updatePayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</nobr>
+        
+        <div class="jd-descrdiv"><p>Update an existing payment.</div>
+  
+  </td></tr>
+
+
+
+</table>
+
+
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="inhmethods" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Object" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-java.lang.Object-trigger"
+          src="../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  java.lang.Object
+
+<div id="inherited-methods-java.lang.Object">
+  <div id="inherited-methods-java.lang.Object-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-java.lang.Object-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">clone</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">equals</span>(Object arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">finalize</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            Class&lt;?&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getClass</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">hashCode</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">notify</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">notifyAll</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">toString</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">wait</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">wait</span>(long arg0)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+</table>
+
+
+</div><!-- jd-descr (summary) -->
+
+<!-- Details -->
+
+
+
+
+
+
+
+
+<!-- XML Attributes -->
+
+
+<!-- Enum Values -->
+
+
+<!-- Constants -->
+
+
+<!-- Fields -->
+
+
+<!-- ========= FIELD DETAIL ======== -->
+<h2>Fields</h2>
+
+
+
+
+<A NAME="apiUrl"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        apiUrl
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Api URL
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="authenticationToken"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        String
+      </span>
+        authenticationToken
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Authentication Token
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="freshbooksClient"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/api/FreshbooksClient.html">FreshbooksClient</a>
+      </span>
+        freshbooksClient
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+
+<!-- Public ctors -->
+
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<h2>Public Constructors</h2>
+
+
+
+<A NAME="FreshbooksModule()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        
+      </span>
+      <span class="sympad">FreshbooksModule</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<!-- Protected ctors -->
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+<!-- Public methdos -->
+
+<h2>Public Methods</h2>
+
+
+
+<A NAME="createCallback(org.mule.modules.freshbooks.model.WCallback)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">createCallback</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create a new callback for a specific event or a set of events.
+
+ 
+
+ <p>Valid events</p>
+ <p> * all</p>
+ <p> * category</p>
+ <p> * category.create</p>
+ <p> * category.delete</p>
+ <p> * category.update</p>
+ <p> * client</p>
+ <p> * client.create</p>
+ <p> * client.delete</p>
+ <p> * client.update</p>
+ <p> * estimate</p>
+ <p> * estimate.create</p>
+ <p> * estimate.delete</p>
+ <p> * estimate.sendByEmail</p>
+ <p> * estimate.update</p>
+ <p> * expense</p>
+ <p> * expense.create</p>
+ <p> * expense.delete</p>
+ <p> * expense.update</p>
+ <p> * invoice</p>
+ <p> * invoice.create</p>
+ <p> * invoice.delete</p>
+ <p> * invoice.dispute</p>
+ <p> * invoice.pastdue.1</p>
+ <p> * invoice.pastdue.2</p>
+ <p> * invoice.pastdue.3</p>
+ <p> * invoice.sendByEmail</p>
+ <p> * invoice.sendBySnailMail</p>
+ <p> * invoice.update</p>
+ <p> * item</p>
+ <p> * item.create</p>
+ <p> * item.delete</p>
+ <p> * item.update</p>
+ <p> * payment</p>
+ <p> * payment.create</p>
+ <p> * payment.delete</p>
+ <p> * payment.update</p>
+ <p> * project</p>
+ <p> * project.create</p>
+ <p> * project.delete</p>
+ <p> * project.update</p>
+ <p> * recurring</p>
+ <p> * recurring.create</p>
+ <p> * recurring.delete</p>
+ <p> * recurring.update</p>
+ <p> * staff</p>
+ <p> * staff.create</p>
+ <p> * staff.delete</p>
+ <p> * staff.update</p>
+ <p> * task</p>
+ <p> * task.create</p>
+ <p> * task.delete</p>
+ <p> * task.update</p>
+ <p> * time_entry</p>
+ <p> * time_entry.create</p>
+ <p> * time_entry.delete</p>
+ <p> * time_entry.update</p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>callback</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>callback id
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createCategory(org.mule.modules.freshbooks.model.WCategory)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a>
+      </span>
+      <span class="sympad">createCategory</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create a new category. If successful, returns the category id of the newly created item.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>category</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The created category
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createClient(org.mule.modules.freshbooks.model.WClient)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a>
+      </span>
+      <span class="sympad">createClient</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create a new client and return the corresponding client_id. If a password is not supplied, one will be created at random.
+
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>client</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The created client</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createInvoice(org.mule.modules.freshbooks.model.WInvoice)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a>
+      </span>
+      <span class="sympad">createInvoice</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>Create a new invoice complete with line items. If successful, returns 
+ the invoice_id of the newly created invoice.</p>
+ <p>
+  * If you don't specify an invoice number, it will increment from the last one.<br/>
+  * You may optionally specify a different address on the invoice; otherwise the 
+  address will be pulled from your client's details.<br/>
+  * You may optionally specify a return_uri element. If provided, users will be 
+  presented with a link to the URI when they pay the invoice.</p>
+  
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>invoice</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The created invoice</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createItem(org.mule.modules.freshbooks.model.WItem)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a>
+      </span>
+      <span class="sympad">createItem</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>Create a new item and return the corresponding item_id. </p>
+  
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>item</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The created item</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createPayment(org.mule.modules.freshbooks.model.WPayment)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a>
+      </span>
+      <span class="sympad">createPayment</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create a new payment and returns the corresponding payment_id.
+ <p>This function can have one of three possible effects depending on the presence of invoice_id and client_id:</p>
+ <p> * If you specify an invoice_id only, the payment will be recorded as an invoice payment.</p>
+ <p> * If you specify a client_id only, the payment will be recorded as a client credit.</p>
+ <p> * If you specify both an invoice_id and client_id, the payment will be recorded as an invoice payment, 
+ and the amount will be subtracted from the client's credit.</p>
+ <p>Note that 'currency_code' can only be provided when creating a credit, not a regular payment. Regular payments 
+ will default to the currency code of the invoice they are being made against.</p> 
+  
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>payment</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The created Payment</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteCallback(org.mule.modules.freshbooks.model.WCallback)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteCallback</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Deletes a callback.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>callback</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a></code></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteCategory(org.mule.modules.freshbooks.model.WCategory)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteCategory</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Delete an existing expense category.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>category</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></code>
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteClient(org.mule.modules.freshbooks.model.WClient)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteClient</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Delete the client with the given client_id.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>client</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteInvoice(org.mule.modules.freshbooks.model.WInvoice)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteInvoice</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Delete an existing invoice.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>invoice</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></code></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteItem(org.mule.modules.freshbooks.model.WItem)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteItem</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Delete an existing item.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>item</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></code></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deletePayment(org.mule.modules.freshbooks.model.WPayment)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deletePayment</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Permanently delete a payment. This will modify the status of the associated invoice if required.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>payment</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></code></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getApiUrl()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getApiUrl</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getAuthenticationToken()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getAuthenticationToken</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getCategory(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a>
+      </span>
+      <span class="sympad">getCategory</span>
+      <span class="normal">(String categoryId)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Return the complete category details associated with the given category_id.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>categoryId</td>
+          <td>The category id</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></code> object
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getClient(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a>
+      </span>
+      <span class="sympad">getClient</span>
+      <span class="normal">(String clientId)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Return the client details associated with the given client_id.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>clientId</td>
+          <td>The client id</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getInvoice(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a>
+      </span>
+      <span class="sympad">getInvoice</span>
+      <span class="normal">(String invoiceId)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>Return the complete invoice details associated with the given invoice_id.</p>
+ <p> * You can use the links element to provide your customers with direct links to 
+ the invoice for editing, viewing by the client and viewing by an administrator.</p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>invoiceId</td>
+          <td>The invoice id</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The invoice retrieved.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getItem(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a>
+      </span>
+      <span class="sympad">getItem</span>
+      <span class="normal">(String itemId)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>Get an existing item with the given item_id. </p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>itemId</td>
+          <td>The item id</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The item retrieved.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getPayment(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a>
+      </span>
+      <span class="sympad">getPayment</span>
+      <span class="normal">(String paymentId)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>Retrieve payment details according to payment_id. </p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>paymentId</td>
+          <td>The payment id</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The payment retrieved.</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="init()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">init</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="listCallbacks(org.mule.modules.freshbooks.model.WCallbackRequest)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a>&gt;
+      </span>
+      <span class="sympad">listCallbacks</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallbackRequest.html">WCallbackRequest</a> callbackRequest)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Return a list of registered callbacks. You can optionally filter by event or uri.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>callbackRequest</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/CallbackRequest.html">CallbackRequest</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>iterable of callbacks
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="listCategories(org.mule.modules.freshbooks.model.WCategoryRequest)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a>&gt;
+      </span>
+      <span class="sympad">listCategories</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategoryRequest.html">WCategoryRequest</a> categoryRequest)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of expense categories.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>categoryRequest</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/CategoryRequest.html">CategoryRequest</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A iterable of categories</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="listClients(org.mule.modules.freshbooks.model.WClientRequest)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a>&gt;
+      </span>
+      <span class="sympad">listClients</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClientRequest.html">WClientRequest</a> clientRequest)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of client summaries in order of descending client_id.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>clientRequest</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/ClientRequest.html">ClientRequest</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A iterable of clients</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="listInvoices(org.mule.modules.freshbooks.model.WInvoiceRequest)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a>&gt;
+      </span>
+      <span class="sympad">listInvoices</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoiceRequest.html">WInvoiceRequest</a> invoiceRequest)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of invoice summaries. Results are ordered by descending invoice_id.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>invoiceRequest</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/InvoiceRequest.html">InvoiceRequest</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A iterable of Invoices</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="listItems(org.mule.modules.freshbooks.model.WItemRequest)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a>&gt;
+      </span>
+      <span class="sympad">listItems</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItemRequest.html">WItemRequest</a> itemRequest)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of items, ordered by descending item_id. 
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>itemRequest</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/ItemRequest.html">ItemRequest</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A iterable of Items</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="listPayments(org.mule.modules.freshbooks.model.WPaymentRequest)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a>&gt;
+      </span>
+      <span class="sympad">listPayments</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPaymentRequest.html">WPaymentRequest</a> paymentRequest)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns a list of payment summaries. Results are ordered by descending payment_id.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>paymentRequest</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/PaymentRequest.html">PaymentRequest</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A iterable of Payments</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setApiUrl(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setApiUrl</span>
+      <span class="normal">(String apiUrl)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>apiUrl</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setAuthenticationToken(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAuthenticationToken</span>
+      <span class="normal">(String authenticationToken)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>authenticationToken</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="undeleteClient(org.mule.modules.freshbooks.model.WClient)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">undeleteClient</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Undelete a client
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>client</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>the undeleted client id</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="undeleteInvoice(org.mule.modules.freshbooks.model.WInvoice)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">undeleteInvoice</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Undelete an invoice
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>invoice</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The undeleted invoice id</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="updateCategory(org.mule.modules.freshbooks.model.WCategory)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a>
+      </span>
+      <span class="sympad">updateCategory</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Update an existing expense category with the given category_id. Any category fields left out of the request will remain unchanged.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>category</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>updated category
+ 
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="updateClient(org.mule.modules.freshbooks.model.WClient)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a>
+      </span>
+      <span class="sympad">updateClient</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Update the details of the client with the given client_id. Any fields not referenced in the request will remain unchanged.
+
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>client</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>updated client</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="updateInvoice(org.mule.modules.freshbooks.model.WInvoice)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a>
+      </span>
+      <span class="sympad">updateInvoice</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>Update an existing invoice with the given invoice_id. Any invoice fields left 
+ out of the request will remain unchanged.</p>
+ <p> * If you do not specify a lines element, the existing lines will remain unchanged. 
+ If you do specify lines elements the original ones will be replaced by the new ones.</p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>invoice</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>updated invoice</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="updateItem(org.mule.modules.freshbooks.model.WItem)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a>
+      </span>
+      <span class="sympad">updateItem</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>Update an existing item. All fields aside from the item_id are optional; 
+ by omitting a field, the existing value will remain unchanged. </p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>item</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>updated item</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="updatePayment(org.mule.modules.freshbooks.model.WPayment)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a>
+      </span>
+      <span class="sympad">updatePayment</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>Update an existing payment. All fields besides payment_id are optional - unpassed 
+ fields will retain their existing value.</p>
+ <p>Note that 'currency_code' can only be provided when updating a credit, not a regular payment. 
+ Regular payments will default to the currency code of the invoice they are being made against.</p> 
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>payment</td>
+          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></code></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>updated Payment</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksException.html">FreshbooksException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+
+
+
+<!-- ========= END OF CLASS DATA ========= -->
+<A NAME="navbar_top"></A>
+
+<div id="footer">
+Generated by <a href="http://www.mulesoft.com/devkit">Mule DevKit</a>. Document generation technology based on <a href="http://code.google.com/p/doclava/">Google's Doclava</a>.
+</div> <!-- end footer -->
+
+</div> <!-- jd-content -->
+
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize mule-developer-docs.js */
+</script>
+
+</body>
+</html>
