@@ -46,7 +46,7 @@ public class Response {
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Clients clients;
     
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", nillable = true)
+    @XmlElement(name = "invoice_id", namespace = "http://www.freshbooks.com/api/", nillable = true)
     private String invoiceId;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Invoice invoice;
