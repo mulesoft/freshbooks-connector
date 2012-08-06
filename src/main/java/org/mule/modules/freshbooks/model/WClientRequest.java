@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WClientRequest {
     private ClientRequest clientRequest;
 
+    public WClientRequest() {
+        
+    }
+    
+    public WClientRequest(ClientRequest clientRequest) {
+        this.clientRequest = clientRequest;
+    }
+    
     /**
      * @return the clientRequest
      */

@@ -12,6 +12,14 @@ package org.mule.modules.freshbooks.model;
 
 public class WPaymentRequest {
     private PaymentRequest paymentRequest;
+    
+    public WPaymentRequest() {
+
+    }
+    
+    public WPaymentRequest(PaymentRequest paymentRequest) {
+        this.paymentRequest = paymentRequest;
+    }
 
     /**
      * @return the paymentRequest

@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WCategoryRequest {
     private CategoryRequest categoryRequest;
 
+    public WCategoryRequest() {
+
+    }
+    
+    public WCategoryRequest(CategoryRequest categoryRequest) {
+        this.categoryRequest = categoryRequest;
+    }
+    
     /**
      * @return the categoryRequest
      */

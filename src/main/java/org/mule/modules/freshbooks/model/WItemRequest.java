@@ -13,6 +13,13 @@ package org.mule.modules.freshbooks.model;
 public class WItemRequest {
     private ItemRequest itemRequest;
 
+    public WItemRequest() {
+        
+    }
+    
+    public WItemRequest(ItemRequest itemRequest) {
+        this.itemRequest = itemRequest;
+    }
     /**
      * @return the itemRequest
      */

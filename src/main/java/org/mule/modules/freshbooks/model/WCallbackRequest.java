@@ -13,6 +13,14 @@ package org.mule.modules.freshbooks.model;
 public class WCallbackRequest {
     private CallbackRequest callbackRequest;
 
+    public WCallbackRequest() {
+
+    }
+    
+    public WCallbackRequest(CallbackRequest callbackRequest) {
+        this.callbackRequest = callbackRequest;
+    }
+    
     /**
      * @return the callbackRequest
      */

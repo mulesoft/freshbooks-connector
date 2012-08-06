@@ -12,6 +12,14 @@ package org.mule.modules.freshbooks.model;
 
 public class WInvoiceRequest {
     private InvoiceRequest invoiceRequest;
+    
+    public WInvoiceRequest() {
+        
+    }
+    
+    public WInvoiceRequest(InvoiceRequest invoiceRequest) {
+        this.invoiceRequest = invoiceRequest;
+    }
 
     /**
      * @return the invoiceRequest
