@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="josesahad" created="Mon Jul 23 10:21:00 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1343052394140" licenseCode="Unlicensed" licenseType="Unknown" modified="Mon Jul 23 10:21:00 GMT-03:00 2012" modifiedBy="josesahad" name="Invoice" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="Metadata3">
+<Record fieldDelimiter="|" name="WInvoice" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{}/object/invoice/city" containerType="" label="city" name="city" type="string"/>
+<Field __sourcePath="{}/object/invoice/clientId" containerType="" label="clientId" name="clientId" type="string"/>
+<Field __sourcePath="{}/object/invoice/code" containerType="" label="code" name="code" type="string"/>
+<Field __sourcePath="{}/object/invoice/country" containerType="" label="country" name="country" type="string"/>
+<Field __sourcePath="{}/object/invoice/currencyCode" containerType="" label="currencyCode" name="currencyCode" type="string"/>
+<Field __sourcePath="{}/object/invoice/date" containerType="" label="date" name="date" type="string"/>
+<Field __sourcePath="{}/object/invoice/discount" containerType="" label="discount" name="discount" type="decimal"/>
+<Field __sourcePath="{}/object/invoice/firstName" containerType="" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{}/object/invoice/folder" containerType="" label="folder" name="folder" type="string"/>
+<Field __sourcePath="{}/object/invoice/id" containerType="" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/invoice/language" containerType="" label="language" name="language" type="string"/>
+<Field __sourcePath="{}/object/invoice/lastName" containerType="" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{}/object/invoice/notes" containerType="" label="notes" name="notes" type="string"/>
+<Field __sourcePath="{}/object/invoice/number" containerType="" label="number" name="number" type="string"/>
+<Field __sourcePath="{}/object/invoice/organization" containerType="" label="organization" name="organization" type="string"/>
+<Field __sourcePath="{}/object/invoice/poNumber" containerType="" label="poNumber" name="poNumber" type="string"/>
+<Field __sourcePath="{}/object/invoice/returnUri" containerType="" label="returnUri" name="returnUri" type="string"/>
+<Field __sourcePath="{}/object/invoice/state" containerType="" label="state" name="state" type="string"/>
+<Field __sourcePath="{}/object/invoice/status" containerType="" label="status" name="status" type="string"/>
+<Field __sourcePath="{}/object/invoice/street1" containerType="" label="street1" name="street1" type="string"/>
+<Field __sourcePath="{}/object/invoice/street2" containerType="" label="street2" name="street2" type="string"/>
+<Field __sourcePath="{}/object/invoice/terms" containerType="" label="terms" name="terms" type="string"/>
+<Field __sourcePath="{}/object/invoice/vatName" containerType="" label="vatName" name="vatName" type="string"/>
+<Field __sourcePath="{}/object/invoice/vatNumber" containerType="" label="vatNumber" name="vatNumber" type="string"/>
+</Record>
+</Metadata>
+<Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
+<Record fieldDelimiter="|" name="WInvoice" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{}/object/invoice/amount" containerType="" label="amount" name="amount" type="decimal"/>
+<Field __sourcePath="{}/object/invoice/amountOutstanding" containerType="" label="amountOutstanding" name="amountOutstanding" type="decimal"/>
+<Field __sourcePath="{}/object/invoice/city" containerType="" label="city" name="city" type="string"/>
+<Field __sourcePath="{}/object/invoice/clientId" containerType="" label="clientId" name="clientId" type="string"/>
+<Field __sourcePath="{}/object/invoice/code" containerType="" label="code" name="code" type="string"/>
+<Field __sourcePath="{}/object/invoice/country" containerType="" label="country" name="country" type="string"/>
+<Field __sourcePath="{}/object/invoice/currencyCode" containerType="" label="currencyCode" name="currencyCode" type="string"/>
+<Field __sourcePath="{}/object/invoice/date" containerType="" label="date" name="date" type="string"/>
+<Field __sourcePath="{}/object/invoice/discount" containerType="" label="discount" name="discount" type="decimal"/>
+<Field __sourcePath="{}/object/invoice/firstName" containerType="" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{}/object/invoice/folder" containerType="" label="folder" name="folder" type="string"/>
+<Field __sourcePath="{}/object/invoice/id" containerType="" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/invoice/language" containerType="" label="language" name="language" type="string"/>
+<Field __sourcePath="{}/object/invoice/lastName" containerType="" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{}/object/invoice/notes" containerType="" label="notes" name="notes" type="string"/>
+<Field __sourcePath="{}/object/invoice/number" containerType="" label="number" name="number" type="string"/>
+<Field __sourcePath="{}/object/invoice/organization" containerType="" label="organization" name="organization" type="string"/>
+<Field __sourcePath="{}/object/invoice/poNumber" containerType="" label="poNumber" name="poNumber" type="string"/>
+<Field __sourcePath="{}/object/invoice/recurringId" containerType="" label="recurringId" name="recurringId" type="string"/>
+<Field __sourcePath="{}/object/invoice/returnUri" containerType="" label="returnUri" name="returnUri" type="string"/>
+<Field __sourcePath="{}/object/invoice/staffId" containerType="" label="staffId" name="staffId" type="string"/>
+<Field __sourcePath="{}/object/invoice/state" containerType="" label="state" name="state" type="string"/>
+<Field __sourcePath="{}/object/invoice/status" containerType="" label="status" name="status" type="string"/>
+<Field __sourcePath="{}/object/invoice/street1" containerType="" label="street1" name="street1" type="string"/>
+<Field __sourcePath="{}/object/invoice/street2" containerType="" label="street2" name="street2" type="string"/>
+<Field __sourcePath="{}/object/invoice/terms" containerType="" label="terms" name="terms" type="string"/>
+<Field __sourcePath="{}/object/invoice/updated" containerType="" label="updated" name="updated" type="string"/>
+<Field __sourcePath="{}/object/invoice/vatName" containerType="" label="vatName" name="vatName" type="string"/>
+<Field __sourcePath="{}/object/invoice/vatNumber" containerType="" label="vatNumber" name="vatNumber" type="string"/>
+</Record>
+</Metadata>
+<Metadata __sourcePath="{}/object/invoice/contacts" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="Metadata0" _parent_id="__parent_id" _position="0" _type="Input" id="Metadata1">
+<Record fieldDelimiter="|" name="Contact" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __sourcePath="{}/object/invoice/contacts/email" containerType="" label="email" name="email" type="string"/>
+<Field __sourcePath="{}/object/invoice/contacts/firstName" containerType="" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{}/object/invoice/contacts/id" containerType="" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/invoice/contacts/lastName" containerType="" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{}/object/invoice/contacts/phone1" containerType="" label="phone1" name="phone1" type="string"/>
+<Field __sourcePath="{}/object/invoice/contacts/phone2" containerType="" label="phone2" name="phone2" type="string"/>
+<Field __sourcePath="{}/object/invoice/contacts/username" containerType="" label="username" name="username" type="string"/>
+</Record>
+</Metadata>
+<Metadata __sourcePath="{}/object/invoice/lines" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="Metadata0" _parent_id="__parent_id" _position="1" _type="Input" id="Metadata2">
+<Record fieldDelimiter="|" name="Line" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __sourcePath="{}/object/invoice/lines/amount" containerType="" label="amount" name="amount" type="decimal"/>
+<Field __sourcePath="{}/object/invoice/lines/description" containerType="" label="description" name="description" type="string"/>
+<Field __sourcePath="{}/object/invoice/lines/id" containerType="" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/invoice/lines/name" containerType="" label="name" name="name" type="string"/>
+<Field __sourcePath="{}/object/invoice/lines/quantity" containerType="" label="quantity" name="quantity" type="integer"/>
+<Field __sourcePath="{}/object/invoice/lines/tax1Name" containerType="" label="tax1Name" name="tax1Name" type="string"/>
+<Field __sourcePath="{}/object/invoice/lines/tax1Percent" containerType="" label="tax1Percent" name="tax1Percent" type="decimal"/>
+<Field __sourcePath="{}/object/invoice/lines/tax2Name" containerType="" label="tax2Name" name="tax2Name" type="string"/>
+<Field __sourcePath="{}/object/invoice/lines/tax2Percent" containerType="" label="tax2Percent" name="tax2Percent" type="decimal"/>
+<Field __sourcePath="{}/object/invoice/lines/type" containerType="" label="type" name="type" type="string"/>
+<Field __sourcePath="{}/object/invoice/lines/unitCost" containerType="" label="unitCost" name="unitCost" type="number"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="JAVA Reader" guiWidth="0" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath=".">
+  <Mapping cloverField="amount" trim="true" xpath="invoice/amount"/>
+  <Mapping cloverField="amountOutstanding" trim="true" xpath="invoice/amountOutstanding"/>
+  <Mapping cloverField="city" trim="true" xpath="invoice/city"/>
+  <Mapping cloverField="clientId" trim="true" xpath="invoice/clientId"/>
+  <Mapping cloverField="code" trim="true" xpath="invoice/code"/>
+  <Mapping cloverField="country" trim="true" xpath="invoice/country"/>
+  <Mapping cloverField="currencyCode" trim="true" xpath="invoice/currencyCode"/>
+  <Mapping cloverField="date" trim="true" xpath="invoice/date"/>
+  <Mapping cloverField="discount" trim="true" xpath="invoice/discount"/>
+  <Mapping cloverField="firstName" trim="true" xpath="invoice/firstName"/>
+  <Mapping cloverField="folder" trim="true" xpath="invoice/folder"/>
+  <Mapping cloverField="id" trim="true" xpath="invoice/id"/>
+  <Mapping cloverField="language" trim="true" xpath="invoice/language"/>
+  <Mapping cloverField="lastName" trim="true" xpath="invoice/lastName"/>
+  <Mapping cloverField="notes" trim="true" xpath="invoice/notes"/>
+  <Mapping cloverField="number" trim="true" xpath="invoice/number"/>
+  <Mapping cloverField="organization" trim="true" xpath="invoice/organization"/>
+  <Mapping cloverField="poNumber" trim="true" xpath="invoice/poNumber"/>
+  <Mapping cloverField="recurringId" trim="true" xpath="invoice/recurringId"/>
+  <Mapping cloverField="returnUri" trim="true" xpath="invoice/returnUri"/>
+  <Mapping cloverField="staffId" trim="true" xpath="invoice/staffId"/>
+  <Mapping cloverField="state" trim="true" xpath="invoice/state"/>
+  <Mapping cloverField="status" trim="true" xpath="invoice/status"/>
+  <Mapping cloverField="street1" trim="true" xpath="invoice/street1"/>
+  <Mapping cloverField="street2" trim="true" xpath="invoice/street2"/>
+  <Mapping cloverField="terms" trim="true" xpath="invoice/terms"/>
+  <Mapping cloverField="updated" trim="true" xpath="invoice/updated"/>
+  <Mapping cloverField="vatName" trim="true" xpath="invoice/vatName"/>
+  <Mapping cloverField="vatNumber" trim="true" xpath="invoice/vatNumber"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<schema-object>
+  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.WInvoice"/>
+  <typed-object type="org.mule.modules.freshbooks.model.Invoice">
+    <typed-object-ref name="amount" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="amountOutstanding" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="city" type-ref="java.lang.String"/>
+    <typed-object-ref name="clientId" type-ref="java.lang.String"/>
+    <typed-object-ref name="code" type-ref="java.lang.String"/>
+    <schema-collection name="contacts" type="java.util.List">
+      <typed-object-ref type-ref="org.mule.modules.freshbooks.model.Contact"/>
+    </schema-collection>
+    <typed-object-ref name="country" type-ref="java.lang.String"/>
+    <typed-object-ref name="currencyCode" type-ref="java.lang.String"/>
+    <typed-object-ref name="date" type-ref="java.lang.String"/>
+    <typed-object-ref name="discount" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="firstName" type-ref="java.lang.String"/>
+    <typed-object-ref name="folder" type-ref="org.mule.modules.freshbooks.model.FolderTypes"/>
+    <typed-object-ref name="id" type-ref="java.lang.String"/>
+    <typed-object-ref name="language" type-ref="java.lang.String"/>
+    <typed-object-ref name="lastName" type-ref="java.lang.String"/>
+    <schema-collection name="lines" type="java.util.List">
+      <typed-object-ref type-ref="org.mule.modules.freshbooks.model.Line"/>
+    </schema-collection>
+    <typed-object-ref name="notes" type-ref="java.lang.String"/>
+    <typed-object-ref name="number" type-ref="java.lang.String"/>
+    <typed-object-ref name="organization" type-ref="java.lang.String"/>
+    <typed-object-ref name="poNumber" type-ref="java.lang.String"/>
+    <typed-object-ref name="recurringId" type-ref="java.lang.String"/>
+    <typed-object-ref name="returnUri" type-ref="java.lang.String"/>
+    <typed-object-ref name="staffId" type-ref="java.lang.String"/>
+    <typed-object-ref name="state" type-ref="java.lang.String"/>
+    <typed-object-ref name="status" type-ref="org.mule.modules.freshbooks.model.InvoiceStatusEnum"/>
+    <typed-object-ref name="street1" type-ref="java.lang.String"/>
+    <typed-object-ref name="street2" type-ref="java.lang.String"/>
+    <typed-object-ref name="terms" type-ref="java.lang.String"/>
+    <typed-object-ref name="updated" type-ref="java.lang.String"/>
+    <typed-object-ref name="vatName" type-ref="java.lang.String"/>
+    <typed-object-ref name="vatNumber" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="java.lang.Double"/>
+  <typed-object type="org.mule.modules.freshbooks.model.Contact">
+    <typed-object-ref name="email" type-ref="java.lang.String"/>
+    <typed-object-ref name="firstName" type-ref="java.lang.String"/>
+    <typed-object-ref name="id" type-ref="java.lang.String"/>
+    <typed-object-ref name="lastName" type-ref="java.lang.String"/>
+    <typed-object-ref name="phone1" type-ref="java.lang.String"/>
+    <typed-object-ref name="phone2" type-ref="java.lang.String"/>
+    <typed-object-ref name="username" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="org.mule.modules.freshbooks.model.FolderTypes"/>
+  <typed-object type="org.mule.modules.freshbooks.model.WInvoice">
+    <typed-object-ref name="invoice" type-ref="org.mule.modules.freshbooks.model.Invoice"/>
+  </typed-object>
+  <typed-object type="org.mule.modules.freshbooks.model.InvoiceStatusEnum"/>
+  <typed-object type="java.lang.Integer"/>
+  <typed-object type="java.lang.String"/>
+  <typed-object type="java.math.BigDecimal"/>
+  <typed-object type="org.mule.modules.freshbooks.model.LineTypeEnum"/>
+  <typed-object type="org.mule.modules.freshbooks.model.Line">
+    <typed-object-ref name="amount" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="description" type-ref="java.lang.String"/>
+    <typed-object-ref name="id" type-ref="java.lang.String"/>
+    <typed-object-ref name="name" type-ref="java.lang.String"/>
+    <typed-object-ref name="quantity" type-ref="java.lang.Integer"/>
+    <typed-object-ref name="tax1Name" type-ref="java.lang.String"/>
+    <typed-object-ref name="tax1Percent" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="tax2Name" type-ref="java.lang.String"/>
+    <typed-object-ref name="tax2Percent" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="type" type-ref="org.mule.modules.freshbooks.model.LineTypeEnum"/>
+    <typed-object-ref name="unitCost" type-ref="java.lang.Double"/>
+  </typed-object>
+</schema-object>
+]]></attr>
+</Node>
+<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="JAVA Writer" guiWidth="0" guiX="460" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <invoice>
+    <city>$0.city</city>
+    <clientId>$0.clientId</clientId>
+    <code>$0.code</code>
+    <country>$0.country</country>
+    <currencyCode>$0.currencyCode</currencyCode>
+    <date>$0.date</date>
+    <discount>$0.discount</discount>
+    <firstName>$0.firstName</firstName>
+    <folder>$0.folder</folder>
+    <id>$0.id</id>
+    <language>$0.language</language>
+    <lastName>$0.lastName</lastName>
+    <notes>$0.notes</notes>
+    <number>$0.number</number>
+    <organization>$0.organization</organization>
+    <poNumber>$0.poNumber</poNumber>
+    <returnUri>$0.returnUri</returnUri>
+    <state>$0.state</state>
+    <status>$0.status</status>
+    <street1>$0.street1</street1>
+    <street2>$0.street2</street2>
+    <terms>$0.terms</terms>
+    <vatName>$0.vatName</vatName>
+    <vatNumber>$0.vatNumber</vatNumber>
+  </invoice>
+</object>]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<schema-object>
+  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.WInvoice"/>
+  <typed-object type="org.mule.modules.freshbooks.model.Invoice">
+    <typed-object-ref name="city" type-ref="java.lang.String"/>
+    <typed-object-ref name="clientId" type-ref="java.lang.String"/>
+    <typed-object-ref name="code" type-ref="java.lang.String"/>
+    <typed-object-ref name="country" type-ref="java.lang.String"/>
+    <typed-object-ref name="currencyCode" type-ref="java.lang.String"/>
+    <typed-object-ref name="date" type-ref="java.lang.String"/>
+    <typed-object-ref name="discount" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="firstName" type-ref="java.lang.String"/>
+    <typed-object-ref name="folder" type-ref="org.mule.modules.freshbooks.model.FolderTypes"/>
+    <typed-object-ref name="id" type-ref="java.lang.String"/>
+    <typed-object-ref name="language" type-ref="java.lang.String"/>
+    <typed-object-ref name="lastName" type-ref="java.lang.String"/>
+    <typed-object-ref name="notes" type-ref="java.lang.String"/>
+    <typed-object-ref name="number" type-ref="java.lang.String"/>
+    <typed-object-ref name="organization" type-ref="java.lang.String"/>
+    <typed-object-ref name="poNumber" type-ref="java.lang.String"/>
+    <typed-object-ref name="returnUri" type-ref="java.lang.String"/>
+    <typed-object-ref name="state" type-ref="java.lang.String"/>
+    <typed-object-ref name="status" type-ref="org.mule.modules.freshbooks.model.InvoiceStatusEnum"/>
+    <typed-object-ref name="street1" type-ref="java.lang.String"/>
+    <typed-object-ref name="street2" type-ref="java.lang.String"/>
+    <typed-object-ref name="terms" type-ref="java.lang.String"/>
+    <typed-object-ref name="vatName" type-ref="java.lang.String"/>
+    <typed-object-ref name="vatNumber" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="org.mule.modules.freshbooks.model.FolderTypes"/>
+  <typed-object type="org.mule.modules.freshbooks.model.WInvoice">
+    <typed-object-ref name="invoice" type-ref="org.mule.modules.freshbooks.model.Invoice"/>
+  </typed-object>
+  <typed-object type="org.mule.modules.freshbooks.model.InvoiceStatusEnum"/>
+  <typed-object type="java.math.BigDecimal"/>
+  <typed-object type="java.lang.String"/>
+</schema-object>
+]]></attr>
+</Node>
+<Node enabled="enabled" guiHeight="0" guiName="object_to_object" guiWidth="0" guiX="240" guiY="20" id="REFORMAT0" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+$out.0.__id=$in.0.__id;
+	$out.0.city=$in.0.city;
+	$out.0.clientId=$in.0.clientId;
+	$out.0.code=$in.0.code;
+	$out.0.country=$in.0.country;
+	$out.0.currencyCode=$in.0.currencyCode;
+	$out.0.date=$in.0.date;
+	$out.0.discount=$in.0.discount;
+	$out.0.firstName=$in.0.firstName;
+	$out.0.folder=$in.0.folder;
+	$out.0.id=$in.0.id;
+	$out.0.language=$in.0.language;
+	$out.0.lastName=$in.0.lastName;
+	$out.0.notes=$in.0.notes;
+	$out.0.number=$in.0.number;
+	$out.0.organization=$in.0.organization;
+	$out.0.poNumber=$in.0.poNumber;
+	$out.0.returnUri=$in.0.returnUri;
+	$out.0.state=$in.0.state;
+	$out.0.status=$in.0.status;
+	$out.0.street1=$in.0.street1;
+	$out.0.street2=$in.0.street2;
+	$out.0.terms=$in.0.terms;
+	$out.0.vatName=$in.0.vatName;
+	$out.0.vatNumber=$in.0.vatNumber;
+		return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="REFORMAT0:0"/>
+<Edge debugMode="true" fromNode="REFORMAT0:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="Metadata3" outPort="Port 0 (out)" toNode="BEAN_WRITER0:0"/>
+</Phase>
+</Graph>
