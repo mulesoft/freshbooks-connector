@@ -155,9 +155,11 @@ public class FreshbooksModule {
      * @return callback id
      */
     @Processor
-    public String createCallback(@Optional @Default("#[payload]") WCallback callback)
+    public WCallback createCallback(@Optional @Default("#[payload]") WCallback callback)
     {
-        return freshbooksClient.create(EntityType.CALLBACK, callback.getCallback());
+        String newCallbackId = freshbooksClient.create(EntityType.CALLBACK, callback.getCallback());
+        callback.getCallback().setId(newCallbackId);
+        return callback;
     }
     
     /**
@@ -186,6 +188,21 @@ public class FreshbooksModule {
     public void deleteCallback(@Optional @Default("#[payload]") WCallback callback)
     {
         freshbooksClient.delete(EntityType.CALLBACK, callback.getCallback().getId());
+    }
+    
+    /**
+     * Verify a callback.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:verify-callback}
+     * 
+     * @param callback wrapper of a {@link Callback}
+     * @return verified callback 
+     */
+    @Processor
+    public WCallback verifyCallback(@Optional @Default("#[payload]") WCallback callback)
+    {
+        freshbooksClient.verify(EntityType.CALLBACK, callback.getCallback());
+        return callback;
     }
     
     /**

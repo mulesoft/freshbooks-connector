@@ -23,6 +23,8 @@ public interface FreshbooksClient {
     
     public void delete(EntityType type, String id);
     
+    public void verify(EntityType type, Object obj);
+    
     public <T> Iterable<T> list(EntityType type, BaseRequest request);
 
     public <T> Iterable<T> listPaged(EntityType type, BaseRequest request);

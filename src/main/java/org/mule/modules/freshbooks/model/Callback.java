@@ -60,15 +60,12 @@ public class Callback {
         this.id = id;
     }
 
-    public boolean getVerified() {
-        return verified != null && verified == 1;
+    public Integer getVerified() {
+        return verified;
     }
 
-    public void setVerified(boolean verified) {
-        if(verified)
-            this.verified = 1;
-        else
-            this.verified = 0;
+    public void setVerified(Integer verified) {
+        this.verified = verified;
     }
     
     public String getVerifier() {

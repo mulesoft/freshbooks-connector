@@ -10,6 +10,10 @@
     <freshbooks:delete-callback/>
 <!-- END_INCLUDE(freshbooks:delete-callback) -->
 
+<!-- BEGIN_INCLUDE(freshbooks:verify-callback) -->
+    <freshbooks:verify-callback/>
+<!-- END_INCLUDE(freshbooks:verify-callback) -->
+
 <!-- BEGIN_INCLUDE(freshbooks:create-category) -->
     <freshbooks:create-category/>
 <!-- END_INCLUDE(freshbooks:create-category) -->
@@ -19,7 +23,7 @@
 <!-- END_INCLUDE(freshbooks:update-category) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:get-category) -->
-    <freshbooks:get-category/>
+    <freshbooks:get-category categoryId="123"/>
 <!-- END_INCLUDE(freshbooks:get-category) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:delete-category) -->
@@ -39,7 +43,7 @@
 <!-- END_INCLUDE(freshbooks:update-client) -->
      
 <!-- BEGIN_INCLUDE(freshbooks:get-client) -->
-    <freshbooks:get-client/>
+    <freshbooks:get-client clientId="123"/>
 <!-- END_INCLUDE(freshbooks:get-client) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:delete-client) -->
@@ -47,7 +51,7 @@
 <!-- END_INCLUDE(freshbooks:delete-client) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:undelete-client) -->
-    <freshbooks:undelete-client/>
+    <freshbooks:undelete-client />
 <!-- END_INCLUDE(freshbooks:undelete-client) -->
      
 <!-- BEGIN_INCLUDE(freshbooks:list-clients) -->
@@ -63,15 +67,15 @@
 <!-- END_INCLUDE(freshbooks:update-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:get-invoice) -->
-    <freshbooks:get-invoice/>
-<!-- END_INCLUDE(freshbooks:invoice-invoice) -->
+    <freshbooks:get-invoice invoiceId="123"/>
+<!-- END_INCLUDE(freshbooks:get-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:delete-invoice) -->
     <freshbooks:delete-invoice/>
 <!-- END_INCLUDE(freshbooks:delete-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:undelete-invoice) -->
-    <freshbooks:undelete-invoice/>
+    <freshbooks:undelete-invoice />
 <!-- END_INCLUDE(freshbooks:undelete-invoice) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:list-invoices) -->
@@ -87,8 +91,8 @@
 <!-- END_INCLUDE(freshbooks:update-item) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:get-item) -->
-    <freshbooks:get-item/>
-<!-- END_INCLUDE(freshbooks:invoice-item) -->
+    <freshbooks:get-item itemId="123"/>
+<!-- END_INCLUDE(freshbooks:get-item) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:delete-item) -->
     <freshbooks:delete-item/>
@@ -107,8 +111,8 @@
 <!-- END_INCLUDE(freshbooks:update-payment) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:get-payment) -->
-    <freshbooks:get-payment/>
-<!-- END_INCLUDE(freshbooks:invoice-payment) -->
+    <freshbooks:get-payment paymentId="123"/>
+<!-- END_INCLUDE(freshbooks:get-payment) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:delete-payment) -->
     <freshbooks:delete-payment/>

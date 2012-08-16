@@ -155,6 +155,12 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     {
         requestSendingId(type, id, "undelete");
     }
+    
+    @Override
+    public void verify(EntityType type, Object obj) 
+    {
+        requestSendingObject(type, obj, "verify");
+    }
 
     private Object requestSendingId(EntityType type, String id, String typeOfRequest)
     {
