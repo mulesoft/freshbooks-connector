@@ -74,7 +74,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  CreateCategoryMessageProcessor
+  VerifyCallbackMessageProcessor
 
 
 | Mule Freshbooks Connector (Beta)
@@ -224,7 +224,7 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateCallbackMessageProcessor.html">CreateCallbackMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html">CreateCategoryMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html">CreateCategoryMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateClientMessageProcessor.html">CreateClientMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateInvoiceMessageProcessor.html">CreateInvoiceMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateItemMessageProcessor.html">CreateItemMessageProcessor</a></li>
@@ -253,7 +253,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/UpdateInvoiceMessageProcessor.html">UpdateInvoiceMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/UpdateItemMessageProcessor.html">UpdateItemMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/UpdatePaymentMessageProcessor.html">UpdatePaymentMessageProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html">VerifyCallbackMessageProcessor</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html">VerifyCallbackMessageProcessor</a></li>
       </ul>
     </li>
               
@@ -415,7 +415,7 @@ Summary:
      
     
     class
-<h1>CreateCategoryMessageProcessor</h1>
+<h1>VerifyCallbackMessageProcessor</h1>
 
 
 
@@ -465,7 +465,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.freshbooks.processors.CreateCategoryMessageProcessor</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.freshbooks.processors.VerifyCallbackMessageProcessor</td>
     </tr>
     
 
@@ -481,7 +481,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>CreateCategoryMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html#createCategory(org.mule.modules.freshbooks.model.WCategory)">createCategory(org.mule.modules.freshbooks.model.WCategory)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>VerifyCallbackMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html#verifyCallback(org.mule.modules.freshbooks.model.WCallback)">verifyCallback(org.mule.modules.freshbooks.model.WCallback)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -678,8 +678,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          <a href="../../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#_categoryType">_categoryType</a></td>
+          <a href="../../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#_callbackType">_callbackType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -690,7 +690,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#category">category</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#callback">callback</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -701,7 +701,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           ExpressionManager</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#expressionManager">expressionManager</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#expressionManager">expressionManager</a></td>
           <td class="jd-descrcol" width="100%">Mule Expression Manager
  
 </td>
@@ -714,7 +714,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           FlowConstruct</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#flowConstruct">flowConstruct</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#flowConstruct">flowConstruct</a></td>
           <td class="jd-descrcol" width="100%">Flow construct
  
 </td>
@@ -727,7 +727,7 @@ org.mule.api.lifecycle.Stoppable
           static
           
           Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#logger">logger</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#logger">logger</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -738,7 +738,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#moduleObject">moduleObject</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#moduleObject">moduleObject</a></td>
           <td class="jd-descrcol" width="100%">Module object
  
 </td>
@@ -751,7 +751,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           MuleContext</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#muleContext">muleContext</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#muleContext">muleContext</a></td>
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
@@ -764,7 +764,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           TemplateParser.PatternInfo</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#patternInfo">patternInfo</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#patternInfo">patternInfo</a></td>
           <td class="jd-descrcol" width="100%">Mule Pattern Info
  
 </td>
@@ -777,7 +777,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           AtomicInteger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#retryCount">retryCount</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#retryCount">retryCount</a></td>
           <td class="jd-descrcol" width="100%">Variable used to track how many retries we have attempted on this message processor
  
 </td>
@@ -790,7 +790,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           int</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#retryMax">retryMax</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#retryMax">retryMax</a></td>
           <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
       </tr>
       
@@ -820,7 +820,7 @@ org.mule.api.lifecycle.Stoppable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#CreateCategoryMessageProcessor()">CreateCategoryMessageProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#VerifyCallbackMessageProcessor()">VerifyCallbackMessageProcessor</a></span>()</nobr>
         
   </td></tr>
 
@@ -849,7 +849,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
         
   </td></tr>
 
@@ -865,7 +865,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
         
         <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
   
@@ -883,7 +883,7 @@ org.mule.api.lifecycle.Stoppable
             MuleEvent</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
         
         <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
   
@@ -901,9 +901,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#setCategory(java.lang.Object)">setCategory</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#setCallback(java.lang.Object)">setCallback</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets category</div>
+        <div class="jd-descrdiv">Sets callback</div>
   
   </td></tr>
 
@@ -919,7 +919,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
         
         <div class="jd-descrdiv">Sets flow construct</div>
   
@@ -937,7 +937,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
         
         <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
   
@@ -955,7 +955,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
   
@@ -973,7 +973,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
         
         <div class="jd-descrdiv">Sets retryMax</div>
   
@@ -991,7 +991,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#start()">start</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#start()">start</a></span>()</nobr>
         
   </td></tr>
 
@@ -1007,7 +1007,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateCategoryMessageProcessor.html#stop()">stop</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/VerifyCallbackMessageProcessor.html#stop()">stop</a></span>()</nobr>
         
   </td></tr>
 
@@ -1554,7 +1554,7 @@ From interface
 
 
 
-<A NAME="_categoryType"></A>
+<A NAME="_callbackType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1562,9 +1562,9 @@ From interface
         private 
          
          
-        <a href="../../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a>
+        <a href="../../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a>
       </span>
-        _categoryType
+        _callbackType
     </h4>
       <div class="api-level">
         
@@ -1584,7 +1584,7 @@ From interface
 
 
 
-<A NAME="category"></A>
+<A NAME="callback"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1594,7 +1594,7 @@ From interface
          
         Object
       </span>
-        category
+        callback
     </h4>
       <div class="api-level">
         
@@ -1877,7 +1877,7 @@ From interface
 
 
 
-<A NAME="CreateCategoryMessageProcessor()"></A>
+<A NAME="VerifyCallbackMessageProcessor()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1889,7 +1889,7 @@ From interface
          
         
       </span>
-      <span class="sympad">CreateCategoryMessageProcessor</span>
+      <span class="sympad">VerifyCallbackMessageProcessor</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -2043,7 +2043,7 @@ From interface
 </div>
 
 
-<A NAME="setCategory(java.lang.Object)"></A>
+<A NAME="setCallback(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2055,7 +2055,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setCategory</span>
+      <span class="sympad">setCallback</span>
       <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
@@ -2068,7 +2068,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets category</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets callback</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
