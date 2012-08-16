@@ -56,7 +56,7 @@ import org.mule.modules.freshbooks.model.WPaymentRequest;
  * @author Emiliano Lesende
  *
  */
-@Module(name = "freshbooks", schemaVersion= "1.0")
+@Module(name = "freshbooks", schemaVersion= "1.0", friendlyName = "FreshBooks")
 public class FreshbooksModule {
     
     /**
