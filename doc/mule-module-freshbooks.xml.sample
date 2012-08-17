@@ -121,3 +121,7 @@
 <!-- BEGIN_INCLUDE(freshbooks:list-payments) -->
     <freshbooks:list-payments />
 <!-- END_INCLUDE(freshbooks:list-payments) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-current-user) -->
+    <freshbooks:get-current-user />
+<!-- END_INCLUDE(freshbooks:get-current-user) -->

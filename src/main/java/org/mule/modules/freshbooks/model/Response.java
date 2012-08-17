@@ -67,7 +67,8 @@ public class Response {
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Payments payments;
     
-    
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Staff staff;
     
     /**
      * @return the status
@@ -308,5 +309,17 @@ public class Response {
      */
     public void setPayments(Payments payments) {
         this.payments = payments;
+    }
+    /**
+     * @return the staff
+     */
+    public Staff getStaff() {
+        return staff;
+    }
+    /**
+     * @param staff the staff to set
+     */
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 }

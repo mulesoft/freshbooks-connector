@@ -36,6 +36,7 @@ import org.mule.modules.freshbooks.model.Item;
 import org.mule.modules.freshbooks.model.ItemRequest;
 import org.mule.modules.freshbooks.model.Payment;
 import org.mule.modules.freshbooks.model.PaymentRequest;
+import org.mule.modules.freshbooks.model.Staff;
 import org.mule.modules.freshbooks.model.WCallback;
 import org.mule.modules.freshbooks.model.WCallbackRequest;
 import org.mule.modules.freshbooks.model.WCategory;
@@ -48,6 +49,7 @@ import org.mule.modules.freshbooks.model.WItem;
 import org.mule.modules.freshbooks.model.WItemRequest;
 import org.mule.modules.freshbooks.model.WPayment;
 import org.mule.modules.freshbooks.model.WPaymentRequest;
+import org.mule.modules.freshbooks.model.WStaff;
 
 /**
  *
@@ -622,6 +624,19 @@ public class FreshbooksModule {
     public Iterable<Payment> listPayments(@Optional @Default("#[payload]") WPaymentRequest paymentRequest)
     {
         return freshbooksClient.<Payment>list(EntityType.PAYMENT, paymentRequest.getPaymentRequest());
+    }
+    
+    /**
+     * Returns information about the current user
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-current-user}
+     * @return current user information
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public WStaff getCurrentUserInformation()
+    {
+        return new WStaff((Staff) freshbooksClient.execute(EntityType.STAFF, "staff.current"));
     }
     
     @PostConstruct

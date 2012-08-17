@@ -51,6 +51,9 @@ public class ObjectFactory {
     private final static QName _Credit_QNAME = new QName("http://www.freshbooks.com/api/", "credit");
     private final static QName _Credits_QNAME = new QName("http://www.freshbooks.com/api/", "credits");
     
+    private final static QName _Staff_QNAME = new QName("http://www.freshbooks.com/api/", "staff");
+    private final static QName _StaffRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.modules.freshbooks.model
      * 
@@ -208,6 +211,22 @@ public class ObjectFactory {
      */
     public Credits createCredits() {
         return new Credits();
+    }
+    
+    /**
+     * Create an instance of {@link Staff }
+     * 
+     */
+    public Staff createStaff() {
+        return new Staff();
+    }
+    
+    /**
+     * Create an instance of {@link StaffRequest }
+     * 
+     */
+    public StaffRequest createStaffRequest() {
+        return new StaffRequest();
     }
     
     /**
@@ -416,5 +435,23 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Contacts")
     public JAXBElement<Contacts> createContacts(Contacts value) {
         return new JAXBElement<Contacts>(_Contacts_QNAME, Contacts.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Staff }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Staff")
+    public JAXBElement<Staff> createStaff(Staff value) {
+        return new JAXBElement<Staff>(_Staff_QNAME, Staff.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Staff }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "StaffRequest")
+    public JAXBElement<StaffRequest> createStaffRequest(StaffRequest value) {
+        return new JAXBElement<StaffRequest>(_StaffRequest_QNAME, StaffRequest.class, null, value);
     }
 }

@@ -98,6 +98,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
 
     private String marshalRequest(BaseRequest request)
     {
+        @SuppressWarnings("rawtypes")
         JAXBElement jaxbElement = FreshbooksMessageUtils.getInstance().createJaxbElement(request);
         try {
             return FreshbooksMessageUtils.getInstance().getXmlDocument(jaxbElement);
@@ -161,6 +162,19 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     {
         requestSendingObject(type, obj, "verify");
     }
+    
+    @Override
+    public Object execute(EntityType type, String operation) 
+    {
+        BaseRequest request = type.getRequest();
+        request.setMethod(operation);
+        Response response = sendRequest(request);
+        try {
+            return response.getClass().getMethod("get" + type.getSimpleName()).invoke(response);
+        } catch (Exception e) {
+            throw new FreshbooksException(e.getMessage());
+        }
+    }
 
     private Object requestSendingId(EntityType type, String id, String typeOfRequest)
     {
@@ -207,6 +221,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
                 return arg0.iterator();
             }
             
+            @SuppressWarnings("unchecked")
             private Paged<T> askAnEspecificPage(Integer pageNumber) {
                 request.setMethod(type.getResourceName() + ".list");
                 request.setPage(pageNumber);

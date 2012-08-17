@@ -25,7 +25,9 @@ public enum EntityType {
     
     ITEM(Item.class, "Items", ItemRequest.class),
     
-    PAYMENT(Payment.class, "Payments", PaymentRequest.class);
+    PAYMENT(Payment.class, "Payments", PaymentRequest.class),
+    
+    STAFF(Staff.class, "Staffs", StaffRequest.class);
     
     private Class<?> type;
     private String plural;
