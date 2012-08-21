@@ -9,30 +9,28 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
 http://www.mulesoft.org/schema/mule/debugger http://www.mulesoft.org/schema/mule/debugger/current/mule-debugger.xsd 
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd ">
-    <freshbooks:config name="Freshbooks" apiUrl="${apiUrl}" authenticationToken="${authToken}" doc:name="Freshbooks"/>
-    <data-mapper:config name="Category" transformationGraphPath="category.grf" doc:name="Category"/>
-    <data-mapper:config name="Client" transformationGraphPath="client.grf" doc:name="Client"/>
-    <data-mapper:config name="Invoice" transformationGraphPath="invoice.grf" doc:name="Invoice"/>
+    <freshbooks:config name="Freshbooks" apiUrl="${apiUrl}" authenticationToken="${authToken}" doc:name="FreshBooks"/>
     <context:property-placeholder location="mule.properties"/>
+    <data-mapper:config name="category" transformationGraphPath="category.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="Client" transformationGraphPath="client.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="invoice" transformationGraphPath="invoice.grf" doc:name="DataMapper"/>
     <flow name="Freshbooks_category" doc:name="Freshbooks_category">
         <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8081" path="category" doc:name="HTTP"/>
         <scripting:transformer doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
-
-new WCategory(
-	category: new Category(
-				name: "New FB Test Category"
-)
-)]]></scripting:text>
+                                                        
+            new Category(
+            name: "New FB Test Category -- Testing"
+            )]]></scripting:text>
             </scripting:script>
         </scripting:transformer>
         <freshbooks:create-category config-ref="Freshbooks" doc:name="Freshbooks"/>
-        <data-mapper:transform config-ref="Category" doc:name="DataMapper"/>
+        <data-mapper:transform config-ref="category" doc:name="DataMapper"/>
         <freshbooks:update-category config-ref="Freshbooks" doc:name="Freshbooks"/>
         <message-properties-transformer overwrite="true" scope="invocation" doc:name="Category properties">
-            <add-message-property key="CategoryId" value="#[payload.category.id]"/>
-            <add-message-property key="CategoryName" value="#[payload.category.name]"/>
+            <add-message-property key="CategoryId" value="#[payload.id]"/>
+            <add-message-property key="CategoryName" value="#[payload.name]"/>
         </message-properties-transformer>
         <freshbooks:delete-category config-ref="Freshbooks" doc:name="Freshbooks"/>
         <logger message="Category #[groovy:message.getInvocationProperty('categoryId')] #[groovy:message.getInvocationProperty('categoryName')] created and deleted!" level="INFO" doc:name="Logger"/>
@@ -42,23 +40,21 @@ new WCategory(
         <scripting:transformer doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
-
-new WClient(
-	client: new Client(
-				firstName: "John",
-			    lastName: "Doe",
-                email: "testemail@testing.com"
-)
-)]]></scripting:text>
+                                                        
+            new Client(
+            firstName: "John Testing",
+            lastName: "Doe",
+            email: "testemail-1@testing.com"
+            )]]></scripting:text>
             </scripting:script>
         </scripting:transformer>
         <freshbooks:create-client config-ref="Freshbooks" doc:name="Freshbooks"/>
         <data-mapper:transform config-ref="Client" doc:name="DataMapper"/>
         <freshbooks:update-client config-ref="Freshbooks" doc:name="Freshbooks"/>
         <message-properties-transformer overwrite="true" scope="invocation" doc:name="Client properties">
-            <add-message-property key="clientFirstName" value="#[payload.client.firstName]"/>
-            <add-message-property key="clientId" value="#[payload.client.id]"/>
-            <add-message-property key="clientEmail" value="#[payload.client.email]"/>
+            <add-message-property key="clientFirstName" value="#[payload.firstName]"/>
+            <add-message-property key="clientId" value="#[payload.id]"/>
+            <add-message-property key="clientEmail" value="#[payload.email]"/>
         </message-properties-transformer>
         <freshbooks:delete-client config-ref="Freshbooks" doc:name="Freshbooks"/>
         <logger message="Client #[groovy:message.getInvocationProperty('clientId')] #[groovy:message.getInvocationProperty('clientEmail')] created and deleted!" level="INFO" doc:name="Logger"/>
@@ -68,24 +64,22 @@ new WClient(
         <scripting:transformer doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
-
-new WInvoice(
-	invoice: new Invoice(
-				clientId: "10",
-                lines: new Lines(
-                            lines: [ new Line( quantity: 1,
-                            		           unitCost: 4) ]
-                )
-)
-)]]></scripting:text>
+                                                        
+            new Invoice(
+            clientId: "10",
+            lines: new Lines(
+                         lines: [ new Line( quantity: 1,
+               		                        unitCost: 4) ]
+            )
+            )]]></scripting:text>
             </scripting:script>
         </scripting:transformer>
         <freshbooks:create-invoice config-ref="Freshbooks" doc:name="Freshbooks"/>
-        <data-mapper:transform config-ref="Invoice" doc:name="DataMapper"/>
+        <data-mapper:transform config-ref="invoice" doc:name="DataMapper"/>
         <freshbooks:update-invoice config-ref="Freshbooks" doc:name="Freshbooks"/>
         <message-properties-transformer overwrite="true" scope="invocation" doc:name="Invoice properties">
-            <add-message-property key="invoiceId" value="#[payload.invoice.id]"/>
-            <add-message-property key="invoiceClientId" value="#[payload.invoice.clientId]"/>
+            <add-message-property key="invoiceId" value="#[payload.id]"/>
+            <add-message-property key="invoiceClientId" value="#[payload.clientId]"/>
         </message-properties-transformer>
         <freshbooks:delete-invoice config-ref="Freshbooks" doc:name="Freshbooks"/>
         <logger message="Invoice #[groovy:message.getInvocationProperty('invoiceId')] #[groovy:message.getInvocationProperty('invoiceClientId')] created and deleted!" level="INFO" doc:name="Logger"/>
@@ -95,12 +89,10 @@ new WInvoice(
         <scripting:transformer doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
-
-new WClientRequest(
-	clientRequest: new ClientRequest(
-				folder: "ACTIVE"
-)
-)]]></scripting:text>
+                                                        
+            new ClientRequest(
+            folder: "ACTIVE"
+            )]]></scripting:text>
             </scripting:script>
         </scripting:transformer>
         <freshbooks:list-clients config-ref="Freshbooks" doc:name="Freshbooks"/>
@@ -113,12 +105,10 @@ new WClientRequest(
         <scripting:transformer doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
-
-new WInvoiceRequest(
-	invoiceRequest: new InvoiceRequest(
-				folder: "ACTIVE"
-)
-)]]></scripting:text>
+                                                        
+            new InvoiceRequest(
+            folder: "ACTIVE"
+            )]]></scripting:text>
             </scripting:script>
         </scripting:transformer>
         <freshbooks:list-invoices config-ref="Freshbooks" doc:name="Freshbooks"/>
@@ -131,12 +121,10 @@ new WInvoiceRequest(
         <scripting:transformer doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
-
-new WClient(
-	client: new Client(
-				id: "43"
-)
-)]]></scripting:text>
+                                                            
+                                                            new Client(
+                                                            				id: "14"
+                                                            )]]></scripting:text>
             </scripting:script>
         </scripting:transformer>
         <freshbooks:delete-client config-ref="Freshbooks" doc:name="Freshbooks"/>

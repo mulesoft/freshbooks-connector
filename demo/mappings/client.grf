@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Graph author="josesahad" created="Fri Jul 20 17:59:15 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1342819439489" licenseCode="Unlicensed" licenseType="Unknown" modified="Fri Jul 20 17:59:15 GMT-03:00 2012" modifiedBy="josesahad" name="Client" revision="1.0" showComponentDetails="false">
+<Graph author="josesahad" created="Tue Aug 21 16:31:49 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1345577751078" licenseCode="Unlicensed" licenseType="Unknown" modified="Tue Aug 21 16:31:49 GMT-03:00 2012" modifiedBy="josesahad" name="Client" revision="1.0" showComponentDetails="false">
 <Global>
-<Metadata __sourcePath="{}/object/client/contacts" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="Metadata0" _parent_id="__parent_id" _position="0" _type="Input" id="Metadata1">
-<Record fieldDelimiter="|" name="Contact" recordDelimiter="&#10;" type="delimited">
+<Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
+<Record fieldDelimiter="|" name="Client" recordDelimiter="&#10;" type="delimited">
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
-<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
-<Field __sourcePath="{}/object/client/contacts/email" label="email" name="email" type="string"/>
-<Field __sourcePath="{}/object/client/contacts/firstName" label="firstName" name="firstName" type="string"/>
-<Field __sourcePath="{}/object/client/contacts/id" label="id" name="id" type="string"/>
-<Field __sourcePath="{}/object/client/contacts/lastName" label="lastName" name="lastName" type="string"/>
-<Field __sourcePath="{}/object/client/contacts/phone1" label="phone1" name="phone1" type="string"/>
-<Field __sourcePath="{}/object/client/contacts/phone2" label="phone2" name="phone2" type="string"/>
-<Field __sourcePath="{}/object/client/contacts/username" label="username" name="username" type="string"/>
-</Record>
-</Metadata>
-<Metadata __sourcePath="{}/object/client/credits" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="Metadata0" _parent_id="__parent_id" _position="1" _type="Input" id="Metadata2">
-<Record fieldDelimiter="|" name="Credit" recordDelimiter="&#10;" type="delimited">
-<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
-<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
-<Field __sourcePath="{}/object/client/credits/currency" label="currency" name="currency" type="string"/>
-<Field __sourcePath="{}/object/client/credits/value" label="value" name="value" type="number"/>
+<Field __sourcePath="{}/object/city" label="city" name="city" type="string"/>
+<Field __sourcePath="{}/object/code" label="code" name="code" type="string"/>
+<Field __sourcePath="{}/object/country" label="country" name="country" type="string"/>
+<Field __sourcePath="{}/object/credit/currency" label="currency" name="currency" type="string"/>
+<Field __sourcePath="{}/object/credit/value" label="value" name="value" type="number"/>
+<Field __sourcePath="{}/object/currencyCode" label="currencyCode" name="currencyCode" type="string"/>
+<Field __sourcePath="{}/object/email" label="email" name="email" type="string"/>
+<Field __sourcePath="{}/object/fax" label="fax" name="fax" type="string"/>
+<Field __sourcePath="{}/object/firstName" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{}/object/homePhone" label="homePhone" name="homePhone" type="string"/>
+<Field __sourcePath="{}/object/id" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/language" label="language" name="language" type="string"/>
+<Field __sourcePath="{}/object/lastName" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{}/object/mobile" label="mobile" name="mobile" type="string"/>
+<Field __sourcePath="{}/object/notes" label="notes" name="notes" type="string"/>
+<Field __sourcePath="{}/object/organization" label="organization" name="organization" type="string"/>
+<Field __sourcePath="{}/object/password" label="password" name="password" type="string"/>
+<Field __sourcePath="{}/object/secondaryCity" label="secondaryCity" name="secondaryCity" type="string"/>
+<Field __sourcePath="{}/object/secondaryCode" label="secondaryCode" name="secondaryCode" type="string"/>
+<Field __sourcePath="{}/object/secondaryCountry" label="secondaryCountry" name="secondaryCountry" type="string"/>
+<Field __sourcePath="{}/object/secondaryState" label="secondaryState" name="secondaryState" type="string"/>
+<Field __sourcePath="{}/object/secondaryStreet1" label="secondaryStreet1" name="secondaryStreet1" type="string"/>
+<Field __sourcePath="{}/object/secondaryStreet2" label="secondaryStreet2" name="secondaryStreet2" type="string"/>
+<Field __sourcePath="{}/object/state" label="state" name="state" type="string"/>
+<Field __sourcePath="{}/object/street1" label="street1" name="street1" type="string"/>
+<Field __sourcePath="{}/object/street2" label="street2" name="street2" type="string"/>
+<Field __sourcePath="{}/object/updated" label="updated" name="updated" type="string"/>
+<Field __sourcePath="{}/object/username" label="username" name="username" type="string"/>
+<Field __sourcePath="{}/object/vatName" label="vatName" name="vatName" type="string"/>
+<Field __sourcePath="{}/object/vatNumber" label="vatNumber" name="vatNumber" type="string"/>
+<Field __sourcePath="{}/object/workPhone" label="workPhone" name="workPhone" type="string"/>
 </Record>
 </Metadata>
 <Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="Metadata3">
-<Record fieldDelimiter="|" name="WClient" recordDelimiter="&#10;" type="delimited">
+<Record fieldDelimiter="|" name="Client" recordDelimiter="&#10;" type="delimited">
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
-<Field __sourcePath="{}/object/client/city" label="city" name="city" type="string"/>
-<Field __sourcePath="{}/object/client/code" label="code" name="code" type="string"/>
-<Field __sourcePath="{}/object/client/country" label="country" name="country" type="string"/>
-<Field __sourcePath="{}/object/client/credit/currency" label="currency" name="currency" type="string"/>
-<Field __sourcePath="{}/object/client/credit/value" label="value" name="value" type="number"/>
-<Field __sourcePath="{}/object/client/currencyCode" label="currencyCode" name="currencyCode" type="string"/>
-<Field __sourcePath="{}/object/client/email" label="email" name="email" type="string"/>
-<Field __sourcePath="{}/object/client/fax" label="fax" name="fax" type="string"/>
-<Field __sourcePath="{}/object/client/firstName" label="firstName" name="firstName" type="string"/>
-<Field __sourcePath="{}/object/client/homePhone" label="homePhone" name="homePhone" type="string"/>
-<Field __sourcePath="{}/object/client/id" label="id" name="id" type="string"/>
-<Field __sourcePath="{}/object/client/language" label="language" name="language" type="string"/>
-<Field __sourcePath="{}/object/client/lastName" label="lastName" name="lastName" type="string"/>
-<Field __sourcePath="{}/object/client/mobile" label="mobile" name="mobile" type="string"/>
-<Field __sourcePath="{}/object/client/notes" label="notes" name="notes" type="string"/>
-<Field __sourcePath="{}/object/client/organization" label="organization" name="organization" type="string"/>
-<Field __sourcePath="{}/object/client/password" label="password" name="password" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryCity" label="secondaryCity" name="secondaryCity" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryCode" label="secondaryCode" name="secondaryCode" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryCountry" label="secondaryCountry" name="secondaryCountry" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryState" label="secondaryState" name="secondaryState" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryStreet1" label="secondaryStreet1" name="secondaryStreet1" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryStreet2" label="secondaryStreet2" name="secondaryStreet2" type="string"/>
-<Field __sourcePath="{}/object/client/state" label="state" name="state" type="string"/>
-<Field __sourcePath="{}/object/client/street1" label="street1" name="street1" type="string"/>
-<Field __sourcePath="{}/object/client/street2" label="street2" name="street2" type="string"/>
-<Field __sourcePath="{}/object/client/username" label="username" name="username" type="string"/>
-<Field __sourcePath="{}/object/client/vatName" label="vatName" name="vatName" type="string"/>
-<Field __sourcePath="{}/object/client/vatNumber" label="vatNumber" name="vatNumber" type="string"/>
-<Field __sourcePath="{}/object/client/workPhone" label="workPhone" name="workPhone" type="string"/>
+<Field __sourcePath="{}/object/city" label="city" name="city" type="string"/>
+<Field __sourcePath="{}/object/code" label="code" name="code" type="string"/>
+<Field __sourcePath="{}/object/country" label="country" name="country" type="string"/>
+<Field __sourcePath="{}/object/credit/currency" label="currency" name="currency" type="string"/>
+<Field __sourcePath="{}/object/credit/value" label="value" name="value" type="number"/>
+<Field __sourcePath="{}/object/currencyCode" label="currencyCode" name="currencyCode" type="string"/>
+<Field __sourcePath="{}/object/email" label="email" name="email" type="string"/>
+<Field __sourcePath="{}/object/fax" label="fax" name="fax" type="string"/>
+<Field __sourcePath="{}/object/firstName" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{}/object/homePhone" label="homePhone" name="homePhone" type="string"/>
+<Field __sourcePath="{}/object/id" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/language" label="language" name="language" type="string"/>
+<Field __sourcePath="{}/object/lastName" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{}/object/mobile" label="mobile" name="mobile" type="string"/>
+<Field __sourcePath="{}/object/notes" label="notes" name="notes" type="string"/>
+<Field __sourcePath="{}/object/organization" label="organization" name="organization" type="string"/>
+<Field __sourcePath="{}/object/password" label="password" name="password" type="string"/>
+<Field __sourcePath="{}/object/secondaryCity" label="secondaryCity" name="secondaryCity" type="string"/>
+<Field __sourcePath="{}/object/secondaryCode" label="secondaryCode" name="secondaryCode" type="string"/>
+<Field __sourcePath="{}/object/secondaryCountry" label="secondaryCountry" name="secondaryCountry" type="string"/>
+<Field __sourcePath="{}/object/secondaryState" label="secondaryState" name="secondaryState" type="string"/>
+<Field __sourcePath="{}/object/secondaryStreet1" label="secondaryStreet1" name="secondaryStreet1" type="string"/>
+<Field __sourcePath="{}/object/secondaryStreet2" label="secondaryStreet2" name="secondaryStreet2" type="string"/>
+<Field __sourcePath="{}/object/state" label="state" name="state" type="string"/>
+<Field __sourcePath="{}/object/street1" label="street1" name="street1" type="string"/>
+<Field __sourcePath="{}/object/street2" label="street2" name="street2" type="string"/>
+<Field __sourcePath="{}/object/username" label="username" name="username" type="string"/>
+<Field __sourcePath="{}/object/vatName" label="vatName" name="vatName" type="string"/>
+<Field __sourcePath="{}/object/vatNumber" label="vatNumber" name="vatNumber" type="string"/>
+<Field __sourcePath="{}/object/workPhone" label="workPhone" name="workPhone" type="string"/>
 </Record>
 </Metadata>
-<Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
-<Record fieldDelimiter="|" name="WClient" recordDelimiter="&#10;" type="delimited">
+<Metadata __sourcePath="{}/object/contacts" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="Metadata0" _parent_id="__parent_id" _position="0" _type="Input" id="Metadata1">
+<Record fieldDelimiter="|" name="Contact" recordDelimiter="&#10;" type="delimited">
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
-<Field __sourcePath="{}/object/client/city" label="city" name="city" type="string"/>
-<Field __sourcePath="{}/object/client/code" label="code" name="code" type="string"/>
-<Field __sourcePath="{}/object/client/country" label="country" name="country" type="string"/>
-<Field __sourcePath="{}/object/client/credit/currency" label="currency" name="currency" type="string"/>
-<Field __sourcePath="{}/object/client/credit/value" label="value" name="value" type="number"/>
-<Field __sourcePath="{}/object/client/currencyCode" label="currencyCode" name="currencyCode" type="string"/>
-<Field __sourcePath="{}/object/client/email" label="email" name="email" type="string"/>
-<Field __sourcePath="{}/object/client/fax" label="fax" name="fax" type="string"/>
-<Field __sourcePath="{}/object/client/firstName" label="firstName" name="firstName" type="string"/>
-<Field __sourcePath="{}/object/client/homePhone" label="homePhone" name="homePhone" type="string"/>
-<Field __sourcePath="{}/object/client/id" label="id" name="id" type="string"/>
-<Field __sourcePath="{}/object/client/language" label="language" name="language" type="string"/>
-<Field __sourcePath="{}/object/client/lastName" label="lastName" name="lastName" type="string"/>
-<Field __sourcePath="{}/object/client/mobile" label="mobile" name="mobile" type="string"/>
-<Field __sourcePath="{}/object/client/notes" label="notes" name="notes" type="string"/>
-<Field __sourcePath="{}/object/client/organization" label="organization" name="organization" type="string"/>
-<Field __sourcePath="{}/object/client/password" label="password" name="password" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryCity" label="secondaryCity" name="secondaryCity" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryCode" label="secondaryCode" name="secondaryCode" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryCountry" label="secondaryCountry" name="secondaryCountry" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryState" label="secondaryState" name="secondaryState" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryStreet1" label="secondaryStreet1" name="secondaryStreet1" type="string"/>
-<Field __sourcePath="{}/object/client/secondaryStreet2" label="secondaryStreet2" name="secondaryStreet2" type="string"/>
-<Field __sourcePath="{}/object/client/state" label="state" name="state" type="string"/>
-<Field __sourcePath="{}/object/client/street1" label="street1" name="street1" type="string"/>
-<Field __sourcePath="{}/object/client/street2" label="street2" name="street2" type="string"/>
-<Field __sourcePath="{}/object/client/updated" label="updated" name="updated" type="string"/>
-<Field __sourcePath="{}/object/client/username" label="username" name="username" type="string"/>
-<Field __sourcePath="{}/object/client/vatName" label="vatName" name="vatName" type="string"/>
-<Field __sourcePath="{}/object/client/vatNumber" label="vatNumber" name="vatNumber" type="string"/>
-<Field __sourcePath="{}/object/client/workPhone" label="workPhone" name="workPhone" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __sourcePath="{}/object/contacts/email" label="email" name="email" type="string"/>
+<Field __sourcePath="{}/object/contacts/firstName" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{}/object/contacts/id" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/contacts/lastName" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{}/object/contacts/phone1" label="phone1" name="phone1" type="string"/>
+<Field __sourcePath="{}/object/contacts/phone2" label="phone2" name="phone2" type="string"/>
+<Field __sourcePath="{}/object/contacts/username" label="username" name="username" type="string"/>
+</Record>
+</Metadata>
+<Metadata __sourcePath="{}/object/credits" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="Metadata0" _parent_id="__parent_id" _position="1" _type="Input" id="Metadata2">
+<Record fieldDelimiter="|" name="Credit" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __sourcePath="{}/object/credits/currency" label="currency" name="currency" type="string"/>
+<Field __sourcePath="{}/object/credits/value" label="value" name="value" type="number"/>
 </Record>
 </Metadata>
 <Dictionary>
@@ -99,46 +99,46 @@
 </Dictionary>
 </Global>
 <Phase number="0">
-<Node enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="JAVA Reader" guiWidth="0" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="Pojo READER" guiWidth="0" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Context outPort="0" sequenceField="__id" xpath=".">
-  <Mapping cloverField="city" trim="true" xpath="client/city"/>
-  <Mapping cloverField="code" trim="true" xpath="client/code"/>
-  <Mapping cloverField="country" trim="true" xpath="client/country"/>
-  <Mapping cloverField="currency" trim="true" xpath="client/credit/currency"/>
-  <Mapping cloverField="value" trim="true" xpath="client/credit/value"/>
-  <Mapping cloverField="currencyCode" trim="true" xpath="client/currencyCode"/>
-  <Mapping cloverField="email" trim="true" xpath="client/email"/>
-  <Mapping cloverField="fax" trim="true" xpath="client/fax"/>
-  <Mapping cloverField="firstName" trim="true" xpath="client/firstName"/>
-  <Mapping cloverField="homePhone" trim="true" xpath="client/homePhone"/>
-  <Mapping cloverField="id" trim="true" xpath="client/id"/>
-  <Mapping cloverField="language" trim="true" xpath="client/language"/>
-  <Mapping cloverField="lastName" trim="true" xpath="client/lastName"/>
-  <Mapping cloverField="mobile" trim="true" xpath="client/mobile"/>
-  <Mapping cloverField="notes" trim="true" xpath="client/notes"/>
-  <Mapping cloverField="organization" trim="true" xpath="client/organization"/>
-  <Mapping cloverField="password" trim="true" xpath="client/password"/>
-  <Mapping cloverField="secondaryCity" trim="true" xpath="client/secondaryCity"/>
-  <Mapping cloverField="secondaryCode" trim="true" xpath="client/secondaryCode"/>
-  <Mapping cloverField="secondaryCountry" trim="true" xpath="client/secondaryCountry"/>
-  <Mapping cloverField="secondaryState" trim="true" xpath="client/secondaryState"/>
-  <Mapping cloverField="secondaryStreet1" trim="true" xpath="client/secondaryStreet1"/>
-  <Mapping cloverField="secondaryStreet2" trim="true" xpath="client/secondaryStreet2"/>
-  <Mapping cloverField="state" trim="true" xpath="client/state"/>
-  <Mapping cloverField="street1" trim="true" xpath="client/street1"/>
-  <Mapping cloverField="street2" trim="true" xpath="client/street2"/>
-  <Mapping cloverField="updated" trim="true" xpath="client/updated"/>
-  <Mapping cloverField="username" trim="true" xpath="client/username"/>
-  <Mapping cloverField="vatName" trim="true" xpath="client/vatName"/>
-  <Mapping cloverField="vatNumber" trim="true" xpath="client/vatNumber"/>
-  <Mapping cloverField="workPhone" trim="true" xpath="client/workPhone"/>
+  <Mapping cloverField="city" trim="true" xpath="city"/>
+  <Mapping cloverField="code" trim="true" xpath="code"/>
+  <Mapping cloverField="country" trim="true" xpath="country"/>
+  <Mapping cloverField="currency" trim="true" xpath="credit/currency"/>
+  <Mapping cloverField="value" trim="true" xpath="credit/value"/>
+  <Mapping cloverField="currencyCode" trim="true" xpath="currencyCode"/>
+  <Mapping cloverField="email" trim="true" xpath="email"/>
+  <Mapping cloverField="fax" trim="true" xpath="fax"/>
+  <Mapping cloverField="firstName" trim="true" xpath="firstName"/>
+  <Mapping cloverField="homePhone" trim="true" xpath="homePhone"/>
+  <Mapping cloverField="id" trim="true" xpath="id"/>
+  <Mapping cloverField="language" trim="true" xpath="language"/>
+  <Mapping cloverField="lastName" trim="true" xpath="lastName"/>
+  <Mapping cloverField="mobile" trim="true" xpath="mobile"/>
+  <Mapping cloverField="notes" trim="true" xpath="notes"/>
+  <Mapping cloverField="organization" trim="true" xpath="organization"/>
+  <Mapping cloverField="password" trim="true" xpath="password"/>
+  <Mapping cloverField="secondaryCity" trim="true" xpath="secondaryCity"/>
+  <Mapping cloverField="secondaryCode" trim="true" xpath="secondaryCode"/>
+  <Mapping cloverField="secondaryCountry" trim="true" xpath="secondaryCountry"/>
+  <Mapping cloverField="secondaryState" trim="true" xpath="secondaryState"/>
+  <Mapping cloverField="secondaryStreet1" trim="true" xpath="secondaryStreet1"/>
+  <Mapping cloverField="secondaryStreet2" trim="true" xpath="secondaryStreet2"/>
+  <Mapping cloverField="state" trim="true" xpath="state"/>
+  <Mapping cloverField="street1" trim="true" xpath="street1"/>
+  <Mapping cloverField="street2" trim="true" xpath="street2"/>
+  <Mapping cloverField="updated" trim="true" xpath="updated"/>
+  <Mapping cloverField="username" trim="true" xpath="username"/>
+  <Mapping cloverField="vatName" trim="true" xpath="vatName"/>
+  <Mapping cloverField="vatNumber" trim="true" xpath="vatNumber"/>
+  <Mapping cloverField="workPhone" trim="true" xpath="workPhone"/>
 </Context>
 ]]></attr>
 <attr name="_data_format"><![CDATA[JAVA]]></attr>
 <attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <schema-object>
-  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.WClient"/>
+  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.Client"/>
   <typed-object type="java.lang.Double"/>
   <typed-object type="org.mule.modules.freshbooks.model.Contact">
     <typed-object-ref name="email" type-ref="java.lang.String"/>
@@ -148,9 +148,6 @@
     <typed-object-ref name="phone1" type-ref="java.lang.String"/>
     <typed-object-ref name="phone2" type-ref="java.lang.String"/>
     <typed-object-ref name="username" type-ref="java.lang.String"/>
-  </typed-object>
-  <typed-object type="org.mule.modules.freshbooks.model.WClient">
-    <typed-object-ref name="client" type-ref="org.mule.modules.freshbooks.model.Client"/>
   </typed-object>
   <typed-object type="org.mule.modules.freshbooks.model.Credit">
     <typed-object-ref name="currency" type-ref="java.lang.String"/>
@@ -198,52 +195,47 @@
 </schema-object>
 ]]></attr>
 </Node>
-<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="JAVA Writer" guiWidth="0" guiX="460" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
+<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="Pojo WRITER" guiWidth="0" guiX="680" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
-  <client>
-    <city>$0.city</city>
-    <code>$0.code</code>
-    <country>$0.country</country>
-    <credit>
-      <currency>$0.currency</currency>
-      <value>$0.value</value>
-    </credit>
-    <currencyCode>$0.currencyCode</currencyCode>
-    <email>$0.email</email>
-    <fax>$0.fax</fax>
-    <firstName>$0.firstName</firstName>
-    <homePhone>$0.homePhone</homePhone>
-    <id>$0.id</id>
-    <language>$0.language</language>
-    <lastName>$0.lastName</lastName>
-    <mobile>$0.mobile</mobile>
-    <notes>$0.notes</notes>
-    <organization>$0.organization</organization>
-    <password>$0.password</password>
-    <secondaryCity>$0.secondaryCity</secondaryCity>
-    <secondaryCode>$0.secondaryCode</secondaryCode>
-    <secondaryCountry>$0.secondaryCountry</secondaryCountry>
-    <secondaryState>$0.secondaryState</secondaryState>
-    <secondaryStreet1>$0.secondaryStreet1</secondaryStreet1>
-    <secondaryStreet2>$0.secondaryStreet2</secondaryStreet2>
-    <state>$0.state</state>
-    <street1>$0.street1</street1>
-    <street2>$0.street2</street2>
-    <username>$0.username</username>
-    <vatName>$0.vatName</vatName>
-    <vatNumber>$0.vatNumber</vatNumber>
-    <workPhone>$0.workPhone</workPhone>
-  </client>
+  <city>$0.city</city>
+  <code>$0.code</code>
+  <country>$0.country</country>
+  <credit>
+    <currency>$0.currency</currency>
+    <value>$0.value</value>
+  </credit>
+  <currencyCode>$0.currencyCode</currencyCode>
+  <email>$0.email</email>
+  <fax>$0.fax</fax>
+  <firstName>$0.firstName</firstName>
+  <homePhone>$0.homePhone</homePhone>
+  <id>$0.id</id>
+  <language>$0.language</language>
+  <lastName>$0.lastName</lastName>
+  <mobile>$0.mobile</mobile>
+  <notes>$0.notes</notes>
+  <organization>$0.organization</organization>
+  <password>$0.password</password>
+  <secondaryCity>$0.secondaryCity</secondaryCity>
+  <secondaryCode>$0.secondaryCode</secondaryCode>
+  <secondaryCountry>$0.secondaryCountry</secondaryCountry>
+  <secondaryState>$0.secondaryState</secondaryState>
+  <secondaryStreet1>$0.secondaryStreet1</secondaryStreet1>
+  <secondaryStreet2>$0.secondaryStreet2</secondaryStreet2>
+  <state>$0.state</state>
+  <street1>$0.street1</street1>
+  <street2>$0.street2</street2>
+  <username>$0.username</username>
+  <vatName>$0.vatName</vatName>
+  <vatNumber>$0.vatNumber</vatNumber>
+  <workPhone>$0.workPhone</workPhone>
 </object>]]></attr>
 <attr name="_data_format"><![CDATA[JAVA]]></attr>
 <attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <schema-object>
-  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.WClient"/>
+  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.Client"/>
   <typed-object type="java.lang.Double"/>
-  <typed-object type="org.mule.modules.freshbooks.model.WClient">
-    <typed-object-ref name="client" type-ref="org.mule.modules.freshbooks.model.Client"/>
-  </typed-object>
   <typed-object type="org.mule.modules.freshbooks.model.Credit">
     <typed-object-ref name="currency" type-ref="java.lang.String"/>
     <typed-object-ref name="value" type-ref="java.lang.Double"/>
@@ -288,7 +280,7 @@
 
 // Transforms input record into output record.
 function integer transform() {
-	$out.0.firstName = "John modified";
+	$out.0.lastName = "Updated FB demo Client";
 $out.0.__id=$in.0.__id;
 	$out.0.city=$in.0.city;
 	$out.0.code=$in.0.code;
@@ -298,11 +290,11 @@ $out.0.__id=$in.0.__id;
 	$out.0.currencyCode=$in.0.currencyCode;
 	$out.0.email=$in.0.email;
 	$out.0.fax=$in.0.fax;
-		$out.0.homePhone=$in.0.homePhone;
+	$out.0.firstName=$in.0.firstName;
+	$out.0.homePhone=$in.0.homePhone;
 	$out.0.id=$in.0.id;
 	$out.0.language=$in.0.language;
-	$out.0.lastName=$in.0.lastName;
-	$out.0.mobile=$in.0.mobile;
+		$out.0.mobile=$in.0.mobile;
 	$out.0.notes=$in.0.notes;
 	$out.0.organization=$in.0.organization;
 	$out.0.password=$in.0.password;

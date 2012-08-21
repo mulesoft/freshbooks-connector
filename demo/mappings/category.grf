@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Graph author="josesahad" created="Fri Jul 20 17:59:15 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1342818100004" licenseCode="Unlicensed" licenseType="Unknown" modified="Fri Jul 20 17:59:15 GMT-03:00 2012" modifiedBy="josesahad" name="category" revision="1.0" showComponentDetails="false">
+<Graph author="josesahad" created="Tue Aug 21 16:31:49 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1345577638286" licenseCode="Unlicensed" licenseType="Unknown" modified="Tue Aug 21 16:31:49 GMT-03:00 2012" modifiedBy="josesahad" name="category" revision="1.0" showComponentDetails="false">
 <Global>
-<Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="Metadata1">
-<Record fieldDelimiter="|" name="WCategory" recordDelimiter="&#10;" type="delimited">
+<Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
+<Record fieldDelimiter="|" name="Category" recordDelimiter="&#10;" type="delimited">
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
-<Field __sourcePath="{}/object/category/id" label="id" name="id" type="string"/>
-<Field __sourcePath="{}/object/category/name" label="name" name="name" type="string"/>
-<Field __sourcePath="{}/object/category/updated" label="updated" name="updated" type="string"/>
+<Field __sourcePath="{}/object/id" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/name" label="name" name="name" type="string"/>
+<Field __sourcePath="{}/object/updated" label="updated" name="updated" type="string"/>
 </Record>
 </Metadata>
-<Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
-<Record fieldDelimiter="|" name="WCategory" recordDelimiter="&#10;" type="delimited">
+<Metadata __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="Metadata1">
+<Record fieldDelimiter="|" name="Category" recordDelimiter="&#10;" type="delimited">
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
-<Field __sourcePath="{}/object/category/id" label="id" name="id" type="string"/>
-<Field __sourcePath="{}/object/category/name" label="name" name="name" type="string"/>
-<Field __sourcePath="{}/object/category/updated" label="updated" name="updated" type="string"/>
+<Field __sourcePath="{}/object/id" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/name" label="name" name="name" type="string"/>
+<Field __sourcePath="{}/object/updated" label="updated" name="updated" type="string"/>
 </Record>
 </Metadata>
 <Dictionary>
@@ -23,21 +23,18 @@
 </Dictionary>
 </Global>
 <Phase number="0">
-<Node enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="JAVA Reader" guiWidth="0" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="Pojo READER" guiWidth="0" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Context outPort="0" sequenceField="__id" xpath=".">
-  <Mapping cloverField="id" trim="true" xpath="category/id"/>
-  <Mapping cloverField="name" trim="true" xpath="category/name"/>
-  <Mapping cloverField="updated" trim="true" xpath="category/updated"/>
+  <Mapping cloverField="id" trim="true" xpath="id"/>
+  <Mapping cloverField="name" trim="true" xpath="name"/>
+  <Mapping cloverField="updated" trim="true" xpath="updated"/>
 </Context>
 ]]></attr>
 <attr name="_data_format"><![CDATA[JAVA]]></attr>
 <attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <schema-object>
-  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.WCategory"/>
-  <typed-object type="org.mule.modules.freshbooks.model.WCategory">
-    <typed-object-ref name="category" type-ref="org.mule.modules.freshbooks.model.Category"/>
-  </typed-object>
+  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.Category"/>
   <typed-object type="java.lang.String"/>
   <typed-object type="org.mule.modules.freshbooks.model.Category">
     <typed-object-ref name="id" type-ref="java.lang.String"/>
@@ -47,22 +44,17 @@
 </schema-object>
 ]]></attr>
 </Node>
-<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="JAVA Writer" guiWidth="0" guiX="460" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
+<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="Pojo WRITER" guiWidth="0" guiX="680" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
-  <category>
-    <id>$0.id</id>
-    <name>$0.name</name>
-    <updated>$0.updated</updated>
-  </category>
+  <id>$0.id</id>
+  <name>$0.name</name>
+  <updated>$0.updated</updated>
 </object>]]></attr>
 <attr name="_data_format"><![CDATA[JAVA]]></attr>
 <attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <schema-object>
-  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.WCategory"/>
-  <typed-object type="org.mule.modules.freshbooks.model.WCategory">
-    <typed-object-ref name="category" type-ref="org.mule.modules.freshbooks.model.Category"/>
-  </typed-object>
+  <typed-object-ref type-ref="org.mule.modules.freshbooks.model.Category"/>
   <typed-object type="java.lang.String"/>
   <typed-object type="org.mule.modules.freshbooks.model.Category">
     <typed-object-ref name="id" type-ref="java.lang.String"/>
@@ -77,8 +69,8 @@
 
 // Transforms input record into output record.
 function integer transform() {
-	$out.0.name = "Updated Test category";
-			$out.0.__id=$in.0.__id;
+	$out.0.name = "Update FB demo category";
+$out.0.__id=$in.0.__id;
 	$out.0.id=$in.0.id;
 		$out.0.updated=$in.0.updated;
 		return ALL;

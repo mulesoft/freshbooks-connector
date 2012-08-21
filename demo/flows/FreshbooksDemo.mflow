@@ -1,435 +1,684 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="FreshbooksDemo">
-    <global-element type="http://www.mulesoft.org/schema/mule/freshbooks/config" name="Freshbooks" entity-id="e7b2ac11-c2ce-4278-9b67-eefd8b1a50b4">
+    <global-element type="http://www.mulesoft.org/schema/mule/freshbooks/config" name="FreshBooks" entity-id="FreshBooks#1">
         <properties>
             <property value="Freshbooks" name="name"/>
+            <property value="1" name="auxiliary;index"/>
             <property value="${apiUrl}" name="apiUrl"/>
             <property value="${authToken}" name="authenticationToken"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
         </properties>
-        <description></description>
     </global-element>
-    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="Category" entity-id="629c6a7e-d832-457d-9e8d-7fdabcc2f96b">
+    <global-element type="http://www.springframework.org/schema/context/property-placeholder" name="Property Placeholder" entity-id="Property Placeholder#1">
         <properties>
-            <property value="Category" name="name"/>
-            <property value="category.grf" name="transformationGraphPath"/>
+            <property value="mule.properties" name="location"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="Client" entity-id="4b3e9a3d-562d-4547-9841-d6641bd6d869">
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#1">
+        <properties>
+            <property value="category" name="name"/>
+            <property value="category.grf" name="transformationGraphPath"/>
+            <property value="3" name="auxiliary;index"/>
+            <property value="3" name="auxiliary;index"/>
+            <property value="3" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#2">
         <properties>
             <property value="Client" name="name"/>
             <property value="client.grf" name="transformationGraphPath"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="Invoice" entity-id="07ed6b0d-a69a-4c38-b176-964a55c592d6">
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#3">
         <properties>
-            <property value="Invoice" name="name"/>
+            <property value="invoice" name="name"/>
             <property value="invoice.grf" name="transformationGraphPath"/>
+            <property value="5" name="auxiliary;index"/>
+            <property value="5" name="auxiliary;index"/>
+            <property value="5" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <global-element type="http://www.springframework.org/schema/context/property-placeholder" name="Property Placeholder" entity-id="c82757e6-5f11-4b05-b091-d69006df016c">
-        <properties>
-            <property value="mule.properties" name="location"/>
-        </properties>
-        <description></description>
-    </global-element>
-    <flow SubFlow="false" name="Freshbooks_category">
+    <flow SubFlow="false" name="Freshbooks_category" entity-id="230c087d-5b60-46a7-8b92-d46dcdf6d683">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
+            <property value="6" name="auxiliary;index"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="6" name="auxiliary;index"/>
         </properties>
-        <lane hadOnlyOneElement="false" entity-id="eb0106d4-754a-46dd-8457-032e5d6e54e0">
-            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="40bd2c53-cb7d-4ed0-b97b-fb98a478cb5b">
+        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="one-way" name="exchange-pattern"/>
+                    <property value="7" name="auxiliary;index"/>
                     <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="7" name="auxiliary;index"/>
                     <property name="httpLabel"/>
                     <property value="localhost" name="host"/>
                     <property value="8081" name="port"/>
                     <property value="category" name="path"/>
                     <property name="method"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
+                    <property value="7" name="auxiliary;index"/>
                     <property name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
                     <property name="responseTimeout"/>
                     <property name="followRedirects"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
                     <property name="connector-ref"/>
                     <property name="ref"/>
                     <property name="transformer-refs"/>
                     <property name="responseTransformer-refs"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
                     <property name="user"/>
                     <property name="password"/>
+                    <property value="7" name="auxiliary;index"/>
                     <property name="contentType"/>
                     <property name="keep-alive"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
                 </properties>
             </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="39eb5e77-30b0-4e41-8a12-19d4907cc9ce">
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="Groovy#1">
                 <properties>
                     <property value="" name="returnClass"/>
                     <property value="false" name="ignoreBadInput"/>
-                    <property value="import org.mule.modules.freshbooks.model.*&#xA;&#xA;new WCategory(&#xA;&#x9;category: new Category(&#xA;&#x9;&#x9;&#x9;&#x9;name: &quot;New FB Test Category&quot;&#xA;)&#xA;)" name="text"/>
+                    <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new Category(&#xA;name: &quot;New FB Test Category -- Testing&quot;&#xA;)" name="text"/>
                     <property value="" name="encoding"/>
                     <property value="" name="mimeType"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;1203834224">
-                        <property value="import org.mule.modules.freshbooks.model.*&#xA;&#xA;new WCategory(&#xA;&#x9;category: new Category(&#xA;&#x9;&#x9;&#x9;&#x9;name: &quot;New FB Test Category&quot;&#xA;)&#xA;)" name="text"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property name="updated"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;19109171">
+                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new Category(&#xA;name: &quot;New FB Test Category -- Testing&quot;&#xA;)" name="text"/>
                     </property-collection>
                 </properties>
                 <description></description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="8e881b55-43d6-4565-9952-fd6abe325cde">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#2">
                 <properties>
-                    <property value="#[payload]" name="category-ref"/>
+                    <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/create-category" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
+                    <property value="11" name="auxiliary;index"/>
+                    <property value="11" name="auxiliary;index"/>
+                    <property value="11" name="auxiliary;index"/>
+                    <property value="11" name="auxiliary;index"/>
+                    <property value="11" name="auxiliary;index"/>
+                    <property value="11" name="auxiliary;index"/>
+                    <property value="11" name="auxiliary;index"/>
+                    <property value="11" name="auxiliary;index"/>
                 </properties>
-                <description></description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="DataMapper" entity-id="cf084729-8085-4380-a51a-66b07332d407">
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="DataMapper" entity-id="DataMapper#4">
                 <properties>
-                    <property value="Category" name="config-ref"/>
+                    <property value="category" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="Category" name="config-ref"/>
+                    <property value="category" name="config-ref"/>
+                    <property value="12" name="auxiliary;index"/>
                     <property name="input-ref"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
+                    <property value="12" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="b59bb309-2f58-49c1-8f55-a90a11a3a5be">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#3">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/update-category" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="category-ref"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" name="Category properties" entity-id="c427b3cf-9e00-4727-abee-eda02f85cdbf">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" name="Category properties" entity-id="Message Properties#1">
                 <properties>
-                    <property value="" name="returnClass"/>
-                    <property value="false" name="ignoreBadInput"/>
-                    <property value="invocation" name="scope"/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
                     <property value="true" name="overwrite"/>
-                    <property value="" name="encoding"/>
-                    <property value="" name="mimeType"/>
+                    <property value="invocation" name="scope"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;0">
-                        <property value="#[payload.category.id]" name="value"/>
+                        <property value="#[payload.id]" name="value"/>
+                        <property value="15" name="auxiliary;wrapIn"/>
+                        <property value="15" name="auxiliary;index"/>
                         <property value="CategoryId" name="key"/>
                     </property-collection>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;1">
-                        <property value="#[payload.category.name]" name="value"/>
+                        <property value="#[payload.name]" name="value"/>
+                        <property value="16" name="auxiliary;wrapIn"/>
+                        <property value="16" name="auxiliary;index"/>
                         <property value="CategoryName" name="key"/>
                     </property-collection>
                 </properties>
-                <description></description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="197e76da-0650-4b41-9e80-5f4c8ec4e93a">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#4">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/delete-category" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="category-ref"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="88825b03-1b45-4755-8f2a-094e7869fe5f">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#1">
                 <properties>
                     <property value="Category #[groovy:message.getInvocationProperty('categoryId')] #[groovy:message.getInvocationProperty('categoryName')] created and deleted!" name="message"/>
                     <property value="INFO" name="level"/>
                     <property name="category"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="18" name="auxiliary;index"/>
                 </properties>
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="Freshbooks_client">
+    <flow SubFlow="false" name="Freshbooks_client" entity-id="23c3b1cd-6ccc-4f4b-bb09-8ebe45661862">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
+            <property value="19" name="auxiliary;index"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
+            <property value="19" name="auxiliary;index"/>
+            <property value="19" name="auxiliary;index"/>
+            <property value="19" name="auxiliary;index"/>
         </properties>
-        <lane hadOnlyOneElement="false" entity-id="2f3222cd-222a-44cd-b6ca-bef82946f892">
-            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="898ca11f-807f-4e40-9f7e-3492f4760094">
+        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#2">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="one-way" name="exchange-pattern"/>
+                    <property value="20" name="auxiliary;index"/>
                     <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="20" name="auxiliary;index"/>
                     <property name="httpLabel"/>
                     <property value="localhost" name="host"/>
                     <property value="8081" name="port"/>
                     <property value="client" name="path"/>
                     <property name="method"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
+                    <property value="20" name="auxiliary;index"/>
                     <property name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
                     <property name="responseTimeout"/>
                     <property name="followRedirects"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
                     <property name="connector-ref"/>
                     <property name="ref"/>
                     <property name="transformer-refs"/>
                     <property name="responseTransformer-refs"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
                     <property name="user"/>
                     <property name="password"/>
+                    <property value="20" name="auxiliary;index"/>
                     <property name="contentType"/>
                     <property name="keep-alive"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
                 </properties>
             </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="6c5b0513-d723-4c47-96f7-16192efaf8c6">
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="Groovy#2">
                 <properties>
-                    <property name="returnClass"/>
-                    <property name="ignoreBadInput"/>
-                    <property name="encoding"/>
-                    <property name="mimeType"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
-                        <property value="import org.mule.modules.freshbooks.model.*&#xA;&#xA;new WClient(&#xA;&#x9;client: new Client(&#xA;&#x9;&#x9;&#x9;&#x9;firstName: &quot;John&quot;,&#xA;&#x9;&#x9;&#x9;    lastName: &quot;Doe&quot;,&#xA;                email: &quot;testemail@testing.com&quot;&#xA;)&#xA;)" name="text"/>
-                        <property value="Groovy" name="engine"/>
+                    <property value="" name="returnClass"/>
+                    <property value="false" name="ignoreBadInput"/>
+                    <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new Client(&#xA;firstName: &quot;John Testing&quot;,&#xA;lastName: &quot;Doe&quot;,&#xA;email: &quot;testemail-1@testing.com&quot;&#xA;)" name="text"/>
+                    <property value="" name="encoding"/>
+                    <property value="" name="mimeType"/>
+                    <property value="21" name="auxiliary;index"/>
+                    <property name="updated"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;6005775">
+                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new Client(&#xA;firstName: &quot;John Testing&quot;,&#xA;lastName: &quot;Doe&quot;,&#xA;email: &quot;testemail-1@testing.com&quot;&#xA;)" name="text"/>
                     </property-collection>
                 </properties>
+                <description></description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="64b52dd3-699f-4e20-a98d-fbe5e4b69a06">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#5">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/create-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="client-ref"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="DataMapper" entity-id="505f324d-9c87-49e6-9bbf-9d4930025404">
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="DataMapper" entity-id="DataMapper#5">
                 <properties>
                     <property value="Client" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Client" name="config-ref"/>
+                    <property value="25" name="auxiliary;index"/>
                     <property name="input-ref"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="90982a6e-d249-433d-b0cc-e0fd17384bde">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#6">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/update-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="client-ref"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" name="Client properties" entity-id="9bbbc119-810d-4912-874d-e14ae2d8821e">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" name="Client properties" entity-id="Message Properties#2">
                 <properties>
                     <property name="returnClass"/>
                     <property name="ignoreBadInput"/>
                     <property name="encoding"/>
+                    <property value="27" name="auxiliary;index"/>
                     <property name="mimeType"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
                     <property value="true" name="overwrite"/>
                     <property value="invocation" name="scope"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;0">
-                        <property value="#[payload.client.firstName]" name="value"/>
+                        <property value="#[payload.firstName]" name="value"/>
+                        <property value="28" name="auxiliary;wrapIn"/>
+                        <property value="28" name="auxiliary;index"/>
                         <property value="clientFirstName" name="key"/>
                     </property-collection>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;1">
-                        <property value="#[payload.client.id]" name="value"/>
+                        <property value="#[payload.id]" name="value"/>
+                        <property value="29" name="auxiliary;wrapIn"/>
+                        <property value="29" name="auxiliary;index"/>
                         <property value="clientId" name="key"/>
                     </property-collection>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;2">
-                        <property value="#[payload.client.email]" name="value"/>
+                        <property value="#[payload.email]" name="value"/>
+                        <property value="30" name="auxiliary;wrapIn"/>
+                        <property value="30" name="auxiliary;index"/>
                         <property value="clientEmail" name="key"/>
                     </property-collection>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="39f54631-6d0b-47ea-8e94-c600a280c7b3">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#7">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/delete-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="client-ref"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="08233134-5eab-4872-a7d8-90a2e94dc09e">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#2">
                 <properties>
                     <property value="Client #[groovy:message.getInvocationProperty('clientId')] #[groovy:message.getInvocationProperty('clientEmail')] created and deleted!" name="message"/>
                     <property value="INFO" name="level"/>
                     <property name="category"/>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
                 </properties>
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="Freshbooks_invoice">
+    <flow SubFlow="false" name="Freshbooks_invoice" entity-id="586e5994-7f7a-4baf-8dad-102bed2330b3">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
+            <property value="33" name="auxiliary;index"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
+            <property value="33" name="auxiliary;index"/>
+            <property value="33" name="auxiliary;index"/>
+            <property value="33" name="auxiliary;index"/>
         </properties>
-        <lane hadOnlyOneElement="false" entity-id="92c51711-0ede-49c8-9cb7-5b5d87791a69">
-            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="6d703748-a8a0-46b2-b1ba-126181a25590">
+        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#3">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="one-way" name="exchange-pattern"/>
+                    <property value="34" name="auxiliary;index"/>
                     <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="34" name="auxiliary;index"/>
                     <property name="httpLabel"/>
                     <property value="localhost" name="host"/>
                     <property value="8081" name="port"/>
                     <property value="invoice" name="path"/>
                     <property name="method"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
+                    <property value="34" name="auxiliary;index"/>
                     <property name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
                     <property name="responseTimeout"/>
                     <property name="followRedirects"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
                     <property name="connector-ref"/>
                     <property name="ref"/>
                     <property name="transformer-refs"/>
                     <property name="responseTransformer-refs"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
                     <property name="user"/>
                     <property name="password"/>
+                    <property value="34" name="auxiliary;index"/>
                     <property name="contentType"/>
                     <property name="keep-alive"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
                 </properties>
             </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="00684c85-d5a9-4a72-9d92-c482123eee68">
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="Groovy#3">
                 <properties>
                     <property value="" name="returnClass"/>
                     <property value="false" name="ignoreBadInput"/>
-                    <property value="import org.mule.modules.freshbooks.model.*&#xA;&#xA;new WInvoice(&#xA;&#x9;invoice: new Invoice(&#xA;&#x9;&#x9;&#x9;&#x9;clientId: &quot;10&quot;,&#xA;                lines: new Lines(&#xA;                            lines: [ new Line( quantity: 1,&#xA;                            &#x9;&#x9;           unitCost: 4) ]&#xA;                )&#xA;)&#xA;)" name="text"/>
+                    <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new Invoice(&#xA;clientId: &quot;10&quot;,&#xA;lines: new Lines(&#xA;             lines: [ new Line( quantity: 1,&#xA;   &#x9;&#x9;                        unitCost: 4) ]&#xA;)&#xA;)" name="text"/>
                     <property value="" name="encoding"/>
                     <property value="" name="mimeType"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;744813893">
-                        <property value="import org.mule.modules.freshbooks.model.*&#xA;&#xA;new WInvoice(&#xA;&#x9;invoice: new Invoice(&#xA;&#x9;&#x9;&#x9;&#x9;clientId: &quot;10&quot;,&#xA;                lines: new Lines(&#xA;                            lines: [ new Line( quantity: 1,&#xA;                            &#x9;&#x9;           unitCost: 4) ]&#xA;                )&#xA;)&#xA;)" name="text"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property name="updated"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;33371758">
+                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new Invoice(&#xA;clientId: &quot;10&quot;,&#xA;lines: new Lines(&#xA;             lines: [ new Line( quantity: 1,&#xA;   &#x9;&#x9;                        unitCost: 4) ]&#xA;)&#xA;)" name="text"/>
                     </property-collection>
                 </properties>
                 <description></description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="f20dde25-2dc7-4895-ac2e-448ede860ac1">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#8">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/create-invoice" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="invoice-ref"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="DataMapper" entity-id="59c176b1-5b01-4c3f-a28b-5c143db93a08">
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="DataMapper" entity-id="DataMapper#6">
                 <properties>
-                    <property value="Invoice" name="config-ref"/>
+                    <property value="invoice" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="Invoice" name="config-ref"/>
+                    <property value="invoice" name="config-ref"/>
+                    <property value="39" name="auxiliary;index"/>
                     <property name="input-ref"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="95d025f6-8d41-4830-859e-1d144426d8d4">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#9">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/update-invoice" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="invoice-ref"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" name="Invoice properties" entity-id="f4dfadd9-6325-4121-a016-4de32a840fb2">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" name="Invoice properties" entity-id="Message Properties#3">
                 <properties>
                     <property name="returnClass"/>
                     <property name="ignoreBadInput"/>
                     <property name="encoding"/>
+                    <property value="41" name="auxiliary;index"/>
                     <property name="mimeType"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
                     <property value="true" name="overwrite"/>
                     <property value="invocation" name="scope"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;0">
-                        <property value="#[payload.invoice.id]" name="value"/>
+                        <property value="#[payload.id]" name="value"/>
+                        <property value="42" name="auxiliary;wrapIn"/>
+                        <property value="42" name="auxiliary;index"/>
                         <property value="invoiceId" name="key"/>
                     </property-collection>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;1">
-                        <property value="#[payload.invoice.clientId]" name="value"/>
+                        <property value="#[payload.clientId]" name="value"/>
+                        <property value="43" name="auxiliary;wrapIn"/>
+                        <property value="43" name="auxiliary;index"/>
                         <property value="invoiceClientId" name="key"/>
                     </property-collection>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="f0bb774c-64e5-427e-96b1-be75fb718628">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#10">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/delete-invoice" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="invoice-ref"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="39329efb-c592-4a2f-9879-06b4387fcc41">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#3">
                 <properties>
                     <property value="Invoice #[groovy:message.getInvocationProperty('invoiceId')] #[groovy:message.getInvocationProperty('invoiceClientId')] created and deleted!" name="message"/>
                     <property value="INFO" name="level"/>
                     <property name="category"/>
+                    <property value="45" name="auxiliary;index"/>
+                    <property value="45" name="auxiliary;index"/>
+                    <property value="45" name="auxiliary;index"/>
                 </properties>
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="Freshbooks_findClients">
+    <flow SubFlow="false" name="Freshbooks_findClients" entity-id="850605ef-577b-4515-9d0d-302c7f6b227b">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
+            <property value="46" name="auxiliary;index"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
+            <property value="46" name="auxiliary;index"/>
+            <property value="46" name="auxiliary;index"/>
+            <property value="46" name="auxiliary;index"/>
         </properties>
-        <lane hadOnlyOneElement="false" entity-id="694e0214-f68f-4168-87b6-1bd183788f4d">
-            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="aab7cc3c-4a78-4fbf-a3ed-bc740ce21fd2">
+        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#4">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="one-way" name="exchange-pattern"/>
+                    <property value="47" name="auxiliary;index"/>
                     <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="47" name="auxiliary;index"/>
                     <property name="httpLabel"/>
                     <property value="localhost" name="host"/>
                     <property value="8081" name="port"/>
                     <property value="list-clients" name="path"/>
                     <property name="method"/>
+                    <property value="47" name="auxiliary;index"/>
+                    <property value="47" name="auxiliary;index"/>
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
+                    <property value="47" name="auxiliary;index"/>
                     <property name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
                     <property name="responseTimeout"/>
                     <property name="followRedirects"/>
+                    <property value="47" name="auxiliary;index"/>
+                    <property value="47" name="auxiliary;index"/>
+                    <property value="47" name="auxiliary;index"/>
                     <property name="connector-ref"/>
                     <property name="ref"/>
                     <property name="transformer-refs"/>
                     <property name="responseTransformer-refs"/>
+                    <property value="47" name="auxiliary;index"/>
+                    <property value="47" name="auxiliary;index"/>
                     <property name="user"/>
                     <property name="password"/>
+                    <property value="47" name="auxiliary;index"/>
                     <property name="contentType"/>
                     <property name="keep-alive"/>
+                    <property value="47" name="auxiliary;index"/>
+                    <property value="47" name="auxiliary;index"/>
+                    <property value="47" name="auxiliary;index"/>
                 </properties>
             </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="6fdd374c-6f37-4284-a2ec-a6ce8423879e">
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="Groovy#4">
                 <properties>
-                    <property name="returnClass"/>
-                    <property name="ignoreBadInput"/>
-                    <property name="encoding"/>
-                    <property name="mimeType"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
-                        <property value="import org.mule.modules.freshbooks.model.*&#xA;&#xA;new WClientRequest(&#xA;&#x9;clientRequest: new ClientRequest(&#xA;&#x9;&#x9;&#x9;&#x9;folder: &quot;ACTIVE&quot;&#xA;)&#xA;)" name="text"/>
-                        <property value="Groovy" name="engine"/>
+                    <property value="" name="returnClass"/>
+                    <property value="false" name="ignoreBadInput"/>
+                    <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new ClientRequest(&#xA;folder: &quot;ACTIVE&quot;&#xA;)" name="text"/>
+                    <property value="" name="encoding"/>
+                    <property value="" name="mimeType"/>
+                    <property value="48" name="auxiliary;index"/>
+                    <property name="updated"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;13562815">
+                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new ClientRequest(&#xA;folder: &quot;ACTIVE&quot;&#xA;)" name="text"/>
                     </property-collection>
-                </properties>
-            </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="91923257-0f35-4038-b9d6-efede9e75964">
-                <properties>
-                    <property value="#[payload]" name="clientRequest-ref"/>
-                    <property value="http://www.mulesoft.org/schema/mule/freshbooks/list-clients" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="Freshbooks" name="config-ref"/>
                 </properties>
                 <description></description>
             </pattern>
-            <scope type="http://www.mulesoft.org/schema/mule/core/foreach" name="Foreach" entity-id="476c07cc-bf7d-4773-9167-2d245de53072">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#11">
                 <properties>
+                    <property value="Freshbooks" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/freshbooks/list-clients" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="Freshbooks" name="config-ref"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <scope type="http://www.mulesoft.org/schema/mule/core/foreach" name="Foreach" entity-id="Foreach#1">
+                <properties>
+                    <property value="52" name="auxiliary;index"/>
                     <property name="collection"/>
                     <property name="counterVariableName"/>
                     <property name="batchSize"/>
                     <property name="rootMessageVariableName"/>
+                    <property value="52" name="auxiliary;index"/>
+                    <property value="52" name="auxiliary;index"/>
+                    <property value="52" name="auxiliary;index"/>
                 </properties>
-                <compartment entity-id="1715cf52-88ea-4f69-b325-d9b97cc6f749">
-                    <lane hadOnlyOneElement="false" entity-id="0d56512a-9dd9-4f14-b3d6-c66efc1c733b">
-                        <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="26b7e7d2-8eea-4ce3-80fe-000ee0828ea1">
+                <compartment entity-id="compartment#1">
+                    <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#5">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#4">
                             <properties>
 <property value="Client: #[payload.id], #[payload.email]" name="message"/>
 <property value="INFO" name="level"/>
 <property name="category"/>
+<property value="53" name="auxiliary;index"/>
+<property value="53" name="auxiliary;index"/>
+<property value="53" name="auxiliary;index"/>
                             </properties>
                         </pattern>
                     </lane>
@@ -437,76 +686,111 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="Freshbooks_findInvoices">
+    <flow SubFlow="false" name="Freshbooks_findInvoices" entity-id="a36521ec-ceac-4653-88b9-d57e86443ab0">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
+            <property value="54" name="auxiliary;index"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
+            <property value="54" name="auxiliary;index"/>
+            <property value="54" name="auxiliary;index"/>
+            <property value="54" name="auxiliary;index"/>
         </properties>
-        <lane hadOnlyOneElement="false" entity-id="833642a4-105c-48d4-8e61-d6ee26d18596">
-            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="c8d179bf-57a9-415c-99ec-80ebd27cfa92">
+        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#6">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#5">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="one-way" name="exchange-pattern"/>
+                    <property value="55" name="auxiliary;index"/>
                     <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="55" name="auxiliary;index"/>
                     <property name="httpLabel"/>
                     <property value="localhost" name="host"/>
                     <property value="8081" name="port"/>
                     <property value="list-invoices" name="path"/>
                     <property name="method"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
+                    <property value="55" name="auxiliary;index"/>
                     <property name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
                     <property name="responseTimeout"/>
                     <property name="followRedirects"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
                     <property name="connector-ref"/>
                     <property name="ref"/>
                     <property name="transformer-refs"/>
                     <property name="responseTransformer-refs"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
                     <property name="user"/>
                     <property name="password"/>
+                    <property value="55" name="auxiliary;index"/>
                     <property name="contentType"/>
                     <property name="keep-alive"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
                 </properties>
             </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="e9fdb4bd-9dac-4096-88ec-7c5042cf8035">
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="Groovy#5">
                 <properties>
-                    <property name="returnClass"/>
-                    <property name="ignoreBadInput"/>
-                    <property name="encoding"/>
-                    <property name="mimeType"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
-                        <property value="import org.mule.modules.freshbooks.model.*&#xA;&#xA;new WInvoiceRequest(&#xA;&#x9;invoiceRequest: new InvoiceRequest(&#xA;&#x9;&#x9;&#x9;&#x9;folder: &quot;ACTIVE&quot;&#xA;)&#xA;)" name="text"/>
-                        <property value="Groovy" name="engine"/>
+                    <property value="" name="returnClass"/>
+                    <property value="false" name="ignoreBadInput"/>
+                    <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new InvoiceRequest(&#xA;folder: &quot;ACTIVE&quot;&#xA;)" name="text"/>
+                    <property value="" name="encoding"/>
+                    <property value="" name="mimeType"/>
+                    <property value="56" name="auxiliary;index"/>
+                    <property name="updated"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;28259514">
+                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;new InvoiceRequest(&#xA;folder: &quot;ACTIVE&quot;&#xA;)" name="text"/>
                     </property-collection>
                 </properties>
+                <description></description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="2a1f09dc-3753-4d04-9a58-96c6cc24f6b9">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#12">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/list-invoices" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="invoiceRequest-ref"/>
+                    <property value="59" name="auxiliary;index"/>
+                    <property value="59" name="auxiliary;index"/>
+                    <property value="59" name="auxiliary;index"/>
+                    <property value="59" name="auxiliary;index"/>
+                    <property value="59" name="auxiliary;index"/>
+                    <property value="59" name="auxiliary;index"/>
+                    <property value="59" name="auxiliary;index"/>
+                    <property value="59" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <scope type="http://www.mulesoft.org/schema/mule/core/foreach" name="Foreach" entity-id="916fbd22-a8a6-42d0-bed3-f2e1cf0c506b">
+            <scope type="http://www.mulesoft.org/schema/mule/core/foreach" name="Foreach" entity-id="Foreach#2">
                 <properties>
+                    <property value="60" name="auxiliary;index"/>
                     <property name="collection"/>
                     <property name="counterVariableName"/>
                     <property name="batchSize"/>
                     <property name="rootMessageVariableName"/>
+                    <property value="60" name="auxiliary;index"/>
+                    <property value="60" name="auxiliary;index"/>
+                    <property value="60" name="auxiliary;index"/>
                 </properties>
-                <compartment entity-id="f98ba4ca-986b-44cb-a963-c8f06638c6ac">
-                    <lane hadOnlyOneElement="false" entity-id="84aa2a22-090c-447b-a7cc-cc8a4e0a6bbf">
-                        <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="a51de17b-fd93-4ad0-85da-663d4fada4fd">
+                <compartment entity-id="compartment#2">
+                    <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#7">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#5">
                             <properties>
 <property value="Invoice: #[payload.id], #[payload.clientId]" name="message"/>
 <property value="INFO" name="level"/>
 <property name="category"/>
+<property value="61" name="auxiliary;index"/>
+<property value="61" name="auxiliary;index"/>
+<property value="61" name="auxiliary;index"/>
                             </properties>
                         </pattern>
                     </lane>
@@ -514,63 +798,96 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="Freshbooks_deleteClient">
+    <flow SubFlow="false" name="Freshbooks_deleteClient" entity-id="230becfc-3403-4551-a61c-3e7e03af3a1c">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
+            <property value="62" name="auxiliary;index"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
+            <property value="62" name="auxiliary;index"/>
+            <property value="62" name="auxiliary;index"/>
+            <property value="62" name="auxiliary;index"/>
         </properties>
-        <lane hadOnlyOneElement="false" entity-id="4d6a1a7c-acc9-418b-93f2-8cd037d23e45">
-            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="f692dc8d-2f7c-4e12-8ef3-42cbe4dbde9d">
+        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#8">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#6">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="one-way" name="exchange-pattern"/>
+                    <property value="63" name="auxiliary;index"/>
                     <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="63" name="auxiliary;index"/>
                     <property name="httpLabel"/>
                     <property value="localhost" name="host"/>
                     <property value="8081" name="port"/>
                     <property value="delete-client" name="path"/>
                     <property name="method"/>
+                    <property value="63" name="auxiliary;index"/>
+                    <property value="63" name="auxiliary;index"/>
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
+                    <property value="63" name="auxiliary;index"/>
                     <property name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
                     <property name="responseTimeout"/>
                     <property name="followRedirects"/>
+                    <property value="63" name="auxiliary;index"/>
+                    <property value="63" name="auxiliary;index"/>
+                    <property value="63" name="auxiliary;index"/>
                     <property name="connector-ref"/>
                     <property name="ref"/>
                     <property name="transformer-refs"/>
                     <property name="responseTransformer-refs"/>
+                    <property value="63" name="auxiliary;index"/>
+                    <property value="63" name="auxiliary;index"/>
                     <property name="user"/>
                     <property name="password"/>
+                    <property value="63" name="auxiliary;index"/>
                     <property name="contentType"/>
                     <property name="keep-alive"/>
+                    <property value="63" name="auxiliary;index"/>
+                    <property value="63" name="auxiliary;index"/>
+                    <property value="63" name="auxiliary;index"/>
                 </properties>
             </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="d58bcafb-b629-4100-83b1-bd90c195a19f">
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="Groovy" entity-id="Groovy#6">
                 <properties>
                     <property name="returnClass"/>
                     <property name="ignoreBadInput"/>
                     <property name="encoding"/>
+                    <property value="64" name="auxiliary;index"/>
                     <property name="mimeType"/>
+                    <property value="64" name="auxiliary;index"/>
+                    <property value="64" name="auxiliary;index"/>
+                    <property value="64" name="auxiliary;index"/>
+                    <property value="64" name="auxiliary;index"/>
+                    <property value="64" name="auxiliary;index"/>
+                    <property value="64" name="auxiliary;index"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
-                        <property value="import org.mule.modules.freshbooks.model.*&#xA;&#xA;new WClient(&#xA;&#x9;client: new Client(&#xA;&#x9;&#x9;&#x9;&#x9;id: &quot;43&quot;&#xA;)&#xA;)" name="text"/>
+                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                            &#xA;                                            new Client(&#xA;                                            &#x9;&#x9;&#x9;&#x9;id: &quot;14&quot;&#xA;                                            )" name="text"/>
                         <property value="Groovy" name="engine"/>
+                        <property value="65" name="auxiliary;wrapIn"/>
+                        <property value="65" name="auxiliary;index"/>
                     </property-collection>
                 </properties>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="dd9a9d6c-19ba-404d-9700-f15864ee0e26">
+            <pattern type="http://www.mulesoft.org/schema/mule/freshbooks/freshbooks-connector" name="Freshbooks" entity-id="FreshBooks#13">
                 <properties>
                     <property value="Freshbooks" name="config-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/delete-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="Freshbooks" name="config-ref"/>
-                    <property name="client-ref"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
                 </properties>
             </pattern>
         </lane>
     </flow>
-    <description></description>
 </mule-configuration>
