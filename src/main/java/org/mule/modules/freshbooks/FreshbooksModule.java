@@ -36,6 +36,7 @@ import org.mule.modules.freshbooks.model.Item;
 import org.mule.modules.freshbooks.model.ItemRequest;
 import org.mule.modules.freshbooks.model.Payment;
 import org.mule.modules.freshbooks.model.PaymentRequest;
+import org.mule.modules.freshbooks.model.Session;
 import org.mule.modules.freshbooks.model.Staff;
 import org.mule.modules.freshbooks.model.WCallback;
 import org.mule.modules.freshbooks.model.WCallbackRequest;
@@ -49,6 +50,8 @@ import org.mule.modules.freshbooks.model.WItem;
 import org.mule.modules.freshbooks.model.WItemRequest;
 import org.mule.modules.freshbooks.model.WPayment;
 import org.mule.modules.freshbooks.model.WPaymentRequest;
+import org.mule.modules.freshbooks.model.WSession;
+import org.mule.modules.freshbooks.model.WSessionRequest;
 import org.mule.modules.freshbooks.model.WStaff;
 
 /**
@@ -159,7 +162,7 @@ public class FreshbooksModule {
     @Processor
     public WCallback createCallback(@Optional @Default("#[payload]") WCallback callback)
     {
-        String newCallbackId = freshbooksClient.create(EntityType.CALLBACK, callback.getCallback());
+        String newCallbackId = (String) freshbooksClient.create(EntityType.CALLBACK, callback.getCallback(), true);
         callback.getCallback().setId(newCallbackId);
         return callback;
     }
@@ -203,7 +206,7 @@ public class FreshbooksModule {
     @Processor
     public WCallback verifyCallback(@Optional @Default("#[payload]") WCallback callback)
     {
-        freshbooksClient.verify(EntityType.CALLBACK, callback.getCallback());
+        freshbooksClient.verify(EntityType.CALLBACK, callback.getCallback(), true);
         return callback;
     }
     
@@ -217,7 +220,7 @@ public class FreshbooksModule {
      */
     @Processor
     public WCategory createCategory(@Optional @Default("#[payload]") WCategory category) {
-        String newCategoryId = freshbooksClient.create(EntityType.CATEGORY, category.getCategory());
+        String newCategoryId = (String) freshbooksClient.create(EntityType.CATEGORY, category.getCategory(), true);
         category.getCategory().setId(newCategoryId);
         return category;
     }
@@ -233,7 +236,7 @@ public class FreshbooksModule {
      */
     @Processor
     public WCategory updateCategory(@Optional @Default("#[payload]") WCategory category) {
-        freshbooksClient.update(EntityType.CATEGORY, category.getCategory());
+        freshbooksClient.update(EntityType.CATEGORY, category.getCategory(), true);
         return category;
     }
 
@@ -287,7 +290,7 @@ public class FreshbooksModule {
      */
     @Processor
     public WClient createClient(@Optional @Default("#[payload]") WClient client) {
-        String newClientId = freshbooksClient.create(EntityType.CLIENT, client.getClient());
+        String newClientId = (String) freshbooksClient.create(EntityType.CLIENT, client.getClient(), true);
         client.getClient().setId(newClientId);
         return client;
     }
@@ -302,7 +305,7 @@ public class FreshbooksModule {
      */
     @Processor
     public WClient updateClient(@Optional @Default("#[payload]") WClient client) {
-        freshbooksClient.update(EntityType.CLIENT, client.getClient());
+        freshbooksClient.update(EntityType.CLIENT, client.getClient(), true);
         return client;
     }
 
@@ -380,7 +383,7 @@ public class FreshbooksModule {
     @Processor
     public WInvoice createInvoice(@Optional @Default("#[payload]") WInvoice invoice)
     {
-        String newInvoiceId = freshbooksClient.create(EntityType.INVOICE, invoice.getInvoice());
+        String newInvoiceId = (String) freshbooksClient.create(EntityType.INVOICE, invoice.getInvoice(), true);
         invoice.getInvoice().setId(newInvoiceId);
         return invoice;
     }
@@ -400,7 +403,7 @@ public class FreshbooksModule {
     @Processor 
     public WInvoice updateInvoice(@Optional @Default("#[payload]") WInvoice invoice)
     {
-        freshbooksClient.update(EntityType.INVOICE, invoice.getInvoice());
+        freshbooksClient.update(EntityType.INVOICE, invoice.getInvoice(), true);
         return invoice;
     }
     
@@ -476,7 +479,7 @@ public class FreshbooksModule {
     @Processor
     public WItem createItem(@Optional @Default("#[payload]") WItem item)
     {
-        String newItemId = freshbooksClient.create(EntityType.ITEM, item.getItem());
+        String newItemId = (String) freshbooksClient.create(EntityType.ITEM, item.getItem(), true);
         item.getItem().setId(newItemId);
         return item;
     }
@@ -494,7 +497,7 @@ public class FreshbooksModule {
     @Processor 
     public WItem updateItem(@Optional @Default("#[payload]") WItem item)
     {
-        freshbooksClient.update(EntityType.ITEM, item.getItem());
+        freshbooksClient.update(EntityType.ITEM, item.getItem(), true);
         return item;
     }
     
@@ -559,7 +562,7 @@ public class FreshbooksModule {
     @Processor
     public WPayment createPayment(@Optional @Default("#[payload]") WPayment payment)
     {
-        String newPaymentId = freshbooksClient.create(EntityType.PAYMENT, payment.getPayment());
+        String newPaymentId = (String) freshbooksClient.create(EntityType.PAYMENT, payment.getPayment(), true);
         payment.getPayment().setId(newPaymentId);
         return payment;
     }
@@ -579,7 +582,7 @@ public class FreshbooksModule {
     @Processor 
     public WPayment updatePayment(@Optional @Default("#[payload]") WPayment payment)
     {
-        freshbooksClient.update(EntityType.PAYMENT, payment.getPayment());
+        freshbooksClient.update(EntityType.PAYMENT, payment.getPayment(), true);
         return payment;
     }
     
@@ -637,6 +640,21 @@ public class FreshbooksModule {
     public WStaff getCurrentUserInformation()
     {
         return new WStaff((Staff) freshbooksClient.execute(EntityType.STAFF, "staff.current"));
+    }
+    
+    /**
+     * Create a session
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-session}
+     * @param session the session to be created
+     * @return created session information
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public WSession createSession(@Optional @Default("#[payload]") WSession session)
+    {
+        return new WSession((Session) freshbooksClient.create(EntityType.SESSION, 
+                session.getSession(), false));
     }
     
     @PostConstruct

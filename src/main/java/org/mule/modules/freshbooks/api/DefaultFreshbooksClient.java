@@ -108,18 +108,18 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public String create(EntityType type, Object obj) 
+    public Object create(EntityType type, Object obj, Boolean returnOnlyId) 
     {
-        return requestSendingObject(type, obj, "create");
+        return requestSendingObject(type, obj, "create", returnOnlyId);
     }
 
     @Override
-    public void update(EntityType type, Object obj)
+    public void update(EntityType type, Object obj, Boolean returnOnlyId)
     {
-        requestSendingObject(type, obj, "update");
+        requestSendingObject(type, obj, "update", returnOnlyId);
     }
     
-    private String requestSendingObject(EntityType type, Object obj, String typeOfRequest)
+    private Object requestSendingObject(EntityType type, Object obj, String typeOfRequest, Boolean returnOnlyId)
     {
         BaseRequest request = type.getRequest();
         
@@ -132,8 +132,12 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         request.setMethod(type.getResourceName() + "." + typeOfRequest);
 
         Response response = sendRequest(request);
+        String getMethod = "get" + type.getSimpleName();
         try {
-            return (String) response.getClass().getMethod("get" + type.getSimpleName() + "Id").invoke(response);
+            if (returnOnlyId) {
+                getMethod = getMethod + "Id";
+            }
+            return response.getClass().getMethod(getMethod).invoke(response);
         } catch (Exception e) {
             throw new FreshbooksException(e.getMessage());
         }
@@ -158,9 +162,9 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public void verify(EntityType type, Object obj) 
+    public void verify(EntityType type, Object obj, Boolean returnOnlyId) 
     {
-        requestSendingObject(type, obj, "verify");
+        requestSendingObject(type, obj, "verify", returnOnlyId);
     }
     
     @Override

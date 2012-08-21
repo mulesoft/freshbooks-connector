@@ -125,3 +125,7 @@
 <!-- BEGIN_INCLUDE(freshbooks:get-current-user) -->
     <freshbooks:get-current-user />
 <!-- END_INCLUDE(freshbooks:get-current-user) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:create-session) -->
+    <freshbooks:create-session />
+<!-- END_INCLUDE(freshbooks:create-session) -->

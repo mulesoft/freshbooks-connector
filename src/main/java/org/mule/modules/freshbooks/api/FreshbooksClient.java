@@ -15,15 +15,15 @@ import org.mule.modules.freshbooks.model.EntityType;
 
 public interface FreshbooksClient {
     
-    public String create(EntityType type, Object obj);
+    public Object create(EntityType type, Object obj, Boolean returnOnlyId);
     
-    public void update(EntityType type, Object obj);
+    public void update(EntityType type, Object obj, Boolean returnOnlyId);
     
     public Object get(EntityType type, String id);
     
     public void delete(EntityType type, String id);
     
-    public void verify(EntityType type, Object obj);
+    public void verify(EntityType type, Object obj, Boolean returnOnlyId);
     
     public <T> Iterable<T> list(EntityType type, BaseRequest request);
 

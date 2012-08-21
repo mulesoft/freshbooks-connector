@@ -54,6 +54,9 @@ public class ObjectFactory {
     private final static QName _Staff_QNAME = new QName("http://www.freshbooks.com/api/", "staff");
     private final static QName _StaffRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
     
+    private final static QName _Session_QNAME = new QName("http://www.freshbooks.com/api/", "session");
+    private final static QName _SessionRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.modules.freshbooks.model
      * 
@@ -227,6 +230,22 @@ public class ObjectFactory {
      */
     public StaffRequest createStaffRequest() {
         return new StaffRequest();
+    }
+    
+    /**
+     * Create an instance of {@link Session }
+     * 
+     */
+    public Session createSession() {
+        return new Session();
+    }
+    
+    /**
+     * Create an instance of {@link SessionRequest }
+     * 
+     */
+    public SessionRequest createSessionRequest() {
+        return new SessionRequest();
     }
     
     /**
@@ -453,5 +472,23 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "StaffRequest")
     public JAXBElement<StaffRequest> createStaffRequest(StaffRequest value) {
         return new JAXBElement<StaffRequest>(_StaffRequest_QNAME, StaffRequest.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Session }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Session")
+    public JAXBElement<Session> createSession(Session value) {
+        return new JAXBElement<Session>(_Session_QNAME, Session.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SessionRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "SessionRequest")
+    public JAXBElement<SessionRequest> createSessionRequest(SessionRequest value) {
+        return new JAXBElement<SessionRequest>(_SessionRequest_QNAME, SessionRequest.class, null, value);
     }
 }

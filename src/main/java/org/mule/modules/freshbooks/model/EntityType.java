@@ -27,6 +27,8 @@ public enum EntityType {
     
     PAYMENT(Payment.class, "Payments", PaymentRequest.class),
     
+    SESSION(Session.class, "Sessions", SessionRequest.class),
+    
     STAFF(Staff.class, "Staffs", StaffRequest.class);
     
     private Class<?> type;
