@@ -15,7 +15,6 @@ package org.mule.modules.freshbooks;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
@@ -38,21 +37,6 @@ import org.mule.modules.freshbooks.model.Payment;
 import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.Session;
 import org.mule.modules.freshbooks.model.Staff;
-import org.mule.modules.freshbooks.model.WCallback;
-import org.mule.modules.freshbooks.model.WCallbackRequest;
-import org.mule.modules.freshbooks.model.WCategory;
-import org.mule.modules.freshbooks.model.WCategoryRequest;
-import org.mule.modules.freshbooks.model.WClient;
-import org.mule.modules.freshbooks.model.WClientRequest;
-import org.mule.modules.freshbooks.model.WInvoice;
-import org.mule.modules.freshbooks.model.WInvoiceRequest;
-import org.mule.modules.freshbooks.model.WItem;
-import org.mule.modules.freshbooks.model.WItemRequest;
-import org.mule.modules.freshbooks.model.WPayment;
-import org.mule.modules.freshbooks.model.WPaymentRequest;
-import org.mule.modules.freshbooks.model.WSession;
-import org.mule.modules.freshbooks.model.WSessionRequest;
-import org.mule.modules.freshbooks.model.WStaff;
 
 /**
  *
@@ -156,14 +140,14 @@ public class FreshbooksModule {
      * <p> * time_entry.create</p>
      * <p> * time_entry.delete</p>
      * <p> * time_entry.update</p>
-     * @param callback wrapper of a {@link Callback}
+     * @param callback to be created
      * @return callback id
      */
     @Processor
-    public WCallback createCallback(@Optional @Default("#[payload]") WCallback callback)
+    public Callback createCallback(@Optional @Default("#[payload]") Callback callback)
     {
-        String newCallbackId = (String) freshbooksClient.create(EntityType.CALLBACK, callback.getCallback(), true);
-        callback.getCallback().setId(newCallbackId);
+        String newCallbackId = (String) freshbooksClient.create(EntityType.CALLBACK, callback, true);
+        callback.setId(newCallbackId);
         return callback;
     }
     
@@ -172,13 +156,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-callbacks}
      * 
-     * @param callbackRequest wrapper of a {@link CallbackRequest}
+     * @param callbackRequest {@link CallbackRequest} CallbackRequest object
      * @return iterable of callbacks
      */
     @Processor
-    public Iterable<Callback> listCallbacks(@Optional @Default("#[payload]") WCallbackRequest callbackRequest)
+    public Iterable<Callback> listCallbacks(@Optional @Default("#[payload]") CallbackRequest callbackRequest)
     {
-        return freshbooksClient.list(EntityType.CALLBACK, callbackRequest.getCallbackRequest());
+        return freshbooksClient.list(EntityType.CALLBACK, callbackRequest);
     }
 
     /**
@@ -186,13 +170,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-callback}
      * 
-     * @param callback wrapper of a {@link Callback}
+     * @param callback to be deleted
      * @param wCallback
      */
     @Processor
-    public void deleteCallback(@Optional @Default("#[payload]") WCallback callback)
+    public void deleteCallback(@Optional @Default("#[payload]") Callback callback)
     {
-        freshbooksClient.delete(EntityType.CALLBACK, callback.getCallback().getId());
+        freshbooksClient.delete(EntityType.CALLBACK, callback.getId());
     }
     
     /**
@@ -200,13 +184,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:verify-callback}
      * 
-     * @param callback wrapper of a {@link Callback}
+     * @param callback to be verified
      * @return verified callback 
      */
     @Processor
-    public WCallback verifyCallback(@Optional @Default("#[payload]") WCallback callback)
+    public Callback verifyCallback(@Optional @Default("#[payload]") Callback callback)
     {
-        freshbooksClient.verify(EntityType.CALLBACK, callback.getCallback(), true);
+        freshbooksClient.verify(EntityType.CALLBACK, callback, true);
         return callback;
     }
     
@@ -215,13 +199,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-category}
      * 
-     * @param category wrapper of a {@link Category}
+     * @param category to be created
      * @return The created category
      */
     @Processor
-    public WCategory createCategory(@Optional @Default("#[payload]") WCategory category) {
-        String newCategoryId = (String) freshbooksClient.create(EntityType.CATEGORY, category.getCategory(), true);
-        category.getCategory().setId(newCategoryId);
+    public Category createCategory(@Optional @Default("#[payload]") Category category) {
+        String newCategoryId = (String) freshbooksClient.create(EntityType.CATEGORY, category, true);
+        category.setId(newCategoryId);
         return category;
     }
 
@@ -230,13 +214,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-category}
      *
-     * @param category wrapper of a {@link Category}
+     * @param category to be updated
      * @return updated category
      * 
      */
     @Processor
-    public WCategory updateCategory(@Optional @Default("#[payload]") WCategory category) {
-        freshbooksClient.update(EntityType.CATEGORY, category.getCategory(), true);
+    public Category updateCategory(@Optional @Default("#[payload]") Category category) {
+        freshbooksClient.update(EntityType.CATEGORY, category, true);
         return category;
     }
 
@@ -249,8 +233,8 @@ public class FreshbooksModule {
      * @return A {@link Category} object
      */
     @Processor
-    public WCategory getCategory(String categoryId) {
-        return new WCategory((Category) freshbooksClient.get(EntityType.CATEGORY, categoryId));
+    public Category getCategory(String categoryId) {
+        return (Category) freshbooksClient.get(EntityType.CATEGORY, categoryId);
     }
 
     /**
@@ -258,11 +242,11 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-category}
      *
-     * @param category wrapper of a {@link Category}
+     * @param category to be deleted
      */
     @Processor
-    public void deleteCategory(@Optional @Default("#[payload]") WCategory category) {
-        freshbooksClient.delete(EntityType.CATEGORY, category.getCategory().getId());
+    public void deleteCategory(@Optional @Default("#[payload]") Category category) {
+        freshbooksClient.delete(EntityType.CATEGORY, category.getId());
     }
 
     /**
@@ -270,13 +254,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-categories}
      *
-     * @param categoryRequest wrapper of a {@link CategoryRequest}
+     * @param categoryRequest {@link CategoryRequest} CategoryRequest Object
      * @return A iterable of categories
      * @throws FreshbooksException
      */
     @Processor
-    public Iterable<Category> listCategories(@Optional @Default("#[payload]") WCategoryRequest categoryRequest) {
-        return freshbooksClient.<Category>list(EntityType.CATEGORY, categoryRequest.getCategoryRequest());
+    public Iterable<Category> listCategories(@Optional @Default("#[payload]") CategoryRequest categoryRequest) {
+        return freshbooksClient.<Category>list(EntityType.CATEGORY, categoryRequest);
     }
 
     /**
@@ -284,14 +268,14 @@ public class FreshbooksModule {
      *
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-client}
      *
-     * @param client wrapper of a {@link Client}
+     * @param client to be created
      * @return The created client
      * @throws FreshbooksException
      */
     @Processor
-    public WClient createClient(@Optional @Default("#[payload]") WClient client) {
-        String newClientId = (String) freshbooksClient.create(EntityType.CLIENT, client.getClient(), true);
-        client.getClient().setId(newClientId);
+    public Client createClient(@Optional @Default("#[payload]") Client client) {
+        String newClientId = (String) freshbooksClient.create(EntityType.CLIENT, client, true);
+        client.setId(newClientId);
         return client;
     }
 
@@ -299,13 +283,13 @@ public class FreshbooksModule {
      * Update the details of the client with the given client_id. Any fields not referenced in the request will remain unchanged.
      *
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-client}
-     * @param client wrapper of a {@link Client}
+     * @param client to be updated
      * @return updated client
      * @throws FreshbooksException
      */
     @Processor
-    public WClient updateClient(@Optional @Default("#[payload]") WClient client) {
-        freshbooksClient.update(EntityType.CLIENT, client.getClient(), true);
+    public Client updateClient(@Optional @Default("#[payload]") Client client) {
+        freshbooksClient.update(EntityType.CLIENT, client, true);
         return client;
     }
 
@@ -319,50 +303,50 @@ public class FreshbooksModule {
      * @throws FreshbooksException
      */
     @Processor
-    public WClient getClient(String clientId) {
-        return new WClient((Client) freshbooksClient.get(EntityType.CLIENT, clientId));
+    public Client getClient(String clientId) {
+        return (Client) freshbooksClient.get(EntityType.CLIENT, clientId);
     }
 
     /**
      * Delete the client with the given client_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-client}
-     * @param client wrapper of a {@link Client}
+     * @param client to be deleted
      * @throws FreshbooksException
      */
     @Processor
-    public void deleteClient(@Optional @Default("#[payload]") WClient client) 
+    public void deleteClient(@Optional @Default("#[payload]") Client client) 
     {
-        freshbooksClient.delete(EntityType.CLIENT, client.getClient().getId());
+        freshbooksClient.delete(EntityType.CLIENT, client.getId());
     }
     
     /**
      * Undelete a client
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:undelete-client}
-     * @param client wrapper of a {@link Client}
+     * @param client to be undeleted
      * @return the undeleted client id
      * @throws FreshbooksException
      */
     @Processor
-    public String undeleteClient(@Optional @Default("#[payload]") WClient client) 
+    public String undeleteClient(@Optional @Default("#[payload]") Client client) 
     {
-        freshbooksClient.undelete(EntityType.CLIENT, client.getClient().getId());
-        return client.getClient().getId();
+        freshbooksClient.undelete(EntityType.CLIENT, client.getId());
+        return client.getId();
     }
 
     /**
      * Returns a list of client summaries in order of descending client_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-clients}
-     * @param clientRequest wrapper of a {@link ClientRequest}
+     * @param clientRequest {@link ClientRequest} ClientRequest object
      * @return A iterable of clients
      * @throws FreshbooksException
      */
     @Processor
-    public Iterable<Client> listClients(@Optional @Default("#[payload]") WClientRequest clientRequest) 
+    public Iterable<Client> listClients(@Optional @Default("#[payload]") ClientRequest clientRequest) 
     {
-        return freshbooksClient.<Client>list(EntityType.CLIENT, clientRequest.getClientRequest());
+        return freshbooksClient.<Client>list(EntityType.CLIENT, clientRequest);
     }
 
     /**
@@ -376,15 +360,15 @@ public class FreshbooksModule {
      *  presented with a link to the URI when they pay the invoice.</p>
      *  
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-invoice}
-     * @param invoice wrapper of a {@link Invoice}
+     * @param invoice to be created
      * @return The created invoice
      * @throws FreshbooksException
      */
     @Processor
-    public WInvoice createInvoice(@Optional @Default("#[payload]") WInvoice invoice)
+    public Invoice createInvoice(@Optional @Default("#[payload]") Invoice invoice)
     {
-        String newInvoiceId = (String) freshbooksClient.create(EntityType.INVOICE, invoice.getInvoice(), true);
-        invoice.getInvoice().setId(newInvoiceId);
+        String newInvoiceId = (String) freshbooksClient.create(EntityType.INVOICE, invoice, true);
+        invoice.setId(newInvoiceId);
         return invoice;
     }
     
@@ -396,14 +380,14 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-invoice}
      * 
-     * @param invoice wrapper of a {@link Invoice}
+     * @param invoice to be updated
      * @return updated invoice
      * @throws FreshbooksException
      */
     @Processor 
-    public WInvoice updateInvoice(@Optional @Default("#[payload]") WInvoice invoice)
+    public Invoice updateInvoice(@Optional @Default("#[payload]") Invoice invoice)
     {
-        freshbooksClient.update(EntityType.INVOICE, invoice.getInvoice(), true);
+        freshbooksClient.update(EntityType.INVOICE, invoice, true);
         return invoice;
     }
     
@@ -419,9 +403,9 @@ public class FreshbooksModule {
      * @throws FreshbooksException.
      */
     @Processor
-    public WInvoice getInvoice(String invoiceId)
+    public Invoice getInvoice(String invoiceId)
     {
-        return new WInvoice((Invoice) freshbooksClient.get(EntityType.INVOICE, invoiceId));
+        return (Invoice) freshbooksClient.get(EntityType.INVOICE, invoiceId);
     }
     
     /**
@@ -429,13 +413,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-invoice}
      * 
-     * @param invoice wrapper of a {@link Invoice}
+     * @param invoice to be deleted
      * @throws FreshbooksException.
      */
     @Processor
-    public void deleteInvoice(@Optional @Default("#[payload]") WInvoice invoice)
+    public void deleteInvoice(@Optional @Default("#[payload]") Invoice invoice)
     {
-        freshbooksClient.delete(EntityType.INVOICE, invoice.getInvoice().getId());
+        freshbooksClient.delete(EntityType.INVOICE, invoice.getId());
     }
     
     /**
@@ -443,44 +427,44 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:undelete-invoice}
      * 
-     * @param invoice wrapper of a {@link Invoice}
+     * @param invoice to be undeleted
      * @return The undeleted invoice id
      * @throws FreshbooksException.
      */
     @Processor
-    public String undeleteInvoice(@Optional @Default("#[payload]") WInvoice invoice)
+    public String undeleteInvoice(@Optional @Default("#[payload]") Invoice invoice)
     {
-        freshbooksClient.undelete(EntityType.INVOICE, invoice.getInvoice().getId());
-        return invoice.getInvoice().getId();
+        freshbooksClient.undelete(EntityType.INVOICE, invoice.getId());
+        return invoice.getId();
     }
     
     /**
      * Returns a list of invoice summaries. Results are ordered by descending invoice_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-invoices}
-     * @param invoiceRequest wrapper of a {@link InvoiceRequest}
+     * @param invoiceRequest {@link InvoiceRequest} InvoiceRequest object
      * @return A iterable of Invoices
      * @throws FreshbooksException.
      */
     @Processor
-    public Iterable<Invoice> listInvoices(@Optional @Default("#[payload]") WInvoiceRequest invoiceRequest)
+    public Iterable<Invoice> listInvoices(@Optional @Default("#[payload]") InvoiceRequest invoiceRequest)
     {
-        return freshbooksClient.<Invoice>list(EntityType.INVOICE, invoiceRequest.getInvoiceRequest());
+        return freshbooksClient.<Invoice>list(EntityType.INVOICE, invoiceRequest);
     }
     
     /**
      * <p>Create a new item and return the corresponding item_id. </p>
      *  
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-item}
-     * @param item wrapper of a {@link Item}
+     * @param item to be created
      * @return The created item
      * @throws FreshbooksException
      */
     @Processor
-    public WItem createItem(@Optional @Default("#[payload]") WItem item)
+    public Item createItem(@Optional @Default("#[payload]") Item item)
     {
-        String newItemId = (String) freshbooksClient.create(EntityType.ITEM, item.getItem(), true);
-        item.getItem().setId(newItemId);
+        String newItemId = (String) freshbooksClient.create(EntityType.ITEM, item, true);
+        item.setId(newItemId);
         return item;
     }
     
@@ -490,14 +474,14 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-item}
      * 
-     * @param item wrapper of a {@link Item}
+     * @param item to be updated
      * @return updated item
      * @throws FreshbooksException
      */
     @Processor 
-    public WItem updateItem(@Optional @Default("#[payload]") WItem item)
+    public Item updateItem(@Optional @Default("#[payload]") Item item)
     {
-        freshbooksClient.update(EntityType.ITEM, item.getItem(), true);
+        freshbooksClient.update(EntityType.ITEM, item, true);
         return item;
     }
     
@@ -511,9 +495,9 @@ public class FreshbooksModule {
      * @throws FreshbooksException.
      */
     @Processor
-    public WItem getItem(String itemId)
+    public Item getItem(String itemId)
     {
-        return new WItem((Item) freshbooksClient.get(EntityType.ITEM, itemId));
+        return (Item) freshbooksClient.get(EntityType.ITEM, itemId);
     }
     
     /**
@@ -521,27 +505,27 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-item}
      * 
-     * @param item wrapper of a {@link Item}
+     * @param item to be deleted
      * @throws FreshbooksException.
      */
     @Processor
-    public void deleteItem(@Optional @Default("#[payload]") WItem item)
+    public void deleteItem(@Optional @Default("#[payload]") Item item)
     {
-        freshbooksClient.delete(EntityType.ITEM, item.getItem().getId());
+        freshbooksClient.delete(EntityType.ITEM, item.getId());
     }
     
     /**
      * Returns a list of items, ordered by descending item_id. 
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-items}
-     * @param itemRequest wrapper of a {@link ItemRequest}
+     * @param itemRequest {@link ItemRequest} ItemRequest object
      * @return A iterable of Items
      * @throws FreshbooksException.
      */
     @Processor
-    public Iterable<Item> listItems(@Optional @Default("#[payload]") WItemRequest itemRequest)
+    public Iterable<Item> listItems(@Optional @Default("#[payload]") ItemRequest itemRequest)
     {
-        return freshbooksClient.<Item>list(EntityType.ITEM, itemRequest.getItemRequest());
+        return freshbooksClient.<Item>list(EntityType.ITEM, itemRequest);
     }
     
     /**
@@ -555,15 +539,15 @@ public class FreshbooksModule {
      * will default to the currency code of the invoice they are being made against.</p> 
      *  
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-payment}
-     * @param payment wrapper of a {@link Payment}
+     * @param payment to be created
      * @return The created Payment
      * @throws FreshbooksException
      */
     @Processor
-    public WPayment createPayment(@Optional @Default("#[payload]") WPayment payment)
+    public Payment createPayment(@Optional @Default("#[payload]") Payment payment)
     {
-        String newPaymentId = (String) freshbooksClient.create(EntityType.PAYMENT, payment.getPayment(), true);
-        payment.getPayment().setId(newPaymentId);
+        String newPaymentId = (String) freshbooksClient.create(EntityType.PAYMENT, payment, true);
+        payment.setId(newPaymentId);
         return payment;
     }
     
@@ -575,14 +559,14 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-payment}
      * 
-     * @param payment wrapper of a {@link Payment}
+     * @param payment to be updated
      * @return updated Payment
      * @throws FreshbooksException
      */
     @Processor 
-    public WPayment updatePayment(@Optional @Default("#[payload]") WPayment payment)
+    public Payment updatePayment(@Optional @Default("#[payload]") Payment payment)
     {
-        freshbooksClient.update(EntityType.PAYMENT, payment.getPayment(), true);
+        freshbooksClient.update(EntityType.PAYMENT, payment, true);
         return payment;
     }
     
@@ -596,9 +580,9 @@ public class FreshbooksModule {
      * @throws FreshbooksException.
      */
     @Processor
-    public WPayment getPayment(String paymentId)
+    public Payment getPayment(String paymentId)
     {
-        return new WPayment((Payment) freshbooksClient.get(EntityType.PAYMENT, paymentId));
+        return (Payment) freshbooksClient.get(EntityType.PAYMENT, paymentId);
     }
     
     /**
@@ -606,40 +590,40 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-payment}
      * 
-     * @param payment wrapper of a {@link Payment}
+     * @param payment to be deleted
      * @throws FreshbooksException.
      */
     @Processor
-    public void deletePayment(@Optional @Default("#[payload]") WPayment payment)
+    public void deletePayment(@Optional @Default("#[payload]") Payment payment)
     {
-        freshbooksClient.delete(EntityType.PAYMENT, payment.getPayment().getId());
+        freshbooksClient.delete(EntityType.PAYMENT, payment.getId());
     }
     
     /**
      * Returns a list of payment summaries. Results are ordered by descending payment_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-payments}
-     * @param paymentRequest wrapper of a {@link PaymentRequest}
+     * @param paymentRequest {@link PaymentRequest} PaymentRequest object
      * @return A iterable of Payments
      * @throws FreshbooksException.
      */
     @Processor
-    public Iterable<Payment> listPayments(@Optional @Default("#[payload]") WPaymentRequest paymentRequest)
+    public Iterable<Payment> listPayments(@Optional @Default("#[payload]") PaymentRequest paymentRequest)
     {
-        return freshbooksClient.<Payment>list(EntityType.PAYMENT, paymentRequest.getPaymentRequest());
+        return freshbooksClient.<Payment>list(EntityType.PAYMENT, paymentRequest);
     }
     
     /**
      * Returns information about the current user
      * 
-     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-current-user}
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-current-user-information}
      * @return current user information
      * @throws FreshbooksException.
      */
     @Processor
-    public WStaff getCurrentUserInformation()
+    public Staff getCurrentUserInformation()
     {
-        return new WStaff((Staff) freshbooksClient.execute(EntityType.STAFF, "staff.current"));
+        return (Staff) freshbooksClient.execute(EntityType.STAFF, "staff.current");
     }
     
     /**
@@ -651,10 +635,9 @@ public class FreshbooksModule {
      * @throws FreshbooksException.
      */
     @Processor
-    public WSession createSession(@Optional @Default("#[payload]") WSession session)
+    public Session createSession(@Optional @Default("#[payload]") Session session)
     {
-        return new WSession((Session) freshbooksClient.create(EntityType.SESSION, 
-                session.getSession(), false));
+        return (Session) freshbooksClient.create(EntityType.SESSION, session, false);
     }
     
     @PostConstruct
