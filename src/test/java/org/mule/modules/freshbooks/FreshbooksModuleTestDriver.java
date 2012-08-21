@@ -15,8 +15,11 @@ package org.mule.modules.freshbooks;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mule.modules.freshbooks.model.Callback;
 import org.mule.modules.freshbooks.model.Category;
-import org.mule.modules.freshbooks.model.WCategory;
+import org.mule.modules.freshbooks.model.Client;
+import org.mule.modules.freshbooks.model.Invoice;
+import org.mule.modules.freshbooks.model.Line;
 
 public class FreshbooksModuleTestDriver
 {
@@ -30,30 +33,56 @@ public class FreshbooksModuleTestDriver
         module.setAuthenticationToken("4d8a62a53ec1b3426a625abd039babd9");
         module.init();
     }
-    @Test
-    public void invokeSomeMethodOnTheCloudConnector()
-    {
-    /*
-        Add code that tests the cloud connector at the API level. This means that you'll
-        instantiate your cloud connector directly, invoke one of its methods and assert
-        you get the correct result.
 
-        Example:
-
-        FreshbooksCloudConnector connector = new FreshbooksCloudConnector();
-        Object result = connector.someMethod("sample input");
-        assertEquals("expected output", result);
-     */
-    }
     @Test
     public void createACategoryAndDeleteIt()
     {
         Category cat =  new Category();
         cat.setName("MegaMarket3");
-        WCategory wCategory = new WCategory();
-        wCategory.setCategory(cat);
         
-        WCategory category = module.createCategory(wCategory);
+        Category category = module.createCategory(cat);
         module.deleteCategory(category);
+    }
+
+    @Test
+    public void createClientAndDeleteIt(String id) {
+        Client client = new Client();
+        client.setFirstName("Test FB - " + id);
+        client.setLastName("Last Name - Test");
+        client.setOrganization("ABC INC");
+        client.setEmail(String.format("test-FB-%s@test.com", id));
+        Client newClient = module.createClient(client);
+        module.deleteClient(newClient);
+    }
+
+    @Test
+    public void createInvoiceAndDeleteIt() {
+        Invoice invoice = new Invoice();
+        invoice.setClientId("10");
+        Line line = new Line();
+        line.setQuantity(1);
+        line.setUnitCost(Double.valueOf(4));
+        invoice.getLines().add(line);
+        Invoice newInvoice = module.createInvoice(invoice);
+        module.deleteInvoice(newInvoice);
+    }
+
+    @Test
+    public void createCallbackAndDeleteIt() {
+        Callback callback = new Callback();
+        callback.setEvent("invoice.update");
+        callback.setUri("http://example2.com");
+        
+        Callback newCallback = module.createCallback(callback);
+        module.deleteCallback(newCallback);
+    }
+
+    @Test
+    public void verifyCallback() {
+        Callback callback = new Callback();
+        callback.setId("1");
+        callback.setVerifier("123123123");
+        
+        module.verifyCallback(callback);
     }
 }
