@@ -207,13 +207,23 @@
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/freshbooks/adapters/package-summary.html">org.mule.modules.freshbooks.adapters</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/agents/package-summary.html">org.mule.modules.freshbooks.agents</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/freshbooks/api/package-summary.html">org.mule.modules.freshbooks.api</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/freshbooks/config/package-summary.html">org.mule.modules.freshbooks.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/freshbooks/model/package-summary.html">org.mule.modules.freshbooks.model</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/model/holders/package-summary.html">org.mule.modules.freshbooks.model.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/model/transformers/package-summary.html">org.mule.modules.freshbooks.model.transformers</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/process/package-summary.html">org.mule.modules.freshbooks.process</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/freshbooks/processors/package-summary.html">org.mule.modules.freshbooks.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/freshbooks/transformers/package-summary.html">org.mule.modules.freshbooks.transformers</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -422,7 +432,11 @@ Summary:
               >
           
             
-              <a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleLifecycleAdapter.html">FreshbooksModuleLifecycleAdapter</a>
+              <a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleLifecycleAdapter.html">FreshbooksModuleLifecycleAdapter</a>,
+            
+              <a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleMetadataAdapater.html">FreshbooksModuleMetadataAdapater</a>,
+            
+              <a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleProcessAdapter.html">FreshbooksModuleProcessAdapter</a>
             
           
       </div>
@@ -433,6 +447,14 @@ Summary:
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleLifecycleAdapter.html">FreshbooksModuleLifecycleAdapter</a></td>
               <td class="jd-descrcol" width="100%">A <code>FreshbooksModuleLifecycleAdapter</code> is a wrapper around <code><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleMetadataAdapater.html">FreshbooksModuleMetadataAdapater</a></td>
+              <td class="jd-descrcol" width="100%">A <code>FreshbooksModuleMetadataAdapater</code> is a wrapper around <code><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code> that adds support for querying metadata about the extension.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/modules/freshbooks/adapters/FreshbooksModuleProcessAdapter.html">FreshbooksModuleProcessAdapter</a></td>
+              <td class="jd-descrcol" width="100%">A <code>FreshbooksModuleProcessAdapter</code> is a wrapper around <code><a href="../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code> that enables custom processing strategies.&nbsp;</td>
           </tr>
   </table>
       </div>
@@ -580,10 +602,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createCallback(org.mule.modules.freshbooks.model.WCallback)">createCallback</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createCallback(org.mule.modules.freshbooks.model.Callback)">createCallback</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a> callback)</nobr>
         
         <div class="jd-descrdiv">Create a new callback for a specific event or a set of events.</div>
   
@@ -598,10 +620,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createCategory(org.mule.modules.freshbooks.model.WCategory)">createCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createCategory(org.mule.modules.freshbooks.model.Category)">createCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a> category)</nobr>
         
         <div class="jd-descrdiv">Create a new category.</div>
   
@@ -616,10 +638,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createClient(org.mule.modules.freshbooks.model.WClient)">createClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createClient(org.mule.modules.freshbooks.model.Client)">createClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a> client)</nobr>
         
         <div class="jd-descrdiv">Create a new client and return the corresponding client_id.</div>
   
@@ -634,10 +656,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createInvoice(org.mule.modules.freshbooks.model.WInvoice)">createInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createInvoice(org.mule.modules.freshbooks.model.Invoice)">createInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a> invoice)</nobr>
         
         <div class="jd-descrdiv"><p>Create a new invoice complete with line items.</div>
   
@@ -652,10 +674,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createItem(org.mule.modules.freshbooks.model.WItem)">createItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createItem(org.mule.modules.freshbooks.model.Item)">createItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a> item)</nobr>
         
         <div class="jd-descrdiv"><p>Create a new item and return the corresponding item_id.</div>
   
@@ -670,10 +692,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createPayment(org.mule.modules.freshbooks.model.WPayment)">createPayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createPayment(org.mule.modules.freshbooks.model.Payment)">createPayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a> payment)</nobr>
         
         <div class="jd-descrdiv">Create a new payment and returns the corresponding payment_id.</div>
   
@@ -688,10 +710,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WSession.html">WSession</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Session.html">Session</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createSession(org.mule.modules.freshbooks.model.WSession)">createSession</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WSession.html">WSession</a> session)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#createSession(org.mule.modules.freshbooks.model.Session)">createSession</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Session.html">Session</a> session)</nobr>
         
         <div class="jd-descrdiv">Create a session
  
@@ -711,7 +733,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteCallback(org.mule.modules.freshbooks.model.WCallback)">deleteCallback</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteCallback(org.mule.modules.freshbooks.model.Callback)">deleteCallback</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a> callback)</nobr>
         
         <div class="jd-descrdiv">Deletes a callback.</div>
   
@@ -729,7 +751,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteCategory(org.mule.modules.freshbooks.model.WCategory)">deleteCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteCategory(org.mule.modules.freshbooks.model.Category)">deleteCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a> category)</nobr>
         
         <div class="jd-descrdiv">Delete an existing expense category.</div>
   
@@ -747,7 +769,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteClient(org.mule.modules.freshbooks.model.WClient)">deleteClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteClient(org.mule.modules.freshbooks.model.Client)">deleteClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a> client)</nobr>
         
         <div class="jd-descrdiv">Delete the client with the given client_id.</div>
   
@@ -765,7 +787,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteInvoice(org.mule.modules.freshbooks.model.WInvoice)">deleteInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteInvoice(org.mule.modules.freshbooks.model.Invoice)">deleteInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a> invoice)</nobr>
         
         <div class="jd-descrdiv">Delete an existing invoice.</div>
   
@@ -783,7 +805,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteItem(org.mule.modules.freshbooks.model.WItem)">deleteItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deleteItem(org.mule.modules.freshbooks.model.Item)">deleteItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a> item)</nobr>
         
         <div class="jd-descrdiv">Delete an existing item.</div>
   
@@ -801,7 +823,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deletePayment(org.mule.modules.freshbooks.model.WPayment)">deletePayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#deletePayment(org.mule.modules.freshbooks.model.Payment)">deletePayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a> payment)</nobr>
         
         <div class="jd-descrdiv">Permanently delete a payment.</div>
   
@@ -848,7 +870,7 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getCategory(java.lang.String)">getCategory</a></span>(String categoryId)</nobr>
@@ -866,7 +888,7 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getClient(java.lang.String)">getClient</a></span>(String clientId)</nobr>
@@ -884,7 +906,7 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WStaff.html">WStaff</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Staff.html">Staff</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getCurrentUserInformation()">getCurrentUserInformation</a></span>()</nobr>
@@ -904,7 +926,7 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getInvoice(java.lang.String)">getInvoice</a></span>(String invoiceId)</nobr>
@@ -922,7 +944,7 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getItem(java.lang.String)">getItem</a></span>(String itemId)</nobr>
@@ -940,7 +962,7 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#getPayment(java.lang.String)">getPayment</a></span>(String paymentId)</nobr>
@@ -977,7 +999,7 @@ Summary:
             Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listCallbacks(org.mule.modules.freshbooks.model.WCallbackRequest)">listCallbacks</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallbackRequest.html">WCallbackRequest</a> callbackRequest)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listCallbacks(org.mule.modules.freshbooks.model.CallbackRequest)">listCallbacks</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/CallbackRequest.html">CallbackRequest</a> callbackRequest)</nobr>
         
         <div class="jd-descrdiv">Return a list of registered callbacks.</div>
   
@@ -995,7 +1017,7 @@ Summary:
             Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listCategories(org.mule.modules.freshbooks.model.WCategoryRequest)">listCategories</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategoryRequest.html">WCategoryRequest</a> categoryRequest)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listCategories(org.mule.modules.freshbooks.model.CategoryRequest)">listCategories</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/CategoryRequest.html">CategoryRequest</a> categoryRequest)</nobr>
         
         <div class="jd-descrdiv">Returns a list of expense categories.</div>
   
@@ -1013,7 +1035,7 @@ Summary:
             Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listClients(org.mule.modules.freshbooks.model.WClientRequest)">listClients</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClientRequest.html">WClientRequest</a> clientRequest)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listClients(org.mule.modules.freshbooks.model.ClientRequest)">listClients</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/ClientRequest.html">ClientRequest</a> clientRequest)</nobr>
         
         <div class="jd-descrdiv">Returns a list of client summaries in order of descending client_id.</div>
   
@@ -1031,7 +1053,7 @@ Summary:
             Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listInvoices(org.mule.modules.freshbooks.model.WInvoiceRequest)">listInvoices</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoiceRequest.html">WInvoiceRequest</a> invoiceRequest)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listInvoices(org.mule.modules.freshbooks.model.InvoiceRequest)">listInvoices</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/InvoiceRequest.html">InvoiceRequest</a> invoiceRequest)</nobr>
         
         <div class="jd-descrdiv">Returns a list of invoice summaries.</div>
   
@@ -1049,7 +1071,7 @@ Summary:
             Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listItems(org.mule.modules.freshbooks.model.WItemRequest)">listItems</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItemRequest.html">WItemRequest</a> itemRequest)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listItems(org.mule.modules.freshbooks.model.ItemRequest)">listItems</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/ItemRequest.html">ItemRequest</a> itemRequest)</nobr>
         
         <div class="jd-descrdiv">Returns a list of items, ordered by descending item_id.</div>
   
@@ -1067,7 +1089,7 @@ Summary:
             Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listPayments(org.mule.modules.freshbooks.model.WPaymentRequest)">listPayments</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPaymentRequest.html">WPaymentRequest</a> paymentRequest)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#listPayments(org.mule.modules.freshbooks.model.PaymentRequest)">listPayments</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/PaymentRequest.html">PaymentRequest</a> paymentRequest)</nobr>
         
         <div class="jd-descrdiv">Returns a list of payment summaries.</div>
   
@@ -1117,7 +1139,7 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#undeleteClient(org.mule.modules.freshbooks.model.WClient)">undeleteClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#undeleteClient(org.mule.modules.freshbooks.model.Client)">undeleteClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a> client)</nobr>
         
         <div class="jd-descrdiv">Undelete a client
  
@@ -1137,7 +1159,7 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#undeleteInvoice(org.mule.modules.freshbooks.model.WInvoice)">undeleteInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#undeleteInvoice(org.mule.modules.freshbooks.model.Invoice)">undeleteInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a> invoice)</nobr>
         
         <div class="jd-descrdiv">Undelete an invoice
  
@@ -1154,10 +1176,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateCategory(org.mule.modules.freshbooks.model.WCategory)">updateCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateCategory(org.mule.modules.freshbooks.model.Category)">updateCategory</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a> category)</nobr>
         
         <div class="jd-descrdiv">Update an existing expense category with the given category_id.</div>
   
@@ -1172,10 +1194,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateClient(org.mule.modules.freshbooks.model.WClient)">updateClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateClient(org.mule.modules.freshbooks.model.Client)">updateClient</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a> client)</nobr>
         
         <div class="jd-descrdiv">Update the details of the client with the given client_id.</div>
   
@@ -1190,10 +1212,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateInvoice(org.mule.modules.freshbooks.model.WInvoice)">updateInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateInvoice(org.mule.modules.freshbooks.model.Invoice)">updateInvoice</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a> invoice)</nobr>
         
         <div class="jd-descrdiv"><p>Update an existing invoice with the given invoice_id.</div>
   
@@ -1208,10 +1230,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateItem(org.mule.modules.freshbooks.model.WItem)">updateItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updateItem(org.mule.modules.freshbooks.model.Item)">updateItem</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a> item)</nobr>
         
         <div class="jd-descrdiv"><p>Update an existing item.</div>
   
@@ -1226,10 +1248,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updatePayment(org.mule.modules.freshbooks.model.WPayment)">updatePayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#updatePayment(org.mule.modules.freshbooks.model.Payment)">updatePayment</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a> payment)</nobr>
         
         <div class="jd-descrdiv"><p>Update an existing payment.</div>
   
@@ -1244,10 +1266,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a></nobr>
+            <a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#verifyCallback(org.mule.modules.freshbooks.model.WCallback)">verifyCallback</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/freshbooks/FreshbooksModule.html#verifyCallback(org.mule.modules.freshbooks.model.Callback)">verifyCallback</a></span>(<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a> callback)</nobr>
         
         <div class="jd-descrdiv">Verify a callback.</div>
   
@@ -1649,7 +1671,7 @@ From class
 
 
 
-<A NAME="createCallback(org.mule.modules.freshbooks.model.WCallback)"></A>
+<A NAME="createCallback(org.mule.modules.freshbooks.model.Callback)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1659,10 +1681,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a>
       </span>
       <span class="sympad">createCallback</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a> callback)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1740,7 +1762,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>callback</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a></code></td>
+          <td>To be created</td>
         </tr>
       </table>
   </div>
@@ -1754,7 +1776,7 @@ From class
 </div>
 
 
-<A NAME="createCategory(org.mule.modules.freshbooks.model.WCategory)"></A>
+<A NAME="createCategory(org.mule.modules.freshbooks.model.Category)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1764,10 +1786,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a>
       </span>
       <span class="sympad">createCategory</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a> category)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1787,7 +1809,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>category</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></code></td>
+          <td>To be created</td>
         </tr>
       </table>
   </div>
@@ -1801,7 +1823,7 @@ From class
 </div>
 
 
-<A NAME="createClient(org.mule.modules.freshbooks.model.WClient)"></A>
+<A NAME="createClient(org.mule.modules.freshbooks.model.Client)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1811,10 +1833,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a>
       </span>
       <span class="sympad">createClient</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a> client)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1834,7 +1856,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></td>
+          <td>To be created</td>
         </tr>
       </table>
   </div>
@@ -1856,7 +1878,7 @@ From class
 </div>
 
 
-<A NAME="createInvoice(org.mule.modules.freshbooks.model.WInvoice)"></A>
+<A NAME="createInvoice(org.mule.modules.freshbooks.model.Invoice)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1866,10 +1888,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a>
       </span>
       <span class="sympad">createInvoice</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a> invoice)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1896,7 +1918,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>invoice</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></code></td>
+          <td>To be created</td>
         </tr>
       </table>
   </div>
@@ -1918,7 +1940,7 @@ From class
 </div>
 
 
-<A NAME="createItem(org.mule.modules.freshbooks.model.WItem)"></A>
+<A NAME="createItem(org.mule.modules.freshbooks.model.Item)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1928,10 +1950,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a>
       </span>
       <span class="sympad">createItem</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a> item)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1951,7 +1973,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>item</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></code></td>
+          <td>To be created</td>
         </tr>
       </table>
   </div>
@@ -1973,7 +1995,7 @@ From class
 </div>
 
 
-<A NAME="createPayment(org.mule.modules.freshbooks.model.WPayment)"></A>
+<A NAME="createPayment(org.mule.modules.freshbooks.model.Payment)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1983,10 +2005,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a>
       </span>
       <span class="sympad">createPayment</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a> payment)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2013,7 +2035,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>payment</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></code></td>
+          <td>To be created</td>
         </tr>
       </table>
   </div>
@@ -2035,7 +2057,7 @@ From class
 </div>
 
 
-<A NAME="createSession(org.mule.modules.freshbooks.model.WSession)"></A>
+<A NAME="createSession(org.mule.modules.freshbooks.model.Session)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2045,10 +2067,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WSession.html">WSession</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Session.html">Session</a>
       </span>
       <span class="sympad">createSession</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WSession.html">WSession</a> session)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Session.html">Session</a> session)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2081,7 +2103,7 @@ From class
 </div>
 
 
-<A NAME="deleteCallback(org.mule.modules.freshbooks.model.WCallback)"></A>
+<A NAME="deleteCallback(org.mule.modules.freshbooks.model.Callback)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2094,7 +2116,7 @@ From class
         void
       </span>
       <span class="sympad">deleteCallback</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a> callback)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2114,7 +2136,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>callback</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a></code></td>
+          <td>To be deleted</td>
         </tr>
       </table>
   </div>
@@ -2123,7 +2145,7 @@ From class
 </div>
 
 
-<A NAME="deleteCategory(org.mule.modules.freshbooks.model.WCategory)"></A>
+<A NAME="deleteCategory(org.mule.modules.freshbooks.model.Category)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2136,7 +2158,7 @@ From class
         void
       </span>
       <span class="sympad">deleteCategory</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a> category)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2156,7 +2178,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>category</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></code>
+          <td>To be deleted
 </td>
         </tr>
       </table>
@@ -2166,7 +2188,7 @@ From class
 </div>
 
 
-<A NAME="deleteClient(org.mule.modules.freshbooks.model.WClient)"></A>
+<A NAME="deleteClient(org.mule.modules.freshbooks.model.Client)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2179,7 +2201,7 @@ From class
         void
       </span>
       <span class="sympad">deleteClient</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a> client)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2199,7 +2221,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></td>
+          <td>To be deleted</td>
         </tr>
       </table>
   </div>
@@ -2217,7 +2239,7 @@ From class
 </div>
 
 
-<A NAME="deleteInvoice(org.mule.modules.freshbooks.model.WInvoice)"></A>
+<A NAME="deleteInvoice(org.mule.modules.freshbooks.model.Invoice)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2230,7 +2252,7 @@ From class
         void
       </span>
       <span class="sympad">deleteInvoice</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a> invoice)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2250,7 +2272,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>invoice</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></code></td>
+          <td>To be deleted</td>
         </tr>
       </table>
   </div>
@@ -2259,7 +2281,7 @@ From class
 </div>
 
 
-<A NAME="deleteItem(org.mule.modules.freshbooks.model.WItem)"></A>
+<A NAME="deleteItem(org.mule.modules.freshbooks.model.Item)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2272,7 +2294,7 @@ From class
         void
       </span>
       <span class="sympad">deleteItem</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a> item)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2292,7 +2314,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>item</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></code></td>
+          <td>To be deleted</td>
         </tr>
       </table>
   </div>
@@ -2301,7 +2323,7 @@ From class
 </div>
 
 
-<A NAME="deletePayment(org.mule.modules.freshbooks.model.WPayment)"></A>
+<A NAME="deletePayment(org.mule.modules.freshbooks.model.Payment)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2314,7 +2336,7 @@ From class
         void
       </span>
       <span class="sympad">deletePayment</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a> payment)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2334,7 +2356,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>payment</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></code></td>
+          <td>To be deleted</td>
         </tr>
       </table>
   </div>
@@ -2415,7 +2437,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a>
       </span>
       <span class="sympad">getCategory</span>
       <span class="normal">(String categoryId)</span>
@@ -2462,7 +2484,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a>
       </span>
       <span class="sympad">getClient</span>
       <span class="normal">(String clientId)</span>
@@ -2517,7 +2539,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WStaff.html">WStaff</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Staff.html">Staff</a>
       </span>
       <span class="sympad">getCurrentUserInformation</span>
       <span class="normal">()</span>
@@ -2554,7 +2576,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a>
       </span>
       <span class="sympad">getInvoice</span>
       <span class="normal">(String invoiceId)</span>
@@ -2602,7 +2624,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a>
       </span>
       <span class="sympad">getItem</span>
       <span class="normal">(String itemId)</span>
@@ -2648,7 +2670,7 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a>
       </span>
       <span class="sympad">getPayment</span>
       <span class="normal">(String paymentId)</span>
@@ -2715,7 +2737,7 @@ From class
 </div>
 
 
-<A NAME="listCallbacks(org.mule.modules.freshbooks.model.WCallbackRequest)"></A>
+<A NAME="listCallbacks(org.mule.modules.freshbooks.model.CallbackRequest)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2728,7 +2750,7 @@ From class
         Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a>&gt;
       </span>
       <span class="sympad">listCallbacks</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallbackRequest.html">WCallbackRequest</a> callbackRequest)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/CallbackRequest.html">CallbackRequest</a> callbackRequest)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2748,7 +2770,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>callbackRequest</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/CallbackRequest.html">CallbackRequest</a></code></td>
+          <td><code><a href="../../../../../java/org/mule/modules/freshbooks/model/CallbackRequest.html">CallbackRequest</a></code> CallbackRequest object</td>
         </tr>
       </table>
   </div>
@@ -2762,7 +2784,7 @@ From class
 </div>
 
 
-<A NAME="listCategories(org.mule.modules.freshbooks.model.WCategoryRequest)"></A>
+<A NAME="listCategories(org.mule.modules.freshbooks.model.CategoryRequest)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2775,7 +2797,7 @@ From class
         Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a>&gt;
       </span>
       <span class="sympad">listCategories</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategoryRequest.html">WCategoryRequest</a> categoryRequest)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/CategoryRequest.html">CategoryRequest</a> categoryRequest)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2795,7 +2817,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>categoryRequest</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/CategoryRequest.html">CategoryRequest</a></code></td>
+          <td><code><a href="../../../../../java/org/mule/modules/freshbooks/model/CategoryRequest.html">CategoryRequest</a></code> CategoryRequest Object</td>
         </tr>
       </table>
   </div>
@@ -2817,7 +2839,7 @@ From class
 </div>
 
 
-<A NAME="listClients(org.mule.modules.freshbooks.model.WClientRequest)"></A>
+<A NAME="listClients(org.mule.modules.freshbooks.model.ClientRequest)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2830,7 +2852,7 @@ From class
         Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a>&gt;
       </span>
       <span class="sympad">listClients</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClientRequest.html">WClientRequest</a> clientRequest)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/ClientRequest.html">ClientRequest</a> clientRequest)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2850,7 +2872,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>clientRequest</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/ClientRequest.html">ClientRequest</a></code></td>
+          <td><code><a href="../../../../../java/org/mule/modules/freshbooks/model/ClientRequest.html">ClientRequest</a></code> ClientRequest object</td>
         </tr>
       </table>
   </div>
@@ -2872,7 +2894,7 @@ From class
 </div>
 
 
-<A NAME="listInvoices(org.mule.modules.freshbooks.model.WInvoiceRequest)"></A>
+<A NAME="listInvoices(org.mule.modules.freshbooks.model.InvoiceRequest)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2885,7 +2907,7 @@ From class
         Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a>&gt;
       </span>
       <span class="sympad">listInvoices</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoiceRequest.html">WInvoiceRequest</a> invoiceRequest)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/InvoiceRequest.html">InvoiceRequest</a> invoiceRequest)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2905,7 +2927,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>invoiceRequest</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/InvoiceRequest.html">InvoiceRequest</a></code></td>
+          <td><code><a href="../../../../../java/org/mule/modules/freshbooks/model/InvoiceRequest.html">InvoiceRequest</a></code> InvoiceRequest object</td>
         </tr>
       </table>
   </div>
@@ -2918,7 +2940,7 @@ From class
 </div>
 
 
-<A NAME="listItems(org.mule.modules.freshbooks.model.WItemRequest)"></A>
+<A NAME="listItems(org.mule.modules.freshbooks.model.ItemRequest)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2931,7 +2953,7 @@ From class
         Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a>&gt;
       </span>
       <span class="sympad">listItems</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItemRequest.html">WItemRequest</a> itemRequest)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/ItemRequest.html">ItemRequest</a> itemRequest)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2951,7 +2973,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>itemRequest</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/ItemRequest.html">ItemRequest</a></code></td>
+          <td><code><a href="../../../../../java/org/mule/modules/freshbooks/model/ItemRequest.html">ItemRequest</a></code> ItemRequest object</td>
         </tr>
       </table>
   </div>
@@ -2964,7 +2986,7 @@ From class
 </div>
 
 
-<A NAME="listPayments(org.mule.modules.freshbooks.model.WPaymentRequest)"></A>
+<A NAME="listPayments(org.mule.modules.freshbooks.model.PaymentRequest)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2977,7 +2999,7 @@ From class
         Iterable&lt;<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a>&gt;
       </span>
       <span class="sympad">listPayments</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPaymentRequest.html">WPaymentRequest</a> paymentRequest)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/PaymentRequest.html">PaymentRequest</a> paymentRequest)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2997,7 +3019,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>paymentRequest</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/PaymentRequest.html">PaymentRequest</a></code></td>
+          <td><code><a href="../../../../../java/org/mule/modules/freshbooks/model/PaymentRequest.html">PaymentRequest</a></code> PaymentRequest object</td>
         </tr>
       </table>
   </div>
@@ -3090,7 +3112,7 @@ From class
 </div>
 
 
-<A NAME="undeleteClient(org.mule.modules.freshbooks.model.WClient)"></A>
+<A NAME="undeleteClient(org.mule.modules.freshbooks.model.Client)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3103,7 +3125,7 @@ From class
         String
       </span>
       <span class="sympad">undeleteClient</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a> client)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3123,7 +3145,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></td>
+          <td>To be undeleted</td>
         </tr>
       </table>
   </div>
@@ -3145,7 +3167,7 @@ From class
 </div>
 
 
-<A NAME="undeleteInvoice(org.mule.modules.freshbooks.model.WInvoice)"></A>
+<A NAME="undeleteInvoice(org.mule.modules.freshbooks.model.Invoice)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3158,7 +3180,7 @@ From class
         String
       </span>
       <span class="sympad">undeleteInvoice</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a> invoice)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3178,7 +3200,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>invoice</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></code></td>
+          <td>To be undeleted</td>
         </tr>
       </table>
   </div>
@@ -3191,7 +3213,7 @@ From class
 </div>
 
 
-<A NAME="updateCategory(org.mule.modules.freshbooks.model.WCategory)"></A>
+<A NAME="updateCategory(org.mule.modules.freshbooks.model.Category)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3201,10 +3223,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a>
       </span>
       <span class="sympad">updateCategory</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCategory.html">WCategory</a> category)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a> category)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3224,7 +3246,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>category</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Category.html">Category</a></code></td>
+          <td>To be updated</td>
         </tr>
       </table>
   </div>
@@ -3239,7 +3261,7 @@ From class
 </div>
 
 
-<A NAME="updateClient(org.mule.modules.freshbooks.model.WClient)"></A>
+<A NAME="updateClient(org.mule.modules.freshbooks.model.Client)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3249,10 +3271,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a>
       </span>
       <span class="sympad">updateClient</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WClient.html">WClient</a> client)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a> client)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3272,7 +3294,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>client</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Client.html">Client</a></code></td>
+          <td>To be updated</td>
         </tr>
       </table>
   </div>
@@ -3294,7 +3316,7 @@ From class
 </div>
 
 
-<A NAME="updateInvoice(org.mule.modules.freshbooks.model.WInvoice)"></A>
+<A NAME="updateInvoice(org.mule.modules.freshbooks.model.Invoice)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3304,10 +3326,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a>
       </span>
       <span class="sympad">updateInvoice</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a> invoice)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a> invoice)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3330,7 +3352,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>invoice</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Invoice.html">Invoice</a></code></td>
+          <td>To be updated</td>
         </tr>
       </table>
   </div>
@@ -3352,7 +3374,7 @@ From class
 </div>
 
 
-<A NAME="updateItem(org.mule.modules.freshbooks.model.WItem)"></A>
+<A NAME="updateItem(org.mule.modules.freshbooks.model.Item)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3362,10 +3384,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a>
       </span>
       <span class="sympad">updateItem</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WItem.html">WItem</a> item)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a> item)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3386,7 +3408,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>item</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Item.html">Item</a></code></td>
+          <td>To be updated</td>
         </tr>
       </table>
   </div>
@@ -3408,7 +3430,7 @@ From class
 </div>
 
 
-<A NAME="updatePayment(org.mule.modules.freshbooks.model.WPayment)"></A>
+<A NAME="updatePayment(org.mule.modules.freshbooks.model.Payment)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3418,10 +3440,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a>
       </span>
       <span class="sympad">updatePayment</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WPayment.html">WPayment</a> payment)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a> payment)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3444,7 +3466,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>payment</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Payment.html">Payment</a></code></td>
+          <td>To be updated</td>
         </tr>
       </table>
   </div>
@@ -3466,7 +3488,7 @@ From class
 </div>
 
 
-<A NAME="verifyCallback(org.mule.modules.freshbooks.model.WCallback)"></A>
+<A NAME="verifyCallback(org.mule.modules.freshbooks.model.Callback)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3476,10 +3498,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a>
+        <a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a>
       </span>
       <span class="sympad">verifyCallback</span>
-      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/WCallback.html">WCallback</a> callback)</span>
+      <span class="normal">(<a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a> callback)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3499,7 +3521,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>callback</td>
-          <td>Wrapper of a <code><a href="../../../../../java/org/mule/modules/freshbooks/model/Callback.html">Callback</a></code></td>
+          <td>To be verified</td>
         </tr>
       </table>
   </div>
