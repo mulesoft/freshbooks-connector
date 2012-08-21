@@ -74,7 +74,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  DeleteInvoiceMessageProcessor
+  CreateSessionMessageProcessor
 
 
 | Mule Freshbooks Connector (Beta)
@@ -229,11 +229,11 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateInvoiceMessageProcessor.html">CreateInvoiceMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateItemMessageProcessor.html">CreateItemMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreatePaymentMessageProcessor.html">CreatePaymentMessageProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html">CreateSessionMessageProcessor</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html">CreateSessionMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/DeleteCallbackMessageProcessor.html">DeleteCallbackMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/DeleteCategoryMessageProcessor.html">DeleteCategoryMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/DeleteClientMessageProcessor.html">DeleteClientMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html">DeleteInvoiceMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html">DeleteInvoiceMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/DeleteItemMessageProcessor.html">DeleteItemMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/DeletePaymentMessageProcessor.html">DeletePaymentMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/freshbooks/processors/GetCategoryMessageProcessor.html">GetCategoryMessageProcessor</a></li>
@@ -417,7 +417,7 @@ Summary:
      
     
     class
-<h1>DeleteInvoiceMessageProcessor</h1>
+<h1>CreateSessionMessageProcessor</h1>
 
 
 
@@ -467,7 +467,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.freshbooks.processors.DeleteInvoiceMessageProcessor</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.freshbooks.processors.CreateSessionMessageProcessor</td>
     </tr>
     
 
@@ -483,7 +483,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>DeleteInvoiceMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html#deleteInvoice(org.mule.modules.freshbooks.model.WInvoice)">deleteInvoice(org.mule.modules.freshbooks.model.WInvoice)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>CreateSessionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html#createSession(org.mule.modules.freshbooks.model.WSession)">createSession(org.mule.modules.freshbooks.model.WSession)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/freshbooks/FreshbooksModule.html">FreshbooksModule</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -680,8 +680,8 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          <a href="../../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#_invoiceType">_invoiceType</a></td>
+          <a href="../../../../../../java/org/mule/modules/freshbooks/model/WSession.html">WSession</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#_sessionType">_sessionType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -692,7 +692,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           ExpressionManager</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#expressionManager">expressionManager</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#expressionManager">expressionManager</a></td>
           <td class="jd-descrcol" width="100%">Mule Expression Manager
  
 </td>
@@ -705,7 +705,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           FlowConstruct</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#flowConstruct">flowConstruct</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#flowConstruct">flowConstruct</a></td>
           <td class="jd-descrcol" width="100%">Flow construct
  
 </td>
@@ -715,10 +715,10 @@ org.mule.api.lifecycle.Stoppable
       <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
+          static
           
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#invoice">invoice</a></td>
+          Logger</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#logger">logger</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -726,48 +726,50 @@ org.mule.api.lifecycle.Stoppable
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
-          static
-          
-          Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#logger">logger</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#moduleObject">moduleObject</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#moduleObject">moduleObject</a></td>
           <td class="jd-descrcol" width="100%">Module object
  
 </td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           MuleContext</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#muleContext">muleContext</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#muleContext">muleContext</a></td>
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           TemplateParser.PatternInfo</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#patternInfo">patternInfo</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#patternInfo">patternInfo</a></td>
           <td class="jd-descrcol" width="100%">Mule Pattern Info
+ 
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          AtomicInteger</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#retryCount">retryCount</a></td>
+          <td class="jd-descrcol" width="100%">Variable used to track how many retries we have attempted on this message processor
  
 </td>
       </tr>
@@ -778,11 +780,9 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          AtomicInteger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#retryCount">retryCount</a></td>
-          <td class="jd-descrcol" width="100%">Variable used to track how many retries we have attempted on this message processor
- 
-</td>
+          int</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#retryMax">retryMax</a></td>
+          <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
       </tr>
       
     
@@ -791,9 +791,9 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          int</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#retryMax">retryMax</a></td>
-          <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#session">session</a></td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -822,7 +822,7 @@ org.mule.api.lifecycle.Stoppable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#DeleteInvoiceMessageProcessor()">DeleteInvoiceMessageProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#CreateSessionMessageProcessor()">CreateSessionMessageProcessor</a></span>()</nobr>
         
   </td></tr>
 
@@ -851,7 +851,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
         
   </td></tr>
 
@@ -867,7 +867,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
         
         <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
   
@@ -885,7 +885,7 @@ org.mule.api.lifecycle.Stoppable
             MuleEvent</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
         
         <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
   
@@ -903,7 +903,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
         
         <div class="jd-descrdiv">Sets flow construct</div>
   
@@ -921,25 +921,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#setInvoice(java.lang.Object)">setInvoice</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets invoice</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
         
         <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
   
@@ -947,7 +929,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -957,7 +939,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
   
@@ -965,6 +947,24 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
+        
+        <div class="jd-descrdiv">Sets retryMax</div>
+  
+  </td></tr>
+
+
+	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -975,9 +975,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#setSession(java.lang.Object)">setSession</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets retryMax</div>
+        <div class="jd-descrdiv">Sets session</div>
   
   </td></tr>
 
@@ -993,7 +993,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#start()">start</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#start()">start</a></span>()</nobr>
         
   </td></tr>
 
@@ -1009,7 +1009,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/DeleteInvoiceMessageProcessor.html#stop()">stop</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/processors/CreateSessionMessageProcessor.html#stop()">stop</a></span>()</nobr>
         
   </td></tr>
 
@@ -1556,7 +1556,7 @@ From interface
 
 
 
-<A NAME="_invoiceType"></A>
+<A NAME="_sessionType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1564,9 +1564,9 @@ From interface
         private 
          
          
-        <a href="../../../../../../java/org/mule/modules/freshbooks/model/WInvoice.html">WInvoice</a>
+        <a href="../../../../../../java/org/mule/modules/freshbooks/model/WSession.html">WSession</a>
       </span>
-        _invoiceType
+        _sessionType
     </h4>
       <div class="api-level">
         
@@ -1643,36 +1643,6 @@ From interface
   <div class="jd-tagdata jd-tagdescr"><p>Flow construct
  
 </p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="invoice"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        invoice
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     
     </div>
@@ -1870,6 +1840,36 @@ From interface
 
 
 
+<A NAME="session"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Object
+      </span>
+        session
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 
 <!-- Public ctors -->
 
@@ -1879,7 +1879,7 @@ From interface
 
 
 
-<A NAME="DeleteInvoiceMessageProcessor()"></A>
+<A NAME="CreateSessionMessageProcessor()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1891,7 +1891,7 @@ From interface
          
         
       </span>
-      <span class="sympad">DeleteInvoiceMessageProcessor</span>
+      <span class="sympad">CreateSessionMessageProcessor</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -2086,47 +2086,6 @@ From interface
 </div>
 
 
-<A NAME="setInvoice(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setInvoice</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets invoice</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="setModuleObject(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2235,6 +2194,47 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets retryMax</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>value</td>
+          <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setSession(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setSession</span>
+      <span class="normal">(Object value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets session</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">

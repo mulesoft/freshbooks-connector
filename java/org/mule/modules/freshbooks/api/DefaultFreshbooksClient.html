@@ -522,10 +522,10 @@ Summary:
             
             
             
-            String</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/DefaultFreshbooksClient.html#create(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)">create</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/DefaultFreshbooksClient.html#create(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)">create</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</nobr>
         
   </td></tr>
 
@@ -637,7 +637,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/DefaultFreshbooksClient.html#update(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)">update</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/DefaultFreshbooksClient.html#update(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)">update</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</nobr>
         
   </td></tr>
 
@@ -653,7 +653,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/DefaultFreshbooksClient.html#verify(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)">verify</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/DefaultFreshbooksClient.html#verify(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)">verify</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</nobr>
         
   </td></tr>
 
@@ -902,10 +902,10 @@ From interface
             
             
             
-            String</nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/FreshbooksClient.html#create(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)">create</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/FreshbooksClient.html#create(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)">create</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</nobr>
         
   </td></tr>
 
@@ -1017,7 +1017,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/FreshbooksClient.html#update(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)">update</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/FreshbooksClient.html#update(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)">update</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</nobr>
         
   </td></tr>
 
@@ -1033,7 +1033,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/FreshbooksClient.html#verify(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)">verify</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/freshbooks/api/FreshbooksClient.html#verify(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)">verify</a></span>(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</nobr>
         
   </td></tr>
 
@@ -1234,7 +1234,7 @@ From interface
 
 
 
-<A NAME="create(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)"></A>
+<A NAME="create(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1244,10 +1244,10 @@ From interface
          
          
          
-        String
+        Object
       </span>
       <span class="sympad">create</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1269,6 +1269,10 @@ From interface
         </tr>
         <tr>
           <th>obj</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>returnOnlyId</td>
           <td></td>
         </tr>
       </table>
@@ -1542,7 +1546,7 @@ From interface
 </div>
 
 
-<A NAME="update(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)"></A>
+<A NAME="update(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1555,7 +1559,7 @@ From interface
         void
       </span>
       <span class="sympad">update</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1579,6 +1583,10 @@ From interface
           <th>obj</td>
           <td></td>
         </tr>
+        <tr>
+          <th>returnOnlyId</td>
+          <td></td>
+        </tr>
       </table>
   </div>
 
@@ -1586,7 +1594,7 @@ From interface
 </div>
 
 
-<A NAME="verify(org.mule.modules.freshbooks.model.EntityType, java.lang.Object)"></A>
+<A NAME="verify(org.mule.modules.freshbooks.model.EntityType, java.lang.Object, java.lang.Boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1599,7 +1607,7 @@ From interface
         void
       </span>
       <span class="sympad">verify</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj)</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/modules/freshbooks/model/EntityType.html">EntityType</a> type, Object obj, Boolean returnOnlyId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1621,6 +1629,10 @@ From interface
         </tr>
         <tr>
           <th>obj</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>returnOnlyId</td>
           <td></td>
         </tr>
       </table>
