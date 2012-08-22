@@ -31,6 +31,8 @@ public abstract class BaseRequest {
     
     @XmlAttribute
     private String method;
+    @XmlAttribute(name = "source_token", required = false)
+    private String sourceToken;
     @XmlElement(name = "date_from")
     private String dateFrom;
     @XmlElement(name = "date_to")
@@ -113,5 +115,13 @@ public abstract class BaseRequest {
 
     public void setFolder(FolderTypes folder) {
         this.folder = folder;
+    }
+
+    public String getSourceToken() {
+        return sourceToken;
+    }
+
+    public void setSourceToken(String sourceToken) {
+        this.sourceToken = sourceToken;
     }
 }

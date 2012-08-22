@@ -140,13 +140,14 @@ public class FreshbooksModule {
      * <p> * time_entry.create</p>
      * <p> * time_entry.delete</p>
      * <p> * time_entry.update</p>
+     * @param sourceToken source token value
      * @param callback to be created
      * @return callback id
      */
     @Processor
-    public Callback createCallback(@Optional @Default("#[payload]") Callback callback)
+    public Callback createCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback)
     {
-        String newCallbackId = (String) freshbooksClient.create(EntityType.CALLBACK, callback, true);
+        String newCallbackId = (String) freshbooksClient.create(sourceToken, EntityType.CALLBACK, callback, true);
         callback.setId(newCallbackId);
         return callback;
     }
@@ -156,13 +157,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-callbacks}
      * 
+     * @param sourceToken source token value
      * @param callbackRequest {@link CallbackRequest} CallbackRequest object
      * @return iterable of callbacks
      */
     @Processor
-    public Iterable<Callback> listCallbacks(@Optional @Default("#[payload]") CallbackRequest callbackRequest)
+    public Iterable<Callback> listCallbacks(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") CallbackRequest callbackRequest)
     {
-        return freshbooksClient.list(EntityType.CALLBACK, callbackRequest);
+        return freshbooksClient.list(sourceToken, EntityType.CALLBACK, callbackRequest);
     }
 
     /**
@@ -170,13 +173,14 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-callback}
      * 
+     * @param sourceToken source token value
      * @param callback to be deleted
      * @param wCallback
      */
     @Processor
-    public void deleteCallback(@Optional @Default("#[payload]") Callback callback)
+    public void deleteCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback)
     {
-        freshbooksClient.delete(EntityType.CALLBACK, callback.getId());
+        freshbooksClient.delete(sourceToken, EntityType.CALLBACK, callback.getId());
     }
     
     /**
@@ -184,13 +188,14 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:verify-callback}
      * 
+     * @param sourceToken source token value
      * @param callback to be verified
      * @return verified callback 
      */
     @Processor
-    public Callback verifyCallback(@Optional @Default("#[payload]") Callback callback)
+    public Callback verifyCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback)
     {
-        freshbooksClient.verify(EntityType.CALLBACK, callback, true);
+        freshbooksClient.verify(sourceToken, EntityType.CALLBACK, callback, true);
         return callback;
     }
     
@@ -199,12 +204,13 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-category}
      * 
+     * @param sourceToken source token value
      * @param category to be created
      * @return The created category
      */
     @Processor
-    public Category createCategory(@Optional @Default("#[payload]") Category category) {
-        String newCategoryId = (String) freshbooksClient.create(EntityType.CATEGORY, category, true);
+    public Category createCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category) {
+        String newCategoryId = (String) freshbooksClient.create(sourceToken, EntityType.CATEGORY, category, true);
         category.setId(newCategoryId);
         return category;
     }
@@ -214,13 +220,14 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-category}
      *
+     * @param sourceToken source token value
      * @param category to be updated
      * @return updated category
      * 
      */
     @Processor
-    public Category updateCategory(@Optional @Default("#[payload]") Category category) {
-        freshbooksClient.update(EntityType.CATEGORY, category, true);
+    public Category updateCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category) {
+        freshbooksClient.update(sourceToken, EntityType.CATEGORY, category, true);
         return category;
     }
 
@@ -228,13 +235,14 @@ public class FreshbooksModule {
      * Return the complete category details associated with the given category_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-category}
-     *
+     * 
+     * @param sourceToken source token value
      * @param categoryId    The category id
      * @return A {@link Category} object
      */
     @Processor
-    public Category getCategory(String categoryId) {
-        return (Category) freshbooksClient.get(EntityType.CATEGORY, categoryId);
+    public Category getCategory(@Optional String sourceToken, String categoryId) {
+        return (Category) freshbooksClient.get(sourceToken, EntityType.CATEGORY, categoryId);
     }
 
     /**
@@ -242,11 +250,12 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-category}
      *
+     * @param sourceToken source token value
      * @param category to be deleted
      */
     @Processor
-    public void deleteCategory(@Optional @Default("#[payload]") Category category) {
-        freshbooksClient.delete(EntityType.CATEGORY, category.getId());
+    public void deleteCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category) {
+        freshbooksClient.delete(sourceToken, EntityType.CATEGORY, category.getId());
     }
 
     /**
@@ -254,13 +263,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-categories}
      *
+     * @param sourceToken source token value
      * @param categoryRequest {@link CategoryRequest} CategoryRequest Object
      * @return A iterable of categories
      * @throws FreshbooksException
      */
     @Processor
-    public Iterable<Category> listCategories(@Optional @Default("#[payload]") CategoryRequest categoryRequest) {
-        return freshbooksClient.<Category>list(EntityType.CATEGORY, categoryRequest);
+    public Iterable<Category> listCategories(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") CategoryRequest categoryRequest) {
+        return freshbooksClient.<Category>list(sourceToken, EntityType.CATEGORY, categoryRequest);
     }
 
     /**
@@ -268,13 +279,15 @@ public class FreshbooksModule {
      *
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-client}
      *
+     * @param sourceToken source token value
      * @param client to be created
      * @return The created client
      * @throws FreshbooksException
      */
     @Processor
-    public Client createClient(@Optional @Default("#[payload]") Client client) {
-        String newClientId = (String) freshbooksClient.create(EntityType.CLIENT, client, true);
+    public Client createClient(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") Client client) {
+        String newClientId = (String) freshbooksClient.create(sourceToken, EntityType.CLIENT, client, true);
         client.setId(newClientId);
         return client;
     }
@@ -283,13 +296,15 @@ public class FreshbooksModule {
      * Update the details of the client with the given client_id. Any fields not referenced in the request will remain unchanged.
      *
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-client}
+     * 
+     * @param sourceToken source token value
      * @param client to be updated
      * @return updated client
      * @throws FreshbooksException
      */
     @Processor
-    public Client updateClient(@Optional @Default("#[payload]") Client client) {
-        freshbooksClient.update(EntityType.CLIENT, client, true);
+    public Client updateClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client) {
+        freshbooksClient.update(sourceToken, EntityType.CLIENT, client, true);
         return client;
     }
 
@@ -298,40 +313,45 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-client}
      * 
+     * @param sourceToken source token value
      * @param clientId  The client id
      * @return A {@link Client}
      * @throws FreshbooksException
      */
     @Processor
-    public Client getClient(String clientId) {
-        return (Client) freshbooksClient.get(EntityType.CLIENT, clientId);
+    public Client getClient(@Optional String sourceToken, String clientId) {
+        return (Client) freshbooksClient.get(sourceToken, EntityType.CLIENT, clientId);
     }
 
     /**
      * Delete the client with the given client_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-client}
+     * 
+     * @param sourceToken source token value
      * @param client to be deleted
      * @throws FreshbooksException
      */
     @Processor
-    public void deleteClient(@Optional @Default("#[payload]") Client client) 
+    public void deleteClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client) 
     {
-        freshbooksClient.delete(EntityType.CLIENT, client.getId());
+        freshbooksClient.delete(sourceToken, EntityType.CLIENT, client.getId());
     }
     
     /**
      * Undelete a client
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:undelete-client}
+     * 
+     * @param sourceToken source token value
      * @param client to be undeleted
      * @return the undeleted client id
      * @throws FreshbooksException
      */
     @Processor
-    public String undeleteClient(@Optional @Default("#[payload]") Client client) 
+    public String undeleteClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client) 
     {
-        freshbooksClient.undelete(EntityType.CLIENT, client.getId());
+        freshbooksClient.undelete(sourceToken, EntityType.CLIENT, client.getId());
         return client.getId();
     }
 
@@ -339,14 +359,17 @@ public class FreshbooksModule {
      * Returns a list of client summaries in order of descending client_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-clients}
+     * 
+     * @param sourceToken source token value
      * @param clientRequest {@link ClientRequest} ClientRequest object
      * @return A iterable of clients
      * @throws FreshbooksException
      */
     @Processor
-    public Iterable<Client> listClients(@Optional @Default("#[payload]") ClientRequest clientRequest) 
+    public Iterable<Client> listClients(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") ClientRequest clientRequest) 
     {
-        return freshbooksClient.<Client>list(EntityType.CLIENT, clientRequest);
+        return freshbooksClient.<Client>list(sourceToken, EntityType.CLIENT, clientRequest);
     }
 
     /**
@@ -360,14 +383,16 @@ public class FreshbooksModule {
      *  presented with a link to the URI when they pay the invoice.</p>
      *  
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-invoice}
+     * 
+     * @param sourceToken source token value
      * @param invoice to be created
      * @return The created invoice
      * @throws FreshbooksException
      */
     @Processor
-    public Invoice createInvoice(@Optional @Default("#[payload]") Invoice invoice)
+    public Invoice createInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice)
     {
-        String newInvoiceId = (String) freshbooksClient.create(EntityType.INVOICE, invoice, true);
+        String newInvoiceId = (String) freshbooksClient.create(sourceToken, EntityType.INVOICE, invoice, true);
         invoice.setId(newInvoiceId);
         return invoice;
     }
@@ -380,14 +405,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-invoice}
      * 
+     * @param sourceToken source token value
      * @param invoice to be updated
      * @return updated invoice
      * @throws FreshbooksException
      */
     @Processor 
-    public Invoice updateInvoice(@Optional @Default("#[payload]") Invoice invoice)
+    public Invoice updateInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice)
     {
-        freshbooksClient.update(EntityType.INVOICE, invoice, true);
+        freshbooksClient.update(sourceToken, EntityType.INVOICE, invoice, true);
         return invoice;
     }
     
@@ -398,14 +424,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-invoice}
      * 
+     * @param sourceToken source token value
      * @param invoiceId     The invoice id
      * @return The invoice retrieved.
      * @throws FreshbooksException.
      */
     @Processor
-    public Invoice getInvoice(String invoiceId)
+    public Invoice getInvoice(@Optional String sourceToken, String invoiceId)
     {
-        return (Invoice) freshbooksClient.get(EntityType.INVOICE, invoiceId);
+        return (Invoice) freshbooksClient.get(sourceToken, EntityType.INVOICE, invoiceId);
     }
     
     /**
@@ -413,13 +440,14 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-invoice}
      * 
+     * @param sourceToken source token value
      * @param invoice to be deleted
      * @throws FreshbooksException.
      */
     @Processor
-    public void deleteInvoice(@Optional @Default("#[payload]") Invoice invoice)
+    public void deleteInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice)
     {
-        freshbooksClient.delete(EntityType.INVOICE, invoice.getId());
+        freshbooksClient.delete(sourceToken, EntityType.INVOICE, invoice.getId());
     }
     
     /**
@@ -427,14 +455,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:undelete-invoice}
      * 
+     * @param sourceToken source token value
      * @param invoice to be undeleted
      * @return The undeleted invoice id
      * @throws FreshbooksException.
      */
     @Processor
-    public String undeleteInvoice(@Optional @Default("#[payload]") Invoice invoice)
+    public String undeleteInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice)
     {
-        freshbooksClient.undelete(EntityType.INVOICE, invoice.getId());
+        freshbooksClient.undelete(sourceToken, EntityType.INVOICE, invoice.getId());
         return invoice.getId();
     }
     
@@ -442,28 +471,33 @@ public class FreshbooksModule {
      * Returns a list of invoice summaries. Results are ordered by descending invoice_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-invoices}
+     * 
+     * @param sourceToken source token value
      * @param invoiceRequest {@link InvoiceRequest} InvoiceRequest object
      * @return A iterable of Invoices
      * @throws FreshbooksException.
      */
     @Processor
-    public Iterable<Invoice> listInvoices(@Optional @Default("#[payload]") InvoiceRequest invoiceRequest)
+    public Iterable<Invoice> listInvoices(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") InvoiceRequest invoiceRequest)
     {
-        return freshbooksClient.<Invoice>list(EntityType.INVOICE, invoiceRequest);
+        return freshbooksClient.<Invoice>list(sourceToken, EntityType.INVOICE, invoiceRequest);
     }
     
     /**
      * <p>Create a new item and return the corresponding item_id. </p>
      *  
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-item}
+     * 
+     * @param sourceToken source token value
      * @param item to be created
      * @return The created item
      * @throws FreshbooksException
      */
     @Processor
-    public Item createItem(@Optional @Default("#[payload]") Item item)
+    public Item createItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item)
     {
-        String newItemId = (String) freshbooksClient.create(EntityType.ITEM, item, true);
+        String newItemId = (String) freshbooksClient.create(sourceToken, EntityType.ITEM, item, true);
         item.setId(newItemId);
         return item;
     }
@@ -474,14 +508,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-item}
      * 
+     * @param sourceToken source token value
      * @param item to be updated
      * @return updated item
      * @throws FreshbooksException
      */
     @Processor 
-    public Item updateItem(@Optional @Default("#[payload]") Item item)
+    public Item updateItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item)
     {
-        freshbooksClient.update(EntityType.ITEM, item, true);
+        freshbooksClient.update(sourceToken, EntityType.ITEM, item, true);
         return item;
     }
     
@@ -490,14 +525,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-item}
      * 
+     * @param sourceToken source token value
      * @param itemId    The item id
      * @return The item retrieved.
      * @throws FreshbooksException.
      */
     @Processor
-    public Item getItem(String itemId)
+    public Item getItem(@Optional String sourceToken, String itemId)
     {
-        return (Item) freshbooksClient.get(EntityType.ITEM, itemId);
+        return (Item) freshbooksClient.get(sourceToken, EntityType.ITEM, itemId);
     }
     
     /**
@@ -505,27 +541,31 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-item}
      * 
+     * @param sourceToken source token value
      * @param item to be deleted
      * @throws FreshbooksException.
      */
     @Processor
-    public void deleteItem(@Optional @Default("#[payload]") Item item)
+    public void deleteItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item)
     {
-        freshbooksClient.delete(EntityType.ITEM, item.getId());
+        freshbooksClient.delete(sourceToken, EntityType.ITEM, item.getId());
     }
     
     /**
      * Returns a list of items, ordered by descending item_id. 
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-items}
+     * 
+     * @param sourceToken source token value
      * @param itemRequest {@link ItemRequest} ItemRequest object
      * @return A iterable of Items
      * @throws FreshbooksException.
      */
     @Processor
-    public Iterable<Item> listItems(@Optional @Default("#[payload]") ItemRequest itemRequest)
+    public Iterable<Item> listItems(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") ItemRequest itemRequest)
     {
-        return freshbooksClient.<Item>list(EntityType.ITEM, itemRequest);
+        return freshbooksClient.<Item>list(sourceToken, EntityType.ITEM, itemRequest);
     }
     
     /**
@@ -539,14 +579,16 @@ public class FreshbooksModule {
      * will default to the currency code of the invoice they are being made against.</p> 
      *  
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-payment}
+     * 
+     * @param sourceToken source token value
      * @param payment to be created
      * @return The created Payment
      * @throws FreshbooksException
      */
     @Processor
-    public Payment createPayment(@Optional @Default("#[payload]") Payment payment)
+    public Payment createPayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment)
     {
-        String newPaymentId = (String) freshbooksClient.create(EntityType.PAYMENT, payment, true);
+        String newPaymentId = (String) freshbooksClient.create(sourceToken, EntityType.PAYMENT, payment, true);
         payment.setId(newPaymentId);
         return payment;
     }
@@ -559,14 +601,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-payment}
      * 
+     * @param sourceToken source token value
      * @param payment to be updated
      * @return updated Payment
      * @throws FreshbooksException
      */
     @Processor 
-    public Payment updatePayment(@Optional @Default("#[payload]") Payment payment)
+    public Payment updatePayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment)
     {
-        freshbooksClient.update(EntityType.PAYMENT, payment, true);
+        freshbooksClient.update(sourceToken, EntityType.PAYMENT, payment, true);
         return payment;
     }
     
@@ -575,14 +618,15 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-payment}
      * 
+     * @param sourceToken source token value
      * @param paymentId     The payment id
      * @return The payment retrieved.
      * @throws FreshbooksException.
      */
     @Processor
-    public Payment getPayment(String paymentId)
+    public Payment getPayment(@Optional String sourceToken, String paymentId)
     {
-        return (Payment) freshbooksClient.get(EntityType.PAYMENT, paymentId);
+        return (Payment) freshbooksClient.get(sourceToken, EntityType.PAYMENT, paymentId);
     }
     
     /**
@@ -590,54 +634,62 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-payment}
      * 
+     * @param sourceToken source token value
      * @param payment to be deleted
      * @throws FreshbooksException.
      */
     @Processor
-    public void deletePayment(@Optional @Default("#[payload]") Payment payment)
+    public void deletePayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment)
     {
-        freshbooksClient.delete(EntityType.PAYMENT, payment.getId());
+        freshbooksClient.delete(sourceToken, EntityType.PAYMENT, payment.getId());
     }
     
     /**
      * Returns a list of payment summaries. Results are ordered by descending payment_id.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-payments}
+     * 
+     * @param sourceToken source token value
      * @param paymentRequest {@link PaymentRequest} PaymentRequest object
      * @return A iterable of Payments
      * @throws FreshbooksException.
      */
     @Processor
-    public Iterable<Payment> listPayments(@Optional @Default("#[payload]") PaymentRequest paymentRequest)
+    public Iterable<Payment> listPayments(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") PaymentRequest paymentRequest)
     {
-        return freshbooksClient.<Payment>list(EntityType.PAYMENT, paymentRequest);
+        return freshbooksClient.<Payment>list(sourceToken, EntityType.PAYMENT, paymentRequest);
     }
     
     /**
      * Returns information about the current user
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-current-user-information}
+     * 
+     * @param sourceToken source token value
      * @return current user information
      * @throws FreshbooksException.
      */
     @Processor
-    public Staff getCurrentUserInformation()
+    public Staff getCurrentUserInformation(@Optional String sourceToken)
     {
-        return (Staff) freshbooksClient.execute(EntityType.STAFF, "staff.current");
+        return (Staff) freshbooksClient.execute(sourceToken, EntityType.STAFF, "staff.current");
     }
     
     /**
      * Create a session
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-session}
+     * 
+     * @param sourceToken source token value
      * @param session the session to be created
      * @return created session information
      * @throws FreshbooksException.
      */
     @Processor
-    public Session createSession(@Optional @Default("#[payload]") Session session)
+    public Session createSession(@Optional String sourceToken, @Optional @Default("#[payload]") Session session)
     {
-        return (Session) freshbooksClient.create(EntityType.SESSION, session, false);
+        return (Session) freshbooksClient.create(sourceToken, EntityType.SESSION, session, false);
     }
     
     @PostConstruct

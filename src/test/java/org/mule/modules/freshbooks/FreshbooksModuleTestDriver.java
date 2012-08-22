@@ -24,6 +24,7 @@ import org.mule.modules.freshbooks.model.Line;
 public class FreshbooksModuleTestDriver
 {
     private static FreshbooksModule module;
+    private static String SOURCE_TOKEN = "sourceToken";
     
     @BeforeClass
     public static void init()
@@ -40,8 +41,8 @@ public class FreshbooksModuleTestDriver
         Category cat =  new Category();
         cat.setName("MegaMarket3");
         
-        Category category = module.createCategory(cat);
-        module.deleteCategory(category);
+        Category category = module.createCategory(SOURCE_TOKEN, cat);
+        module.deleteCategory(SOURCE_TOKEN, category);
     }
 
     @Test
@@ -51,8 +52,8 @@ public class FreshbooksModuleTestDriver
         client.setLastName("Last Name - Test");
         client.setOrganization("ABC INC");
         client.setEmail(String.format("test-FB-%s@test.com", id));
-        Client newClient = module.createClient(client);
-        module.deleteClient(newClient);
+        Client newClient = module.createClient(SOURCE_TOKEN, client);
+        module.deleteClient(SOURCE_TOKEN, newClient);
     }
 
     @Test
@@ -63,8 +64,8 @@ public class FreshbooksModuleTestDriver
         line.setQuantity(1);
         line.setUnitCost(Double.valueOf(4));
         invoice.getLines().add(line);
-        Invoice newInvoice = module.createInvoice(invoice);
-        module.deleteInvoice(newInvoice);
+        Invoice newInvoice = module.createInvoice(SOURCE_TOKEN, invoice);
+        module.deleteInvoice(SOURCE_TOKEN, newInvoice);
     }
 
     @Test
@@ -73,8 +74,8 @@ public class FreshbooksModuleTestDriver
         callback.setEvent("invoice.update");
         callback.setUri("http://example2.com");
         
-        Callback newCallback = module.createCallback(callback);
-        module.deleteCallback(newCallback);
+        Callback newCallback = module.createCallback(SOURCE_TOKEN, callback);
+        module.deleteCallback(SOURCE_TOKEN, newCallback);
     }
 
     @Test
@@ -83,6 +84,6 @@ public class FreshbooksModuleTestDriver
         callback.setId("1");
         callback.setVerifier("123123123");
         
-        module.verifyCallback(callback);
+        module.verifyCallback(SOURCE_TOKEN, callback);
     }
 }

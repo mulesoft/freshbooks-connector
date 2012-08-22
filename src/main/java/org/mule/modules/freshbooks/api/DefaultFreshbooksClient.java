@@ -31,6 +31,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 import org.mule.modules.freshbooks.FreshbooksException;
@@ -108,20 +109,24 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public Object create(EntityType type, Object obj, Boolean returnOnlyId) 
+    public Object create(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId) 
     {
-        return requestSendingObject(type, obj, "create", returnOnlyId);
+        return requestSendingObject(sourceToken, type, obj, "create", returnOnlyId);
     }
 
     @Override
-    public void update(EntityType type, Object obj, Boolean returnOnlyId)
+    public void update(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId)
     {
-        requestSendingObject(type, obj, "update", returnOnlyId);
+        requestSendingObject(sourceToken, type, obj, "update", returnOnlyId);
     }
     
-    private Object requestSendingObject(EntityType type, Object obj, String typeOfRequest, Boolean returnOnlyId)
+    private Object requestSendingObject(String sourceToken, EntityType type, Object obj, String typeOfRequest, Boolean returnOnlyId)
     {
         BaseRequest request = type.getRequest();
+        
+        if (StringUtils.isNotBlank(sourceToken)) {
+            request.setSourceToken(sourceToken);
+        }
         
         try {
             request.getClass().getMethod("set" + type.getSimpleName(), type.getType()).invoke(request, obj);
@@ -144,33 +149,38 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
 
     @Override
-    public Object get(EntityType type, String id) 
+    public Object get(String sourceToken, EntityType type, String id) 
     {
-        return requestSendingId(type, id, "get");
+        return requestSendingId(sourceToken, type, id, "get");
     }
 
     @Override
-    public void delete(EntityType type, String id) 
+    public void delete(String sourceToken, EntityType type, String id) 
     {
-        requestSendingId(type, id, "delete");
+        requestSendingId(sourceToken, type, id, "delete");
     }
     
     @Override
-    public void undelete(EntityType type, String id) 
+    public void undelete(String sourceToken, EntityType type, String id) 
     {
-        requestSendingId(type, id, "undelete");
+        requestSendingId(sourceToken, type, id, "undelete");
     }
     
     @Override
-    public void verify(EntityType type, Object obj, Boolean returnOnlyId) 
+    public void verify(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId) 
     {
-        requestSendingObject(type, obj, "verify", returnOnlyId);
+        requestSendingObject(sourceToken, type, obj, "verify", returnOnlyId);
     }
     
     @Override
-    public Object execute(EntityType type, String operation) 
+    public Object execute(String sourceToken, EntityType type, String operation) 
     {
         BaseRequest request = type.getRequest();
+
+        if (StringUtils.isNotBlank(sourceToken)) {
+            request.setSourceToken(sourceToken);
+        }
+
         request.setMethod(operation);
         Response response = sendRequest(request);
         try {
@@ -180,10 +190,14 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         }
     }
 
-    private Object requestSendingId(EntityType type, String id, String typeOfRequest)
+    private Object requestSendingId(String sourceToken, EntityType type, String id, String typeOfRequest)
     {
         BaseRequest request = type.getRequest();
-        
+
+        if (StringUtils.isNotBlank(sourceToken)) {
+            request.setSourceToken(sourceToken);
+        }
+
         try {
             request.getClass().getMethod("set" + type.getSimpleName() + "Id", String.class).invoke(request, id);
         } catch (Exception e) {
@@ -201,7 +215,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public <T> Iterable<T> listPaged(final EntityType type, final BaseRequest request) 
+    public <T> Iterable<T> listPaged(final String sourceToken, final EntityType type, final BaseRequest request) 
     {
         return new PaginatedIterable<T, Paged<T>>(){
 
@@ -227,6 +241,11 @@ public class DefaultFreshbooksClient implements FreshbooksClient
             
             @SuppressWarnings("unchecked")
             private Paged<T> askAnEspecificPage(Integer pageNumber) {
+
+                if (StringUtils.isNotBlank(sourceToken)) {
+                    request.setSourceToken(sourceToken);
+                }
+
                 request.setMethod(type.getResourceName() + ".list");
                 request.setPage(pageNumber);
                 
@@ -242,7 +261,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     
     @SuppressWarnings("unchecked")
     @Override
-    public <T> Iterable<T> list(final EntityType type, final BaseRequest request) 
+    public <T> Iterable<T> list(String sourceToken, final EntityType type, final BaseRequest request) 
     {
         Integer pageNumber = 0;
         Boolean hasMoreResults = true;
@@ -250,7 +269,11 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         Paged<T> results;
 
         request.setMethod(type.getResourceName() + ".list");
-        
+
+        if (StringUtils.isNotBlank(sourceToken)) {
+            request.setSourceToken(sourceToken);
+        }
+
         while(hasMoreResults) {
             
             pageNumber++;
