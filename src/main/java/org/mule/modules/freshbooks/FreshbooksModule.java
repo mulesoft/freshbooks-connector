@@ -37,6 +37,7 @@ import org.mule.modules.freshbooks.model.Payment;
 import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.Session;
 import org.mule.modules.freshbooks.model.Staff;
+import org.mule.modules.freshbooks.model.SystemUser;
 
 /**
  *
@@ -690,6 +691,24 @@ public class FreshbooksModule {
     public Session createSession(@Optional String sourceToken, @Optional @Default("#[payload]") Session session)
     {
         return (Session) freshbooksClient.create(sourceToken, EntityType.SESSION, session, false);
+    }
+    
+    /**
+     * Create a system user
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-system-user}
+     * 
+     * @param sourceToken source token value
+     * @param systemUser the system user to be created
+     * @return created system user
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public SystemUser createSystemUser(@Optional String sourceToken, @Optional @Default("#[payload]") SystemUser systemUser)
+    {
+        SystemUser newSystem = (SystemUser) freshbooksClient.create(sourceToken, EntityType.SYSTEM, systemUser, false);
+        systemUser.setDomain(newSystem.getDomain());
+        return systemUser;
     }
     
     @PostConstruct

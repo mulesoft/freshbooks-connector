@@ -129,3 +129,7 @@
 <!-- BEGIN_INCLUDE(freshbooks:create-session) -->
     <freshbooks:create-session />
 <!-- END_INCLUDE(freshbooks:create-session) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:create-system-user) -->
+    <freshbooks:create-system-user />
+<!-- END_INCLUDE(freshbooks:create-system-user) -->

@@ -57,6 +57,9 @@ public class ObjectFactory {
     private final static QName _Session_QNAME = new QName("http://www.freshbooks.com/api/", "session");
     private final static QName _SessionRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
     
+    private final static QName _System_QNAME = new QName("http://www.freshbooks.com/api/", "system");
+    private final static QName _SystemRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.modules.freshbooks.model
      * 
@@ -246,6 +249,22 @@ public class ObjectFactory {
      */
     public SessionRequest createSessionRequest() {
         return new SessionRequest();
+    }
+
+    /**
+     * Create an instance of {@link SystemUser }
+     * 
+     */
+    public SystemUser createSystem() {
+        return new SystemUser();
+    }
+    
+    /**
+     * Create an instance of {@link SystemUserRequest }
+     * 
+     */
+    public SystemUserRequest createSystemRequest() {
+        return new SystemUserRequest();
     }
     
     /**
@@ -490,5 +509,23 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "SessionRequest")
     public JAXBElement<SessionRequest> createSessionRequest(SessionRequest value) {
         return new JAXBElement<SessionRequest>(_SessionRequest_QNAME, SessionRequest.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SystemUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "System")
+    public JAXBElement<SystemUser> createSystem(SystemUser value) {
+        return new JAXBElement<SystemUser>(_System_QNAME, SystemUser.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SystemUserRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "SystemRequest")
+    public JAXBElement<SystemUserRequest> createSystemRequest(SystemUserRequest value) {
+        return new JAXBElement<SystemUserRequest>(_SystemRequest_QNAME, SystemUserRequest.class, null, value);
     }
 }
