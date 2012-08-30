@@ -28,8 +28,10 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -58,8 +60,11 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         } catch (MalformedURLException e) {
             throw new FreshbooksException(e.getMessage());
         }
-        this.client = new DefaultHttpClient();
-        this.client.getCredentialsProvider().setCredentials(new AuthScope(this.apiUrl.getHost(), 443, AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
+        ClientConnectionManager mgr = new PoolingClientConnectionManager();
+     
+        client = new DefaultHttpClient(mgr);
+        this.client.getCredentialsProvider().setCredentials(new AuthScope(this.apiUrl.getHost(), 443, 
+                AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
     }
 
     private Response sendRequest(BaseRequest request) 
