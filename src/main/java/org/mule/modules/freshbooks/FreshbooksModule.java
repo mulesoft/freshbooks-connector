@@ -38,6 +38,8 @@ import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.Session;
 import org.mule.modules.freshbooks.model.Staff;
 import org.mule.modules.freshbooks.model.SystemUser;
+import org.mule.modules.freshbooks.model.Tax;
+import org.mule.modules.freshbooks.model.TaxRequest;
 
 /**
  *
@@ -567,6 +569,92 @@ public class FreshbooksModule {
             @Optional @Default("#[payload]") ItemRequest itemRequest)
     {
         return freshbooksClient.<Item>list(sourceToken, EntityType.ITEM, itemRequest);
+    }
+    
+    /**
+     * Create a new tax and returns the corresponding tax_id.
+     * <p>*Tax “name” must be unique. You may not create more than one tax with the same name.</p> 
+     *  
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-tax}
+     * 
+     * @param sourceToken source token value
+     * @param tax to be created
+     * @return The created Tax
+     * @throws FreshbooksException
+     */
+    @Processor
+    public Tax createTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax)
+    {
+        String newTaxId = (String) freshbooksClient.create(sourceToken, EntityType.TAX, tax, true);
+        tax.setId(newTaxId);
+        return tax;
+    }
+    
+    /**
+     * <p>Update an existing tax. All fields aside from the tax_id are optional; 
+     * by omitting a field, the existing value will remain unchanged.</p> 
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-tax}
+     * 
+     * @param sourceToken source token value
+     * @param tax to be updated
+     * @return updated Tax
+     * @throws FreshbooksException
+     */
+    @Processor 
+    public Tax updateTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax)
+    {
+        freshbooksClient.update(sourceToken, EntityType.TAX, tax, true);
+        return tax;
+    }
+    
+    /**
+     * <p>Retrieve tax details according to tax_id. </p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-tax}
+     * 
+     * @param sourceToken source token value
+     * @param taxId     The tax id
+     * @return The tax retrieved.
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Tax getTax(@Optional String sourceToken, String taxId)
+    {
+        return (Tax) freshbooksClient.get(sourceToken, EntityType.TAX, taxId);
+    }
+    
+    /**
+     * Permanently delete a tax.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-tax}
+     * 
+     * @param sourceToken source token value
+     * @param tax to be deleted
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deleteTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax)
+    {
+        freshbooksClient.delete(sourceToken, EntityType.TAX, tax.getId());
+    }
+    
+    /**
+     * Returns a list of taxs, ordered by descending tax_id. 
+     * <p>Filters: Use a “compound” tag to return only compound or non-compound taxes.</p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-taxes}
+     * 
+     * @param sourceToken source token value
+     * @param taxRequest {@link TaxRequest} TaxRequest object
+     * @return A iterable of Taxes
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<Tax> listTaxes(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") TaxRequest taxRequest)
+    {
+        return freshbooksClient.<Tax>list(sourceToken, EntityType.TAX, taxRequest);
     }
     
     /**

@@ -122,6 +122,26 @@
     <freshbooks:list-payments />
 <!-- END_INCLUDE(freshbooks:list-payments) -->
 
+<!-- BEGIN_INCLUDE(freshbooks:create-tax) -->
+    <freshbooks:create-tax />
+<!-- END_INCLUDE(freshbooks:create-tax) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:update-tax) -->
+    <freshbooks:update-tax />
+<!-- END_INCLUDE(freshbooks:update-tax) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-tax) -->
+    <freshbooks:get-tax taxId="123"/>
+<!-- END_INCLUDE(freshbooks:get-tax) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-tax) -->
+    <freshbooks:delete-tax/>
+<!-- END_INCLUDE(freshbooks:delete-tax) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-taxes) -->
+    <freshbooks:list-taxes />
+<!-- END_INCLUDE(freshbooks:list-taxes) -->
+
 <!-- BEGIN_INCLUDE(freshbooks:get-current-user-information) -->
     <freshbooks:get-current-user-information />
 <!-- END_INCLUDE(freshbooks:get-current-user-information) -->

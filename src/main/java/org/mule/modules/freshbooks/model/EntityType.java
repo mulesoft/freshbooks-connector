@@ -31,7 +31,9 @@ public enum EntityType {
 
     STAFF(Staff.class, "Staffs", StaffRequest.class),
 
-    SYSTEM(SystemUser.class, "Systems", SystemUserRequest.class);
+    SYSTEM(SystemUser.class, "Systems", SystemUserRequest.class),
+    
+    TAX(Tax.class, "Taxes", TaxRequest.class);
     
     private Class<?> type;
     private String plural;

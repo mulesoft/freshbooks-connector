@@ -60,6 +60,10 @@ public class ObjectFactory {
     private final static QName _System_QNAME = new QName("http://www.freshbooks.com/api/", "system");
     private final static QName _SystemRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
     
+    private final static QName _Tax_QNAME = new QName("http://www.freshbooks.com/api/", "tax");
+    private final static QName _Taxes_QNAME = new QName("http://www.freshbooks.com/api/", "taxes");
+    private final static QName _TaxRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.modules.freshbooks.model
      * 
@@ -265,6 +269,22 @@ public class ObjectFactory {
      */
     public SystemUserRequest createSystemRequest() {
         return new SystemUserRequest();
+    }
+
+    /**
+     * Create an instance of {@link Tax }
+     * 
+     */
+    public Tax createTax() {
+        return new Tax();
+    }
+    
+    /**
+     * Create an instance of {@link Categories }
+     * 
+     */
+    public Taxes createTaxes() {
+        return new Taxes();
     }
     
     /**
@@ -527,5 +547,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "SystemRequest")
     public JAXBElement<SystemUserRequest> createSystemRequest(SystemUserRequest value) {
         return new JAXBElement<SystemUserRequest>(_SystemRequest_QNAME, SystemUserRequest.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Tax }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Tax")
+    public JAXBElement<Tax> createTax(Tax value) {
+        return new JAXBElement<Tax>(_Tax_QNAME, Tax.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Taxes }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Taxes")
+    public JAXBElement<Taxes> createTaxes(Taxes value) {
+        return new JAXBElement<Taxes>(_Taxes_QNAME, Taxes.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TaxRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "TaxRequest")
+    public JAXBElement<TaxRequest> createTaxRequest(TaxRequest value) {
+        return new JAXBElement<TaxRequest>(_PaymentRequest_QNAME, TaxRequest.class, null, value);
     }
 }
