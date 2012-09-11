@@ -23,6 +23,11 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
+import oauth.signpost.signature.AuthorizationHeaderSigningStrategy;
+import oauth.signpost.signature.PlainTextMessageSigner;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -50,6 +55,8 @@ public class DefaultFreshbooksClient implements FreshbooksClient
 
     private final URL apiUrl;
     private transient DefaultHttpClient client;
+    private String consumerKey;
+    private String consumerSecret;
     
     public DefaultFreshbooksClient(String apiUrl, String authenticationToken) 
     {
@@ -66,16 +73,55 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         this.client.getCredentialsProvider().setCredentials(new AuthScope(this.apiUrl.getHost(), 443, 
                 AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
     }
+    
+    public DefaultFreshbooksClient(String apiUrl, String consumerKey, String consumerSecret) 
+    {
+        Validate.notEmpty(apiUrl);
 
-    private Response sendRequest(BaseRequest request) 
+        try {
+            this.apiUrl = new URL(apiUrl);
+        } catch (MalformedURLException e) {
+            throw new FreshbooksException(e.getMessage());
+        }
+        
+        this.consumerKey = consumerKey;
+        this.consumerSecret = consumerSecret;
+        
+        ClientConnectionManager mgr = new PoolingClientConnectionManager();
+        
+        client = new DefaultHttpClient(mgr);
+    }
+
+    private Response sendRequest(OAuthCredentials credentials, BaseRequest request) 
     {
         String requestString = marshalRequest(request);
+        
+        OAuthConsumer consumer = new CommonsHttpOAuthConsumer(this.consumerKey,
+                this.consumerSecret);
+        consumer.setMessageSigner(new PlainTextMessageSigner());
+        
+        consumer.setTokenWithSecret(credentials.getAccessToken(), credentials.getAccessTokenSecret());
+        consumer.setSigningStrategy(new AuthorizationHeaderSigningStrategy());
+
+        if (LOGGER.isDebugEnabled()) {
+            StringBuilder messageStringBuilder = new StringBuilder();
+            messageStringBuilder.append("Signing OAuth request ");
+            messageStringBuilder.append("[accessToken = ");
+            messageStringBuilder.append(consumer.getToken());
+            messageStringBuilder.append("] ");
+            messageStringBuilder.append("[accessTokenSecret = ");
+            messageStringBuilder.append(consumer.getTokenSecret());
+            messageStringBuilder.append("] ");
+            LOGGER.debug(messageStringBuilder.toString());
+        }
 
         Response response;
         HttpUriRequest uriRequest = new HttpPost(apiUrl.toString());
         try {
             ((HttpPost) uriRequest).setEntity(new StringEntity(requestString, "utf-8"));
             uriRequest.addHeader("Content-Type", "text/xml");
+            
+            consumer.sign(uriRequest);
             
             HttpResponse httpResponse = client.execute(uriRequest);
             InputStream is = httpResponse.getEntity().getContent();
@@ -114,18 +160,19 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public Object create(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId) 
+    public Object create(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId) 
     {
-        return requestSendingObject(sourceToken, type, obj, "create", returnOnlyId);
+        return requestSendingObject(credentials, sourceToken, type, obj, "create", returnOnlyId);
     }
 
     @Override
-    public void update(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId)
+    public void update(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId)
     {
-        requestSendingObject(sourceToken, type, obj, "update", returnOnlyId);
+        requestSendingObject(credentials, sourceToken, type, obj, "update", returnOnlyId);
     }
     
-    private Object requestSendingObject(String sourceToken, EntityType type, Object obj, String typeOfRequest, Boolean returnOnlyId)
+    private Object requestSendingObject(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, 
+            String typeOfRequest, Boolean returnOnlyId)
     {
         BaseRequest request = type.getRequest();
         
@@ -141,7 +188,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         
         request.setMethod(type.getResourceName() + "." + typeOfRequest);
 
-        Response response = sendRequest(request);
+        Response response = sendRequest(credentials, request);
         String getMethod = "get" + type.getSimpleName();
         try {
             if (returnOnlyId) {
@@ -154,31 +201,32 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
 
     @Override
-    public Object get(String sourceToken, EntityType type, String id) 
+    public Object get(OAuthCredentials credentials, String sourceToken, EntityType type, String id) 
     {
-        return requestSendingId(sourceToken, type, id, "get");
+        return requestSendingId(credentials, sourceToken, type, id, "get");
     }
 
     @Override
-    public void delete(String sourceToken, EntityType type, String id) 
+    public void delete(OAuthCredentials credentials, String sourceToken, EntityType type, String id) 
     {
-        requestSendingId(sourceToken, type, id, "delete");
+        requestSendingId(credentials, sourceToken, type, id, "delete");
     }
     
     @Override
-    public void undelete(String sourceToken, EntityType type, String id) 
+    public void undelete(OAuthCredentials credentials, String sourceToken, EntityType type, String id) 
     {
-        requestSendingId(sourceToken, type, id, "undelete");
+        requestSendingId(credentials, sourceToken, type, id, "undelete");
     }
     
     @Override
-    public void verify(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId) 
+    public void verify(OAuthCredentials credentials, String sourceToken, EntityType type, 
+            Object obj, Boolean returnOnlyId) 
     {
-        requestSendingObject(sourceToken, type, obj, "verify", returnOnlyId);
+        requestSendingObject(credentials, sourceToken, type, obj, "verify", returnOnlyId);
     }
     
     @Override
-    public Object execute(String sourceToken, EntityType type, String operation) 
+    public Object execute(OAuthCredentials credentials, String sourceToken, EntityType type, String operation) 
     {
         BaseRequest request = type.getRequest();
 
@@ -187,7 +235,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         }
 
         request.setMethod(operation);
-        Response response = sendRequest(request);
+        Response response = sendRequest(credentials, request);
         try {
             return response.getClass().getMethod("get" + type.getSimpleName()).invoke(response);
         } catch (Exception e) {
@@ -195,7 +243,8 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         }
     }
 
-    private Object requestSendingId(String sourceToken, EntityType type, String id, String typeOfRequest)
+    private Object requestSendingId(OAuthCredentials credentials, String sourceToken, EntityType type, 
+            String id, String typeOfRequest)
     {
         BaseRequest request = type.getRequest();
 
@@ -211,7 +260,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         
         request.setMethod(type.getResourceName() + "." + typeOfRequest);
 
-        Response response = sendRequest(request);
+        Response response = sendRequest(credentials, request);
         try {
             return response.getClass().getMethod("get" + type.getSimpleName()).invoke(response);
         } catch (Exception e) {
@@ -220,7 +269,8 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     }
     
     @Override
-    public <T> Iterable<T> listPaged(final String sourceToken, final EntityType type, final BaseRequest request) 
+    public <T> Iterable<T> listPaged(final OAuthCredentials credentials, final String sourceToken, 
+            final EntityType type, final BaseRequest request) 
     {
         return new PaginatedIterable<T, Paged<T>>(){
 
@@ -254,7 +304,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
                 request.setMethod(type.getResourceName() + ".list");
                 request.setPage(pageNumber);
                 
-                Response response = sendRequest(request);
+                Response response = sendRequest(credentials, request);
                 try {
                     return (Paged<T>) response.getClass().getMethod("get" + type.getNameForLists()).invoke(response);
                 } catch (Exception e) {
@@ -266,7 +316,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     
     @SuppressWarnings("unchecked")
     @Override
-    public <T> Iterable<T> list(String sourceToken, final EntityType type, final BaseRequest request) 
+    public <T> Iterable<T> list(OAuthCredentials credentials, String sourceToken, final EntityType type, final BaseRequest request) 
     {
         Integer pageNumber = 0;
         Boolean hasMoreResults = true;
@@ -284,7 +334,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
             pageNumber++;
             request.setPage(pageNumber);
             
-            Response response = sendRequest(request);            
+            Response response = sendRequest(credentials, request);            
 
             try {
                 results = (Paged<T>) response.getClass().getMethod("get" + type.getNameForLists()).invoke(response);
@@ -312,5 +362,25 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         StringWriter writer = new StringWriter();
         IOUtils.copy(in, writer, "UTF-8");
         return writer.toString();
+    }
+
+    public URL getApiUrl() {
+        return apiUrl;
+    }
+
+    public String getApiKey() {
+        return consumerKey;
+    }
+
+    public String getApiSecret() {
+        return consumerSecret;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.consumerKey = apiKey;
+    }
+
+    public void setApiSecret(String apiSecret) {
+        this.consumerSecret = apiSecret;
     }
 }

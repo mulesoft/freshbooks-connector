@@ -15,21 +15,21 @@ import org.mule.modules.freshbooks.model.EntityType;
 
 public interface FreshbooksClient {
     
-    public Object create(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
+    public Object create(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
     
-    public void update(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
+    public void update(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
     
-    public Object get(String sourceToken, EntityType type, String id);
+    public Object get(OAuthCredentials credentials, String sourceToken, EntityType type, String id);
     
-    public void delete(String sourceToken, EntityType type, String id);
+    public void delete(OAuthCredentials credentials, String sourceToken, EntityType type, String id);
     
-    public void verify(String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
+    public void verify(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
     
-    public <T> Iterable<T> list(String sourceToken, EntityType type, BaseRequest request);
+    public <T> Iterable<T> list(OAuthCredentials credentials, String sourceToken, EntityType type, BaseRequest request);
 
-    public <T> Iterable<T> listPaged(String sourceToken, EntityType type, BaseRequest request);
+    public <T> Iterable<T> listPaged(OAuthCredentials credentials, String sourceToken, EntityType type, BaseRequest request);
     
-    public void undelete(String sourceToken, EntityType type, String id);
+    public void undelete(OAuthCredentials credentials, String sourceToken, EntityType type, String id);
 
-    Object execute(String sourceToken, EntityType type, String operation);
+    Object execute(OAuthCredentials credentials, String sourceToken, EntityType type, String operation);
 }

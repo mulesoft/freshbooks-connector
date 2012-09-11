@@ -153,3 +153,19 @@
 <!-- BEGIN_INCLUDE(freshbooks:create-system-user) -->
     <freshbooks:create-system-user />
 <!-- END_INCLUDE(freshbooks:create-system-user) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:auth-user) -->
+    <freshbooks:auth-user requestTokenUrl="http://requestTokenUrl"
+        accessTokenUrl="http://accessTokenUrl"
+        authorizationUrl="http://authorizationUrl"
+        callbackUrl="http://callbackUrl" 
+        oauthCallback-ref="callbackFlowRef" />
+<!-- END_INCLUDE(freshbooks:auth-user) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-access-token) -->
+    <freshbooks:get-access-token requestTokenUrl="http://requestTokenUrl"
+        accessTokenUrl="http://accessTokenUrl"
+        authorizationUrl="http://authorizationUrl"
+        verifier="verifier" 
+        requestTokenId="tokenId" />
+<!-- END_INCLUDE(freshbooks:get-access-token) -->
