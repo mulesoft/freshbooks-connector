@@ -36,6 +36,8 @@ import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.Session;
 import org.mule.modules.freshbooks.model.Staff;
 import org.mule.modules.freshbooks.model.SystemUser;
+import org.mule.modules.freshbooks.model.Task;
+import org.mule.modules.freshbooks.model.TaskRequest;
 import org.mule.modules.freshbooks.model.Tax;
 import org.mule.modules.freshbooks.model.TaxRequest;
 
@@ -746,6 +748,89 @@ public class FreshbooksModule {
             @Optional @Default("#[payload]") PaymentRequest paymentRequest)
     {
         return freshbooksClient.<Payment>list(sourceToken, EntityType.PAYMENT, paymentRequest);
+    }
+    
+    /**
+     * Create a new task and returns the corresponding task_id.
+     *  
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be created
+     * @return The created Task
+     * @throws FreshbooksException
+     */
+    @Processor
+    public Task createTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task)
+    {
+        String newTaskId = (String) freshbooksClient.create(sourceToken, EntityType.TASK, task, true);
+        task.setId(newTaskId);
+        return task;
+    }
+    
+    /**
+     * <p>Update an existing task.  
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be updated
+     * @return updated Task
+     * @throws FreshbooksException
+     */
+    @Processor 
+    public Task updateTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task)
+    {
+        freshbooksClient.update(sourceToken, EntityType.TASK, task, true);
+        return task;
+    }
+    
+    /**
+     * <p>Retrieve task details according to task_id. </p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-task}
+     * 
+     * @param sourceToken source token value
+     * @param taskId     The task id
+     * @return The task retrieved.
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Task getTask(@Optional String sourceToken, String taskId)
+    {
+        return (Task) freshbooksClient.get(sourceToken, EntityType.TASK, taskId);
+    }
+    
+    /**
+     * Permanently delete a task. 
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be deleted
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deleteTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task)
+    {
+        freshbooksClient.delete(sourceToken, EntityType.TASK, task.getId());
+    }
+    
+    /**
+     * Returns a list of task summaries. Results are ordered by descending task_id.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-tasks}
+     * 
+     * @param sourceToken source token value
+     * @param taskRequest {@link TaskRequest} TaskRequest object
+     * @return A iterable of Tasks
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<Task> listTasks(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") TaskRequest taskRequest)
+    {
+        return freshbooksClient.<Task>list(sourceToken, EntityType.TASK, taskRequest);
     }
     
     /**
