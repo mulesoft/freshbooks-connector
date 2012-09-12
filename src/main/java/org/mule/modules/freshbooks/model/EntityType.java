@@ -33,6 +33,8 @@ public enum EntityType {
 
     SYSTEM(SystemUser.class, "Systems", SystemUserRequest.class),
     
+    TASK(Task.class, "Tasks", TaskRequest.class),
+    
     TAX(Tax.class, "Taxes", TaxRequest.class);
     
     private Class<?> type;

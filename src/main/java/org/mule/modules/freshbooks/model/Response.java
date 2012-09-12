@@ -74,6 +74,13 @@ public class Response {
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Taxes taxes;
     
+    @XmlElement(name = "task_id", namespace = "http://www.freshbooks.com/api/", nillable = true)
+    private String taskId;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Task task;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Tasks tasks;
+    
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Staff staff;
     
@@ -346,5 +353,23 @@ public class Response {
     }
     public void setTaxes(Taxes taxes) {
         this.taxes = taxes;
+    }
+    public String getTaskId() {
+        return taskId;
+    }
+    public Task getTask() {
+        return task;
+    }
+    public Tasks getTasks() {
+        return tasks;
+    }
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+    public void setTask(Task task) {
+        this.task = task;
+    }
+    public void setTasks(Tasks tasks) {
+        this.tasks = tasks;
     }
 }

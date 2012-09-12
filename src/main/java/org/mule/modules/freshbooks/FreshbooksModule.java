@@ -55,6 +55,8 @@ import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.Session;
 import org.mule.modules.freshbooks.model.Staff;
 import org.mule.modules.freshbooks.model.SystemUser;
+import org.mule.modules.freshbooks.model.Task;
+import org.mule.modules.freshbooks.model.TaskRequest;
 import org.mule.modules.freshbooks.model.Tax;
 import org.mule.modules.freshbooks.model.TaxRequest;
 
@@ -839,6 +841,108 @@ public class FreshbooksModule {
     {
         return freshbooksClient.<Tax>list(getAccessTokenInformation(accessTokenId), 
                 sourceToken, EntityType.TAX, taxRequest);
+    }
+    
+    /**
+     * Create a new task and returns the corresponding task_id.
+     *  
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return The created Task
+     * @throws FreshbooksException
+     */
+    @Processor
+    public Task createTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task,
+            @Optional String accessTokenId)
+    {
+        String newPaymentId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, task, true);
+        task.setId(newPaymentId);
+        return task;
+    }
+    
+    /**
+     * <p>Update an existing task.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be updated
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return updated Task
+     * @throws FreshbooksException
+     */
+    @Processor 
+    public Task updateTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task,
+            @Optional String accessTokenId)
+    {
+        freshbooksClient.update(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, task, true);
+        return task;
+    }
+    
+    /**
+     * <p>Retrieve an existing task. </p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-task}
+     * 
+     * @param sourceToken source token value
+     * @param taskId     The task id
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return The task retrieved.
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Task getTask(@Optional String sourceToken, String taskId,
+            @Optional String accessTokenId)
+    {
+        return (Task) freshbooksClient.get(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, taskId);
+    }
+    
+    /**
+     * Permanently delete a task.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deleteTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task,
+            @Optional String accessTokenId)
+    {
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, task.getId());
+    }
+    
+    /**
+     * Returns a list of tasks summaries.
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-tasks}
+     * 
+     * @param sourceToken source token value
+     * @param taskRequest {@link TaskRequest} TaskRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return A iterable of Tasks
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<Task> listTasks(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") TaskRequest taskRequest,
+            @Optional String accessTokenId)
+    {
+        return freshbooksClient.<Task>list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, taskRequest);
     }
     
     /**

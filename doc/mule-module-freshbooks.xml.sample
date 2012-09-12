@@ -142,6 +142,26 @@
     <freshbooks:list-taxes />
 <!-- END_INCLUDE(freshbooks:list-taxes) -->
 
+<!-- BEGIN_INCLUDE(freshbooks:create-task) -->
+    <freshbooks:create-task />
+<!-- END_INCLUDE(freshbooks:create-task) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:update-task) -->
+    <freshbooks:update-task />
+<!-- END_INCLUDE(freshbooks:update-task) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-task) -->
+    <freshbooks:get-task taskId="123"/>
+<!-- END_INCLUDE(freshbooks:get-task) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-task) -->
+    <freshbooks:delete-task/>
+<!-- END_INCLUDE(freshbooks:delete-task) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-tasks) -->
+    <freshbooks:list-tasks />
+<!-- END_INCLUDE(freshbooks:list-tasks) -->
+
 <!-- BEGIN_INCLUDE(freshbooks:get-current-user-information) -->
     <freshbooks:get-current-user-information />
 <!-- END_INCLUDE(freshbooks:get-current-user-information) -->
