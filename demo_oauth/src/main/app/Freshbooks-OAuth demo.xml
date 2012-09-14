@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/objectstore http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd ">
 
     <freshbooks:config name="FreshBooks"   
-    		apiUrl="https://mulesoftdev.freshbooks.com/api/2.1/xml-in" authenticationToken="asdasd" consumerKey="mulesoftdev" consumerSecret="A3TxiPdR4rCFGLwmwhD3nWequdKbH5TcR" doc:name="FreshBooks" objectStore-ref="objectStore">
+    		apiUrl="https://apiUrl.freshbooks.com/api/2.1/xml-in" authenticationToken="asdasd" consumerKey="mulesoftdev" consumerSecret="A3TxiPdR4rCFGLwmwhD3nWequdKbH5TcR" doc:name="FreshBooks" objectStore-ref="objectStore">
 	</freshbooks:config>
 
 	<spring:beans>
@@ -42,7 +42,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
     </flow>
     <flow name="getAccessToken" doc:name="getAccessToken">
         <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8082" doc:name="HTTP"/>
-        <freshbooks:get-access-token config-ref="FreshBooks" accessTokenUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_access.php" authorizationUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_authorize.php"  requestTokenUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_request.php" requestTokenId="#[groovy:message.getInboundProperty('userId')]" verifier="#[groovy:message.getInboundProperty('oauth_verifier')]" userIdentifier="100" doc:name="FreshBooks"/>
+        <freshbooks:get-access-token config-ref="FreshBooks" apiUrl="https://mulesoftdev.freshbooks.com/api/2.1/xml-in" requestTokenId="#[groovy:message.getInboundProperty('userId')]" verifier="#[groovy:message.getInboundProperty('oauth_verifier')]" userIdentifier="100" doc:name="FreshBooks"/>
         <flow-ref name="listClients" doc:name="Flow Reference"/>
     </flow>
 </mule>

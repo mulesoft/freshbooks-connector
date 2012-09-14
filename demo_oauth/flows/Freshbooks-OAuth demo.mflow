@@ -4,7 +4,7 @@
         <properties>
             <property value="FreshBooks" name="name"/>
             <property value="1" name="auxiliary;index"/>
-            <property value="https://mulesoftdev.freshbooks.com/api/2.1/xml-in" name="apiUrl"/>
+            <property value="https://apiUrl.freshbooks.com/api/2.1/xml-in" name="apiUrl"/>
             <property value="asdasd" name="authenticationToken"/>
             <property value="mulesoftdev" name="consumerKey"/>
             <property value="A3TxiPdR4rCFGLwmwhD3nWequdKbH5TcR" name="consumerSecret"/>
@@ -44,17 +44,18 @@
             <property value="2" name="auxiliary;wrapIn"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="listClients" entity-id="e1932a6a-ef9d-4d46-ae95-bfd5a67577d2">
+    <flow SubFlow="false" name="listClients" entity-id="dd7e0b77-4338-47ef-9749-a318f4e35003">
         <properties>
-            <property value="" name="processingStrategy2"/>
-            <property value="" name="bussinessEventsLabel"/>
-            <property value="false" name="tracking:enable-default-events"/>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
             <property value="4" name="auxiliary;index"/>
-            <property name="updated"/>
-            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;23357898"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
         </properties>
-        <description></description>
-        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
             <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" name="ClientRequest" entity-id="Groovy#1">
                 <properties>
                     <property name="returnClass"/>
@@ -68,8 +69,14 @@
                     <property value="5" name="auxiliary;index"/>
                     <property value="5" name="auxiliary;index"/>
                     <property value="5" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                                                        &#xA;                            new ClientRequest(&#xA;                            folder: &quot;ACTIVE&quot;&#xA;                            )" name="text"/>
+                        <property value="Groovy" name="engine"/>
+                        <property value="6" name="auxiliary;wrapIn"/>
+                        <property value="6" name="auxiliary;index"/>
+                    </property-collection>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
-                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                                        &#xA;            new ClientRequest(&#xA;            folder: &quot;ACTIVE&quot;&#xA;            )" name="text"/>
+                        <property value="import org.mule.modules.freshbooks.model.*&#xA;                                                                        &#xA;                            new ClientRequest(&#xA;                            folder: &quot;ACTIVE&quot;&#xA;                            )" name="text"/>
                         <property value="Groovy" name="engine"/>
                         <property value="6" name="auxiliary;wrapIn"/>
                         <property value="6" name="auxiliary;index"/>
@@ -110,7 +117,7 @@
                     <property value="10" name="auxiliary;index"/>
                 </properties>
                 <compartment entity-id="compartment#1">
-                    <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
                         <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Logger" entity-id="Logger#1">
                             <properties>
 <property value="ClientId: #[payload.id], ClientName: #[payload.email]" name="message"/>
@@ -126,17 +133,18 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="authUser" entity-id="11d598ab-40d7-47df-80fd-43faa6571773">
+    <flow SubFlow="false" name="authUser" entity-id="9609b909-9358-4908-ade4-fbfb19a8c01e">
         <properties>
-            <property value="" name="processingStrategy2"/>
-            <property value="" name="bussinessEventsLabel"/>
-            <property value="false" name="tracking:enable-default-events"/>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
             <property value="12" name="auxiliary;index"/>
-            <property name="updated"/>
-            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;32505380"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="12" name="auxiliary;index"/>
+            <property value="12" name="auxiliary;index"/>
+            <property value="12" name="auxiliary;index"/>
         </properties>
-        <description></description>
-        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
             <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
@@ -201,17 +209,18 @@
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="getAccessToken" entity-id="8d035b1f-7e69-4af0-9fdb-ca070242fd0b">
+    <flow SubFlow="false" name="getAccessToken" entity-id="67d9c22d-c660-4d1f-99ed-b2d5465cef35">
         <properties>
-            <property value="" name="processingStrategy2"/>
-            <property value="" name="bussinessEventsLabel"/>
-            <property value="false" name="tracking:enable-default-events"/>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
             <property value="15" name="auxiliary;index"/>
-            <property name="updated"/>
-            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;24578966"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
         </properties>
-        <description></description>
-        <lane index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
             <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#2">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
@@ -260,10 +269,8 @@
                     <property value="http://www.mulesoft.org/schema/mule/freshbooks/get-access-token" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="FreshBooks" name="config-ref"/>
                     <property value="17" name="auxiliary;index"/>
-                    <property value="https://mulesoftdev.freshbooks.com/oauth/oauth_access.php" name="accessTokenUrl"/>
-                    <property value="https://mulesoftdev.freshbooks.com/oauth/oauth_authorize.php" name="authorizationUrl"/>
+                    <property value="https://mulesoftdev.freshbooks.com/api/2.1/xml-in" name="apiUrl"/>
                     <property value="#[groovy:message.getInboundProperty('userId')]" name="requestTokenId"/>
-                    <property value="https://mulesoftdev.freshbooks.com/oauth/oauth_request.php" name="requestTokenUrl"/>
                     <property value="100" name="userIdentifier"/>
                     <property value="#[groovy:message.getInboundProperty('oauth_verifier')]" name="verifier"/>
                     <property value="17" name="auxiliary;index"/>
@@ -279,9 +286,9 @@
                 <properties>
                     <property value="listClients" name="name"/>
                     <property value="18" name="auxiliary;index"/>
-                    <property name="updated"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="18" name="auxiliary;index"/>
                 </properties>
-                <description></description>
             </pattern>
         </lane>
     </flow>
