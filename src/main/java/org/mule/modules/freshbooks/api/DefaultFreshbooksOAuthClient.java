@@ -31,26 +31,16 @@ public class DefaultFreshbooksOAuthClient implements FreshbooksOAuthClient
 {
     private static final Logger LOGGER = Logger.getLogger(DefaultFreshbooksOAuthClient.class);
 
-    private String requestTokenUrl;
-    private String authUrl;
-    private String accessTokenUrl;
     private String requestToken;
     private String requestTokenSecret;
     private String consumerKey;
     private String consumerSecret;
     private ObjectStoreHelper objectStoreHelper;
     
-    public DefaultFreshbooksOAuthClient(String requestTokenUrl, String accessTokenUrl, String authUrl, 
-            String consumerKey, String consumerSecret, ObjectStore objectStoreRef) 
+    public DefaultFreshbooksOAuthClient(String consumerKey, String consumerSecret, ObjectStore objectStoreRef) 
     {
-        Validate.notEmpty(requestTokenUrl);
-        Validate.notEmpty(accessTokenUrl);
-        Validate.notEmpty(authUrl);
         Validate.notEmpty(consumerKey);
-        Validate.notEmpty(consumerSecret);
-        setRequestTokenUrl(requestTokenUrl);
-        setAuthUrl(authUrl);
-        setAccessTokenUrl(accessTokenUrl);
+        Validate.notEmpty(consumerSecret);        
         setConsumerKey(consumerKey);
         setConsumerSecret(consumerSecret);
         objectStoreHelper = new ObjectStoreHelper(objectStoreRef);
@@ -62,12 +52,13 @@ public class DefaultFreshbooksOAuthClient implements FreshbooksOAuthClient
      * and send it as a callback parameter to the service.
      */
     @Override
-    public String authorize(String callbackUrl, String requestTokenId) 
+    public String authorize(String requestTokenUrl, String accessTokenUrl, String authorizationUrl, 
+            String callbackUrl, String requestTokenId)
             throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
             OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException {
         
         OAuthConsumer consumer = new DefaultOAuthConsumer(consumerKey, consumerSecret);
-        OAuthProvider provider = new DefaultOAuthProvider(requestTokenUrl, accessTokenUrl, authUrl);
+        OAuthProvider provider = new DefaultOAuthProvider(requestTokenUrl, accessTokenUrl, authorizationUrl);
         provider.setOAuth10a(true);
         consumer.setMessageSigner(new PlainTextMessageSigner());
         setConsumerKey(consumerKey);
@@ -116,7 +107,8 @@ public class DefaultFreshbooksOAuthClient implements FreshbooksOAuthClient
 
         //Stores the request token
         objectStoreHelper.store(requestTokenId, 
-                new OAuthCredentials(consumer.getToken(), consumer.getTokenSecret()), true);
+                new OAuthCredentials(consumer.getToken(), consumer.getTokenSecret(), requestTokenUrl, 
+                        accessTokenUrl, authorizationUrl), true);
 
         LOGGER.debug("Request Token stored");
         return authTokenUrl;
@@ -156,7 +148,8 @@ public class DefaultFreshbooksOAuthClient implements FreshbooksOAuthClient
         
         OAuthConsumer consumer = new DefaultOAuthConsumer(getConsumerKey(), getConsumerSecret());
 
-        OAuthProvider provider = new DefaultOAuthProvider(getRequestTokenUrl(), getAccessTokenUrl(), getAuthUrl());        
+        OAuthProvider provider = new DefaultOAuthProvider(credentials.getRequestTokenUrl(), 
+                credentials.getAccessTokenUrl(), credentials.getAuthUrl());        
         provider.setOAuth10a(true);
         consumer.setMessageSigner(new PlainTextMessageSigner());
 
@@ -176,36 +169,12 @@ public class DefaultFreshbooksOAuthClient implements FreshbooksOAuthClient
         return credentials;
     }
 
-    public String getRequestTokenUrl() {
-        return requestTokenUrl;
-    }
-
-    public String getAuthUrl() {
-        return authUrl;
-    }
-
-    public String getAccessTokenUrl() {
-        return accessTokenUrl;
-    }
-
     public String getRequestToken() {
         return requestToken;
     }
 
     public String getRequestTokenSecret() {
         return requestTokenSecret;
-    }
-
-    public void setRequestTokenUrl(String requestTokenUrl) {
-        this.requestTokenUrl = requestTokenUrl;
-    }
-
-    public void setAuthUrl(String authUrl) {
-        this.authUrl = authUrl;
-    }
-
-    public void setAccessTokenUrl(String accessTokenUrl) {
-        this.accessTokenUrl = accessTokenUrl;
     }
 
     public void setRequestToken(String requestToken) {

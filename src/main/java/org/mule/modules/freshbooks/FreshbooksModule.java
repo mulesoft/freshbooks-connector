@@ -1153,8 +1153,8 @@ public class FreshbooksModule {
                     throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
                     OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException
     {
-        String authUrl = new DefaultFreshbooksOAuthClient(requestTokenUrl, accessTokenUrl, 
-                authorizationUrl, getConsumerKey(), getConsumerSecret(), getObjectStore()).authorize(callbackUrl, requestTokenId);
+        String authUrl = new DefaultFreshbooksOAuthClient(getConsumerKey(), getConsumerSecret(), getObjectStore()).
+                authorize(requestTokenUrl, accessTokenUrl, authorizationUrl, callbackUrl, requestTokenId);
         
         headers.put("Location", authUrl);
         headers.put("http.status", "302");
@@ -1166,9 +1166,7 @@ public class FreshbooksModule {
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-access-token}
      * 
-     * @param requestTokenUrl requestTokenUrl
-     * @param accessTokenUrl accessTokenUrl
-     * @param authorizationUrl authorizationUrl
+     * @param apiUrl API URL
      * @param verifier OAuth verifier
      * @param requestTokenId id used for identifying the authorized request token
      * @param userIdentifier id used for store the accessToken in the Object Store. 
@@ -1181,14 +1179,13 @@ public class FreshbooksModule {
      * @throws OAuthMessageSignerException requesting to OAuth provider
      */
     @Processor
-    public OAuthCredentials getAccessToken(String requestTokenUrl, String accessTokenUrl, String authorizationUrl, 
-            String verifier, String requestTokenId, @Optional String userIdentifier) 
+    public OAuthCredentials getAccessToken(@Optional String apiUrl, String verifier, String requestTokenId, 
+            @Optional String userIdentifier) 
                     throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
                     OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException
     {
-        OAuthCredentials credentials = new DefaultFreshbooksOAuthClient(requestTokenUrl, 
-                accessTokenUrl, authorizationUrl, getConsumerKey(), getConsumerSecret(), getObjectStore()).
-                getAccessToken(verifier, requestTokenId);
+        OAuthCredentials credentials = new DefaultFreshbooksOAuthClient(getConsumerKey(), getConsumerSecret(), 
+                getObjectStore()).getAccessToken(verifier, requestTokenId);
         
         //Stores user credentials
         if (StringUtils.isBlank(userIdentifier)) {
@@ -1197,6 +1194,7 @@ public class FreshbooksModule {
         }
         
         credentials.setUserId(userIdentifier);
+        credentials.setApiUrl(apiUrl);
         getObjectStoreHelper().store(userIdentifier, credentials, true);
 
         return credentials;

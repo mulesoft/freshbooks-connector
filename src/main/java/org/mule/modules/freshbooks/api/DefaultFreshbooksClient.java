@@ -58,6 +58,11 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     private String consumerKey;
     private String consumerSecret;
     
+    /**
+     * Constructor for Authentication Token mechanism
+     * @param apiUrl
+     * @param authenticationToken
+     */
     public DefaultFreshbooksClient(String apiUrl, String authenticationToken) 
     {
         Validate.notEmpty(apiUrl);
@@ -74,6 +79,12 @@ public class DefaultFreshbooksClient implements FreshbooksClient
                 AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
     }
     
+    /**
+     * Constructor for OAuth1.0a mechanism
+     * @param apiUrl
+     * @param consumerKey
+     * @param consumerSecret
+     */
     public DefaultFreshbooksClient(String apiUrl, String consumerKey, String consumerSecret) 
     {
         Validate.notEmpty(apiUrl);
@@ -96,6 +107,17 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     {
         String requestString = marshalRequest(request);
         
+        URL apiUrlBase = apiUrl;
+        
+        //The client will use the API url if it's in the credentials
+        if (StringUtils.isNotBlank(credentials.getApiUrl())) {
+            try {
+                apiUrlBase = new URL(credentials.getApiUrl());
+            } catch (MalformedURLException e) {
+                throw new FreshbooksException(e.getMessage());
+            }
+        }
+        
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(this.consumerKey,
                 this.consumerSecret);
         consumer.setMessageSigner(new PlainTextMessageSigner());
@@ -113,10 +135,16 @@ public class DefaultFreshbooksClient implements FreshbooksClient
             messageStringBuilder.append(consumer.getTokenSecret());
             messageStringBuilder.append("] ");
             LOGGER.debug(messageStringBuilder.toString());
+            messageStringBuilder = new StringBuilder();
+            messageStringBuilder.append("API parameters ");
+            messageStringBuilder.append("[apiURL = ");
+            messageStringBuilder.append(apiUrlBase);
+            messageStringBuilder.append("] ");
+            LOGGER.debug(messageStringBuilder);
         }
 
         Response response;
-        HttpUriRequest uriRequest = new HttpPost(apiUrl.toString());
+        HttpUriRequest uriRequest = new HttpPost(apiUrlBase.toString());
         try {
             ((HttpPost) uriRequest).setEntity(new StringEntity(requestString, "utf-8"));
             uriRequest.addHeader("Content-Type", "text/xml");

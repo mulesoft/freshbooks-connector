@@ -183,9 +183,7 @@
 <!-- END_INCLUDE(freshbooks:auth-user) -->
 
 <!-- BEGIN_INCLUDE(freshbooks:get-access-token) -->
-    <freshbooks:get-access-token requestTokenUrl="http://requestTokenUrl"
-        accessTokenUrl="http://accessTokenUrl"
-        authorizationUrl="http://authorizationUrl"
+    <freshbooks:get-access-token apiUrl="http://apiUrl"
         verifier="verifier" 
         requestTokenId="tokenId" />
 <!-- END_INCLUDE(freshbooks:get-access-token) -->

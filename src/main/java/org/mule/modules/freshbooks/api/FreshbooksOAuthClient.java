@@ -23,7 +23,8 @@ public interface FreshbooksOAuthClient {
             throws OAuthMessageSignerException, OAuthNotAuthorizedException,
             OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException;
 
-    String authorize(String callbackUrl, String requestTokenId)
+    String authorize(String requestTokenUrl, String accessTokenUrl, String authorizationUrl, 
+            String callbackUrl, String requestTokenId)
             throws OAuthMessageSignerException, OAuthNotAuthorizedException,
             OAuthExpectationFailedException, OAuthCommunicationException,
             ObjectStoreException;
