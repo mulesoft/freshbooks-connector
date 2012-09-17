@@ -84,6 +84,9 @@ public class Response {
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Staff staff;
     
+    @XmlElement(name = "system", namespace = "http://www.freshbooks.com/api/", required = false)
+    private System system;
+    
     /**
      * @return the status
      */
@@ -371,5 +374,11 @@ public class Response {
     }
     public void setTasks(Tasks tasks) {
         this.tasks = tasks;
+    }
+    public System getSystem() {
+        return system;
+    }
+    public void setSystem(System system) {
+        this.system = system;
     }
 }

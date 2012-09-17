@@ -260,19 +260,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SystemUser }
+     * Create an instance of {@link System }
      * 
      */
-    public SystemUser createSystem() {
-        return new SystemUser();
+    public System createSystem() {
+        return new System();
     }
     
     /**
-     * Create an instance of {@link SystemUserRequest }
+     * Create an instance of {@link SystemRequest }
      * 
      */
-    public SystemUserRequest createSystemRequest() {
-        return new SystemUserRequest();
+    public SystemRequest createSystemRequest() {
+        return new SystemRequest();
     }
 
     /**
@@ -552,21 +552,21 @@ public class ObjectFactory {
     }
     
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SystemUser }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link System }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "System")
-    public JAXBElement<SystemUser> createSystem(SystemUser value) {
-        return new JAXBElement<SystemUser>(_System_QNAME, SystemUser.class, null, value);
+    public JAXBElement<System> createSystem(System value) {
+        return new JAXBElement<System>(_System_QNAME, System.class, null, value);
     }
     
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SystemUserRequest }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SystemRequest }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "SystemRequest")
-    public JAXBElement<SystemUserRequest> createSystemRequest(SystemUserRequest value) {
-        return new JAXBElement<SystemUserRequest>(_SystemRequest_QNAME, SystemUserRequest.class, null, value);
+    public JAXBElement<SystemRequest> createSystemRequest(SystemRequest value) {
+        return new JAXBElement<SystemRequest>(_SystemRequest_QNAME, SystemRequest.class, null, value);
     }
     
     /**

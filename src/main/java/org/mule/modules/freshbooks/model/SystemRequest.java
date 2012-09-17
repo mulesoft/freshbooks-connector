@@ -14,16 +14,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
-public class SystemUserRequest extends BaseRequest {
+public class SystemRequest extends BaseRequest {
     
-    @XmlElement
-    private SystemUser system;
+    @XmlElement(name = "system")
+    private System system;
 
-    public SystemUser getSystem() {
+    public System getSystem() {
         return system;
     }
 
-    public void setSystem(SystemUser system) {
+    public void setSystem(System system) {
         this.system = system;
     }
+
 }

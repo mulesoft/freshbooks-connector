@@ -105,6 +105,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
 
     private Response sendRequest(OAuthCredentials credentials, BaseRequest request) 
     {
+        Validate.notNull(credentials);
         String requestString = marshalRequest(request);
         
         URL apiUrlBase = apiUrl;

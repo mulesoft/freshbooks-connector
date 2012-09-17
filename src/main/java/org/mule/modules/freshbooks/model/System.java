@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(namespace = "http://www.freshbooks.com/api/", name = "system")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SystemUser {
+public class System {
     
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String name;

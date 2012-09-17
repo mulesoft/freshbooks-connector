@@ -31,7 +31,7 @@ public enum EntityType {
 
     STAFF(Staff.class, "Staffs", StaffRequest.class),
 
-    SYSTEM(SystemUser.class, "Systems", SystemUserRequest.class),
+    SYSTEM(System.class, "Systems", SystemRequest.class),
     
     TASK(Task.class, "Tasks", TaskRequest.class),
     

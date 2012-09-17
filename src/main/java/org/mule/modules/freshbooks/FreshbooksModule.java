@@ -54,7 +54,7 @@ import org.mule.modules.freshbooks.model.Payment;
 import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.Session;
 import org.mule.modules.freshbooks.model.Staff;
-import org.mule.modules.freshbooks.model.SystemUser;
+import org.mule.modules.freshbooks.model.System;
 import org.mule.modules.freshbooks.model.Task;
 import org.mule.modules.freshbooks.model.TaskRequest;
 import org.mule.modules.freshbooks.model.Tax;
@@ -75,12 +75,6 @@ import org.mule.modules.freshbooks.model.TaxRequest;
 @SuppressWarnings("rawtypes")
 public class FreshbooksModule {
     
-    /**
-     * Authentication Token
-     */
-    @Configurable
-    private String authenticationToken;
-
     /**
      * Api URL
      */
@@ -111,14 +105,6 @@ public class FreshbooksModule {
     private ObjectStoreHelper objectStoreHelper;
     
     private FreshbooksClient freshbooksClient;
-
-    public String getAuthenticationToken() {
-        return authenticationToken;
-    }
-
-    public void setAuthenticationToken(String authenticationToken) {
-        this.authenticationToken = authenticationToken;
-    }
 
     public String getApiUrl() {
         return apiUrl;
@@ -1108,7 +1094,7 @@ public class FreshbooksModule {
     }
     
     /**
-     * Create a system user
+     * Create a system user. You don't need to be authenticated to call this processor.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-system-user}
      * 
@@ -1120,10 +1106,9 @@ public class FreshbooksModule {
      * @throws FreshbooksException.
      */
     @Processor
-    public SystemUser createSystemUser(@Optional String sourceToken, @Optional @Default("#[payload]") SystemUser systemUser,
-            @Optional String accessTokenId)
+    public System createSystemUser(@Optional String sourceToken, @Optional @Default("#[payload]") System systemUser)
     {
-        SystemUser newSystem = (SystemUser) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+        System newSystem = (System) freshbooksClient.create(createCredentials("", ""), 
                 sourceToken, EntityType.SYSTEM, systemUser, false);
         systemUser.setDomain(newSystem.getDomain());
         return systemUser;
