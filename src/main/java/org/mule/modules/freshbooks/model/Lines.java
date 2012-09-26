@@ -13,9 +13,13 @@ package org.mule.modules.freshbooks.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Lines {
+    
     @XmlElement(name = "line", namespace = "http://www.freshbooks.com/api/")
     private List<Line> lines;
     
@@ -24,5 +28,9 @@ public class Lines {
             lines = new ArrayList<Line>();
         }
         return lines;
+    }
+
+    public void setLines(List<Line> lines) {
+        this.lines = lines;
     }
 }

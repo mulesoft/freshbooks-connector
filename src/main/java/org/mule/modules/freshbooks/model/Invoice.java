@@ -202,4 +202,8 @@ public class Invoice extends BaseRole {
             lines = new Lines();
         return lines.getLines();
     }
+
+    public void setLines(Lines lines) {
+        this.lines = lines;
+    }
 }
