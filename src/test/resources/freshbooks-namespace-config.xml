@@ -8,7 +8,6 @@
                           http://www.mulesoft.org/schema/mule/freshbooks http://www.mulesoft.org/schema/mule/freshbooks/1.0/mule-freshbooks.xsd">
 
     <freshbooks:config apiUrl="https://mulesoft.freshbooks.com/api/2.1/xml-in"
-                       authenticationToken="d2712de2609e665e03948614ad7197fc"
                        consumerKey="consumerKey"
                        consumerSecret="consumerSecret"
                        objectStore-ref="objectStore">
