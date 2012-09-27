@@ -35,9 +35,9 @@ public class Line {
     private String tax2Name;
     @XmlElement(name = "tax1_percent", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal tax1Percent;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name = "tax2_percent", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal tax2Percent;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name = "type", namespace = "http://www.freshbooks.com/api/", required = false)
     private LineTypeEnum type;
     
     public String getId() {

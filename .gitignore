@@ -7,3 +7,5 @@
 *.iws
 target
 bin
+build.log
+.DS_Store
