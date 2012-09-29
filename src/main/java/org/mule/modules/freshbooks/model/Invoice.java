@@ -24,42 +24,42 @@ public class Invoice extends BaseRole {
     private String id;
     @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/")
     private String clientId;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="number", namespace = "http://www.freshbooks.com/api/", required = false)
     private String number;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="amount", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal amount;
     @XmlElement(name = "amount_outstanding", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal amountOutstanding;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="status", namespace = "http://www.freshbooks.com/api/", required = false)
     private InvoiceStatusEnum status;
 //    <!-- If not supplied, defaults to today's date (Optional) -->  
 //         @XmlElement(namespace = "http://www.freshbooks.com/api/")
 //         @XmlSchemaType(name="date")
 //         public XMLGregorianCalendar date;
 //         <date>2007-06-23</date> 
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="date", namespace = "http://www.freshbooks.com/api/", required = false)
     private String date;
     @XmlElement(name = "po_number", namespace = "http://www.freshbooks.com/api/", required = false)
     private String poNumber;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="discount", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal discount;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="notes", namespace = "http://www.freshbooks.com/api/", required = false)
     private String notes;
     @XmlElement(name = "currency_code", namespace = "http://www.freshbooks.com/api/", required = false)
     private String currencyCode;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="terms", namespace = "http://www.freshbooks.com/api/", required = false)
     private String terms;
     @XmlElement(name = "return_url", namespace = "http://www.freshbooks.com/api/", required = false)
     private String returnUri;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="lines", namespace = "http://www.freshbooks.com/api/", required = false)
     private Lines lines;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="folder", namespace = "http://www.freshbooks.com/api/", required = false)
     private FolderTypes folder;
     @XmlElement(name = "recurring_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String recurringId;
     @XmlElement(name = "staff_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String staffId;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="updated", namespace = "http://www.freshbooks.com/api/", required = false)
     private String updated;
     
     /*    <invoice>        
@@ -75,15 +75,23 @@ public class Invoice extends BaseRole {
         return recurringId;
     }
     
+    public void setRecurringId(String recurringId) {
+    	this.recurringId = recurringId;
+    }
+    
     public String getUpdated() {
         return updated;
+    }
+    
+    public void setUpdated(String updated) {
+    	this.updated = updated;
     }
     
     public String getStaffId() {
         return staffId;
     }
     
-    public void setFolder(String staffId) {
+    public void setStaffId(String staffId) {
         this.staffId = staffId;
     }
     
@@ -99,8 +107,16 @@ public class Invoice extends BaseRole {
         return amountOutstanding;
     }
     
+    public void setAmountOutstanding(BigDecimal amountOutstanding) {
+    	this.amountOutstanding = amountOutstanding;
+    }
+    
     public BigDecimal getAmount() {
         return amount;
+    }
+    
+    public void setAmount(BigDecimal amount) {
+    	this.amount = amount;
     }
     
     public InvoiceStatusEnum getStatus() {
@@ -203,5 +219,9 @@ public class Invoice extends BaseRole {
 
     public void setLines(Lines lines) {
         this.lines = lines;
+    }
+    
+    public void setLines(List<Line> lines) {
+    	this.lines.setLines(lines);
     }
 }
