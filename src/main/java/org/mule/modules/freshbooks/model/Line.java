@@ -19,15 +19,15 @@ public class Line {
 
     @XmlElement(name = "line_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String id;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="amount", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal amount;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String name;    
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="description", namespace = "http://www.freshbooks.com/api/", required = false)
     private String description;
     @XmlElement(name = "unit_cost", namespace = "http://www.freshbooks.com/api/", required = false)
     private Double unitCost;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="quantity", namespace = "http://www.freshbooks.com/api/", required = false)
     private Integer quantity;
     @XmlElement(name = "tax1_name", namespace = "http://www.freshbooks.com/api/", required = false)
     private String tax1Name;
@@ -44,8 +44,16 @@ public class Line {
         return id;
     }
     
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public BigDecimal getAmount() {
         return amount;
+    }
+    
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
     
     public LineTypeEnum getType() {
