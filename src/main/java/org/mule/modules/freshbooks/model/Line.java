@@ -174,4 +174,12 @@ public class Line {
     public void setTax2Percent(BigDecimal tax2Percent) {
         this.tax2Percent = tax2Percent;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 }
