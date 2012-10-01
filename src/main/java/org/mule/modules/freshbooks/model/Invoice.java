@@ -34,11 +34,6 @@ public class Invoice extends BaseRole {
     private BigDecimal amountOutstanding;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private InvoiceStatusEnum status;
-//    <!-- If not supplied, defaults to today's date (Optional) -->  
-//         @XmlElement(namespace = "http://www.freshbooks.com/api/")
-//         @XmlSchemaType(name="date")
-//         public XMLGregorianCalendar date;
-//         <date>2007-06-23</date> 
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String date;
     @XmlElement(name = "po_number", namespace = "http://www.freshbooks.com/api/", required = false)
@@ -64,15 +59,6 @@ public class Invoice extends BaseRole {
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String updated;
     
-    /*    <invoice>        
-    <url deprecated="true">https://2ndsite.freshbooks.com/view/St2gThi6rA2t7RQ</url> <!-- (Read-only) -->  
-    <auth_url deprecated="true">https://2ndsite.freshbooks.com/invoices/344</auth_url> <!-- (Read-only) -->  
-    <links>  
-      <client_view>https://2ndsite.freshbooks.com/view/St2gThi6rA2t7RQ</client_view> <!-- (Read-only) -->  
-      <view>https://2ndsite.freshbooks.com/invoices/344</view> <!-- (Read-only) -->  
-      <edit>https://2ndsite.freshbooks.com/invoices/344/edit</edit> <!-- (Read-only) -->  
-    </links>  
-  </invoice>  */
     public String getRecurringId() {
         return recurringId;
     }
@@ -203,6 +189,12 @@ public class Invoice extends BaseRole {
         return lines.getLines();
     }
 
+    public void setLines(List<Line> lines) {
+        if(this.lines == null)
+            this.lines = new Lines();
+        this.lines.setLines(lines);
+    }
+    
     public void setLines(Lines lines) {
         this.lines = lines;
     }
