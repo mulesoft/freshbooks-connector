@@ -21,7 +21,7 @@ public class Line {
     private String id;
     @XmlElement(name="amount", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal amount;
-    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name="name", namespace = "http://www.freshbooks.com/api/", required = false)
     private String name;    
     @XmlElement(name="description", namespace = "http://www.freshbooks.com/api/", required = false)
     private String description;
