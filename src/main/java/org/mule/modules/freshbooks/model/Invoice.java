@@ -222,6 +222,8 @@ public class Invoice extends BaseRole {
     }
     
     public void setLines(List<Line> lines) {
-    	this.lines.setLines(lines);
+        if(this.lines == null)
+            this.lines = new Lines();
+        this.lines.setLines(lines);
     }
 }
