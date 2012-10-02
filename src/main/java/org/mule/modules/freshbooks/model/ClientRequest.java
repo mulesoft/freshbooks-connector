@@ -22,10 +22,6 @@ public class ClientRequest extends BaseRequest {
     private String email;
     @XmlElement
     private String username;
-//    <!-- Return only clients modified since this date (Optional) -->  
-//    <updated_from>2009-01-01 00:00:00</updated_from>  
-//    <!-- Return only clients modified before this date (Optional) -->  
-//    <updated_to>2009-12-01 00:00:00</updated_to>  
     @XmlElement
     private String notes;
     
