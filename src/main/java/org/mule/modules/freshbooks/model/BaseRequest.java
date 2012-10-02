@@ -29,7 +29,7 @@ public abstract class BaseRequest {
     
     @XmlAttribute
     private String method;
-    @XmlAttribute(name = "source_token", required = false)
+    @XmlAttribute(name = "source-token", required = false)
     private String sourceToken;
     @XmlElement(name = "date_from")
     private String dateFrom;
