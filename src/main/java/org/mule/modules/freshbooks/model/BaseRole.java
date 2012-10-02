@@ -152,4 +152,14 @@ public abstract class BaseRole {
             contacts = new Contacts();
         return contacts.getContacts();
     }
+
+    public void setContacts(List<Contact> contacts) {
+        if(this.contacts == null)
+            this.contacts = new Contacts();
+        this.contacts.setContacts(contacts);
+    }
+
+    public void setContacts(Contacts contacts) {
+        this.contacts = contacts;
+    }
 }
