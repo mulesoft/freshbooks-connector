@@ -198,4 +198,24 @@ public class Invoice extends BaseRole {
     public void setLines(Lines lines) {
         this.lines = lines;
     }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setAmountOutstanding(BigDecimal amountOutstanding) {
+        this.amountOutstanding = amountOutstanding;
+    }
+
+    public void setRecurringId(String recurringId) {
+        this.recurringId = recurringId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
 }

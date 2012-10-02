@@ -205,6 +205,18 @@ public class Client extends BaseRole {
     public void setCredit(Credit credit) {
         this.credit = credit;
     }
+
+    public void setCredits(List<Credit> credits) {
+        if(this.credits == null)
+            this.credits = new Credits();
+        this.credits.setCredits(credits);
+    }
     
-    
+    public void setCredits(Credits credits) {
+        this.credits = credits;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
 }

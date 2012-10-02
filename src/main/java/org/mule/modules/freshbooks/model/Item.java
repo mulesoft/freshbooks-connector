@@ -97,4 +97,8 @@ public class Item {
         this.inventory = inventory;
     }
 
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
 }
