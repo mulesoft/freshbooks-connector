@@ -27,7 +27,6 @@ public class Payment {
     private String clientId;
     @XmlElement(name = "invoice_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String invoiceId;
-//    <date>2007-05-30</date>             <!-- Default value is today's date (Optional) -->  
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String date;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)

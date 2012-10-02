@@ -35,7 +35,6 @@ public class Staff {
     private String mobilePhone;
     @XmlElement(name = "number_of_logins", namespace = "http://www.freshbooks.com/api/", required = false)
     private String numberOfLogins;
-//    <date>2007-05-30</date>             <!-- Default value is today's date (Optional) -->  
     @XmlElement(name = "signup_date", namespace = "http://www.freshbooks.com/api/", required = false)
     private String signupDate;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
