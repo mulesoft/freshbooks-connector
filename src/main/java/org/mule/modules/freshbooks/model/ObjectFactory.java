@@ -68,6 +68,10 @@ public class ObjectFactory {
     private final static QName _Tasks_QNAME = new QName("http://www.freshbooks.com/api/", "tasks");
     private final static QName _TaskRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
     
+    private final static QName _License_QNAME = new QName("http://www.freshbooks.com/api/", "license");
+    private final static QName _Licenses_QNAME = new QName("http://www.freshbooks.com/api/", "licenses");
+    private final static QName _LicenseRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.modules.freshbooks.model
      * 
@@ -305,6 +309,22 @@ public class ObjectFactory {
      */
     public Tasks createTasks() {
         return new Tasks();
+    }
+    
+    /**
+     * Create an instance of {@link License }
+     * 
+     */
+    public License createLicense() {
+        return new License();
+    }
+    
+    /**
+     * Create an instance of {@link Licenses }
+     * 
+     */
+    public Licenses createLicenses() {
+        return new Licenses();
     }
     
     /**
@@ -623,5 +643,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "TaskRequest")
     public JAXBElement<TaskRequest> createTaskRequest(TaskRequest value) {
         return new JAXBElement<TaskRequest>(_TaskRequest_QNAME, TaskRequest.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link License }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "License")
+    public JAXBElement<License> createLicense(License value) {
+        return new JAXBElement<License>(_License_QNAME, License.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Licenses }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Licenses")
+    public JAXBElement<Licenses> createLicenses(Licenses value) {
+        return new JAXBElement<Licenses>(_Licenses_QNAME, Licenses.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LicenseRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "LicenseRequest")
+    public JAXBElement<LicenseRequest> createLicenseRequest(LicenseRequest value) {
+        return new JAXBElement<LicenseRequest>(_LicenseRequest_QNAME, LicenseRequest.class, null, value);
     }
 }

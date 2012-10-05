@@ -25,6 +25,8 @@ public enum EntityType {
     
     ITEM(Item.class, "Items", ItemRequest.class),
     
+    LICENSE(License.class, "Licenses", LicenseRequest.class),
+    
     PAYMENT(Payment.class, "Payments", PaymentRequest.class),
     
     SESSION(Session.class, "Sessions", SessionRequest.class),

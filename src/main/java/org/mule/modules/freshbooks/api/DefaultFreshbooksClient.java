@@ -387,6 +387,33 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         return listOfResults;
     }
     
+    @Override
+    public Object getListObject(OAuthCredentials credentials, String sourceToken, 
+            final EntityType type, final BaseRequest request) 
+    {
+        request.setMethod(type.getResourceName() + ".list");
+
+        if (StringUtils.isNotBlank(sourceToken)) {
+            request.setSourceToken(sourceToken);
+        }
+
+        Response response = sendRequest(credentials, request);            
+
+        try {
+            return response.getClass().getMethod("get" + type.getNameForLists()).invoke(response);
+        } catch (IllegalArgumentException e) {
+            throw new FreshbooksException(e.getMessage());
+        } catch (SecurityException e) {
+            throw new FreshbooksException(e.getMessage());
+        } catch (IllegalAccessException e) {
+            throw new FreshbooksException(e.getMessage());
+        } catch (InvocationTargetException e) {
+            throw new FreshbooksException(e.getMessage());
+        } catch (NoSuchMethodException e) {
+            throw new FreshbooksException(e.getMessage());
+        }
+    }
+    
     private static String getResourceAsString(InputStream in) throws IOException {
         StringWriter writer = new StringWriter();
         IOUtils.copy(in, writer, "UTF-8");

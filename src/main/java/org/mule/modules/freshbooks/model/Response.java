@@ -87,6 +87,13 @@ public class Response {
     @XmlElement(name = "system", namespace = "http://www.freshbooks.com/api/", required = false)
     private System system;
     
+    @XmlElement(name = "license_id", namespace = "http://www.freshbooks.com/api/", nillable = true)
+    private String licenseId;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private License license;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Licenses licenses;
+    
     /**
      * @return the status
      */
@@ -380,5 +387,23 @@ public class Response {
     }
     public void setSystem(System system) {
         this.system = system;
+    }
+    public String getLicenseId() {
+        return licenseId;
+    }
+    public License getLicense() {
+        return license;
+    }
+    public Licenses getLicenses() {
+        return licenses;
+    }
+    public void setLicenseId(String licenseId) {
+        this.licenseId = licenseId;
+    }
+    public void setLicense(License license) {
+        this.license = license;
+    }
+    public void setLicenses(Licenses licenses) {
+        this.licenses = licenses;
     }
 }

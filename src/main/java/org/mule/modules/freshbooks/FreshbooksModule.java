@@ -50,6 +50,9 @@ import org.mule.modules.freshbooks.model.Invoice;
 import org.mule.modules.freshbooks.model.InvoiceRequest;
 import org.mule.modules.freshbooks.model.Item;
 import org.mule.modules.freshbooks.model.ItemRequest;
+import org.mule.modules.freshbooks.model.License;
+import org.mule.modules.freshbooks.model.LicenseRequest;
+import org.mule.modules.freshbooks.model.Licenses;
 import org.mule.modules.freshbooks.model.Payment;
 import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.Session;
@@ -1093,6 +1096,66 @@ public class FreshbooksModule {
                 sourceToken, EntityType.SESSION, session, false);
     }
     
+    /**
+     * Create a license
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-license}
+     * 
+     * @param sourceToken source token value
+     * @param license the license to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return created license information
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public License createLicense(@Optional String sourceToken, @Optional @Default("#[payload]") License license,
+            @Optional String accessTokenId)
+    {
+        return (License) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.LICENSE, license, false);
+    }
+    
+    /**
+     * Returns a list of licenses summaries. Results are ordered by descending license_id.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-licenses}
+     * 
+     * @param sourceToken source token value
+     * @param licenseRequest {@link LicenseRequest} LicenseRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return A iterable of Licenses
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<License> listLicenses(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") LicenseRequest licenseRequest,
+            @Optional String accessTokenId)
+    {
+        return ((Licenses) freshbooksClient.getListObject(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.LICENSE, licenseRequest)).getLicenses();
+    }
+    
+    /**
+     * Permanently delete a license.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-license}
+     * 
+     * @param sourceToken source token value
+     * @param license to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deleteLicense(@Optional String sourceToken, @Optional @Default("#[payload]") License license,
+            @Optional String accessTokenId)
+    {
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.LICENSE, license.getId());
+    }
+
     /**
      * Create a system user. You don't need to be authenticated to call this processor.
      * 

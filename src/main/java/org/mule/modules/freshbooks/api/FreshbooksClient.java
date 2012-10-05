@@ -26,6 +26,9 @@ public interface FreshbooksClient {
     public void verify(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
     
     public <T> Iterable<T> list(OAuthCredentials credentials, String sourceToken, EntityType type, BaseRequest request);
+    
+    public Object getListObject(OAuthCredentials credentials, 
+            String sourceToken, EntityType type, BaseRequest request);
 
     public <T> Iterable<T> listPaged(OAuthCredentials credentials, String sourceToken, EntityType type, BaseRequest request);
     
