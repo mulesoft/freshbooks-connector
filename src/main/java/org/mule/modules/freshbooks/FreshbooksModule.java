@@ -78,7 +78,9 @@ import org.mule.modules.freshbooks.model.TaxRequest;
 @Module(name = "freshbooks", schemaVersion= "1.0", friendlyName = "FreshBooks")
 @SuppressWarnings("rawtypes")
 public class FreshbooksModule {
-    
+
+    private static String DEFAULT_API_URL = "https://%s/api/2.1/xml-in";
+
     /**
      * Api URL
      */
@@ -1166,17 +1168,35 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param systemUser the system user to be created
-     * @param accessTokenId accessTokenIdentifier
+     * @param userIdentifier identifier to be used for storing the accessToken
      * 
      * @return created system user
-     * @throws FreshbooksException.
+     * @throws ObjectStoreException in case of failure storing the accessToken information
      */
     @Processor
-    public System createSystemUser(@Optional String sourceToken, @Optional @Default("#[payload]") System systemUser)
+    public System createSystemUser(@Optional String sourceToken, @Optional @Default("#[payload]") System systemUser, 
+            @Optional String userIdentifier) throws ObjectStoreException
     {
         System newSystem = (System) freshbooksClient.create(createCredentials("", ""), 
                 sourceToken, EntityType.SYSTEM, systemUser, false);
         systemUser.setDomain(newSystem.getDomain());
+        
+        if (StringUtils.isNotBlank(newSystem.getAccessToken())) {
+            systemUser.setAccessToken(newSystem.getAccessToken());
+            systemUser.setAccessTokenSecret(newSystem.getAccessTokenSecret());
+            
+            OAuthCredentials credentials = new OAuthCredentials(systemUser.getAccessToken(), systemUser.getAccessTokenSecret());
+            credentials.setApiUrl(String.format(DEFAULT_API_URL, systemUser.getDomain()));
+            
+            //if an userIdentifier is not provided call the current.user API
+            if (StringUtils.isBlank(userIdentifier)) {
+                userIdentifier = getCurrentUserInformation(null, null, credentials.getAccessToken(), 
+                        credentials.getAccessTokenSecret()).getId();
+            }
+
+            getObjectStoreHelper().store(userIdentifier, credentials, true);                        
+        }
+        
         return systemUser;
     }
     

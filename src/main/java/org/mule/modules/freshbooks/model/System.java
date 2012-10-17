@@ -45,6 +45,10 @@ public class System {
     private String terms;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String domain;
+    @XmlElement(name = "access_token", namespace = "http://www.freshbooks.com/api/", required = false)
+    private String accessToken;
+    @XmlElement(name = "access_token_secret", namespace = "http://www.freshbooks.com/api/", required = false)
+    private String accessTokenSecret;
 
     public String getName() {
         return name;
@@ -123,5 +127,17 @@ public class System {
     }
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+    public String getAccessToken() {
+        return accessToken;
+    }
+    public String getAccessTokenSecret() {
+        return accessTokenSecret;
+    }
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+    public void setAccessTokenSecret(String accessTokenSecret) {
+        this.accessTokenSecret = accessTokenSecret;
     }
 }
