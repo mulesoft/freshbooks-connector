@@ -30,6 +30,7 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.OutboundHeaders;
+import org.mule.api.config.MuleProperties;
 import org.mule.api.store.ObjectDoesNotExistException;
 import org.mule.api.store.ObjectStore;
 import org.mule.api.store.ObjectStoreException;
@@ -100,6 +101,8 @@ public class FreshbooksModule {
      * Object store reference
      */
     @Configurable
+    @Optional
+    @Default(MuleProperties.DEFAULT_USER_OBJECT_STORE_NAME)
     private ObjectStore objectStore;
     
     /**
