@@ -199,3 +199,7 @@
 <!-- BEGIN_INCLUDE(freshbooks:list-licenses) -->
     <freshbooks:list-licenses />
 <!-- END_INCLUDE(freshbooks:list-licenses) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-addons) -->
+    <freshbooks:list-addons />
+<!-- END_INCLUDE(freshbooks:list-addons) -->

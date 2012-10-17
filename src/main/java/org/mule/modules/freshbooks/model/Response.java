@@ -94,6 +94,9 @@ public class Response {
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Licenses licenses;
     
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Addons addons;
+    
     /**
      * @return the status
      */
@@ -405,5 +408,11 @@ public class Response {
     }
     public void setLicenses(Licenses licenses) {
         this.licenses = licenses;
+    }
+    public Addons getAddons() {
+        return addons;
+    }
+    public void setAddons(Addons addons) {
+        this.addons = addons;
     }
 }

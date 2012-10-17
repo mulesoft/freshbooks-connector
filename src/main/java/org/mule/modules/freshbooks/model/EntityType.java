@@ -15,6 +15,8 @@ import org.mule.modules.freshbooks.FreshbooksException;
 
 public enum EntityType {
     
+    ADDON(Addon.class, "Addons", AddonRequest.class),
+    
     CALLBACK(Callback.class, "Callbacks", CallbackRequest.class),
     
     CATEGORY(Category.class, "Categories", CategoryRequest.class),

@@ -40,6 +40,9 @@ import org.mule.modules.freshbooks.api.OAuthCredentials;
 import org.mule.modules.freshbooks.api.DefaultFreshbooksClient;
 import org.mule.modules.freshbooks.api.FreshbooksClient;
 import org.mule.modules.freshbooks.api.ObjectStoreHelper;
+import org.mule.modules.freshbooks.model.Addon;
+import org.mule.modules.freshbooks.model.AddonRequest;
+import org.mule.modules.freshbooks.model.Addons;
 import org.mule.modules.freshbooks.model.Callback;
 import org.mule.modules.freshbooks.model.CallbackRequest;
 import org.mule.modules.freshbooks.model.Category;
@@ -1159,6 +1162,25 @@ public class FreshbooksModule {
     {
         freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
                 sourceToken, EntityType.LICENSE, license.getId());
+    }
+    
+    /**
+     * Returns a list of addons summaries. Results are ordered by descending id.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-addons}
+     * 
+     * @param sourceToken source token value
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return A iterable of Addons
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<Addon> listAddons(@Optional String sourceToken,
+            @Optional String accessTokenId)
+    {
+        return ((Addons) freshbooksClient.getListObject(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.ADDON, new AddonRequest())).getAddons();
     }
 
     /**

@@ -72,6 +72,10 @@ public class ObjectFactory {
     private final static QName _Licenses_QNAME = new QName("http://www.freshbooks.com/api/", "licenses");
     private final static QName _LicenseRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
     
+    private final static QName _Addon_QNAME = new QName("http://www.freshbooks.com/api/", "addon");
+    private final static QName _Addons_QNAME = new QName("http://www.freshbooks.com/api/", "addons");
+    private final static QName _AddonRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.modules.freshbooks.model
      * 
@@ -670,5 +674,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "LicenseRequest")
     public JAXBElement<LicenseRequest> createLicenseRequest(LicenseRequest value) {
         return new JAXBElement<LicenseRequest>(_LicenseRequest_QNAME, LicenseRequest.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Addon }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Addon")
+    public JAXBElement<Addon> createAddon(Addon value) {
+        return new JAXBElement<Addon>(_Addon_QNAME, Addon.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Addons }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Addons")
+    public JAXBElement<Addons> createAddons(Addons value) {
+        return new JAXBElement<Addons>(_Addons_QNAME, Addons.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AddonRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "AddonRequest")
+    public JAXBElement<AddonRequest> createAddonRequest(AddonRequest value) {
+        return new JAXBElement<AddonRequest>(_AddonRequest_QNAME, AddonRequest.class, null, value);
     }
 }
