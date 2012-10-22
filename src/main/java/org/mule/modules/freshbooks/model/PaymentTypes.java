@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace="PaymentTypes", name="PaymentTypes")
 @XmlEnum
 public enum PaymentTypes {
+    @XmlEnumValue("Cash")
+    CASH("Cash"),
     @XmlEnumValue("Check")
     CHECK("Check"),
     @XmlEnumValue("Credit")
