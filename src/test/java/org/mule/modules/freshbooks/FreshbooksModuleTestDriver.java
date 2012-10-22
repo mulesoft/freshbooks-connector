@@ -13,6 +13,7 @@ package org.mule.modules.freshbooks;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mule.api.ConnectionException;
 import org.mule.modules.freshbooks.model.Callback;
 import org.mule.modules.freshbooks.model.Category;
 import org.mule.modules.freshbooks.model.Client;
@@ -23,14 +24,19 @@ public class FreshbooksModuleTestDriver
 {
     private static FreshbooksModule module;
     private static String SOURCE_TOKEN = "sourceToken";
+    private static final String ACCESS_TOKEN_ID = "";
+    private static final String CONSUMER_KEY = "";
+    private static final String CONSUMER_KEY_SECRET = "";
+    private static final String API_URL = "http://api.freshbooks.com";
     
     @BeforeClass
-    public static void init()
+    public static void init() throws ConnectionException
     {
         module = new FreshbooksModule();
-        module.setApiUrl("https://mulesofttest.freshbooks.com/api/2.1/xml-in");
-        module.setAuthenticationToken("4d8a62a53ec1b3426a625abd039babd9");
-        module.init();
+        module.setApiUrl(API_URL);
+        module.setConsumerKey(CONSUMER_KEY);
+        module.setConsumerSecret(CONSUMER_KEY_SECRET);
+        module.connect();
     }
 
     @Test
@@ -39,8 +45,8 @@ public class FreshbooksModuleTestDriver
         Category cat =  new Category();
         cat.setName("MegaMarket3");
         
-        Category category = module.createCategory(SOURCE_TOKEN, cat);
-        module.deleteCategory(SOURCE_TOKEN, category);
+        Category category = module.createCategory(SOURCE_TOKEN, cat, ACCESS_TOKEN_ID);
+        module.deleteCategory(SOURCE_TOKEN, category, ACCESS_TOKEN_ID);
     }
 
     @Test
@@ -50,8 +56,8 @@ public class FreshbooksModuleTestDriver
         client.setLastName("Last Name - Test");
         client.setOrganization("ABC INC");
         client.setEmail(String.format("test-FB-%s@test.com", id));
-        Client newClient = module.createClient(SOURCE_TOKEN, client);
-        module.deleteClient(SOURCE_TOKEN, newClient);
+        Client newClient = module.createClient(SOURCE_TOKEN, client, ACCESS_TOKEN_ID);
+        module.deleteClient(SOURCE_TOKEN, newClient, ACCESS_TOKEN_ID);
     }
 
     @Test
@@ -62,8 +68,8 @@ public class FreshbooksModuleTestDriver
         line.setQuantity(1);
         line.setUnitCost(Double.valueOf(4));
         invoice.getLines().add(line);
-        Invoice newInvoice = module.createInvoice(SOURCE_TOKEN, invoice);
-        module.deleteInvoice(SOURCE_TOKEN, newInvoice);
+        Invoice newInvoice = module.createInvoice(SOURCE_TOKEN, invoice, ACCESS_TOKEN_ID);
+        module.deleteInvoice(SOURCE_TOKEN, newInvoice, ACCESS_TOKEN_ID);
     }
 
     @Test
@@ -72,8 +78,8 @@ public class FreshbooksModuleTestDriver
         callback.setEvent("invoice.update");
         callback.setUri("http://example2.com");
         
-        Callback newCallback = module.createCallback(SOURCE_TOKEN, callback);
-        module.deleteCallback(SOURCE_TOKEN, newCallback);
+        Callback newCallback = module.createCallback(SOURCE_TOKEN, callback, ACCESS_TOKEN_ID);
+        module.deleteCallback(SOURCE_TOKEN, newCallback, ACCESS_TOKEN_ID);
     }
 
     @Test
@@ -82,6 +88,6 @@ public class FreshbooksModuleTestDriver
         callback.setId("1");
         callback.setVerifier("123123123");
         
-        module.verifyCallback(SOURCE_TOKEN, callback);
+        module.verifyCallback(SOURCE_TOKEN, callback, ACCESS_TOKEN_ID);
     }
 }

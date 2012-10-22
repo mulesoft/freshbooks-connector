@@ -1,9 +1,11 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ * Mule Freshbooks Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * LICENSE.txt file.
  */
 
 package org.mule.modules.freshbooks.model;
@@ -81,6 +83,19 @@ public class Response {
     
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Staff staff;
+    
+    @XmlElement(name = "system", namespace = "http://www.freshbooks.com/api/", required = false)
+    private System system;
+    
+    @XmlElement(name = "license_id", namespace = "http://www.freshbooks.com/api/", nillable = true)
+    private String licenseId;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private License license;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Licenses licenses;
+    
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Addons addons;
     
     /**
      * @return the status
@@ -369,5 +384,35 @@ public class Response {
     }
     public void setTasks(Tasks tasks) {
         this.tasks = tasks;
+    }
+    public System getSystem() {
+        return system;
+    }
+    public void setSystem(System system) {
+        this.system = system;
+    }
+    public String getLicenseId() {
+        return licenseId;
+    }
+    public License getLicense() {
+        return license;
+    }
+    public Licenses getLicenses() {
+        return licenses;
+    }
+    public void setLicenseId(String licenseId) {
+        this.licenseId = licenseId;
+    }
+    public void setLicense(License license) {
+        this.license = license;
+    }
+    public void setLicenses(Licenses licenses) {
+        this.licenses = licenses;
+    }
+    public Addons getAddons() {
+        return addons;
+    }
+    public void setAddons(Addons addons) {
+        this.addons = addons;
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:objectstore="http://www.mulesoft.org/schema/mule/objectstore" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:freshbooks="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd 
+http://www.mulesoft.org/schema/mule/freshbooks http://www.mulesoft.org/schema/mule/freshbooks/1.0/mule-freshbooks.xsd 
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/objectstore http://www.mulesoft.org/schema/mule/objectstore/1.0/mule-objectstore.xsd 
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd ">
+
+    <freshbooks:config name="FreshBooks"   
+    		apiUrl="https://apiUrl.freshbooks.com/api/2.1/xml-in" authenticationToken="asdasd" consumerKey="mulesoftdev" consumerSecret="A3TxiPdR4rCFGLwmwhD3nWequdKbH5TcR" doc:name="FreshBooks" objectStore-ref="objectStore">
+	</freshbooks:config>
+
+	<spring:beans>
+        <spring:bean id="objectStore" class="org.mule.modules.freshbooks.api.FreshBooksObjectStore"/>    
+    </spring:beans>
+
+    <flow name="listClients" doc:name="listClients">
+        <scripting:transformer doc:name="ClientRequest">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
+                                                                        
+                            new ClientRequest(
+                            folder: "ACTIVE"
+                            )]]></scripting:text>
+            </scripting:script>
+        </scripting:transformer>
+        <freshbooks:list-clients config-ref="FreshBooks"  doc:name="FreshBooks" accessTokenId="100">
+            <freshbooks:client-request ref="#[payload]"/>
+        </freshbooks:list-clients>
+        <foreach doc:name="Foreach">
+            <logger message="ClientId: #[payload.id], ClientName: #[payload.email]" level="INFO" doc:name="Logger"/>
+        </foreach>
+    </flow>
+    <flow name="authUser" doc:name="authUser">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" doc:name="HTTP"/>
+        <freshbooks:auth-user config-ref="FreshBooks" accessTokenUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_access.php" authorizationUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_authorize.php" callbackUrl="http://localhost:8082" requestTokenUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_request.php" doc:name="FreshBooks"/>
+    </flow>
+    <flow name="getAccessToken" doc:name="getAccessToken">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8082" doc:name="HTTP"/>
+        <freshbooks:get-access-token config-ref="FreshBooks" apiUrl="https://mulesoftdev.freshbooks.com/api/2.1/xml-in" requestTokenId="#[groovy:message.getInboundProperty('userId')]" verifier="#[groovy:message.getInboundProperty('oauth_verifier')]" userIdentifier="100" doc:name="FreshBooks"/>
+        <flow-ref name="listClients" doc:name="Flow Reference"/>
+    </flow>
+</mule>

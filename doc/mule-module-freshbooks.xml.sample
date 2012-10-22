@@ -173,3 +173,33 @@
 <!-- BEGIN_INCLUDE(freshbooks:create-system-user) -->
     <freshbooks:create-system-user />
 <!-- END_INCLUDE(freshbooks:create-system-user) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:auth-user) -->
+    <freshbooks:auth-user requestTokenUrl="http://requestTokenUrl"
+        accessTokenUrl="http://accessTokenUrl"
+        authorizationUrl="http://authorizationUrl"
+        callbackUrl="http://callbackUrl" 
+        oauthCallback-ref="callbackFlowRef" />
+<!-- END_INCLUDE(freshbooks:auth-user) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:get-access-token) -->
+    <freshbooks:get-access-token apiUrl="http://apiUrl"
+        verifier="verifier" 
+        requestTokenId="tokenId" />
+<!-- END_INCLUDE(freshbooks:get-access-token) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:create-license) -->
+    <freshbooks:create-license />
+<!-- END_INCLUDE(freshbooks:create-license) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:delete-license) -->
+    <freshbooks:delete-license/>
+<!-- END_INCLUDE(freshbooks:delete-license) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-licenses) -->
+    <freshbooks:list-licenses />
+<!-- END_INCLUDE(freshbooks:list-licenses) -->
+
+<!-- BEGIN_INCLUDE(freshbooks:list-addons) -->
+    <freshbooks:list-addons />
+<!-- END_INCLUDE(freshbooks:list-addons) -->

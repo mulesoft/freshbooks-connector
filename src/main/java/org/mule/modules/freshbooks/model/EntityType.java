@@ -13,6 +13,8 @@ import org.mule.modules.freshbooks.FreshbooksException;
 
 public enum EntityType {
     
+    ADDON(Addon.class, "Addons", AddonRequest.class),
+    
     CALLBACK(Callback.class, "Callbacks", CallbackRequest.class),
     
     CATEGORY(Category.class, "Categories", CategoryRequest.class),
@@ -23,13 +25,17 @@ public enum EntityType {
     
     ITEM(Item.class, "Items", ItemRequest.class),
     
+    LICENSE(License.class, "Licenses", LicenseRequest.class),
+    
     PAYMENT(Payment.class, "Payments", PaymentRequest.class),
     
     SESSION(Session.class, "Sessions", SessionRequest.class),
 
     STAFF(Staff.class, "Staffs", StaffRequest.class),
 
-    SYSTEM(SystemUser.class, "Systems", SystemUserRequest.class),
+    SYSTEM(System.class, "Systems", SystemRequest.class),
+    
+    TASK(Task.class, "Tasks", TaskRequest.class),
     
     TASK(Task.class, "Tasks", TaskRequest.class),
     

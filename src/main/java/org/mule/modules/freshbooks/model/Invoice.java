@@ -1,9 +1,11 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ * Mule Freshbooks Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * LICENSE.txt file.
  */
 
 package org.mule.modules.freshbooks.model;
@@ -24,74 +26,52 @@ public class Invoice extends BaseRole {
     private String id;
     @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/")
     private String clientId;
-    @XmlElement(name="number", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String number;
-    @XmlElement(name="amount", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal amount;
     @XmlElement(name = "amount_outstanding", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal amountOutstanding;
-    @XmlElement(name="status", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private InvoiceStatusEnum status;
-//    <!-- If not supplied, defaults to today's date (Optional) -->  
-//         @XmlElement(namespace = "http://www.freshbooks.com/api/")
-//         @XmlSchemaType(name="date")
-//         public XMLGregorianCalendar date;
-//         <date>2007-06-23</date> 
-    @XmlElement(name="date", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String date;
     @XmlElement(name = "po_number", namespace = "http://www.freshbooks.com/api/", required = false)
     private String poNumber;
-    @XmlElement(name="discount", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal discount;
-    @XmlElement(name="notes", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String notes;
     @XmlElement(name = "currency_code", namespace = "http://www.freshbooks.com/api/", required = false)
     private String currencyCode;
-    @XmlElement(name="terms", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String terms;
     @XmlElement(name = "return_url", namespace = "http://www.freshbooks.com/api/", required = false)
     private String returnUri;
-    @XmlElement(name="lines", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Lines lines;
-    @XmlElement(name="folder", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private FolderTypes folder;
     @XmlElement(name = "recurring_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String recurringId;
     @XmlElement(name = "staff_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String staffId;
-    @XmlElement(name="updated", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String updated;
     
-    /*    <invoice>        
-    <url deprecated="true">https://2ndsite.freshbooks.com/view/St2gThi6rA2t7RQ</url> <!-- (Read-only) -->  
-    <auth_url deprecated="true">https://2ndsite.freshbooks.com/invoices/344</auth_url> <!-- (Read-only) -->  
-    <links>  
-      <client_view>https://2ndsite.freshbooks.com/view/St2gThi6rA2t7RQ</client_view> <!-- (Read-only) -->  
-      <view>https://2ndsite.freshbooks.com/invoices/344</view> <!-- (Read-only) -->  
-      <edit>https://2ndsite.freshbooks.com/invoices/344/edit</edit> <!-- (Read-only) -->  
-    </links>  
-  </invoice>  */
     public String getRecurringId() {
         return recurringId;
-    }
-    
-    public void setRecurringId(String recurringId) {
-    	this.recurringId = recurringId;
     }
     
     public String getUpdated() {
         return updated;
     }
     
-    public void setUpdated(String updated) {
-    	this.updated = updated;
-    }
-    
     public String getStaffId() {
         return staffId;
     }
     
-    public void setStaffId(String staffId) {
+    public void setFolder(String staffId) {
         this.staffId = staffId;
     }
     
@@ -107,16 +87,8 @@ public class Invoice extends BaseRole {
         return amountOutstanding;
     }
     
-    public void setAmountOutstanding(BigDecimal amountOutstanding) {
-    	this.amountOutstanding = amountOutstanding;
-    }
-    
     public BigDecimal getAmount() {
         return amount;
-    }
-    
-    public void setAmount(BigDecimal amount) {
-    	this.amount = amount;
     }
     
     public InvoiceStatusEnum getStatus() {
@@ -217,13 +189,33 @@ public class Invoice extends BaseRole {
         return lines.getLines();
     }
 
-    public void setLines(Lines lines) {
-        this.lines = lines;
-    }
-    
     public void setLines(List<Line> lines) {
         if(this.lines == null)
             this.lines = new Lines();
         this.lines.setLines(lines);
+    }
+    
+    public void setLines(Lines lines) {
+        this.lines = lines;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setAmountOutstanding(BigDecimal amountOutstanding) {
+        this.amountOutstanding = amountOutstanding;
+    }
+
+    public void setRecurringId(String recurringId) {
+        this.recurringId = recurringId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
     }
 }

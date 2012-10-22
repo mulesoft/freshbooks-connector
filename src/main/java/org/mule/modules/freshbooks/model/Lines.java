@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Lines {
+    
     @XmlElement(name = "line", namespace = "http://www.freshbooks.com/api/")
     private List<Line> lines;
     

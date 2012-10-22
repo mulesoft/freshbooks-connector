@@ -1,9 +1,11 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ * Mule Freshbooks Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * LICENSE.txt file.
  */
 
 package org.mule.modules.freshbooks.model;
@@ -65,6 +67,14 @@ public class ObjectFactory {
     private final static QName _Task_QNAME = new QName("http://www.freshbooks.com/api/", "task");
     private final static QName _Tasks_QNAME = new QName("http://www.freshbooks.com/api/", "tasks");
     private final static QName _TaskRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
+    private final static QName _License_QNAME = new QName("http://www.freshbooks.com/api/", "license");
+    private final static QName _Licenses_QNAME = new QName("http://www.freshbooks.com/api/", "licenses");
+    private final static QName _LicenseRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
+    
+    private final static QName _Addon_QNAME = new QName("http://www.freshbooks.com/api/", "addon");
+    private final static QName _Addons_QNAME = new QName("http://www.freshbooks.com/api/", "addons");
+    private final static QName _AddonRequest_QNAME = new QName("http://www.freshbooks.com/api/", "request");
     
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.modules.freshbooks.model
@@ -258,19 +268,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SystemUser }
+     * Create an instance of {@link System }
      * 
      */
-    public SystemUser createSystem() {
-        return new SystemUser();
+    public System createSystem() {
+        return new System();
     }
     
     /**
-     * Create an instance of {@link SystemUserRequest }
+     * Create an instance of {@link SystemRequest }
      * 
      */
-    public SystemUserRequest createSystemRequest() {
-        return new SystemUserRequest();
+    public SystemRequest createSystemRequest() {
+        return new SystemRequest();
     }
 
     /**
@@ -303,6 +313,22 @@ public class ObjectFactory {
      */
     public Tasks createTasks() {
         return new Tasks();
+    }
+    
+    /**
+     * Create an instance of {@link License }
+     * 
+     */
+    public License createLicense() {
+        return new License();
+    }
+    
+    /**
+     * Create an instance of {@link Licenses }
+     * 
+     */
+    public Licenses createLicenses() {
+        return new Licenses();
     }
     
     /**
@@ -550,21 +576,21 @@ public class ObjectFactory {
     }
     
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SystemUser }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link System }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "System")
-    public JAXBElement<SystemUser> createSystem(SystemUser value) {
-        return new JAXBElement<SystemUser>(_System_QNAME, SystemUser.class, null, value);
+    public JAXBElement<System> createSystem(System value) {
+        return new JAXBElement<System>(_System_QNAME, System.class, null, value);
     }
     
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SystemUserRequest }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SystemRequest }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "SystemRequest")
-    public JAXBElement<SystemUserRequest> createSystemRequest(SystemUserRequest value) {
-        return new JAXBElement<SystemUserRequest>(_SystemRequest_QNAME, SystemUserRequest.class, null, value);
+    public JAXBElement<SystemRequest> createSystemRequest(SystemRequest value) {
+        return new JAXBElement<SystemRequest>(_SystemRequest_QNAME, SystemRequest.class, null, value);
     }
     
     /**
@@ -621,5 +647,59 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "TaskRequest")
     public JAXBElement<TaskRequest> createTaskRequest(TaskRequest value) {
         return new JAXBElement<TaskRequest>(_TaskRequest_QNAME, TaskRequest.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link License }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "License")
+    public JAXBElement<License> createLicense(License value) {
+        return new JAXBElement<License>(_License_QNAME, License.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Licenses }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Licenses")
+    public JAXBElement<Licenses> createLicenses(Licenses value) {
+        return new JAXBElement<Licenses>(_Licenses_QNAME, Licenses.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LicenseRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "LicenseRequest")
+    public JAXBElement<LicenseRequest> createLicenseRequest(LicenseRequest value) {
+        return new JAXBElement<LicenseRequest>(_LicenseRequest_QNAME, LicenseRequest.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Addon }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Addon")
+    public JAXBElement<Addon> createAddon(Addon value) {
+        return new JAXBElement<Addon>(_Addon_QNAME, Addon.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Addons }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "Addons")
+    public JAXBElement<Addons> createAddons(Addons value) {
+        return new JAXBElement<Addons>(_Addons_QNAME, Addons.class, null, value);
+    }
+    
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AddonRequest }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.freshbooks.com/api/", name = "AddonRequest")
+    public JAXBElement<AddonRequest> createAddonRequest(AddonRequest value) {
+        return new JAXBElement<AddonRequest>(_AddonRequest_QNAME, AddonRequest.class, null, value);
     }
 }

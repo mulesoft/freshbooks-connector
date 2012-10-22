@@ -1,9 +1,11 @@
 /**
- * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ * Mule Freshbooks Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
- * LICENSE.md file.
+ * LICENSE.txt file.
  */
 
 /**
@@ -11,15 +13,36 @@
  */
 package org.mule.modules.freshbooks;
 
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.exception.OAuthNotAuthorizedException;
+
+import org.apache.commons.lang.StringUtils;
+import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.api.annotations.param.OutboundHeaders;
+import org.mule.api.config.MuleProperties;
+import org.mule.api.store.ObjectDoesNotExistException;
+import org.mule.api.store.ObjectStore;
+import org.mule.api.store.ObjectStoreException;
+import org.mule.modules.freshbooks.api.DefaultFreshbooksOAuthClient;
+import org.mule.modules.freshbooks.api.FreshbooksAccessTokenException;
+import org.mule.modules.freshbooks.api.OAuthCredentials;
 import org.mule.modules.freshbooks.api.DefaultFreshbooksClient;
 import org.mule.modules.freshbooks.api.FreshbooksClient;
+import org.mule.modules.freshbooks.api.ObjectStoreHelper;
+import org.mule.modules.freshbooks.model.Addon;
+import org.mule.modules.freshbooks.model.AddonRequest;
+import org.mule.modules.freshbooks.model.Addons;
 import org.mule.modules.freshbooks.model.Callback;
 import org.mule.modules.freshbooks.model.CallbackRequest;
 import org.mule.modules.freshbooks.model.Category;
@@ -31,11 +54,14 @@ import org.mule.modules.freshbooks.model.Invoice;
 import org.mule.modules.freshbooks.model.InvoiceRequest;
 import org.mule.modules.freshbooks.model.Item;
 import org.mule.modules.freshbooks.model.ItemRequest;
+import org.mule.modules.freshbooks.model.License;
+import org.mule.modules.freshbooks.model.LicenseRequest;
+import org.mule.modules.freshbooks.model.Licenses;
 import org.mule.modules.freshbooks.model.Payment;
 import org.mule.modules.freshbooks.model.PaymentRequest;
 import org.mule.modules.freshbooks.model.Session;
 import org.mule.modules.freshbooks.model.Staff;
-import org.mule.modules.freshbooks.model.SystemUser;
+import org.mule.modules.freshbooks.model.System;
 import org.mule.modules.freshbooks.model.Task;
 import org.mule.modules.freshbooks.model.TaskRequest;
 import org.mule.modules.freshbooks.model.Tax;
@@ -43,35 +69,53 @@ import org.mule.modules.freshbooks.model.TaxRequest;
 
 /**
  *
- * FreshBooks
+ * FreshBooks is an online invoicing software as a service for freelancers, small businesses, 
+ * agencies, and professionals. It is produced by the software company 2ndSite Inc. which is located in 
+ * Toronto, Ontario, Canada. The product includes a myriad of other related features, such as time tracking, 
+ * expense tracking, recurring billing, online payment collection, 
+ * the ability to mail invoices through the U.S. Post, and support tickets.
  *
  * @author Emiliano Lesende
  *
  */
 @Module(name = "freshbooks", schemaVersion= "1.0", friendlyName = "FreshBooks")
+@SuppressWarnings("rawtypes")
 public class FreshbooksModule {
-    
-    /**
-     * Authentication Token
-     */
-    @Configurable
-    private String authenticationToken;
+
+    private static String DEFAULT_API_URL = "https://%s/api/2.1/xml-in";
 
     /**
      * Api URL
      */
     @Configurable
     private String apiUrl;
+    
+    /**
+     * API Key
+     */
+    @Configurable
+    private String consumerKey;
 
+    /**
+     * API Secret
+     */
+    @Configurable
+    private String consumerSecret;
+
+    /**
+     * Object store reference
+     */
+    @Configurable
+    @Optional
+    @Default(MuleProperties.DEFAULT_USER_OBJECT_STORE_NAME)
+    private ObjectStore objectStore;
+    
+    /**
+     * Object store helper
+     */
+    private ObjectStoreHelper objectStoreHelper;
+    
     private FreshbooksClient freshbooksClient;
-
-    public String getAuthenticationToken() {
-        return authenticationToken;
-    }
-
-    public void setAuthenticationToken(String authenticationToken) {
-        this.authenticationToken = authenticationToken;
-    }
 
     public String getApiUrl() {
         return apiUrl;
@@ -80,6 +124,21 @@ public class FreshbooksModule {
     public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
     }
+    
+    /**
+     * Connect to a Freshbooks client
+     * @param apiUrl API's URL
+     * @param consumerKey Consumer Key
+     * @param consumerSecret Consumer Secret
+     * @throws ConnectionException when the connection process failed
+     */
+    @PostConstruct
+    public void connect() 
+            throws ConnectionException {
+        setFreshbooksClient(new DefaultFreshbooksClient(apiUrl, consumerKey, consumerSecret));
+        setObjectStoreHelper(new ObjectStoreHelper(objectStore));
+    }
+    
     
     /**
      * Create a new callback for a specific event or a set of events.
@@ -145,12 +204,16 @@ public class FreshbooksModule {
      * <p> * time_entry.update</p>
      * @param sourceToken source token value
      * @param callback to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return callback id
      */
     @Processor
-    public Callback createCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback)
+    public Callback createCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback, 
+            @Optional String accessTokenId)
     {
-        String newCallbackId = (String) freshbooksClient.create(sourceToken, EntityType.CALLBACK, callback, true);
+        String newCallbackId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), sourceToken, 
+                EntityType.CALLBACK, callback, true);
         callback.setId(newCallbackId);
         return callback;
     }
@@ -162,13 +225,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param callbackRequest {@link CallbackRequest} CallbackRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return iterable of callbacks
      */
     @Processor
     public Iterable<Callback> listCallbacks(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") CallbackRequest callbackRequest)
+            @Optional @Default("#[payload]") CallbackRequest callbackRequest,
+            @Optional String accessTokenId)
     {
-        return freshbooksClient.list(sourceToken, EntityType.CALLBACK, callbackRequest);
+        return freshbooksClient.list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CALLBACK, callbackRequest);
     }
 
     /**
@@ -178,12 +245,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param callback to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @param wCallback
      */
     @Processor
-    public void deleteCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback)
+    public void deleteCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.delete(sourceToken, EntityType.CALLBACK, callback.getId());
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CALLBACK, callback.getId());
     }
     
     /**
@@ -193,12 +264,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param callback to be verified
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return verified callback 
      */
     @Processor
-    public Callback verifyCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback)
+    public Callback verifyCallback(@Optional String sourceToken, @Optional @Default("#[payload]") Callback callback,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.verify(sourceToken, EntityType.CALLBACK, callback, true);
+        freshbooksClient.verify(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CALLBACK, callback, true);
         return callback;
     }
     
@@ -209,11 +284,15 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param category to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The created category
      */
     @Processor
-    public Category createCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category) {
-        String newCategoryId = (String) freshbooksClient.create(sourceToken, EntityType.CATEGORY, category, true);
+    public Category createCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category,
+            @Optional String accessTokenId) {
+        String newCategoryId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CATEGORY, category, true);
         category.setId(newCategoryId);
         return category;
     }
@@ -225,12 +304,16 @@ public class FreshbooksModule {
      *
      * @param sourceToken source token value
      * @param category to be updated
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return updated category
      * 
      */
     @Processor
-    public Category updateCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category) {
-        freshbooksClient.update(sourceToken, EntityType.CATEGORY, category, true);
+    public Category updateCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category,
+            @Optional String accessTokenId) {
+        freshbooksClient.update(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CATEGORY, category, true);
         return category;
     }
 
@@ -241,11 +324,15 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param categoryId    The category id
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return A {@link Category} object
      */
     @Processor
-    public Category getCategory(@Optional String sourceToken, String categoryId) {
-        return (Category) freshbooksClient.get(sourceToken, EntityType.CATEGORY, categoryId);
+    public Category getCategory(@Optional String sourceToken, String categoryId,
+            @Optional String accessTokenId) {
+        return (Category) freshbooksClient.get(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CATEGORY, categoryId);
     }
 
     /**
@@ -254,11 +341,15 @@ public class FreshbooksModule {
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-category}
      *
      * @param sourceToken source token value
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @param category to be deleted
      */
     @Processor
-    public void deleteCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category) {
-        freshbooksClient.delete(sourceToken, EntityType.CATEGORY, category.getId());
+    public void deleteCategory(@Optional String sourceToken, @Optional @Default("#[payload]") Category category,
+            @Optional String accessTokenId) {
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CATEGORY, category.getId());
     }
 
     /**
@@ -268,13 +359,17 @@ public class FreshbooksModule {
      *
      * @param sourceToken source token value
      * @param categoryRequest {@link CategoryRequest} CategoryRequest Object
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return A iterable of categories
      * @throws FreshbooksException
      */
     @Processor
     public Iterable<Category> listCategories(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") CategoryRequest categoryRequest) {
-        return freshbooksClient.<Category>list(sourceToken, EntityType.CATEGORY, categoryRequest);
+            @Optional @Default("#[payload]") CategoryRequest categoryRequest,
+            @Optional String accessTokenId) {
+        return freshbooksClient.<Category>list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CATEGORY, categoryRequest);
     }
 
     /**
@@ -284,13 +379,17 @@ public class FreshbooksModule {
      *
      * @param sourceToken source token value
      * @param client to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The created client
      * @throws FreshbooksException
      */
     @Processor
     public Client createClient(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") Client client) {
-        String newClientId = (String) freshbooksClient.create(sourceToken, EntityType.CLIENT, client, true);
+            @Optional @Default("#[payload]") Client client,
+            @Optional String accessTokenId) {
+        String newClientId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CLIENT, client, true);
         client.setId(newClientId);
         return client;
     }
@@ -302,12 +401,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param client to be updated
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return updated client
      * @throws FreshbooksException
      */
     @Processor
-    public Client updateClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client) {
-        freshbooksClient.update(sourceToken, EntityType.CLIENT, client, true);
+    public Client updateClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client,
+            @Optional String accessTokenId) {
+        freshbooksClient.update(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CLIENT, client, true);
         return client;
     }
 
@@ -318,12 +421,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param clientId  The client id
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return A {@link Client}
      * @throws FreshbooksException
      */
     @Processor
-    public Client getClient(@Optional String sourceToken, String clientId) {
-        return (Client) freshbooksClient.get(sourceToken, EntityType.CLIENT, clientId);
+    public Client getClient(@Optional String sourceToken, String clientId,
+            @Optional String accessTokenId) {
+        return (Client) freshbooksClient.get(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CLIENT, clientId);
     }
 
     /**
@@ -333,12 +440,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param client to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @throws FreshbooksException
      */
     @Processor
-    public void deleteClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client) 
+    public void deleteClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client,
+            @Optional String accessTokenId) 
     {
-        freshbooksClient.delete(sourceToken, EntityType.CLIENT, client.getId());
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CLIENT, client.getId());
     }
     
     /**
@@ -348,13 +459,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param client to be undeleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return the undeleted client id
      * @throws FreshbooksException
      */
     @Processor
-    public String undeleteClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client) 
+    public String undeleteClient(@Optional String sourceToken, @Optional @Default("#[payload]") Client client,
+            @Optional String accessTokenId) 
     {
-        freshbooksClient.undelete(sourceToken, EntityType.CLIENT, client.getId());
+        freshbooksClient.undelete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CLIENT, client.getId());
         return client.getId();
     }
 
@@ -365,14 +480,18 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param clientRequest {@link ClientRequest} ClientRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return A iterable of clients
      * @throws FreshbooksException
      */
     @Processor
     public Iterable<Client> listClients(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") ClientRequest clientRequest) 
+            @Optional @Default("#[payload]") ClientRequest clientRequest,
+            @Optional String accessTokenId) 
     {
-        return freshbooksClient.<Client>list(sourceToken, EntityType.CLIENT, clientRequest);
+        return freshbooksClient.<Client>list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.CLIENT, clientRequest);
     }
 
     /**
@@ -389,13 +508,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param invoice to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The created invoice
      * @throws FreshbooksException
      */
     @Processor
-    public Invoice createInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice)
+    public Invoice createInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice,
+            @Optional String accessTokenId)
     {
-        String newInvoiceId = (String) freshbooksClient.create(sourceToken, EntityType.INVOICE, invoice, true);
+        String newInvoiceId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.INVOICE, invoice, true);
         invoice.setId(newInvoiceId);
         return invoice;
     }
@@ -410,13 +533,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param invoice to be updated
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return updated invoice
      * @throws FreshbooksException
      */
     @Processor 
-    public Invoice updateInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice)
+    public Invoice updateInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.update(sourceToken, EntityType.INVOICE, invoice, true);
+        freshbooksClient.update(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.INVOICE, invoice, true);
         return invoice;
     }
     
@@ -429,13 +556,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param invoiceId     The invoice id
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The invoice retrieved.
      * @throws FreshbooksException.
      */
     @Processor
-    public Invoice getInvoice(@Optional String sourceToken, String invoiceId)
+    public Invoice getInvoice(@Optional String sourceToken, String invoiceId,
+            @Optional String accessTokenId)
     {
-        return (Invoice) freshbooksClient.get(sourceToken, EntityType.INVOICE, invoiceId);
+        return (Invoice) freshbooksClient.get(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.INVOICE, invoiceId);
     }
     
     /**
@@ -445,12 +576,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param invoice to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @throws FreshbooksException.
      */
     @Processor
-    public void deleteInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice)
+    public void deleteInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.delete(sourceToken, EntityType.INVOICE, invoice.getId());
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.INVOICE, invoice.getId());
     }
     
     /**
@@ -460,13 +595,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param invoice to be undeleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The undeleted invoice id
      * @throws FreshbooksException.
      */
     @Processor
-    public String undeleteInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice)
+    public String undeleteInvoice(@Optional String sourceToken, @Optional @Default("#[payload]") Invoice invoice,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.undelete(sourceToken, EntityType.INVOICE, invoice.getId());
+        freshbooksClient.undelete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.INVOICE, invoice.getId());
         return invoice.getId();
     }
     
@@ -477,14 +616,18 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param invoiceRequest {@link InvoiceRequest} InvoiceRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return A iterable of Invoices
      * @throws FreshbooksException.
      */
     @Processor
     public Iterable<Invoice> listInvoices(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") InvoiceRequest invoiceRequest)
+            @Optional @Default("#[payload]") InvoiceRequest invoiceRequest,
+            @Optional String accessTokenId)
     {
-        return freshbooksClient.<Invoice>list(sourceToken, EntityType.INVOICE, invoiceRequest);
+        return freshbooksClient.<Invoice>list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.INVOICE, invoiceRequest);
     }
     
     /**
@@ -494,13 +637,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param item to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The created item
      * @throws FreshbooksException
      */
     @Processor
-    public Item createItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item)
+    public Item createItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item,
+            @Optional String accessTokenId)
     {
-        String newItemId = (String) freshbooksClient.create(sourceToken, EntityType.ITEM, item, true);
+        String newItemId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.ITEM, item, true);
         item.setId(newItemId);
         return item;
     }
@@ -513,13 +660,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param item to be updated
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return updated item
      * @throws FreshbooksException
      */
     @Processor 
-    public Item updateItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item)
+    public Item updateItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.update(sourceToken, EntityType.ITEM, item, true);
+        freshbooksClient.update(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.ITEM, item, true);
         return item;
     }
     
@@ -530,13 +681,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param itemId    The item id
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The item retrieved.
      * @throws FreshbooksException.
      */
     @Processor
-    public Item getItem(@Optional String sourceToken, String itemId)
+    public Item getItem(@Optional String sourceToken, String itemId,
+            @Optional String accessTokenId)
     {
-        return (Item) freshbooksClient.get(sourceToken, EntityType.ITEM, itemId);
+        return (Item) freshbooksClient.get(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.ITEM, itemId);
     }
     
     /**
@@ -546,12 +701,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param item to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @throws FreshbooksException.
      */
     @Processor
-    public void deleteItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item)
+    public void deleteItem(@Optional String sourceToken, @Optional @Default("#[payload]") Item item,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.delete(sourceToken, EntityType.ITEM, item.getId());
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.ITEM, item.getId());
     }
     
     /**
@@ -561,14 +720,18 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param itemRequest {@link ItemRequest} ItemRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return A iterable of Items
      * @throws FreshbooksException.
      */
     @Processor
     public Iterable<Item> listItems(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") ItemRequest itemRequest)
+            @Optional @Default("#[payload]") ItemRequest itemRequest,
+            @Optional String accessTokenId)
     {
-        return freshbooksClient.<Item>list(sourceToken, EntityType.ITEM, itemRequest);
+        return freshbooksClient.<Item>list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.ITEM, itemRequest);
     }
     
     /**
@@ -579,13 +742,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param tax to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The created Tax
      * @throws FreshbooksException
      */
     @Processor
-    public Tax createTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax)
+    public Tax createTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax,
+            @Optional String accessTokenId)
     {
-        String newTaxId = (String) freshbooksClient.create(sourceToken, EntityType.TAX, tax, true);
+        String newTaxId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TAX, tax, true);
         tax.setId(newTaxId);
         return tax;
     }
@@ -598,13 +765,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param tax to be updated
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return updated Tax
      * @throws FreshbooksException
      */
     @Processor 
-    public Tax updateTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax)
+    public Tax updateTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.update(sourceToken, EntityType.TAX, tax, true);
+        freshbooksClient.update(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TAX, tax, true);
         return tax;
     }
     
@@ -615,13 +786,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param taxId     The tax id
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The tax retrieved.
      * @throws FreshbooksException.
      */
     @Processor
-    public Tax getTax(@Optional String sourceToken, String taxId)
+    public Tax getTax(@Optional String sourceToken, String taxId,
+            @Optional String accessTokenId)
     {
-        return (Tax) freshbooksClient.get(sourceToken, EntityType.TAX, taxId);
+        return (Tax) freshbooksClient.get(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TAX, taxId);
     }
     
     /**
@@ -631,12 +806,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param tax to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @throws FreshbooksException.
      */
     @Processor
-    public void deleteTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax)
+    public void deleteTax(@Optional String sourceToken, @Optional @Default("#[payload]") Tax tax,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.delete(sourceToken, EntityType.TAX, tax.getId());
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TAX, tax.getId());
     }
     
     /**
@@ -647,14 +826,120 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param taxRequest {@link TaxRequest} TaxRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return A iterable of Taxes
      * @throws FreshbooksException.
      */
     @Processor
     public Iterable<Tax> listTaxes(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") TaxRequest taxRequest)
+            @Optional @Default("#[payload]") TaxRequest taxRequest,
+            @Optional String accessTokenId)
     {
-        return freshbooksClient.<Tax>list(sourceToken, EntityType.TAX, taxRequest);
+        return freshbooksClient.<Tax>list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TAX, taxRequest);
+    }
+    
+    /**
+     * Create a new task and returns the corresponding task_id.
+     *  
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return The created Task
+     * @throws FreshbooksException
+     */
+    @Processor
+    public Task createTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task,
+            @Optional String accessTokenId)
+    {
+        String newPaymentId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, task, true);
+        task.setId(newPaymentId);
+        return task;
+    }
+    
+    /**
+     * <p>Update an existing task.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be updated
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return updated Task
+     * @throws FreshbooksException
+     */
+    @Processor 
+    public Task updateTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task,
+            @Optional String accessTokenId)
+    {
+        freshbooksClient.update(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, task, true);
+        return task;
+    }
+    
+    /**
+     * <p>Retrieve an existing task. </p>
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-task}
+     * 
+     * @param sourceToken source token value
+     * @param taskId     The task id
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return The task retrieved.
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Task getTask(@Optional String sourceToken, String taskId,
+            @Optional String accessTokenId)
+    {
+        return (Task) freshbooksClient.get(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, taskId);
+    }
+    
+    /**
+     * Permanently delete a task.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-task}
+     * 
+     * @param sourceToken source token value
+     * @param task to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deleteTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task,
+            @Optional String accessTokenId)
+    {
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, task.getId());
+    }
+    
+    /**
+     * Returns a list of tasks summaries.
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-tasks}
+     * 
+     * @param sourceToken source token value
+     * @param taskRequest {@link TaskRequest} TaskRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return A iterable of Tasks
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<Task> listTasks(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") TaskRequest taskRequest,
+            @Optional String accessTokenId)
+    {
+        return freshbooksClient.<Task>list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.TASK, taskRequest);
     }
     
     /**
@@ -671,13 +956,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param payment to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The created Payment
      * @throws FreshbooksException
      */
     @Processor
-    public Payment createPayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment)
+    public Payment createPayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment,
+            @Optional String accessTokenId)
     {
-        String newPaymentId = (String) freshbooksClient.create(sourceToken, EntityType.PAYMENT, payment, true);
+        String newPaymentId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.PAYMENT, payment, true);
         payment.setId(newPaymentId);
         return payment;
     }
@@ -692,13 +981,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param payment to be updated
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return updated Payment
      * @throws FreshbooksException
      */
     @Processor 
-    public Payment updatePayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment)
+    public Payment updatePayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.update(sourceToken, EntityType.PAYMENT, payment, true);
+        freshbooksClient.update(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.PAYMENT, payment, true);
         return payment;
     }
     
@@ -709,13 +1002,17 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param paymentId     The payment id
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return The payment retrieved.
      * @throws FreshbooksException.
      */
     @Processor
-    public Payment getPayment(@Optional String sourceToken, String paymentId)
+    public Payment getPayment(@Optional String sourceToken, String paymentId,
+            @Optional String accessTokenId)
     {
-        return (Payment) freshbooksClient.get(sourceToken, EntityType.PAYMENT, paymentId);
+        return (Payment) freshbooksClient.get(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.PAYMENT, paymentId);
     }
     
     /**
@@ -725,12 +1022,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param payment to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @throws FreshbooksException.
      */
     @Processor
-    public void deletePayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment)
+    public void deletePayment(@Optional String sourceToken, @Optional @Default("#[payload]") Payment payment,
+            @Optional String accessTokenId)
     {
-        freshbooksClient.delete(sourceToken, EntityType.PAYMENT, payment.getId());
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.PAYMENT, payment.getId());
     }
     
     /**
@@ -740,97 +1041,18 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param paymentRequest {@link PaymentRequest} PaymentRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return A iterable of Payments
      * @throws FreshbooksException.
      */
     @Processor
     public Iterable<Payment> listPayments(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") PaymentRequest paymentRequest)
+            @Optional @Default("#[payload]") PaymentRequest paymentRequest,
+            @Optional String accessTokenId)
     {
-        return freshbooksClient.<Payment>list(sourceToken, EntityType.PAYMENT, paymentRequest);
-    }
-    
-    /**
-     * Create a new task and returns the corresponding task_id.
-     *  
-     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-task}
-     * 
-     * @param sourceToken source token value
-     * @param task to be created
-     * @return The created Task
-     * @throws FreshbooksException
-     */
-    @Processor
-    public Task createTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task)
-    {
-        String newTaskId = (String) freshbooksClient.create(sourceToken, EntityType.TASK, task, true);
-        task.setId(newTaskId);
-        return task;
-    }
-    
-    /**
-     * <p>Update an existing task.  
-     * 
-     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:update-task}
-     * 
-     * @param sourceToken source token value
-     * @param task to be updated
-     * @return updated Task
-     * @throws FreshbooksException
-     */
-    @Processor 
-    public Task updateTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task)
-    {
-        freshbooksClient.update(sourceToken, EntityType.TASK, task, true);
-        return task;
-    }
-    
-    /**
-     * <p>Retrieve task details according to task_id. </p>
-     * 
-     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-task}
-     * 
-     * @param sourceToken source token value
-     * @param taskId     The task id
-     * @return The task retrieved.
-     * @throws FreshbooksException.
-     */
-    @Processor
-    public Task getTask(@Optional String sourceToken, String taskId)
-    {
-        return (Task) freshbooksClient.get(sourceToken, EntityType.TASK, taskId);
-    }
-    
-    /**
-     * Permanently delete a task. 
-     * 
-     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-task}
-     * 
-     * @param sourceToken source token value
-     * @param task to be deleted
-     * @throws FreshbooksException.
-     */
-    @Processor
-    public void deleteTask(@Optional String sourceToken, @Optional @Default("#[payload]") Task task)
-    {
-        freshbooksClient.delete(sourceToken, EntityType.TASK, task.getId());
-    }
-    
-    /**
-     * Returns a list of task summaries. Results are ordered by descending task_id.
-     * 
-     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-tasks}
-     * 
-     * @param sourceToken source token value
-     * @param taskRequest {@link TaskRequest} TaskRequest object
-     * @return A iterable of Tasks
-     * @throws FreshbooksException.
-     */
-    @Processor
-    public Iterable<Task> listTasks(@Optional String sourceToken, 
-            @Optional @Default("#[payload]") TaskRequest taskRequest)
-    {
-        return freshbooksClient.<Task>list(sourceToken, EntityType.TASK, taskRequest);
+        return freshbooksClient.<Payment>list(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.PAYMENT, paymentRequest);
     }
     
     /**
@@ -839,13 +1061,27 @@ public class FreshbooksModule {
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-current-user-information}
      * 
      * @param sourceToken source token value
+     * @param accessTokenId accessTokenIdentifier
+     * @param accessToken provided by the app when the credentials are not stored yet
+     * @param accessTokenSecret provided by the app when the credentials are not stored yet
      * @return current user information
      * @throws FreshbooksException.
      */
     @Processor
-    public Staff getCurrentUserInformation(@Optional String sourceToken)
+    public Staff getCurrentUserInformation(@Optional String sourceToken,
+            @Optional String accessTokenId, @Optional String accessToken, @Optional String accessTokenSecret)
     {
-        return (Staff) freshbooksClient.execute(sourceToken, EntityType.STAFF, "staff.current");
+        OAuthCredentials credentials;
+        //When the credentials are not stored yet
+        if (StringUtils.isBlank(accessTokenId)) {
+            credentials = createCredentials(accessToken, accessTokenSecret);
+        }
+        else
+        {
+            credentials = getAccessTokenInformation(accessTokenId);
+        }
+        
+        return (Staff) freshbooksClient.execute(credentials, sourceToken, EntityType.STAFF, "staff.current");
     }
     
     /**
@@ -855,39 +1091,277 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param session the session to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
      * @return created session information
      * @throws FreshbooksException.
      */
     @Processor
-    public Session createSession(@Optional String sourceToken, @Optional @Default("#[payload]") Session session)
+    public Session createSession(@Optional String sourceToken, @Optional @Default("#[payload]") Session session,
+            @Optional String accessTokenId)
     {
-        return (Session) freshbooksClient.create(sourceToken, EntityType.SESSION, session, false);
+        return (Session) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.SESSION, session, false);
     }
     
     /**
-     * Create a system user
+     * Create a license
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-license}
+     * 
+     * @param sourceToken source token value
+     * @param license the license to be created
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return created license information
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public License createLicense(@Optional String sourceToken, @Optional @Default("#[payload]") License license,
+            @Optional String accessTokenId)
+    {
+        return (License) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.LICENSE, license, false);
+    }
+    
+    /**
+     * Returns a list of licenses summaries. Results are ordered by descending license_id.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-licenses}
+     * 
+     * @param sourceToken source token value
+     * @param licenseRequest {@link LicenseRequest} LicenseRequest object
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return A iterable of Licenses
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<License> listLicenses(@Optional String sourceToken, 
+            @Optional @Default("#[payload]") LicenseRequest licenseRequest,
+            @Optional String accessTokenId)
+    {
+        return ((Licenses) freshbooksClient.getListObject(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.LICENSE, licenseRequest)).getLicenses();
+    }
+    
+    /**
+     * Permanently delete a license.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:delete-license}
+     * 
+     * @param sourceToken source token value
+     * @param license to be deleted
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public void deleteLicense(@Optional String sourceToken, @Optional @Default("#[payload]") License license,
+            @Optional String accessTokenId)
+    {
+        freshbooksClient.delete(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.LICENSE, license.getId());
+    }
+    
+    /**
+     * Returns a list of addons summaries. Results are ordered by descending id.
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:list-addons}
+     * 
+     * @param sourceToken source token value
+     * @param accessTokenId accessTokenIdentifier
+     * 
+     * @return A iterable of Addons
+     * @throws FreshbooksException.
+     */
+    @Processor
+    public Iterable<Addon> listAddons(@Optional String sourceToken,
+            @Optional String accessTokenId)
+    {
+        return ((Addons) freshbooksClient.getListObject(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.ADDON, new AddonRequest())).getAddons();
+    }
+
+    /**
+     * Create a system user. You don't need to be authenticated to call this processor.
      * 
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:create-system-user}
      * 
      * @param sourceToken source token value
      * @param systemUser the system user to be created
+     * @param userIdentifier identifier to be used for storing the accessToken
+     * 
      * @return created system user
-     * @throws FreshbooksException.
+     * @throws ObjectStoreException in case of failure storing the accessToken information
      */
     @Processor
-    public SystemUser createSystemUser(@Optional String sourceToken, @Optional @Default("#[payload]") SystemUser systemUser)
+    public System createSystemUser(@Optional String sourceToken, @Optional @Default("#[payload]") System systemUser, 
+            @Optional String userIdentifier) throws ObjectStoreException
     {
-        SystemUser newSystem = (SystemUser) freshbooksClient.create(sourceToken, EntityType.SYSTEM, systemUser, false);
+        System newSystem = (System) freshbooksClient.create(createCredentials("", ""), 
+                sourceToken, EntityType.SYSTEM, systemUser, false);
         systemUser.setDomain(newSystem.getDomain());
+        
+        if (StringUtils.isNotBlank(newSystem.getAccessToken())) {
+            systemUser.setAccessToken(newSystem.getAccessToken());
+            systemUser.setAccessTokenSecret(newSystem.getAccessTokenSecret());
+            
+            OAuthCredentials credentials = new OAuthCredentials(systemUser.getAccessToken(), systemUser.getAccessTokenSecret());
+            credentials.setApiUrl(String.format(DEFAULT_API_URL, systemUser.getDomain()));
+            
+            //if an userIdentifier is not provided call the current.user API
+            if (StringUtils.isBlank(userIdentifier)) {
+                userIdentifier = getCurrentUserInformation(null, null, credentials.getAccessToken(), 
+                        credentials.getAccessTokenSecret()).getId();
+            }
+
+            getObjectStoreHelper().store(userIdentifier, credentials, true);                        
+        }
+        
         return systemUser;
     }
     
-    @PostConstruct
-    public void init()
+    /**
+     * Authorize an user using OAuth1.0a
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-access-token}
+     * 
+     * @param requestTokenUrl requestTokenUrl
+     * @param accessTokenUrl accessTokenUrl
+     * @param authorizationUrl authorizationUrl
+     * @param callbackUrl callbackUrl for OAuth service
+     * @param requestTokenId Optional value for identifying the requestToken. If it is not passed the client will use a UUID
+     * @param headers Outbound headers
+     * @return Authorize Url
+     * @throws ObjectStoreException from the Object Store instance
+     * @throws OAuthCommunicationException requesting to OAuth provider
+     * @throws OAuthExpectationFailedException requesting to OAuth provider
+     * @throws OAuthNotAuthorizedException requesting to OAuth provider
+     * @throws OAuthMessageSignerException requesting to OAuth provider
+     */
+    @Processor
+    public String authUser(String requestTokenUrl, String accessTokenUrl, String authorizationUrl, String callbackUrl, 
+            @Optional String requestTokenId, @OutboundHeaders Map<String, Object> headers) 
+                    throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
+                    OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException
     {
-        if (freshbooksClient == null )
-        {
-            freshbooksClient = new DefaultFreshbooksClient(apiUrl, authenticationToken);
+        String authUrl = new DefaultFreshbooksOAuthClient(getConsumerKey(), getConsumerSecret(), getObjectStore()).
+                authorize(requestTokenUrl, accessTokenUrl, authorizationUrl, callbackUrl, requestTokenId);
+        
+        headers.put("Location", authUrl);
+        headers.put("http.status", "302");
+        return authUrl;
+    }
+    
+    /**
+     * Extract accessToken
+     * 
+     * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-access-token}
+     * 
+     * @param apiUrl API URL
+     * @param verifier OAuth verifier
+     * @param requestTokenId id used for identifying the authorized request token
+     * @param userIdentifier id used for store the accessToken in the Object Store. 
+     *      If it is not provided by the app the connector uses the userId from FreshBooks
+     * @return credentials user credentials
+     * @throws ObjectStoreException from the object store instance
+     * @throws OAuthCommunicationException requesting to OAuth provider
+     * @throws OAuthExpectationFailedException requesting to OAuth provider
+     * @throws OAuthNotAuthorizedException requesting to OAuth provider
+     * @throws OAuthMessageSignerException requesting to OAuth provider
+     */
+    @Processor
+    public OAuthCredentials getAccessToken(@Optional String apiUrl, String verifier, String requestTokenId, 
+            @Optional String userIdentifier) 
+                    throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
+                    OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException
+    {
+        OAuthCredentials credentials = new DefaultFreshbooksOAuthClient(getConsumerKey(), getConsumerSecret(), 
+                getObjectStore()).getAccessToken(verifier, requestTokenId);
+        
+        //Stores user credentials
+        if (StringUtils.isBlank(userIdentifier)) {
+            userIdentifier = getCurrentUserInformation(null, null, credentials.getAccessToken(), 
+                    credentials.getAccessTokenSecret()).getId();
         }
+        
+        credentials.setUserId(userIdentifier);
+        credentials.setApiUrl(apiUrl);
+        getObjectStoreHelper().store(userIdentifier, credentials, true);
+
+        return credentials;
+    }
+
+    /**
+     * This method retrieves the accessTokenInformation from the object store instance
+     * @return OAuthCredentials AuthToken and AuthTokenSecret
+     */
+    private OAuthCredentials getAccessTokenInformation(String accessTokenIdentifier) {
+        try {
+            return (OAuthCredentials) objectStoreHelper.retrieve(accessTokenIdentifier);
+        } catch (ObjectDoesNotExistException e) {
+            throw new FreshbooksAccessTokenException("The user token could not be retrieved from the Object Store");
+        } catch (ObjectStoreException e) {
+            throw new FreshbooksAccessTokenException("The user token could not be retrieved");
+        }
+    }
+    
+    /**
+     * Create OAuthCredentials object
+     * @param accessToken
+     * @param accessTokenSecret
+     * @return credentials
+     */
+    private OAuthCredentials createCredentials(String accessToken, String accessTokenSecret) {
+        return new OAuthCredentials(accessToken, accessTokenSecret);
+    }
+
+    public String getApiKey() {
+        return consumerKey;
+    }
+
+    public String getApiSecret() {
+        return consumerSecret;
+    }
+
+    public void setConsumerKey(String consumerKey) {
+        this.consumerKey = consumerKey;
+    }
+
+    public void setConsumerSecret(String consumerSecret) {
+        this.consumerSecret = consumerSecret;
+    }
+
+    public FreshbooksClient getFreshbooksClient() {
+        return freshbooksClient;
+    }
+
+    public void setFreshbooksClient(FreshbooksClient freshbooksClient) {
+        this.freshbooksClient = freshbooksClient;
+    }
+
+    public String getConsumerKey() {
+        return consumerKey;
+    }
+
+    public String getConsumerSecret() {
+        return consumerSecret;
+    }
+
+    public ObjectStore getObjectStore() {
+        return objectStore;
+    }
+
+    public void setObjectStore(ObjectStore objectStore) {
+        this.objectStore = objectStore;
+    }
+
+    public ObjectStoreHelper getObjectStoreHelper() {
+        return objectStoreHelper;
+    }
+
+    public void setObjectStoreHelper(ObjectStoreHelper objectStoreHelper) {
+        this.objectStoreHelper = objectStoreHelper;
     }
 }

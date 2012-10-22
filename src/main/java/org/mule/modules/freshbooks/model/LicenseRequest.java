@@ -14,24 +14,28 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
-public class TaskRequest extends BaseRequest {
+public class LicenseRequest extends BaseRequest {
     
-    @XmlElement(name = "task_id")
-    private String taskId;
-    @XmlElement(name = "task")
-    private Task task;
+    @XmlElement
+    private License license;
+    @XmlElement(name = "staff_id")
+    private String staffId;
 
-    public String getTaskId() {
-        return taskId;
+    public String getStaffId() {
+        return staffId;
     }
-    public Task getTask() {
-        return task;
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
     }
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+
+    public License getLicense() {
+        return license;
     }
-    public void setTask(Task task) {
-        this.task = task;
-    }    
+
+    public void setLicense(License license) {
+        this.license = license;
+    }
+
+
 }
-
