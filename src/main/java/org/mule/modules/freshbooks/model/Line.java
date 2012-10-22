@@ -44,16 +44,8 @@ public class Line {
         return id;
     }
     
-    public void setId(String id) {
-        this.id = id;
-    }
-    
     public BigDecimal getAmount() {
         return amount;
-    }
-    
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
     }
     
     public LineTypeEnum getType() {

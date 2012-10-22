@@ -37,8 +37,6 @@ public enum EntityType {
     
     TASK(Task.class, "Tasks", TaskRequest.class),
     
-    TASK(Task.class, "Tasks", TaskRequest.class),
-    
     TAX(Tax.class, "Taxes", TaxRequest.class);
     
     private Class<?> type;
