@@ -1060,22 +1060,16 @@ public class FreshbooksModule {
      * 
      * @param sourceToken source token value
      * @param accessTokenId accessTokenIdentifier
-     * @param accessToken provided by the app when the credentials are not stored yet
-     * @param accessTokenSecret provided by the app when the credentials are not stored yet
+     * @param credentials provided by the app when the credentials are not stored yet
      * @return current user information
      * @throws FreshbooksException.
      */
     @Processor
     public Staff getCurrentUserInformation(@Optional String sourceToken,
-            @Optional String accessTokenId, @Optional String accessToken, @Optional String accessTokenSecret)
+            @Optional String accessTokenId, @Optional OAuthCredentials credentials)
     {
-        OAuthCredentials credentials;
-        //When the credentials are not stored yet
-        if (StringUtils.isBlank(accessTokenId)) {
-            credentials = createCredentials(accessToken, accessTokenSecret);
-        }
-        else
-        {
+        //When the credentials are stored
+        if (StringUtils.isNotBlank(accessTokenId)) {
             credentials = getAccessTokenInformation(accessTokenId);
         }
         
@@ -1210,8 +1204,7 @@ public class FreshbooksModule {
             
             //if an userIdentifier is not provided call the current.user API
             if (StringUtils.isBlank(userIdentifier)) {
-                userIdentifier = getCurrentUserInformation(null, null, credentials.getAccessToken(), 
-                        credentials.getAccessTokenSecret()).getId();
+                userIdentifier = newSystem.getUsername();
             }
 
             getObjectStoreHelper().store(userIdentifier, credentials, true);                        
@@ -1261,7 +1254,7 @@ public class FreshbooksModule {
      * @param verifier OAuth verifier
      * @param requestTokenId id used for identifying the authorized request token
      * @param userIdentifier id used for store the accessToken in the Object Store. 
-     *      If it is not provided by the app the connector uses the userId from FreshBooks
+     *      If it is not provided by the app the connector uses the username from FreshBooks
      * @return credentials user credentials
      * @throws ObjectStoreException from the object store instance
      * @throws OAuthCommunicationException requesting to OAuth provider
@@ -1278,14 +1271,16 @@ public class FreshbooksModule {
         OAuthCredentials credentials = new DefaultFreshbooksOAuthClient(getConsumerKey(), getConsumerSecret(), 
                 getObjectStore()).getAccessToken(verifier, requestTokenId);
         
+        if (StringUtils.isNotBlank(apiUrl)) {
+            credentials.setApiUrl(apiUrl);
+        }
+
         //Stores user credentials
         if (StringUtils.isBlank(userIdentifier)) {
-            userIdentifier = getCurrentUserInformation(null, null, credentials.getAccessToken(), 
-                    credentials.getAccessTokenSecret()).getId();
+            userIdentifier = getCurrentUserInformation(null, null, credentials).getUsername();
         }
         
         credentials.setUserId(userIdentifier);
-        credentials.setApiUrl(apiUrl);
         getObjectStoreHelper().store(userIdentifier, credentials, true);
 
         return credentials;

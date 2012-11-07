@@ -395,7 +395,7 @@ public class FreshbooksModuleTest {
     @Test
     public void testGetCurrentUserInformation() {
         when(freshbooksClient.execute(credentials, SOURCE_TOKEN, EntityType.STAFF, "staff.current")).thenReturn(staff);
-        assertEquals(staff, module.getCurrentUserInformation(SOURCE_TOKEN, ACCESS_TOKEN_ID, null, null));
+        assertEquals(staff, module.getCurrentUserInformation(SOURCE_TOKEN, ACCESS_TOKEN_ID, null));
     }
     
     @Test
