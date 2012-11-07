@@ -1251,8 +1251,10 @@ public class FreshbooksModule {
      * {@sample.xml ../../../doc/mule-module-freshbooks.xml.sample freshbooks:get-access-token}
      * 
      * @param apiUrl API URL
-     * @param verifier OAuth verifier
-     * @param requestTokenId id used for identifying the authorized request token
+     * @param verifier OAuth verifier. It comes within the callback.
+     * The default value is "#[header:inbound:oauth_verifier]"
+     * @param requestTokenId id used for identifying the authorized request token. It comes within the callback.
+     * By default the query string parameter is userId
      * @param userIdentifier id used for store the accessToken in the Object Store. 
      *      If it is not provided by the app the connector uses the username from FreshBooks
      * @return credentials user credentials
@@ -1263,8 +1265,8 @@ public class FreshbooksModule {
      * @throws OAuthMessageSignerException requesting to OAuth provider
      */
     @Processor
-    public OAuthCredentials getAccessToken(@Optional String apiUrl, String verifier, String requestTokenId, 
-            @Optional String userIdentifier) 
+    public OAuthCredentials getAccessToken(@Optional String apiUrl, @Optional @Default("#[header:inbound:oauth_verifier]") String verifier, 
+            @Optional @Default("#[header:inbound:userId]") String requestTokenId, @Optional String userIdentifier)
                     throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
                     OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException
     {
