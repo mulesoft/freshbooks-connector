@@ -95,6 +95,9 @@ public class Response {
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Addons addons;
     
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private Session session;
+    
     /**
      * @return the status
      */
@@ -412,5 +415,11 @@ public class Response {
     }
     public void setAddons(Addons addons) {
         this.addons = addons;
+    }
+    public Session getSession() {
+        return session;
+    }
+    public void setSession(Session session) {
+        this.session = session;
     }
 }

@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Session {
     
-    @XmlElement(required = false)
+    @XmlElement(name = "url", namespace = "http://www.freshbooks.com/api/", required = false)
     private String url;
-    @XmlElement(required = false)
+    @XmlElement(name = "target", namespace = "http://www.freshbooks.com/api/", required = false)
     private String target;
 
     public String getUrl() {
