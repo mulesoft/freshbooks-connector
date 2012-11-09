@@ -1112,8 +1112,10 @@ public class FreshbooksModule {
     public License createLicense(@Optional String sourceToken, @Optional @Default("#[payload]") License license,
             @Optional String accessTokenId)
     {
-        return (License) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
-                sourceToken, EntityType.LICENSE, license, false);
+        String newLicenseId = (String) freshbooksClient.create(getAccessTokenInformation(accessTokenId), 
+                sourceToken, EntityType.LICENSE, license, true);
+        license.setId(newLicenseId);
+        return license;
     }
     
     /**
