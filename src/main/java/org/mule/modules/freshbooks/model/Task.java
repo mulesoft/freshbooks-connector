@@ -27,6 +27,8 @@ public class Task {
     private String billable;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String description;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String updated;
 
     public String getId() {
         return id;
@@ -57,6 +59,12 @@ public class Task {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String getUpdated() {
+        return updated;
+    }
+    public void setUpdated(String updated) {
+        this.updated = updated;
     }
 
 

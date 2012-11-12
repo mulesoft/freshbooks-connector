@@ -27,6 +27,8 @@ public class Tax {
     private String number;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String compound;
+    @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
+    private String updated;
 
     public String getName() {
         return name;
@@ -57,5 +59,11 @@ public class Tax {
     }
     public void setId(String id) {
         this.id = id;
+    }
+    public String getUpdated() {
+        return updated;
+    }
+    public void setUpdated(String updated) {
+        this.updated = updated;
     }
 }
