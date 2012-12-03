@@ -1,3 +1,10 @@
+2.0(not released yet)
+=====================
+- Support for multitenancy OAuth: authorize and getAccessToken methods.
+- New operations: Tasks CRUD, Licenses, Addons.  
+- Added new Studio demo
+- Added unit tests
+
 1.0
 ===
 
