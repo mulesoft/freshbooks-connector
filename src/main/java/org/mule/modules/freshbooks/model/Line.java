@@ -28,7 +28,7 @@ public class Line {
     @XmlElement(name = "unit_cost", namespace = "http://www.freshbooks.com/api/", required = false)
     private Double unitCost;
     @XmlElement(name="quantity", namespace = "http://www.freshbooks.com/api/", required = false)
-    private Integer quantity;
+    private BigDecimal quantity;
     @XmlElement(name = "tax1_name", namespace = "http://www.freshbooks.com/api/", required = false)
     private String tax1Name;
     @XmlElement(name = "tax2_name", namespace = "http://www.freshbooks.com/api/", required = false)
@@ -106,14 +106,14 @@ public class Line {
     /**
      * @return the quantity
      */
-    public Integer getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
     /**
      * @param quantity the quantity to set
      */
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 

@@ -11,6 +11,7 @@
  */
 package org.mule.modules.freshbooks;
 
+import java.math.BigDecimal;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mule.api.ConnectionException;
@@ -65,7 +66,7 @@ public class FreshbooksModuleTestDriver
         Invoice invoice = new Invoice();
         invoice.setClientId("10");
         Line line = new Line();
-        line.setQuantity(1);
+        line.setQuantity(new BigDecimal(1));
         line.setUnitCost(Double.valueOf(4));
         invoice.getLines().add(line);
         Invoice newInvoice = module.createInvoice(SOURCE_TOKEN, invoice, ACCESS_TOKEN_ID);
