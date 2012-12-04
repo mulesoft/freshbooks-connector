@@ -410,7 +410,7 @@ public class DefaultFreshbooksClient implements FreshbooksClient
                 throw new FreshbooksException(e.getMessage());
             }
             
-            hasMoreResults = results.getTotal() >= results.getPerPage(); 
+            hasMoreResults = results.getTotal() > (results.getPerPage() * pageNumber);
             
             listOfResults.addAll(results.getContents());
         }
