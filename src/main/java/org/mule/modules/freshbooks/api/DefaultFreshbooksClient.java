@@ -29,12 +29,14 @@ import oauth.signpost.signature.PlainTextMessageSigner;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import org.apache.http.protocol.HttpContext;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -75,6 +77,22 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         client = new DefaultHttpClient(mgr);
         this.client.getCredentialsProvider().setCredentials(new AuthScope(this.apiUrl.getHost(), 443, 
                 AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
+        
+        client.setHttpRequestRetryHandler(new HttpRequestRetryHandler() {
+            @Override
+            public boolean retryRequest(IOException exception, int executionCount, 
+                                        HttpContext context) {
+                if (executionCount > 3) {
+                   LOGGER.warn("Maximum tries reached for client http pool ");
+                        return false;
+                }
+                if (exception instanceof org.apache.http.NoHttpResponseException) {
+                    LOGGER.warn("No response from server on " + executionCount + " call");
+                    return true;
+                }
+                return false;
+              }
+           }); 
     }
     
     /**
@@ -99,6 +117,21 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         ClientConnectionManager mgr = new PoolingClientConnectionManager();
         
         client = new DefaultHttpClient(mgr);
+        client.setHttpRequestRetryHandler(new HttpRequestRetryHandler() {
+            @Override
+            public boolean retryRequest(IOException exception, int executionCount, 
+                                        HttpContext context) {
+                if (executionCount > 3) {
+                   LOGGER.warn("Maximum tries reached for client http pool ");
+                        return false;
+                }
+                if (exception instanceof org.apache.http.NoHttpResponseException) {
+                    LOGGER.warn("No response from server on " + executionCount + " call");
+                    return true;
+                }
+                return false;
+              }
+           }); 
     }
 
     private Response sendRequest(OAuthCredentials credentials, BaseRequest request) 
