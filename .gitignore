@@ -9,3 +9,4 @@ target
 bin
 build.log
 .DS_Store
+.idea
