@@ -24,7 +24,21 @@ public enum InvoiceStatusEnum {
         @XmlEnumValue("paid")
         PAID("paid"),
         @XmlEnumValue("viewed")
-        VIEWED("viewed");
+        VIEWED("viewed"),
+        @XmlEnumValue("disputed")
+        DISPUTED("disputed"),
+        @XmlEnumValue("partial")
+        PARTIAL("partial"),
+        @XmlEnumValue("pending")
+        PENDING("pending"),
+        @XmlEnumValue("auto-paid")
+        AUTOPAID("auto-paid"),
+        @XmlEnumValue("retry")
+        RETRY("retry"),
+        @XmlEnumValue("failed")
+        FAILED("failed"),
+        @XmlEnumValue("declined")
+        DECLINED("declined");
         
         private final String value;
 

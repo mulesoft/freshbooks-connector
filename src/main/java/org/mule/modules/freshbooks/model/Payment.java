@@ -37,6 +37,8 @@ public class Payment {
     private String notes;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String updated;
+    @XmlElement(name = "from_credit", namespace = "http://www.freshbooks.com/api/", required = false)
+    private Boolean fromCredit;
     
     public String getUpdated() {
         return updated;
@@ -104,5 +106,13 @@ public class Payment {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Boolean getFromCredit() {
+        return fromCredit;
+    }
+
+    public void setFromCredit(Boolean fromCredit) {
+        this.fromCredit = fromCredit;
     }
 }
