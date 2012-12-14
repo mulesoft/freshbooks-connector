@@ -32,7 +32,10 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
@@ -49,6 +52,7 @@ import org.mule.modules.freshbooks.model.Paged;
 import org.mule.modules.freshbooks.model.Response;
 import org.mule.modules.utils.pagination.PaginatedIterable;
 
+@SuppressWarnings("UnusedDeclaration")
 public class DefaultFreshbooksClient implements FreshbooksClient
 {
     private static final Logger LOGGER = Logger.getLogger(DefaultFreshbooksClient.class);
@@ -60,10 +64,13 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     
     /**
      * Constructor for Authentication Token mechanism
-     * @param apiUrl
-     * @param authenticationToken
+     * @param apiUrl url for API
+     * @param authenticationToken authentication token value
+     * @param maxTotalConnection max total connections for client
+     * @param defaultMaxConnectionPerRoute default max connection per route for client
      */
-    public DefaultFreshbooksClient(String apiUrl, String authenticationToken) 
+    public DefaultFreshbooksClient(String apiUrl, String authenticationToken, int maxTotalConnection,
+                                   int defaultMaxConnectionPerRoute)
     {
         Validate.notEmpty(apiUrl);
         Validate.notEmpty(authenticationToken);
@@ -72,9 +79,18 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         } catch (MalformedURLException e) {
             throw new FreshbooksException(e.getMessage());
         }
-        ClientConnectionManager mgr = new PoolingClientConnectionManager();
-     
-        client = new DefaultHttpClient(mgr);
+
+        SchemeRegistry schemeRegistry = new SchemeRegistry();
+        schemeRegistry.register(new Scheme("http", 80, PlainSocketFactory.getSocketFactory()));
+        schemeRegistry.register(new Scheme("https", 443, SSLSocketFactory.getSocketFactory()));
+
+        PoolingClientConnectionManager cm = new PoolingClientConnectionManager(schemeRegistry);
+        //max total connections
+        cm.setMaxTotal(maxTotalConnection);
+        //default max connection per route
+        cm.setDefaultMaxPerRoute(defaultMaxConnectionPerRoute);
+
+        client = new DefaultHttpClient(cm);
         this.client.getCredentialsProvider().setCredentials(new AuthScope(this.apiUrl.getHost(), 443, 
                 AuthScope.ANY_REALM), new UsernamePasswordCredentials(authenticationToken, ""));
         
@@ -97,11 +113,14 @@ public class DefaultFreshbooksClient implements FreshbooksClient
     
     /**
      * Constructor for OAuth1.0a mechanism
-     * @param apiUrl
-     * @param consumerKey
-     * @param consumerSecret
+     * @param apiUrl url for API
+     * @param consumerKey consumerKey value
+     * @param consumerSecret consumerSecret value
+     * @param maxTotalConnection max total connections for client
+     * @param defaultMaxConnectionPerRoute default max connection per route for client
      */
-    public DefaultFreshbooksClient(String apiUrl, String consumerKey, String consumerSecret) 
+    public DefaultFreshbooksClient(String apiUrl, String consumerKey, String consumerSecret, int maxTotalConnection,
+                                   int defaultMaxConnectionPerRoute)
     {
         Validate.notEmpty(apiUrl);
 
@@ -113,10 +132,18 @@ public class DefaultFreshbooksClient implements FreshbooksClient
         
         this.consumerKey = consumerKey;
         this.consumerSecret = consumerSecret;
+
+        SchemeRegistry schemeRegistry = new SchemeRegistry();
+        schemeRegistry.register(new Scheme("http", 80, PlainSocketFactory.getSocketFactory()));
+        schemeRegistry.register(new Scheme("https", 443, SSLSocketFactory.getSocketFactory()));
+
+        PoolingClientConnectionManager cm = new PoolingClientConnectionManager(schemeRegistry);
+        //max total connections
+        cm.setMaxTotal(maxTotalConnection);
+        //default max connection per route
+        cm.setDefaultMaxPerRoute(defaultMaxConnectionPerRoute);
         
-        ClientConnectionManager mgr = new PoolingClientConnectionManager();
-        
-        client = new DefaultHttpClient(mgr);
+        client = new DefaultHttpClient(cm);
         client.setHttpRequestRetryHandler(new HttpRequestRetryHandler() {
             @Override
             public boolean retryRequest(IOException exception, int executionCount, 
