@@ -122,6 +122,14 @@ public class FreshbooksModule {
     @Optional
     @Default("20")
     private int defaultMaxConnectionPerRoute;
+
+    /**
+     * Prefix used for storing credentials in ObjectStore. It will be concatenated to the access token identifier.
+     * <p>E.g. prefix: "fb_", user identifier: "12345", key for object store "fb_12345"</p>
+     */
+    @Configurable
+    @Optional
+    private String accessTokenIdentifierPrefix;
     
     /**
      * Object store helper
@@ -1275,6 +1283,12 @@ public class FreshbooksModule {
         }
         
         credentials.setUserId(userIdentifier);
+
+        //Use the prefix if it is defined in the config
+        if (StringUtils.isNotEmpty(getAccessTokenIdentifierPrefix())) {
+            userIdentifier = getAccessTokenIdentifierPrefix() + userIdentifier;
+        }
+
         getObjectStoreHelper().store(userIdentifier, credentials, true);
 
         return credentials;
@@ -1285,6 +1299,11 @@ public class FreshbooksModule {
      * @return OAuthCredentials AuthToken and AuthTokenSecret
      */
     private OAuthCredentials getAccessTokenInformation(String accessTokenIdentifier) {
+        //Check if there is a prefix in the config
+        if(StringUtils.isNotEmpty(getAccessTokenIdentifierPrefix())) {
+            accessTokenIdentifier = getAccessTokenIdentifierPrefix() + accessTokenIdentifier;
+        }
+
         try {
             return (OAuthCredentials) objectStoreHelper.retrieve(accessTokenIdentifier);
         } catch (ObjectDoesNotExistException e) {
@@ -1358,5 +1377,13 @@ public class FreshbooksModule {
 
     public void setDefaultMaxConnectionPerRoute(int defaultMaxConnectionPerRoute) {
         this.defaultMaxConnectionPerRoute = defaultMaxConnectionPerRoute;
+    }
+
+    public String getAccessTokenIdentifierPrefix() {
+        return accessTokenIdentifierPrefix;
+    }
+
+    public void setAccessTokenIdentifierPrefix(String accessTokenIdentifierPrefix) {
+        this.accessTokenIdentifierPrefix = accessTokenIdentifierPrefix;
     }
 }
