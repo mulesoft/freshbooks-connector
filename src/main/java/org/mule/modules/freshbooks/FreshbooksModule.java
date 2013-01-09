@@ -1207,6 +1207,11 @@ public class FreshbooksModule {
                 userIdentifier = newSystem.getUsername();
             }
 
+            //Use the prefix if it is defined in the config
+            if (StringUtils.isNotEmpty(getAccessTokenIdentifierPrefix())) {
+                userIdentifier = getAccessTokenIdentifierPrefix() + userIdentifier;
+            }
+
             getObjectStoreHelper().store(userIdentifier, credentials, true);                        
         }
         
