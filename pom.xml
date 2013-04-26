@@ -5,7 +5,7 @@
     <artifactId>mule-module-freshbooks</artifactId>
     <packaging>mule-module</packaging>
     <name>Mule Freshbooks Connector (Beta)</name>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <description>FreshBooks is an online invoicing software as a service for freelancers, small businesses, agencies, and professionals. It is produced by the software company 2ndSite Inc. which is located in Toronto, Ontario, Canada. The product includes a myriad of other related features, such as time tracking, expense tracking, recurring billing, online payment collection, the ability to mail invoices through the U.S. Post, and support tickets.</description>
     <url>http://www.muleforge.org/projects/mule-module-freshbooks</url>
 
