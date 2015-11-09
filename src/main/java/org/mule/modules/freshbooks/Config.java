@@ -101,12 +101,12 @@ public class Config {
      */
     @Connect
     @TestConnectivity(active = false)
-    public void connect(@ConnectionKey String apiUrl,  String authorizationToken,
-            int maxTotalConnection, int defaultMaxConnectionPerRoute) throws ConnectionException {
+    public void connect(@ConnectionKey String apiUrl, @ConnectionKey String consumerKey, @ConnectionKey String consumerSecret,
+            @Optional int maxTotalConnection, @Optional int defaultMaxConnectionPerRoute) throws ConnectionException {
 
         logger.debug("Establishing connection with FreshBooks...");
         
-        setClient(new DefaultFreshBooksClient(apiUrl, authorizationToken, maxTotalConnection,
+        setClient(new DefaultFreshBooksClient(apiUrl, consumerKey, consumerSecret, maxTotalConnection,
                 defaultMaxConnectionPerRoute));
         
         setObjectStoreHelper(new ObjectStoreHelper(objectStore));

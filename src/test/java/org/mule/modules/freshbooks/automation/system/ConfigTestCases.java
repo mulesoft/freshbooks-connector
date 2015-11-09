@@ -39,7 +39,7 @@ public class ConfigTestCases
     public static void init() throws ConnectionException
     {
         config = new Config();
-        config.connect(API_URL, ACCESS_TOKEN_ID, 1, 1);
+        config.connect(API_URL, CONSUMER_KEY, CONSUMER_KEY_SECRET, 1, 1);
         connector = new FreshBooksConnector();
         connector.setConfig(config);
     }
