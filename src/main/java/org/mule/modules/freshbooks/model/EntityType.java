@@ -9,7 +9,7 @@
 package org.mule.modules.freshbooks.model;
 
 import org.apache.commons.lang.StringUtils;
-import org.mule.modules.freshbooks.FreshbooksException;
+import org.mule.modules.freshbooks.exception.FreshBooksException;
 
 public enum EntityType {
     
@@ -75,7 +75,7 @@ public enum EntityType {
         try {
             return (BaseRequest) requestClazz.newInstance();
         } catch (Exception e) {
-            throw new FreshbooksException(e.getMessage());
+            throw new FreshBooksException(e.getMessage());
         }
     }
 }

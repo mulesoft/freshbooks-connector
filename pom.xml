@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>mule-module</packaging>
+    
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-freshbooks</artifactId>
-    <packaging>mule-module</packaging>
     <name>Mule Freshbooks Connector (Beta)</name>
-    <version>1.2-SNAPSHOT</version>
-    <description>FreshBooks is an online invoicing software as a service for freelancers, small businesses, agencies, and professionals. It is produced by the software company 2ndSite Inc. which is located in Toronto, Ontario, Canada. The product includes a myriad of other related features, such as time tracking, expense tracking, recurring billing, online payment collection, the ability to mail invoices through the U.S. Post, and support tickets.</description>
-    <url>http://www.muleforge.org/projects/mule-module-freshbooks</url>
+    <version>1.2.1-SNAPSHOT</version>
 
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.7.1</version>
     </parent>
     
     <properties>
-        <category>Standard</category>
+        <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
     </properties>
@@ -42,26 +41,32 @@
             <artifactId>httpcore</artifactId>
             <version>4.2.1</version>
         </dependency>
-            <dependency>
+        <dependency>
             <groupId>com.mulesoft.modules</groupId>
             <artifactId>mule-modules-utils</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-modules-utils</artifactId>
-            <version>1.0</version>
+            <version>1.1.3</version>
         </dependency>
         <dependency>
             <groupId>com.zaubersoftware</groupId>
             <artifactId>commons-mom</artifactId>
             <version>2.0.3</version>
         </dependency>
-        
-        <!-- for testing -->
         <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Hamcrest -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
             <version>1.3</version>
             <scope>test</scope>
         </dependency>
@@ -69,18 +74,26 @@
 
     <repositories>
         <repository>
-            <id>muleforge-releases</id>
-            <name>MuleForge Releases Repository</name>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Releases Repository</name>
             <url>http://repository.mulesoft.org/releases/</url>
             <layout>default</layout>
         </repository>
-        <repository>
-            <id>muleforge-snapshots</id>
-            <name>MuleForge Snapshots Repository</name>
-            <url>http://repository.mulesoft.org/snapshots/</url>
-            <layout>default</layout>
-        </repository>
     </repositories>
+    
+    <distributionManagement>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Repository</name>
+            <url>http://repository-master.mulesoft.org/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>mulesoft-snapshots</id>
+            <name>MuleSoft Snapshot Repository</name>
+            <url>http://repository-master.mulesoft.org/snapshots/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 
 	<scm>
 	    <connection>scm:git:git://github.com:mulesoft/freshbooks-connector.git</connection>
