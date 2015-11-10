@@ -63,8 +63,6 @@ public class DefaultFreshBooksClient implements FreshBooksClient
     private String consumerSecret;
     
     
-    
-    
     public DefaultHttpClient getClient() {
         return client;
     }
@@ -187,29 +185,14 @@ public class DefaultFreshBooksClient implements FreshBooksClient
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(this.consumerKey,
                 this.consumerSecret);
         consumer.setMessageSigner(new PlainTextMessageSigner());
-        
         consumer.setTokenWithSecret(credentials.getAccessToken(), credentials.getAccessTokenSecret());
         consumer.setSigningStrategy(new AuthorizationHeaderSigningStrategy());
 
-      
-        StringBuilder messageStringBuilder = new StringBuilder();
-        messageStringBuilder.append("Signing OAuth request ");
-        messageStringBuilder.append("[accessToken = ");
-        messageStringBuilder.append(consumer.getToken());
-        messageStringBuilder.append("] ");
-        messageStringBuilder.append("[accessTokenSecret = ");
-        messageStringBuilder.append(consumer.getTokenSecret());
-        messageStringBuilder.append("] ");
+        String oAuthRequest = String.format("Signing OAuth request [accessToken = %s] [accessTokenSecret = %s] ", consumer.getToken(), consumer.getTokenSecret());
+        logger.debug(oAuthRequest);
         
-        logger.debug(messageStringBuilder.toString());
-        
-        messageStringBuilder = new StringBuilder();
-        messageStringBuilder.append("API parameters ");
-        messageStringBuilder.append("[apiURL = ");
-        messageStringBuilder.append(apiUrlBase);
-        messageStringBuilder.append("] ");
-        
-        logger.debug(messageStringBuilder.toString());    
+        String apiUrl = String.format("API parameters [apiURL = %s]", apiUrlBase);
+        logger.debug(apiUrl);    
 
         Response response;
         HttpUriRequest uriRequest = new HttpPost(apiUrlBase.toString());
@@ -434,15 +417,9 @@ public class DefaultFreshBooksClient implements FreshBooksClient
 
             try {
                 results = (Paged<T>) response.getClass().getMethod("get" + type.getNameForLists()).invoke(response);
-            } catch (IllegalArgumentException e) {
-                throw new FreshBooksException(e.getMessage());
-            } catch (SecurityException e) {
-                throw new FreshBooksException(e.getMessage());
-            } catch (IllegalAccessException e) {
-                throw new FreshBooksException(e.getMessage());
-            } catch (InvocationTargetException e) {
-                throw new FreshBooksException(e.getMessage());
-            } catch (NoSuchMethodException e) {
+            } catch (IllegalArgumentException|SecurityException
+            		|FreshBooksException|IllegalAccessException
+            		|InvocationTargetException|NoSuchMethodException e) {
                 throw new FreshBooksException(e.getMessage());
             }
             

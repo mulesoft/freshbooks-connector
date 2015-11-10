@@ -24,7 +24,6 @@ import org.mule.modules.freshbooks.model.Client;
 import org.mule.modules.freshbooks.model.Invoice;
 import org.mule.modules.freshbooks.model.Line;
 
-
 public class ConfigTestCases
 {
     private static FreshBooksConnector connector;
@@ -39,7 +38,7 @@ public class ConfigTestCases
     public static void init() throws ConnectionException
     {
         config = new Config();
-        config.connect(API_URL, CONSUMER_KEY, CONSUMER_KEY_SECRET, 1, 1);
+        config.connect(API_URL, CONSUMER_KEY, CONSUMER_KEY_SECRET);
         connector = new FreshBooksConnector();
         connector.setConfig(config);
     }

@@ -13,13 +13,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.mule.modules.freshbooks.FreshBooksConnector;
-import org.mule.modules.freshbooks.automation.functional.GetInvoiceTestCases;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 
 @RunWith(Suite.class)
 @SuiteClasses({
     // TODO one test per @Processor
-    GetInvoiceTestCases.class
  })
 public class FunctionalTestSuite {
 

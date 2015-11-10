@@ -28,6 +28,22 @@ public class Config {
     private static final Logger logger = LoggerFactory.getLogger(Config.class);
     
     private DefaultFreshBooksClient client;
+    
+    /**
+     * Maximum number of total connections
+     */
+    @Configurable
+    @Optional
+    @Default("100")
+    private int maxTotalConnection;
+    
+    /**
+     * Default max number of connections per route
+     */
+    @Configurable
+    @Optional
+    @Default("20")
+    private int defaultMaxConnectionPerRoute;
 
     /**
      * Prefix used for storing credentials in ObjectStore. It will be concatenated to the access token identifier.
@@ -71,6 +87,30 @@ public class Config {
         this.client = client;
     }
 
+    public int getMaxTotalConnection() {
+		return maxTotalConnection;
+	}
+
+	public void setMaxTotalConnection(int maxTotalConnection) {
+		this.maxTotalConnection = maxTotalConnection;
+	}
+
+	public int getDefaultMaxConnectionPerRoute() {
+		return defaultMaxConnectionPerRoute;
+	}
+
+	public void setDefaultMaxConnectionPerRoute(int defaultMaxConnectionPerRoute) {
+		this.defaultMaxConnectionPerRoute = defaultMaxConnectionPerRoute;
+	}
+
+	public String getAccessTokenIdentifierPrefix() {
+        return accessTokenIdentifierPrefix;
+    }
+
+    public void setAccessTokenIdentifierPrefix(String accessTokenIdentifierPrefix) {
+        this.accessTokenIdentifierPrefix = accessTokenIdentifierPrefix;
+    }
+    
     public ObjectStore getObjectStore() {
         return objectStore;
     }
@@ -86,14 +126,6 @@ public class Config {
     public void setObjectStoreHelper(ObjectStoreHelper objectStoreHelper) {
         this.objectStoreHelper = objectStoreHelper;
     }
-
-    public String getAccessTokenIdentifierPrefix() {
-        return accessTokenIdentifierPrefix;
-    }
-
-    public void setAccessTokenIdentifierPrefix(String accessTokenIdentifierPrefix) {
-        this.accessTokenIdentifierPrefix = accessTokenIdentifierPrefix;
-    }
     
     /**
      * Connect to a FreshBooks client
@@ -101,17 +133,11 @@ public class Config {
      */
     @Connect
     @TestConnectivity(active = false)
-    public void connect(@ConnectionKey String apiUrl, @ConnectionKey String consumerKey, @ConnectionKey String consumerSecret,
-            @Optional int maxTotalConnection, @Optional int defaultMaxConnectionPerRoute) throws ConnectionException {
-
+    public void connect(@ConnectionKey String apiUrl, @ConnectionKey String consumerKey, @ConnectionKey String consumerSecret) throws ConnectionException {
         logger.debug("Establishing connection with FreshBooks...");
-        
         setClient(new DefaultFreshBooksClient(apiUrl, consumerKey, consumerSecret, maxTotalConnection,
                 defaultMaxConnectionPerRoute));
-        
         setObjectStoreHelper(new ObjectStoreHelper(objectStore));
-        
-        
         logger.debug("Session created");
     }
 
