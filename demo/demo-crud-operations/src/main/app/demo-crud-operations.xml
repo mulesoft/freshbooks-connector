@@ -10,8 +10,7 @@ http://www.mulesoft.org/schema/mule/debugger http://www.mulesoft.org/schema/mule
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd">
     <context:property-placeholder location="freshbooks.properties"/>
-    <freshbooks:config name="Freshbooks" apiUrl="${config.apiUrl}" authenticationToken="${config.authToken}" 
-        consumerKey="${config.consumerKey}" consumerSecret="${config.consumerSecret}" doc:name="FreshBooks"/>
+    <freshbooks:config name="Freshbooks" apiUrl="${config.apiUrl}" consumerKey="${config.consumerKey}" consumerSecret="${config.consumerSecret}" doc:name="FreshBooks"/>
     <data-mapper:config name="category" transformationGraphPath="category.grf" doc:name="DataMapper"/>
     <data-mapper:config name="Client" transformationGraphPath="client.grf" doc:name="DataMapper"/>
     <data-mapper:config name="invoice" transformationGraphPath="invoice.grf" doc:name="DataMapper"/>

@@ -2,4 +2,5 @@
 <mule-project xmlns="http://www.mulesoft.com/tooling/project" runtimeId="org.mule.tooling.server.3.7.0" schemaVersion="3.5.0.0">
     <name>demo-operations</name>
     <description></description>
+    <muleExtension name="FreshBooks" qualifier="org.mule.tooling.ui.contribution.freshbooks.3.6.0"/>
 </mule-project>

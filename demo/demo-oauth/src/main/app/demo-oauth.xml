@@ -7,8 +7,8 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder location="freshbooks.properties"/>
-    <freshbooks:config name="FreshBooks" apiUrl="${config.apiUrl}" consumerKey="${config.consumerKey}" 
-        consumerSecret="${config.consumerSecret}" objectStore-ref="objectStore" doc:name="FreshBooks" />
+    <freshbooks:config name="FreshBooks" apiUrl="${config.apiUrl}" consumerKey="${config.consumerKey}" consumerSecret="${config.consumerSecret}" 
+        objectStore-ref="objectStore" doc:name="FreshBooks" />
     <spring:beans>
         <spring:bean id="objectStore" class="org.mule.modules.freshbooks.api.FreshBooksObjectStore"/>
     </spring:beans>
