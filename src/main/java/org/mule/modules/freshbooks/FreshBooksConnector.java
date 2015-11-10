@@ -24,6 +24,7 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.OutboundHeaders;
+import org.mule.api.annotations.param.RefOnly;
 import org.mule.api.store.ObjectDoesNotExistException;
 import org.mule.api.store.ObjectStoreException;
 import org.mule.modules.freshbooks.api.DefaultFreshBooksClient;
@@ -153,7 +154,7 @@ public class FreshBooksConnector {
      * @return callback id
      */
     @Processor
-    public Callback createCallback(@Optional String sourceToken, @Default("#[payload]") Callback callback, 
+    public Callback createCallback(@Optional String sourceToken, @Default("#[payload]") @RefOnly Callback callback, 
             @Optional String accessTokenId)
     {
         String newCallbackId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId), sourceToken,
@@ -175,7 +176,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<Callback> listCallbacks(@Optional String sourceToken, 
-            @Default("#[payload]") CallbackRequest callbackRequest,
+            @Default("#[payload]") @RefOnly CallbackRequest callbackRequest,
             @Optional String accessTokenId)
     {
         return config.getClient().list(getAccessTokenInformation(accessTokenId),
@@ -193,7 +194,7 @@ public class FreshBooksConnector {
      *
      */
     @Processor
-    public void deleteCallback(@Optional String sourceToken, @Default("#[payload]") Callback callback,
+    public void deleteCallback(@Optional String sourceToken, @Default("#[payload]") @RefOnly Callback callback,
             @Optional String accessTokenId)
     {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
@@ -212,7 +213,7 @@ public class FreshBooksConnector {
      * @return verified callback 
      */
     @Processor
-    public Callback verifyCallback(@Optional String sourceToken, @Default("#[payload]") Callback callback,
+    public Callback verifyCallback(@Optional String sourceToken, @Default("#[payload]") @RefOnly Callback callback,
             @Optional String accessTokenId)
     {
         config.getClient().verify(getAccessTokenInformation(accessTokenId),
@@ -232,7 +233,7 @@ public class FreshBooksConnector {
      * @return The created category
      */
     @Processor
-    public Category createCategory(@Optional String sourceToken, @Default("#[payload]") Category category,
+    public Category createCategory(@Optional String sourceToken, @Default("#[payload]") @RefOnly Category category,
             @Optional String accessTokenId) {
         String newCategoryId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId),
                 sourceToken, EntityType.CATEGORY, category, true);
@@ -253,7 +254,7 @@ public class FreshBooksConnector {
      * 
      */
     @Processor
-    public Category updateCategory(@Optional String sourceToken, @Default("#[payload]") Category category,
+    public Category updateCategory(@Optional String sourceToken, @Default("#[payload]") @RefOnly Category category,
             @Optional String accessTokenId) {
         config.getClient().update(getAccessTokenInformation(accessTokenId),
                 sourceToken, EntityType.CATEGORY, category, true);
@@ -289,7 +290,7 @@ public class FreshBooksConnector {
      * @param category to be deleted
      */
     @Processor
-    public void deleteCategory(@Optional String sourceToken, @Default("#[payload]") Category category,
+    public void deleteCategory(@Optional String sourceToken, @Default("#[payload]") @RefOnly Category category,
             @Optional String accessTokenId) {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
                 sourceToken, EntityType.CATEGORY, category.getId());
@@ -309,7 +310,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<Category> listCategories(@Optional String sourceToken, 
-            @Default("#[payload]") CategoryRequest categoryRequest,
+            @Default("#[payload]") @RefOnly CategoryRequest categoryRequest,
             @Optional String accessTokenId) {
         return config.getClient().list(getAccessTokenInformation(accessTokenId),
                 sourceToken, EntityType.CATEGORY, categoryRequest);
@@ -329,7 +330,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Client createClient(@Optional String sourceToken, 
-            @Default("#[payload]") Client client,
+            @Default("#[payload]") @RefOnly Client client,
             @Optional String accessTokenId) {
         String newClientId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId),
                 sourceToken, EntityType.CLIENT, client, true);
@@ -350,7 +351,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor
-    public Client updateClient(@Optional String sourceToken, @Default("#[payload]") Client client,
+    public Client updateClient(@Optional String sourceToken, @Default("#[payload]") @RefOnly Client client,
             @Optional String accessTokenId) {
         config.getClient().update(getAccessTokenInformation(accessTokenId),
                 sourceToken, EntityType.CLIENT, client, true);
@@ -388,7 +389,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor
-    public void deleteClient(@Optional String sourceToken, @Default("#[payload]") Client client,
+    public void deleteClient(@Optional String sourceToken, @Default("#[payload]") @RefOnly Client client,
             @Optional String accessTokenId) 
     {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
@@ -408,7 +409,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor
-    public String undeleteClient(@Optional String sourceToken, @Default("#[payload]") Client client,
+    public String undeleteClient(@Optional String sourceToken, @Default("#[payload]") @RefOnly Client client,
             @Optional String accessTokenId) 
     {
         config.getClient().undelete(getAccessTokenInformation(accessTokenId),
@@ -430,7 +431,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<Client> listClients(@Optional String sourceToken, 
-            @Default("#[payload]") ClientRequest clientRequest,
+            @Default("#[payload]") @RefOnly ClientRequest clientRequest,
             @Optional String accessTokenId) 
     {
         return config.getClient().list(getAccessTokenInformation(accessTokenId),
@@ -457,7 +458,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor
-    public Invoice createInvoice(@Optional String sourceToken, @Default("#[payload]") Invoice invoice,
+    public Invoice createInvoice(@Optional String sourceToken, @Default("#[payload]") @RefOnly Invoice invoice,
             @Optional String accessTokenId)
     {
         String newInvoiceId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId),
@@ -482,7 +483,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor 
-    public Invoice updateInvoice(@Optional String sourceToken, @Default("#[payload]") Invoice invoice,
+    public Invoice updateInvoice(@Optional String sourceToken, @Default("#[payload]") @RefOnly Invoice invoice,
             @Optional String accessTokenId)
     {
         config.getClient().update(getAccessTokenInformation(accessTokenId),
@@ -522,7 +523,7 @@ public class FreshBooksConnector {
      * 
      */
     @Processor
-    public void deleteInvoice(@Optional String sourceToken, @Default("#[payload]") Invoice invoice,
+    public void deleteInvoice(@Optional String sourceToken, @Default("#[payload]") @RefOnly Invoice invoice,
             @Optional String accessTokenId)
     {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
@@ -541,7 +542,7 @@ public class FreshBooksConnector {
      * @return The undeleted invoice id
      */
     @Processor
-    public String undeleteInvoice(@Optional String sourceToken, @Default("#[payload]") Invoice invoice,
+    public String undeleteInvoice(@Optional String sourceToken, @Default("#[payload]") @RefOnly Invoice invoice,
             @Optional String accessTokenId)
     {
         config.getClient().undelete(getAccessTokenInformation(accessTokenId),
@@ -562,7 +563,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<Invoice> listInvoices(@Optional String sourceToken, 
-            @Default("#[payload]") InvoiceRequest invoiceRequest,
+            @Default("#[payload]") @RefOnly InvoiceRequest invoiceRequest,
             @Optional String accessTokenId)
     {
         return config.getClient().list(getAccessTokenInformation(accessTokenId),
@@ -582,7 +583,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor
-    public Item createItem(@Optional String sourceToken, @Default("#[payload]") Item item,
+    public Item createItem(@Optional String sourceToken, @Default("#[payload]") @RefOnly Item item,
             @Optional String accessTokenId)
     {
         String newItemId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId),
@@ -605,7 +606,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor 
-    public Item updateItem(@Optional String sourceToken, @Default("#[payload]") Item item,
+    public Item updateItem(@Optional String sourceToken, @Default("#[payload]") @RefOnly Item item,
             @Optional String accessTokenId)
     {
         config.getClient().update(getAccessTokenInformation(accessTokenId),
@@ -643,7 +644,7 @@ public class FreshBooksConnector {
      * 
      */
     @Processor
-    public void deleteItem(@Optional String sourceToken, @Default("#[payload]") Item item,
+    public void deleteItem(@Optional String sourceToken, @Default("#[payload]") @RefOnly Item item,
             @Optional String accessTokenId)
     {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
@@ -663,7 +664,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<Item> listItems(@Optional String sourceToken, 
-            @Default("#[payload]") ItemRequest itemRequest,
+            @Default("#[payload]") @RefOnly ItemRequest itemRequest,
             @Optional String accessTokenId)
     {
         return config.getClient().list(getAccessTokenInformation(accessTokenId),
@@ -684,7 +685,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor
-    public Tax createTax(@Optional String sourceToken, @Default("#[payload]") Tax tax,
+    public Tax createTax(@Optional String sourceToken, @Default("#[payload]") @RefOnly Tax tax,
             @Optional String accessTokenId)
     {
         String newTaxId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId),
@@ -707,7 +708,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor 
-    public Tax updateTax(@Optional String sourceToken, @Default("#[payload]") Tax tax,
+    public Tax updateTax(@Optional String sourceToken, @Default("#[payload]") @RefOnly Tax tax,
             @Optional String accessTokenId)
     {
         config.getClient().update(getAccessTokenInformation(accessTokenId),
@@ -745,7 +746,7 @@ public class FreshBooksConnector {
      * 
      */
     @Processor
-    public void deleteTax(@Optional String sourceToken, @Default("#[payload]") Tax tax,
+    public void deleteTax(@Optional String sourceToken, @Default("#[payload]") @RefOnly Tax tax,
             @Optional String accessTokenId)
     {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
@@ -766,7 +767,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<Tax> listTaxes(@Optional String sourceToken, 
-            @Default("#[payload]") TaxRequest taxRequest,
+            @Default("#[payload]") @RefOnly TaxRequest taxRequest,
             @Optional String accessTokenId)
     {
         return config.getClient().list(getAccessTokenInformation(accessTokenId),
@@ -786,7 +787,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor
-    public Task createTask(@Optional String sourceToken, @Default("#[payload]") Task task,
+    public Task createTask(@Optional String sourceToken, @Default("#[payload]") @RefOnly Task task,
             @Optional String accessTokenId)
     {
         String newPaymentId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId),
@@ -808,7 +809,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor 
-    public Task updateTask(@Optional String sourceToken, @Default("#[payload]") Task task,
+    public Task updateTask(@Optional String sourceToken, @Default("#[payload]") @RefOnly Task task,
             @Optional String accessTokenId)
     {
         config.getClient().update(getAccessTokenInformation(accessTokenId),
@@ -846,7 +847,7 @@ public class FreshBooksConnector {
      * 
      */
     @Processor
-    public void deleteTask(@Optional String sourceToken, @Default("#[payload]") Task task,
+    public void deleteTask(@Optional String sourceToken, @Default("#[payload]") @RefOnly Task task,
             @Optional String accessTokenId)
     {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
@@ -865,7 +866,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<Task> listTasks(@Optional String sourceToken, 
-            @Default("#[payload]") TaskRequest taskRequest,
+            @Default("#[payload]") @RefOnly TaskRequest taskRequest,
             @Optional String accessTokenId)
     {
         return config.getClient().list(getAccessTokenInformation(accessTokenId),
@@ -892,7 +893,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor
-    public Payment createPayment(@Optional String sourceToken, @Default("#[payload]") Payment payment,
+    public Payment createPayment(@Optional String sourceToken, @Default("#[payload]") @RefOnly Payment payment,
             @Optional String accessTokenId)
     {
         String newPaymentId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId),
@@ -917,7 +918,7 @@ public class FreshBooksConnector {
      * @throws FreshBooksException
      */
     @Processor 
-    public Payment updatePayment(@Optional String sourceToken, @Default("#[payload]") Payment payment,
+    public Payment updatePayment(@Optional String sourceToken, @Default("#[payload]") @RefOnly Payment payment,
             @Optional String accessTokenId)
     {
         config.getClient().update(getAccessTokenInformation(accessTokenId),
@@ -955,7 +956,7 @@ public class FreshBooksConnector {
      * 
      */
     @Processor
-    public void deletePayment(@Optional String sourceToken, @Default("#[payload]") Payment payment,
+    public void deletePayment(@Optional String sourceToken, @Default("#[payload]") @RefOnly Payment payment,
             @Optional String accessTokenId)
     {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
@@ -975,7 +976,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<Payment> listPayments(@Optional String sourceToken, 
-            @Default("#[payload]") PaymentRequest paymentRequest,
+            @Default("#[payload]") @RefOnly PaymentRequest paymentRequest,
             @Optional String accessTokenId)
     {
         return config.getClient().list(getAccessTokenInformation(accessTokenId),
@@ -1016,7 +1017,7 @@ public class FreshBooksConnector {
      * @return created session information
      */
     @Processor
-    public Session createSession(@Optional String sourceToken, @Default("#[payload]") Session session,
+    public Session createSession(@Optional String sourceToken, @Default("#[payload]") @RefOnly Session session,
             @Optional String accessTokenId)
     {
         return (Session) config.getClient().create(getAccessTokenInformation(accessTokenId),
@@ -1035,7 +1036,7 @@ public class FreshBooksConnector {
      * @return created license information
      */
     @Processor
-    public License createLicense(@Optional String sourceToken, @Default("#[payload]") License license,
+    public License createLicense(@Optional String sourceToken, @Default("#[payload]") @RefOnly License license,
             @Optional String accessTokenId)
     {
         String newLicenseId = (String) config.getClient().create(getAccessTokenInformation(accessTokenId),
@@ -1057,7 +1058,7 @@ public class FreshBooksConnector {
      */
     @Processor
     public Iterable<License> listLicenses(@Optional String sourceToken, 
-            @Default("#[payload]") LicenseRequest licenseRequest,
+            @Default("#[payload]") @RefOnly LicenseRequest licenseRequest,
             @Optional String accessTokenId)
     {
         return ((Licenses) config.getClient().getListObject(getAccessTokenInformation(accessTokenId),
@@ -1075,7 +1076,7 @@ public class FreshBooksConnector {
      * 
      */
     @Processor
-    public void deleteLicense(@Optional String sourceToken, @Default("#[payload]") License license,
+    public void deleteLicense(@Optional String sourceToken, @Default("#[payload]") @RefOnly License license,
             @Optional String accessTokenId)
     {
         config.getClient().delete(getAccessTokenInformation(accessTokenId),
@@ -1113,7 +1114,7 @@ public class FreshBooksConnector {
      * @throws ObjectStoreException in case of failure storing the accessToken information
      */
     @Processor
-    public System createSystemUser(@Optional String sourceToken, @Default("#[payload]") System systemUser, 
+    public System createSystemUser(@Optional String sourceToken, @Default("#[payload]") @RefOnly System systemUser, 
             @Optional String userIdentifier) throws ObjectStoreException
     {
         System newSystem = (System) config.getClient().create(createCredentials("", ""),

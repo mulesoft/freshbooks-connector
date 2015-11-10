@@ -1,0 +1,47 @@
+= FreshBooks Connector Release Notes
+:keywords: release notes, freshbooks, connector
+
+*Community*
+
+Anypoint Connector for FreshBooks enables data synchronization and business processes automation between FreshBooks and third party applications, either on premise or in the cloud.
+
+Guide: link:/mule-user-guide/v/3.7/freshbooks-connector[FreshBooks Connector]
+
+=== Version 1.2.1 (Beta) - November 10, 2015
+
+=== Contents
+
+. Compatibility
+. Features
+. Fixed in this Release
+. Known Issues
+. Support Resources 
+
+Release Notes for version 1.2.1 of the FreshBooks Connector. These Release Notes accompany the link:/mule-user-guide/v/3.7/freshbooks-connector[FreshBooks Connector Documentation Guide].
+ 
+=== Compatibility
+The FreshBooks Connector is compatible with:
+
+|===
+|Application/Service|Version
+|Mule Runtime|3.6.x or higher
+|FreshBooks API |2.1
+|Java|1.7.0_x
+|Anypoint Studio|5.2 or higher
+|===
+
+=== Features
+
+None.
+
+=== Fixed in this Release
+
+None.
+
+=== Known Issues
+
+None.
+
+=== Support Resources
+
+None.

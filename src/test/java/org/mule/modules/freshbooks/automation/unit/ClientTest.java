@@ -42,11 +42,11 @@ public class ClientTest extends RequestAndResponseUtil {
         client.setHomePhone("(555) 234-5678");
         client.setLanguage("en");
         client.setCurrencyCode("USD");
-        client.setP_street1("123 Fake St.");
-        client.setP_street2("Unit 555");
-        client.setP_city("New York");
+        client.setStreet1("123 Fake St.");
+        client.setStreet2("Unit 555");
+        client.setCity("New York");
         client.setState("New York");
-        client.setP_country("United States");
+        client.setCountry("United States");
         client.setCode("553132");
         
         request = new ClientRequest();

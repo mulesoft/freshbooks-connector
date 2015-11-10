@@ -30,15 +30,15 @@ public abstract class BaseRole {
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String organization;
     @XmlElement(name = "p_street1", namespace = "http://www.freshbooks.com/api/", required = false)
-    private String p_street1;
+    private String street1;
     @XmlElement(name = "p_street2", namespace = "http://www.freshbooks.com/api/", required = false)
-    private String p_street2;
+    private String street2;
     @XmlElement(name = "p_city", namespace = "http://www.freshbooks.com/api/", required = false)
-    private String p_city;
+    private String city;
     @XmlElement(name = "p_state", namespace = "http://www.freshbooks.com/api/", required = false)
     private String state;
     @XmlElement(name = "p_country", namespace = "http://www.freshbooks.com/api/", required = false)
-    private String p_country;
+    private String country;
     @XmlElement(name = "p_code", namespace = "http://www.freshbooks.com/api/", required = false)
     private String code;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
@@ -75,33 +75,33 @@ public abstract class BaseRole {
         this.organization = organization;
     }
     
-    public String getP_street1() {
-        return p_street1;
+    public String getStreet1() {
+        return street1;
     }
 
     
-    public void setP_street1(String p_street1) {
-        this.p_street1 = p_street1;
+    public void setStreet1(String street1) {
+        this.street1 = street2;
     }
 
     
-    public String getP_street2() {
-        return p_street2;
+    public String getStreet2() {
+        return street2;
     }
 
     
-    public void setP_street2(String p_street2) {
-        this.p_street2 = p_street2;
+    public void setStreet2(String street2) {
+        this.street2 = street2;
     }
 
     
-    public String getP_city() {
-        return p_city;
+    public String getCity() {
+        return city;
     }
 
     
-    public void setP_city(String p_city) {
-        this.p_city = p_city;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getState() {
@@ -112,12 +112,12 @@ public abstract class BaseRole {
         this.state = state;
     }
 
-    public String getP_country() {
-        return p_country;
+    public String getCountry() {
+        return country;
     }
 
-    public void setP_country(String p_country) {
-        this.p_country = p_country;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getCode() {
