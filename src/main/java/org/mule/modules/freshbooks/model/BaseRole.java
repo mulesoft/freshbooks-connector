@@ -81,7 +81,7 @@ public abstract class BaseRole {
 
     
     public void setStreet1(String street1) {
-        this.street1 = street2;
+        this.street1 = street1;
     }
 
     

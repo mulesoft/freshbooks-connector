@@ -20,14 +20,15 @@ import oauth.signpost.signature.PlainTextMessageSigner;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
 import org.mule.api.store.ObjectStore;
 import org.mule.api.store.ObjectStoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("rawtypes") 
 public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
 {
-    private static final Logger LOGGER = Logger.getLogger(DefaultFreshBooksOAuthClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultFreshBooksOAuthClient.class);
 
     private String requestToken;
     private String requestTokenSecret;
@@ -68,7 +69,7 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
 
         callbackUrl = callbackUrl.concat("?userId=" + requestTokenId);
 
-        if (LOGGER.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             StringBuilder messageStringBuilder = new StringBuilder();
             messageStringBuilder.append("Retrieving OAuth requestToken ");
             messageStringBuilder.append("[consumerKey = ");
@@ -80,12 +81,12 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
             messageStringBuilder.append("[callbackUrl = ");
             messageStringBuilder.append(callbackUrl);
             messageStringBuilder.append("] ");
-            LOGGER.debug(messageStringBuilder.toString());
+            logger.debug(messageStringBuilder.toString());
         }
 
         String authTokenUrl = provider.retrieveRequestToken(consumer, callbackUrl);
         
-        if (LOGGER.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             StringBuilder messageStringBuilder = new StringBuilder();
             messageStringBuilder.append("Request Token INFO ");
             messageStringBuilder.append("[authTokenUrl = ");
@@ -97,7 +98,7 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
             messageStringBuilder.append("[requestTokenSecret = ");
             messageStringBuilder.append(consumer.getTokenSecret());
             messageStringBuilder.append("] ");
-            LOGGER.debug(messageStringBuilder.toString());
+            logger.debug(messageStringBuilder.toString());
         }
 
         setRequestToken(consumer.getToken());
@@ -108,7 +109,7 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
                 new OAuthCredentials(consumer.getToken(), consumer.getTokenSecret(), requestTokenUrl, 
                         accessTokenUrl, authorizationUrl), true);
 
-        LOGGER.debug("Request Token stored");
+        logger.debug("Request Token stored");
         return authTokenUrl;
     }
 
@@ -121,18 +122,18 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
             throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
             OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException {
         
-        if (LOGGER.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             StringBuilder messageStringBuilder = new StringBuilder();
             messageStringBuilder.append("Trying to retrieve request token information ");
             messageStringBuilder.append("[requestTokenId = ");
             messageStringBuilder.append(requestTokenId);
             messageStringBuilder.append("] ");
-            LOGGER.debug(messageStringBuilder.toString());
+            logger.debug(messageStringBuilder.toString());
         }
         
         //Retrieves requestToken and requestTokenSecret
         OAuthCredentials credentials = (OAuthCredentials) objectStoreHelper.retrieve(requestTokenId);
-        if (LOGGER.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             StringBuilder messageStringBuilder = new StringBuilder();
             messageStringBuilder.append("Retrieved request token INFO ");
             messageStringBuilder.append("[requestToken = ");
@@ -141,7 +142,7 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
             messageStringBuilder.append("[requestTokenSecret = ");
             messageStringBuilder.append(credentials.getAccessTokenSecret());
             messageStringBuilder.append("] ");
-            LOGGER.debug(messageStringBuilder.toString());
+            logger.debug(messageStringBuilder.toString());
         }
         
         OAuthConsumer consumer = new DefaultOAuthConsumer(getConsumerKey(), getConsumerSecret());
@@ -153,13 +154,13 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
 
         consumer.setTokenWithSecret(credentials.getAccessToken(), credentials.getAccessTokenSecret());
         provider.retrieveAccessToken(consumer, verifier);
-        if (LOGGER.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             StringBuilder messageStringBuilder = new StringBuilder();
             messageStringBuilder.append("Token authenticated successfully: ");
             messageStringBuilder.append("[verifier = ");
             messageStringBuilder.append(verifier);
             messageStringBuilder.append("] ");
-            LOGGER.debug(messageStringBuilder.toString());
+            logger.debug(messageStringBuilder.toString());
         }
 
         credentials.setAccessToken(consumer.getToken());

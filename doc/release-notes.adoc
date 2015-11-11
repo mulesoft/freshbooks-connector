@@ -7,7 +7,7 @@ Anypoint Connector for FreshBooks enables data synchronization and business proc
 
 Guide: link:/mule-user-guide/v/3.7/freshbooks-connector[FreshBooks Connector]
 
-=== Version 1.2.1 (Beta) - November 10, 2015
+=== Version 1.3.0 (Beta) - November 10, 2015
 
 === Contents
 
@@ -17,7 +17,7 @@ Guide: link:/mule-user-guide/v/3.7/freshbooks-connector[FreshBooks Connector]
 . Known Issues
 . Support Resources 
 
-Release Notes for version 1.2.1 of the FreshBooks Connector. These Release Notes accompany the link:/mule-user-guide/v/3.7/freshbooks-connector[FreshBooks Connector Documentation Guide].
+Release Notes for version 1.3.0 (Beta) of the FreshBooks Connector. These Release Notes accompany the link:/mule-user-guide/v/3.7/freshbooks-connector[FreshBooks Connector Documentation Guide].
  
 === Compatibility
 The FreshBooks Connector is compatible with:
