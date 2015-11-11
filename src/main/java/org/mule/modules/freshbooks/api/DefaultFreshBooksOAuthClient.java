@@ -25,9 +25,9 @@ import org.mule.api.store.ObjectStoreException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("rawtypes") 
-public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
-{
+@SuppressWarnings("rawtypes")
+public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient {
+
     private static final Logger logger = LoggerFactory.getLogger(DefaultFreshBooksOAuthClient.class);
 
     private String requestToken;
@@ -35,27 +35,23 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
     private String consumerKey;
     private String consumerSecret;
     private ObjectStoreHelper objectStoreHelper;
-    
-    public DefaultFreshBooksOAuthClient(String consumerKey, String consumerSecret, ObjectStore objectStoreRef) 
-    {
+
+    public DefaultFreshBooksOAuthClient(String consumerKey, String consumerSecret, ObjectStore objectStoreRef) {
         Validate.notEmpty(consumerKey);
-        Validate.notEmpty(consumerSecret);        
+        Validate.notEmpty(consumerSecret);
         setConsumerKey(consumerKey);
         setConsumerSecret(consumerSecret);
         objectStoreHelper = new ObjectStoreHelper(objectStoreRef);
     }
 
     /**
-     * Retrieves a request token using requestTokenId as identifier
-     * If the app doesn't provide a requestToken the method will generate an UUID 
-     * and send it as a callback parameter to the service.
+     * Retrieves a request token using requestTokenId as identifier If the app doesn't provide a requestToken the method will generate an UUID and send it as a callback parameter
+     * to the service.
      */
     @Override
-    public String authorize(String requestTokenUrl, String accessTokenUrl, String authorizationUrl, 
-            String callbackUrl, String requestTokenId)
-            throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
-            OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException {
-        
+    public String authorize(String requestTokenUrl, String accessTokenUrl, String authorizationUrl, String callbackUrl, String requestTokenId) throws OAuthMessageSignerException,
+            OAuthNotAuthorizedException, OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException {
+
         OAuthConsumer consumer = new DefaultOAuthConsumer(consumerKey, consumerSecret);
         OAuthProvider provider = new DefaultOAuthProvider(requestTokenUrl, accessTokenUrl, authorizationUrl);
         provider.setOAuth10a(true);
@@ -69,99 +65,45 @@ public class DefaultFreshBooksOAuthClient implements FreshBooksOAuthClient
 
         callbackUrl = callbackUrl.concat("?userId=" + requestTokenId);
 
-        if (logger.isDebugEnabled()) {
-            StringBuilder messageStringBuilder = new StringBuilder();
-            messageStringBuilder.append("Retrieving OAuth requestToken ");
-            messageStringBuilder.append("[consumerKey = ");
-            messageStringBuilder.append(consumerKey);
-            messageStringBuilder.append("] ");
-            messageStringBuilder.append("[consumerSecret = ");
-            messageStringBuilder.append(consumerSecret);
-            messageStringBuilder.append("] ");
-            messageStringBuilder.append("[callbackUrl = ");
-            messageStringBuilder.append(callbackUrl);
-            messageStringBuilder.append("] ");
-            logger.debug(messageStringBuilder.toString());
-        }
+        logger.debug(String.format("Retrieving OAuth requestToken [consumerKey = %s] [consumerSecret = %s] [callbackUrl = %s]", consumerKey, consumerSecret, callbackUrl));
 
         String authTokenUrl = provider.retrieveRequestToken(consumer, callbackUrl);
-        
-        if (logger.isDebugEnabled()) {
-            StringBuilder messageStringBuilder = new StringBuilder();
-            messageStringBuilder.append("Request Token INFO ");
-            messageStringBuilder.append("[authTokenUrl = ");
-            messageStringBuilder.append(authTokenUrl);
-            messageStringBuilder.append("] ");
-            messageStringBuilder.append("[requestToken = ");
-            messageStringBuilder.append(consumer.getToken());
-            messageStringBuilder.append("] ");
-            messageStringBuilder.append("[requestTokenSecret = ");
-            messageStringBuilder.append(consumer.getTokenSecret());
-            messageStringBuilder.append("] ");
-            logger.debug(messageStringBuilder.toString());
-        }
+
+        logger.debug(String.format("Request Token INFO [authTokenUrl = %s] [requestToken = %s] [requestTokenSecret = %s]", authTokenUrl, consumer.getToken(),
+                consumer.getTokenSecret()));
 
         setRequestToken(consumer.getToken());
         setRequestTokenSecret(consumer.getTokenSecret());
 
-        //Stores the request token
-        objectStoreHelper.store(requestTokenId, 
-                new OAuthCredentials(consumer.getToken(), consumer.getTokenSecret(), requestTokenUrl, 
-                        accessTokenUrl, authorizationUrl), true);
+        // Stores the request token
+        objectStoreHelper.store(requestTokenId, new OAuthCredentials(consumer.getToken(), consumer.getTokenSecret(), requestTokenUrl, accessTokenUrl, authorizationUrl), true);
 
         logger.debug("Request Token stored");
         return authTokenUrl;
     }
 
     /**
-     * Gets an access token using the request token stored in the ObjectStore instance.
-     * The requestTokenId is provided by the app.
+     * Gets an access token using the request token stored in the ObjectStore instance. The requestTokenId is provided by the app.
      */
     @Override
-    public OAuthCredentials getAccessToken(String verifier, String requestTokenId) 
-            throws OAuthMessageSignerException, OAuthNotAuthorizedException, 
+    public OAuthCredentials getAccessToken(String verifier, String requestTokenId) throws OAuthMessageSignerException, OAuthNotAuthorizedException,
             OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException {
-        
-        if (logger.isDebugEnabled()) {
-            StringBuilder messageStringBuilder = new StringBuilder();
-            messageStringBuilder.append("Trying to retrieve request token information ");
-            messageStringBuilder.append("[requestTokenId = ");
-            messageStringBuilder.append(requestTokenId);
-            messageStringBuilder.append("] ");
-            logger.debug(messageStringBuilder.toString());
-        }
-        
-        //Retrieves requestToken and requestTokenSecret
+
+        logger.debug(String.format("Trying to retrieve request token information [requestTokenId = %s]", requestTokenId));
+
+        // Retrieves requestToken and requestTokenSecret
         OAuthCredentials credentials = (OAuthCredentials) objectStoreHelper.retrieve(requestTokenId);
-        if (logger.isDebugEnabled()) {
-            StringBuilder messageStringBuilder = new StringBuilder();
-            messageStringBuilder.append("Retrieved request token INFO ");
-            messageStringBuilder.append("[requestToken = ");
-            messageStringBuilder.append(credentials.getAccessToken());
-            messageStringBuilder.append("] ");
-            messageStringBuilder.append("[requestTokenSecret = ");
-            messageStringBuilder.append(credentials.getAccessTokenSecret());
-            messageStringBuilder.append("] ");
-            logger.debug(messageStringBuilder.toString());
-        }
-        
+        logger.debug(String.format("Retrieved request token INFO [requestToken = %s] [requestTokenSecret = %s]", credentials.getAccessToken(), credentials.getAccessTokenSecret()));
+
         OAuthConsumer consumer = new DefaultOAuthConsumer(getConsumerKey(), getConsumerSecret());
 
-        OAuthProvider provider = new DefaultOAuthProvider(credentials.getRequestTokenUrl(), 
-                credentials.getAccessTokenUrl(), credentials.getAuthUrl());        
+        OAuthProvider provider = new DefaultOAuthProvider(credentials.getRequestTokenUrl(), credentials.getAccessTokenUrl(), credentials.getAuthUrl());
         provider.setOAuth10a(true);
         consumer.setMessageSigner(new PlainTextMessageSigner());
 
         consumer.setTokenWithSecret(credentials.getAccessToken(), credentials.getAccessTokenSecret());
         provider.retrieveAccessToken(consumer, verifier);
-        if (logger.isDebugEnabled()) {
-            StringBuilder messageStringBuilder = new StringBuilder();
-            messageStringBuilder.append("Token authenticated successfully: ");
-            messageStringBuilder.append("[verifier = ");
-            messageStringBuilder.append(verifier);
-            messageStringBuilder.append("] ");
-            logger.debug(messageStringBuilder.toString());
-        }
+        logger.debug(String.format("Token authenticated successfully: [verifier = %s]", verifier));
 
         credentials.setAccessToken(consumer.getToken());
         credentials.setAccessTokenSecret(consumer.getTokenSecret());
