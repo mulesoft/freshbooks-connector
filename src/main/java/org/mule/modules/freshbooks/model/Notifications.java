@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(namespace = "http://www.freshbooks.com/api/", name="notifications")
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "notifications")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Notifications extends BaseRole {
 
@@ -23,22 +23,27 @@ public class Notifications extends BaseRole {
     private String latePaymentReminder2;
     @XmlElement(name = "late_payment_reminder3", namespace = "http://www.freshbooks.com/api/", required = false)
     private String latePaymentReminder3;
-    
+
     public String getLatePaymentReminder1() {
         return latePaymentReminder1;
     }
+
     public String getLatePaymentReminder2() {
         return latePaymentReminder2;
     }
+
     public String getLatePaymentReminder3() {
         return latePaymentReminder3;
     }
+
     public void setLatePaymentReminder1(String latePaymentReminder1) {
         this.latePaymentReminder1 = latePaymentReminder1;
     }
+
     public void setLatePaymentReminder2(String latePaymentReminder2) {
         this.latePaymentReminder2 = latePaymentReminder2;
     }
+
     public void setLatePaymentReminder3(String latePaymentReminder3) {
         this.latePaymentReminder3 = latePaymentReminder3;
     }

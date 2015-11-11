@@ -26,7 +26,7 @@ import org.mule.modules.freshbooks.model.Response;
 import org.xml.sax.SAXException;
 
 public class ItemTest extends RequestAndResponseUtil {
-    
+
     @Test
     public void testCreateRequest() throws JAXBException, IOException, SAXException {
         ItemRequest req = new ItemRequest();
@@ -40,7 +40,7 @@ public class ItemTest extends RequestAndResponseUtil {
         req.setMethod("item.create");
         assertRequest("model/request/item.create.xml", req);
     }
-    
+
     @Test
     public void testListRequest() throws JAXBException, IOException, SAXException {
         ItemRequest req = new ItemRequest();
@@ -54,7 +54,7 @@ public class ItemTest extends RequestAndResponseUtil {
     @Test
     public void testListResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
         Response response = parseResponse("model/response/item.list.xml");
-        Item item = response.getItems().get(0);        
+        Item item = response.getItems().get(0);
         assertThat(item.getId(), is("18"));
         assertThat(item.getUnitCost(), is(BigDecimal.valueOf(34.99)));
         assertThat(item.getFolder(), is(FolderTypes.ACTIVE));

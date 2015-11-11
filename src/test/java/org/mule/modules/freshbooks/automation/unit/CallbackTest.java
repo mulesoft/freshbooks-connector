@@ -24,7 +24,7 @@ import org.mule.modules.freshbooks.model.Response;
 import org.xml.sax.SAXException;
 
 public class CallbackTest extends RequestAndResponseUtil {
-    
+
     @Test
     public void testCreateRequest() throws JAXBException, IOException, SAXException {
         CallbackRequest req = new CallbackRequest();
@@ -50,7 +50,7 @@ public class CallbackTest extends RequestAndResponseUtil {
         req.setMethod("callback.list");
         assertRequest("model/request/callback.list.xml", req);
     }
-    
+
     @Test
     public void testListResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
         Response response = parseResponse("model/response/callback.list.xml");

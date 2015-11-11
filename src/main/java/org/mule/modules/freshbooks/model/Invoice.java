@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(namespace = "http://www.freshbooks.com/api/", name="invoice")
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "invoice")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Invoice extends BaseRole {
-    
+
     @XmlElement(name = "invoice_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String id;
     @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/")
@@ -56,39 +56,39 @@ public class Invoice extends BaseRole {
     private String staffId;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String updated;
-    
+
     public String getRecurringId() {
         return recurringId;
     }
-    
+
     public String getUpdated() {
         return updated;
     }
-    
+
     public String getStaffId() {
         return staffId;
     }
-    
+
     public void setFolder(String staffId) {
         this.staffId = staffId;
     }
-    
+
     public FolderTypes getFolder() {
         return folder;
     }
-    
+
     public void setFolder(FolderTypes folder) {
         this.folder = folder;
     }
-    
+
     public BigDecimal getAmountOutstanding() {
         return amountOutstanding;
     }
-    
+
     public BigDecimal getAmount() {
         return amount;
     }
-    
+
     public InvoiceStatusEnum getStatus() {
         if (status == null) {
             return InvoiceStatusEnum.DRAFT;
@@ -180,19 +180,19 @@ public class Invoice extends BaseRole {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-    
+
     public List<Line> getLines() {
-        if(lines == null)
+        if (lines == null)
             lines = new Lines();
         return lines.getLines();
     }
 
     public void setLines(List<Line> lines) {
-        if(this.lines == null)
+        if (this.lines == null)
             this.lines = new Lines();
         this.lines.setLines(lines);
     }
-    
+
     public void setLines(Lines lines) {
         this.lines = lines;
     }

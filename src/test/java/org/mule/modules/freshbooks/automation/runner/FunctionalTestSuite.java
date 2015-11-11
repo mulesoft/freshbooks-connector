@@ -17,8 +17,8 @@ import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    // TODO one test per @Processor
- })
+// TODO one test per @Processor
+})
 public class FunctionalTestSuite {
 
     @BeforeClass

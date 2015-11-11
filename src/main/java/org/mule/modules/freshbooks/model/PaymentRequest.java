@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class PaymentRequest extends BaseRequest {
-    
+
     @XmlElement(name = "payment_id")
     private String paymentId;
     @XmlElement(name = "payment")
@@ -22,7 +22,7 @@ public class PaymentRequest extends BaseRequest {
     private String clientId;
     @XmlElement(name = "invoice_id")
     private String invoiceId;
-    
+
     public String getPaymentId() {
         return paymentId;
     }

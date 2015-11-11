@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(namespace="PaymentTypes", name="PaymentTypes")
+@XmlType(namespace = "PaymentTypes", name = "PaymentTypes")
 @XmlEnum
 public enum PaymentTypes {
     @XmlEnumValue("Cash")
@@ -49,19 +49,19 @@ public enum PaymentTypes {
     JCB("JCB"),
     @XmlEnumValue("ACH")
     ACH("ACH");
-    
+
     private final String value;
-    
+
     PaymentTypes(String v) {
         value = v;
     }
-    
+
     public String value() {
         return value;
     }
-    
+
     public static PaymentTypes fromValue(String v) {
-        for (PaymentTypes c: PaymentTypes.values()) {
+        for (PaymentTypes c : PaymentTypes.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

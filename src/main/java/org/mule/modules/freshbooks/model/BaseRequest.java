@@ -15,18 +15,16 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlSeeAlso({
-    CategoryRequest.class,
-    CallbackRequest.class,
-    ClientRequest.class,
-    InvoiceRequest.class,
-    ItemRequest.class,
-    PaymentRequest.class
-})
-
+        CategoryRequest.class,
+        CallbackRequest.class,
+        ClientRequest.class,
+        InvoiceRequest.class,
+        ItemRequest.class,
+        PaymentRequest.class })
 @XmlAccessorType(XmlAccessType.FIELD)
-//@XmlType(name = "request")
+// @XmlType(name = "request")
 public abstract class BaseRequest {
-    
+
     @XmlAttribute
     private String method;
     @XmlAttribute(name = "source-token", required = false)
@@ -45,12 +43,12 @@ public abstract class BaseRequest {
     private Integer perPage;
     @XmlElement
     private FolderTypes folder;
-    
-//    <date_from>2007-01-01</date_from>   <!-- Return payments dated after this arg (Optional) -->  
-//    <date_to>2007-04-01</date_to>       <!-- Return payments dated before this arg (Optional) -->  
-//    <updated_from>2007-01-01</updated_from>   <!-- Return payments modified after this arg (Optional) -->  
-//    <updated_to>2007-04-01</updated_to>       <!-- Return payments modified before this arg (Optional) -->  
-    
+
+    // <date_from>2007-01-01</date_from> <!-- Return payments dated after this arg (Optional) -->
+    // <date_to>2007-04-01</date_to> <!-- Return payments dated before this arg (Optional) -->
+    // <updated_from>2007-01-01</updated_from> <!-- Return payments modified after this arg (Optional) -->
+    // <updated_to>2007-04-01</updated_to> <!-- Return payments modified before this arg (Optional) -->
+
     public String getMethod() {
         return method;
     }
@@ -90,7 +88,7 @@ public abstract class BaseRequest {
     public void setUpdatedTo(String updateTo) {
         this.updatedTo = updateTo;
     }
-    
+
     public Integer getPage() {
         return page;
     }
@@ -106,7 +104,7 @@ public abstract class BaseRequest {
     public void setPerPage(Integer perPage) {
         this.perPage = perPage;
     }
-    
+
     public FolderTypes getFolder() {
         return folder;
     }

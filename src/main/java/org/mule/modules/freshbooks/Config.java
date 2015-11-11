@@ -24,11 +24,11 @@ import org.slf4j.LoggerFactory;
 
 @ConnectionManagement(configElementName = "config", friendlyName = "Configuration")
 public class Config {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(Config.class);
-    
+
     private DefaultFreshBooksClient client;
-    
+
     /**
      * Maximum number of total connections
      */
@@ -36,7 +36,7 @@ public class Config {
     @Optional
     @Default("100")
     private int maxTotalConnection;
-    
+
     /**
      * Default max number of connections per route
      */
@@ -47,38 +47,40 @@ public class Config {
 
     /**
      * Prefix used for storing credentials in ObjectStore. It will be concatenated to the access token identifier.
-     * <p>E.g. prefix: "fb_", user identifier: "12345", key for object store "fb_12345"</p>
+     * <p>
+     * E.g. prefix: "fb_", user identifier: "12345", key for object store "fb_12345"
+     * </p>
      */
     @Configurable
     @Optional
     private String accessTokenIdentifierPrefix;
-    
+
     /**
      * Object store reference
      */
     @Configurable
     @Default(MuleProperties.DEFAULT_USER_OBJECT_STORE_NAME)
     private ObjectStore objectStore;
-    
+
     /**
      * Object store helper
      */
     private ObjectStoreHelper objectStoreHelper;
-        
+
     /**
      * Constructs a new {@link Config} Instance with default configuration values set to false.
      */
-    public Config() {   }
-    
-    
-    public String getConsumerKey(){
+    public Config() {
+    }
+
+    public String getConsumerKey() {
         return ((DefaultFreshBooksClient) getClient()).getApiKey();
     }
-    
-    public String getConsumerSecret(){
+
+    public String getConsumerSecret() {
         return ((DefaultFreshBooksClient) getClient()).getApiSecret();
     }
-    
+
     public DefaultFreshBooksClient getClient() {
         return client;
     }
@@ -88,29 +90,29 @@ public class Config {
     }
 
     public int getMaxTotalConnection() {
-		return maxTotalConnection;
-	}
+        return maxTotalConnection;
+    }
 
-	public void setMaxTotalConnection(int maxTotalConnection) {
-		this.maxTotalConnection = maxTotalConnection;
-	}
+    public void setMaxTotalConnection(int maxTotalConnection) {
+        this.maxTotalConnection = maxTotalConnection;
+    }
 
-	public int getDefaultMaxConnectionPerRoute() {
-		return defaultMaxConnectionPerRoute;
-	}
+    public int getDefaultMaxConnectionPerRoute() {
+        return defaultMaxConnectionPerRoute;
+    }
 
-	public void setDefaultMaxConnectionPerRoute(int defaultMaxConnectionPerRoute) {
-		this.defaultMaxConnectionPerRoute = defaultMaxConnectionPerRoute;
-	}
+    public void setDefaultMaxConnectionPerRoute(int defaultMaxConnectionPerRoute) {
+        this.defaultMaxConnectionPerRoute = defaultMaxConnectionPerRoute;
+    }
 
-	public String getAccessTokenIdentifierPrefix() {
+    public String getAccessTokenIdentifierPrefix() {
         return accessTokenIdentifierPrefix;
     }
 
     public void setAccessTokenIdentifierPrefix(String accessTokenIdentifierPrefix) {
         this.accessTokenIdentifierPrefix = accessTokenIdentifierPrefix;
     }
-    
+
     public ObjectStore getObjectStore() {
         return objectStore;
     }
@@ -126,22 +128,22 @@ public class Config {
     public void setObjectStoreHelper(ObjectStoreHelper objectStoreHelper) {
         this.objectStoreHelper = objectStoreHelper;
     }
-    
+
     /**
      * Connect to a FreshBooks client
-     * @throws ConnectionException when the connection process failed
+     * 
+     * @throws ConnectionException
+     *             when the connection process failed
      */
     @Connect
     @TestConnectivity(active = false)
     public void connect(@ConnectionKey String apiUrl, @ConnectionKey String consumerKey, @ConnectionKey String consumerSecret) throws ConnectionException {
         logger.debug("Establishing connection with FreshBooks...");
-        setClient(new DefaultFreshBooksClient(apiUrl, consumerKey, consumerSecret, maxTotalConnection,
-                defaultMaxConnectionPerRoute));
+        setClient(new DefaultFreshBooksClient(apiUrl, consumerKey, consumerSecret, maxTotalConnection, defaultMaxConnectionPerRoute));
         setObjectStoreHelper(new ObjectStoreHelper(objectStore));
         logger.debug("Session created");
     }
 
-    
     /**
      * Clear the current connection and resources
      */
@@ -151,7 +153,7 @@ public class Config {
             this.objectStore = null;
         }
     }
-    
+
     /**
      * Validate is active connection
      */
@@ -159,7 +161,7 @@ public class Config {
     public boolean isConnected() {
         return objectStore != null;
     }
-        
+
     /**
      * Returns the beginning of the tenant key identifier
      *
@@ -169,5 +171,5 @@ public class Config {
     public String connectionIdentifier() {
         return "freshbooks-";
     }
-   
+
 }

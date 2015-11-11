@@ -24,8 +24,8 @@ import org.mule.modules.freshbooks.model.Client;
 import org.mule.modules.freshbooks.model.Invoice;
 import org.mule.modules.freshbooks.model.Line;
 
-public class ConfigTestCases
-{
+public class ConfigTestCases {
+
     private static FreshBooksConnector connector;
     private static Config config;
     private static String SOURCE_TOKEN = "sourceToken";
@@ -33,21 +33,19 @@ public class ConfigTestCases
     private static final String CONSUMER_KEY = "";
     private static final String CONSUMER_KEY_SECRET = "";
     private static final String API_URL = "http://api.freshbooks.com";
-    
+
     @BeforeClass
-    public static void init() throws ConnectionException
-    {
+    public static void init() throws ConnectionException {
         config = new Config();
         config.connect(API_URL, CONSUMER_KEY, CONSUMER_KEY_SECRET);
         connector = new FreshBooksConnector();
         connector.setConfig(config);
     }
-    
+
     @Test
-    public void createACategoryAndDeleteIt()
-    {
-        Category cat =  new Category();
-        cat.setName("MegaMarket3");        
+    public void createACategoryAndDeleteIt() {
+        Category cat = new Category();
+        cat.setName("MegaMarket3");
         Category category = connector.createCategory(SOURCE_TOKEN, cat, ACCESS_TOKEN_ID);
         connector.deleteCategory(SOURCE_TOKEN, category, ACCESS_TOKEN_ID);
     }
@@ -80,7 +78,7 @@ public class ConfigTestCases
         Callback callback = new Callback();
         callback.setEvent("invoice.update");
         callback.setUri("http://example2.com");
-        
+
         Callback newCallback = connector.createCallback(SOURCE_TOKEN, callback, ACCESS_TOKEN_ID);
         connector.deleteCallback(SOURCE_TOKEN, newCallback, ACCESS_TOKEN_ID);
     }
@@ -90,7 +88,7 @@ public class ConfigTestCases
         Callback callback = new Callback();
         callback.setId("1");
         callback.setVerifier("123123123");
-        
+
         connector.verifyCallback(SOURCE_TOKEN, callback, ACCESS_TOKEN_ID);
     }
 

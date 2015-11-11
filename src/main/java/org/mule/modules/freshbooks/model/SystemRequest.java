@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class SystemRequest extends BaseRequest {
-    
+
     @XmlElement(name = "system")
     private System system;
 

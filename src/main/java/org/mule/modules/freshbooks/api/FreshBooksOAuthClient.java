@@ -17,13 +17,9 @@ import oauth.signpost.exception.OAuthNotAuthorizedException;
 
 public interface FreshBooksOAuthClient {
 
-    OAuthCredentials getAccessToken(String verifier, String requestTokenId)
-            throws OAuthMessageSignerException, OAuthNotAuthorizedException,
-            OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException;
+    OAuthCredentials getAccessToken(String verifier, String requestTokenId) throws OAuthMessageSignerException, OAuthNotAuthorizedException, OAuthExpectationFailedException,
+            OAuthCommunicationException, ObjectStoreException;
 
-    String authorize(String requestTokenUrl, String accessTokenUrl, String authorizationUrl, 
-            String callbackUrl, String requestTokenId)
-            throws OAuthMessageSignerException, OAuthNotAuthorizedException,
-            OAuthExpectationFailedException, OAuthCommunicationException,
-            ObjectStoreException;
+    String authorize(String requestTokenUrl, String accessTokenUrl, String authorizationUrl, String callbackUrl, String requestTokenId) throws OAuthMessageSignerException,
+            OAuthNotAuthorizedException, OAuthExpectationFailedException, OAuthCommunicationException, ObjectStoreException;
 }

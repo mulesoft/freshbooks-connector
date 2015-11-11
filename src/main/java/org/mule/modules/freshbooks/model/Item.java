@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "http://www.freshbooks.com/api/", name = "item")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Item {
+
     @XmlElement(name = "item_id", namespace = "http://www.freshbooks.com/api/")
     private String id;
     @XmlElement(namespace = "http://www.freshbooks.com/api/")
@@ -34,27 +35,27 @@ public class Item {
     private String updated;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private FolderTypes folder;
-    
+
     public String getUpdated() {
         return updated;
     }
-    
+
     public FolderTypes getFolder() {
         return folder;
     }
-    
+
     public void setFolder(FolderTypes folder) {
         this.folder = folder;
     }
-    
+
     public String getId() {
         return id;
     }
-    
+
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public String getName() {
         return name;
     }

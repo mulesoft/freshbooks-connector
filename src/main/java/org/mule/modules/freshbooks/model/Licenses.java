@@ -17,12 +17,12 @@ import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Licenses {
-    
+
     @XmlElement(name = "license", namespace = "http://www.freshbooks.com/api/")
     private List<License> licenses;
-    
+
     public List<License> getLicenses() {
-        if(licenses == null) {
+        if (licenses == null) {
             licenses = new ArrayList<License>();
         }
         return licenses;

@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "http://www.freshbooks.com/api/", name = "system")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class System {
-    
+
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String name;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
@@ -51,90 +51,119 @@ public class System {
     public String getName() {
         return name;
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getUsername() {
         return username;
     }
+
     public String getPassword() {
         return password;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public String getWorkPhone() {
         return workPhone;
     }
+
     public String getProfession() {
         return profession;
     }
+
     public String getCurrencyCode() {
         return currencyCode;
     }
+
     public Address getAddress() {
         return address;
     }
+
     public Notifications getNotifications() {
         return notifications;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public void setWorkPhone(String workPhone) {
         this.workPhone = workPhone;
     }
+
     public void setProfession(String profession) {
         this.profession = profession;
     }
+
     public void setCurrencyCode(String currencyCode) {
         this.currencyCode = currencyCode;
     }
+
     public void setAddress(Address address) {
         this.address = address;
     }
+
     public void setNotifications(Notifications notifications) {
         this.notifications = notifications;
     }
+
     public String getTerms() {
         return terms;
     }
+
     public void setTerms(String terms) {
         this.terms = terms;
     }
+
     public String getDomain() {
         return domain;
     }
+
     public void setDomain(String domain) {
         this.domain = domain;
     }
+
     public String getAccessToken() {
         return accessToken;
     }
+
     public String getAccessTokenSecret() {
         return accessTokenSecret;
     }
+
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
+
     public void setAccessTokenSecret(String accessTokenSecret) {
         this.accessTokenSecret = accessTokenSecret;
     }

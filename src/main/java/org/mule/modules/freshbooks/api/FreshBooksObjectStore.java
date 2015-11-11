@@ -19,32 +19,29 @@ import javax.annotation.PostConstruct;
 import org.mule.api.store.ListableObjectStore;
 import org.mule.api.store.ObjectStoreException;
 
-
 /**
-*   
-*   Object Store implementation for Freshbooks connector
-*
-*   @author Mulesoft Inc.
-*
-*/
+ * 
+ * Object Store implementation for Freshbooks connector
+ *
+ * @author Mulesoft Inc.
+ *
+ */
 public class FreshBooksObjectStore implements ListableObjectStore<Serializable> {
 
     private Map<Serializable, Serializable> values;
-        
+
     @PostConstruct
     public void initialize() {
         values = new LinkedHashMap<Serializable, Serializable>();
     }
 
-        
     @Override
     public boolean contains(Serializable key) throws ObjectStoreException {
         return this.values.containsKey(key);
     }
 
     @Override
-    public void store(Serializable key, Serializable value)
-            throws ObjectStoreException {
+    public void store(Serializable key, Serializable value) throws ObjectStoreException {
         this.values.put(key, value);
 
     }
@@ -79,7 +76,7 @@ public class FreshBooksObjectStore implements ListableObjectStore<Serializable> 
         // TODO Auto-generated method stub
 
     }
-    
+
     @Override
     public void clear() throws ObjectStoreException {
         // NOOP

@@ -22,7 +22,6 @@ import org.mule.modules.freshbooks.api.FreshBooksObjectStore;
 import org.mule.tools.devkit.ctf.configuration.util.ConfigurationUtils;
 import org.mule.tools.devkit.ctf.exceptions.ConfigurationLoadingFailedException;
 
-
 public class ObjectStoreTest {
 
     private static FreshBooksObjectStore objectStore;
@@ -34,9 +33,9 @@ public class ObjectStoreTest {
         MuleContext muleContext = Mockito.mock(MuleContext.class);
         Mockito.when(muleContext.getExecutionClassLoader()).thenReturn(ObjectStoreTest.class.getClassLoader());
 
-        objectStore = new FreshBooksObjectStore();       
+        objectStore = new FreshBooksObjectStore();
         objectStore.initialize();
-        objectStore.store((Serializable)prop.getProperty("config.consumerKey"), (Serializable)prop.getProperty("config.consumerSecret"));
+        objectStore.store((Serializable) prop.getProperty("config.consumerKey"), (Serializable) prop.getProperty("config.consumerSecret"));
     }
 
     @Test
@@ -86,6 +85,5 @@ public class ObjectStoreTest {
 
         objectStore.store(testKey, testValue);
     }
-
 
 }

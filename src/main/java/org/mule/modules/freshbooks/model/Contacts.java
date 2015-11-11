@@ -17,11 +17,12 @@ import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Contacts {
+
     @XmlElement(name = "contact", namespace = "http://www.freshbooks.com/api/")
     private List<Contact> contacts;
-    
+
     public List<Contact> getContacts() {
-        if(contacts == null) {
+        if (contacts == null) {
             contacts = new ArrayList<Contact>();
         }
         return contacts;

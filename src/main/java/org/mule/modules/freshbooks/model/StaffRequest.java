@@ -12,5 +12,5 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class StaffRequest extends BaseRequest {
-    
+
 }

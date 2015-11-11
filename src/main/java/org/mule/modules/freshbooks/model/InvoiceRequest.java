@@ -13,21 +13,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class InvoiceRequest extends BaseRequest {
-    
+
     @XmlElement(name = "invoice_id")
     private String invoiceId;
     @XmlElement(name = "invoice")
     private Invoice invoice;
 
     @XmlElement(name = "client_id")
-    private String clientId;  
+    private String clientId;
     @XmlElement(name = "recurring_id")
     private String recurringId;
     @XmlElement
     private InvoiceStatusEnum status;
     @XmlElement
     private String number;
-    
+
     public String getInvoiceId() {
         return invoiceId;
     }

@@ -24,7 +24,7 @@ import org.mule.modules.freshbooks.model.Response;
 import org.xml.sax.SAXException;
 
 public class CategoryTest extends RequestAndResponseUtil {
-    
+
     @Test
     public void testCreateRequest() throws JAXBException, IOException, SAXException {
         CategoryRequest req = new CategoryRequest();

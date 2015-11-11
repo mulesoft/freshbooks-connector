@@ -13,23 +13,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class TaxRequest extends BaseRequest {
-    
+
     @XmlElement(name = "tax_id")
     private String taxId;
     @XmlElement(name = "tax")
     private Tax tax;
-    
+
     public String getTaxId() {
         return taxId;
     }
+
     public Tax getTax() {
         return tax;
     }
+
     public void setTaxId(String taxId) {
         this.taxId = taxId;
     }
+
     public void setTax(Tax tax) {
         this.tax = tax;
     }
 }
-

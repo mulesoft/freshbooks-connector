@@ -9,10 +9,13 @@
 package org.mule.modules.freshbooks.exception;
 
 public class FreshBooksAccessTokenException extends RuntimeException {
+
     private static final long serialVersionUID = 1L;
+
     public FreshBooksAccessTokenException(String message) {
         super(message);
     }
+
     public FreshBooksAccessTokenException(Throwable t) {
         super(t);
     }

@@ -15,12 +15,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "http://www.freshbooks.com/api/", name="credit")
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "credit")
 public class Credit {
+
     @XmlAttribute
     private String currency;
     @XmlValue
-	private Double value;
+    private Double value;
 
     public String getCurrency() {
         return currency;

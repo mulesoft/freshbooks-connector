@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class LicenseRequest extends BaseRequest {
-    
+
     @XmlElement
     private License license;
     @XmlElement(name = "staff_id")
@@ -34,6 +34,5 @@ public class LicenseRequest extends BaseRequest {
     public void setLicense(License license) {
         this.license = license;
     }
-
 
 }

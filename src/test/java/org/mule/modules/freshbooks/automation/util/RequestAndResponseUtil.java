@@ -24,9 +24,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.xml.sax.SAXException;
 
 public abstract class RequestAndResponseUtil extends XMLTestCase {
-    
+
     protected void assertRequest(String file, Object req) throws IOException, SAXException, JAXBException {
-        
+
         JAXBElement jaxbElement = MessageUtils.getInstance().createJaxbElement(req);
         String documentToPost = MessageUtils.getInstance().getXmlDocument(jaxbElement);
         XMLUnit.setIgnoreComments(true);
@@ -57,13 +57,13 @@ public abstract class RequestAndResponseUtil extends XMLTestCase {
     }
 
     protected Response parseResponse(String file) {
-//        Response response;
+        // Response response;
         try {
-//            response = (Response) FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(new ClassPathResource(file).getInputStream()));
-//            return type.getResponseClass().getDeclaredConstructor(Response.class).newInstance(response);
-//        } catch (Exception e) {
-//            throw new FreshbooksException(e);
-//        }
+            // response = (Response) FreshbooksMessageUtils.getInstance().parseResponse(getResourceAsString(new ClassPathResource(file).getInputStream()));
+            // return type.getResponseClass().getDeclaredConstructor(Response.class).newInstance(response);
+            // } catch (Exception e) {
+            // throw new FreshbooksException(e);
+            // }
             return (Response) MessageUtils.getInstance().parseResponse(getResourceAsString(new ClassPathResource(file).getInputStream()));
         } catch (Exception e) {
             throw new FreshBooksException(e);

@@ -30,16 +30,16 @@ import org.mule.modules.freshbooks.model.Response;
 import org.xml.sax.SAXException;
 
 public class InvoiceTest extends RequestAndResponseUtil {
-    
+
     private static Client client;
     private static InvoiceRequest request;
-    
+
     @BeforeClass
-    public void setUp(){
-        
+    public void setUp() {
+
         request = new InvoiceRequest();
         request.setStatus(InvoiceStatusEnum.DRAFT);
-        request.setClientId("3");  
+        request.setClientId("3");
         request.setRecurringId("10");
         request.setNumber("FB00004");
         request.setDateFrom("2007-01-01");
@@ -50,19 +50,19 @@ public class InvoiceTest extends RequestAndResponseUtil {
         request.setPerPage(10);
         request.setFolder(FolderTypes.ACTIVE);
         request.setMethod("invoice.list");
-        
+
     }
-    
+
     @Test
     public void testGetResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
         Response response = parseResponse("model/response/invoice.get.xml");
-        Invoice inv = response.getInvoice();        
+        Invoice inv = response.getInvoice();
         assertThat(inv.getId(), is("344"));
         assertThat(inv.getContacts().get(0).getId(), is("0"));
         assertThat(inv.getFolder(), is(FolderTypes.ACTIVE));
         assertThat(inv.getLines().get(0).getAmount(), is(BigDecimal.valueOf(40)));
     }
-    
+
     @Test
     public void testListRequest() throws JAXBException, IOException, SAXException {
         assertRequest("model/request/invoice.list.xml", request);
@@ -77,6 +77,6 @@ public class InvoiceTest extends RequestAndResponseUtil {
         assertThat(inv.getContacts().get(0).getId(), is("0"));
         assertThat(inv.getFolder(), is(FolderTypes.ACTIVE));
         assertThat(inv.getLines().get(0).getAmount(), is(BigDecimal.valueOf(40)));
-        
+
     }
 }

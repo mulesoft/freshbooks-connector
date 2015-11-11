@@ -28,13 +28,13 @@ import org.mule.modules.freshbooks.model.Response;
 import org.xml.sax.SAXException;
 
 public class PaymentTest extends RequestAndResponseUtil {
-    
+
     private static Payment payment;
     private static PaymentRequest request;
-    
+
     @BeforeClass
-    public void setUp(){
-        
+    public void setUp() {
+
         payment = new Payment();
         payment.setClientId("13");
         payment.setInvoiceId("207");
@@ -43,7 +43,7 @@ public class PaymentTest extends RequestAndResponseUtil {
         payment.setCurrencyCode("CAD");
         payment.setType(PaymentTypes.CHECK);
         payment.setNotes("Prompt payment!");
-        
+
         request = new PaymentRequest();
         request.setClientId("3");
         request.setInvoiceId("133");
@@ -54,8 +54,9 @@ public class PaymentTest extends RequestAndResponseUtil {
         request.setPage(1);
         request.setPerPage(10);
         request.setMethod("payment.list");
-        
+
     }
+
     @Test
     public void testCreateRequest() throws JAXBException, IOException, SAXException {
         PaymentRequest req = new PaymentRequest();
@@ -63,7 +64,7 @@ public class PaymentTest extends RequestAndResponseUtil {
         req.setMethod("payment.create");
         assertRequest("model/request/payment.create.xml", req);
     }
-    
+
     @Test
     public void testListRequest() throws JAXBException, IOException, SAXException {
         assertRequest("model/request/payment.list.xml", request);
@@ -76,12 +77,12 @@ public class PaymentTest extends RequestAndResponseUtil {
         assertThat(payment.getId(), is("109"));
         assertThat(payment.getType(), is(PaymentTypes.VISA));
     }
-    
+
     @Test
     public void testListResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
         Response response = parseResponse("model/response/payment.list.xml");
         assertThat(response.getPayments().size(), is(1));
-        Payment payment = response.getPayments().get(0);   
+        Payment payment = response.getPayments().get(0);
         assertThat(payment.getId(), is("165"));
         assertThat(payment.getType(), is(PaymentTypes.VISA));
     }

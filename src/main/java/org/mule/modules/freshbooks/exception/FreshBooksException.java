@@ -9,11 +9,11 @@
 package org.mule.modules.freshbooks.exception;
 
 public class FreshBooksException extends RuntimeException {
-    
+
     public FreshBooksException(String message) {
         super(message);
     }
-    
+
     public FreshBooksException(Throwable t) {
         super(t);
     }

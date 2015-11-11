@@ -21,15 +21,14 @@ public class ObjectStoreHelper {
     private ObjectStore objectStore;
 
     public ObjectStoreHelper() {
-        
+
     }
 
     public ObjectStoreHelper(ObjectStore objectStore) {
         setObjectStore(objectStore);
     }
-    
-    public Object retrieve(String key) 
-            throws ObjectStoreException {
+
+    public Object retrieve(String key) throws ObjectStoreException {
         Object ret = null;
         try {
             ret = objectStore.retrieve(key);
@@ -37,8 +36,7 @@ public class ObjectStoreHelper {
             throw ose;
         }
 
-        if (ret == null) 
-        {
+        if (ret == null) {
             throw new ObjectDoesNotExistException();
         }
 
@@ -46,8 +44,7 @@ public class ObjectStoreHelper {
     }
 
     @SuppressWarnings("unchecked")
-    public void store(String key, Serializable value, boolean overwrite) 
-            throws ObjectStoreException {
+    public void store(String key, Serializable value, boolean overwrite) throws ObjectStoreException {
         try {
             objectStore.store(key, value);
         } catch (ObjectAlreadyExistsException e) {
@@ -64,9 +61,8 @@ public class ObjectStoreHelper {
         return objectStore;
     }
 
-
     public void setObjectStore(ObjectStore objectStore) {
         this.objectStore = objectStore;
     }
-    
+
 }

@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "http://www.freshbooks.com/api/", name = "callback")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Callback {
+
     @XmlElement(name = "callback_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String id;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = true)
@@ -24,16 +25,16 @@ public class Callback {
     private String uri;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String verifier;
-    //Boolean but it sends only 0 or 1
+    // Boolean but it sends only 0 or 1
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Integer verified;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String updated;
-    
+
     public String getUpdated() {
         return updated;
     }
-    
+
     public String getEvent() {
         return event;
     }
@@ -65,7 +66,7 @@ public class Callback {
     public void setVerified(Integer verified) {
         this.verified = verified;
     }
-    
+
     public String getVerifier() {
         return verifier;
     }

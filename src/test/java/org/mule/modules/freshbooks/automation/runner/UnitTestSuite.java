@@ -18,7 +18,13 @@ import org.mule.modules.freshbooks.automation.unit.ItemTest;
 import org.mule.modules.freshbooks.automation.unit.PaymentTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({ CallbackTest.class, CategoryTest.class, ClientTest.class, InvoiceTest.class, ItemTest.class, PaymentTest.class })
+@SuiteClasses({
+        CallbackTest.class,
+        CategoryTest.class,
+        ClientTest.class,
+        InvoiceTest.class,
+        ItemTest.class,
+        PaymentTest.class })
 public class UnitTestSuite {
 
 }

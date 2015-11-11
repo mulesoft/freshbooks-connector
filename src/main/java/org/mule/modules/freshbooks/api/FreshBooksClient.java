@@ -12,24 +12,23 @@ import org.mule.modules.freshbooks.model.BaseRequest;
 import org.mule.modules.freshbooks.model.EntityType;
 
 public interface FreshBooksClient {
-    
+
     public Object create(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
-    
+
     public void update(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
-    
+
     public Object get(OAuthCredentials credentials, String sourceToken, EntityType type, String id);
-    
+
     public void delete(OAuthCredentials credentials, String sourceToken, EntityType type, String id);
-    
+
     public void verify(OAuthCredentials credentials, String sourceToken, EntityType type, Object obj, Boolean returnOnlyId);
-    
+
     public <T> Iterable<T> list(OAuthCredentials credentials, String sourceToken, EntityType type, BaseRequest request);
-    
-    public Object getListObject(OAuthCredentials credentials, 
-            String sourceToken, EntityType type, BaseRequest request);
+
+    public Object getListObject(OAuthCredentials credentials, String sourceToken, EntityType type, BaseRequest request);
 
     public <T> Iterable<T> listPaged(OAuthCredentials credentials, String sourceToken, EntityType type, BaseRequest request);
-    
+
     public void undelete(OAuthCredentials credentials, String sourceToken, EntityType type, String id);
 
     Object execute(OAuthCredentials credentials, String sourceToken, EntityType type, String operation);

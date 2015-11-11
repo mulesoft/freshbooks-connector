@@ -17,16 +17,15 @@ import java.util.Map;
  *
  */
 public class MapBuilder {
+
     private final Map<String, Object> map = new HashMap<String, Object>();
-               
-    public MapBuilder with(String propertyName, Object property)
-    {
+
+    public MapBuilder with(String propertyName, Object property) {
         map.put(propertyName, property);
         return this;
     }
-   
-    public Map<String, Object> build()
-    {
+
+    public Map<String, Object> build() {
         return map;
     }
 }

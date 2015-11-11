@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "http://www.freshbooks.com/api/", name = "staff")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Staff {
-    
+
     @XmlElement(name = "staff_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String id;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
@@ -47,7 +47,7 @@ public class Staff {
     private String country;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String code;
-        
+
     public String getId() {
         return id;
     }

@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "http://www.freshbooks.com/api/", name = "payment")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Payment {
-    
+
     @XmlElement(name = "payment_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String id;
     @XmlElement(name = "client_id", namespace = "http://www.freshbooks.com/api/", required = false)
@@ -39,7 +39,7 @@ public class Payment {
     private String updated;
     @XmlElement(name = "from_credit", namespace = "http://www.freshbooks.com/api/", required = false)
     private Boolean fromCredit;
-    
+
     public String getUpdated() {
         return updated;
     }

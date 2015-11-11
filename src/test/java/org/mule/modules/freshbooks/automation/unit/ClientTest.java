@@ -1,4 +1,5 @@
 package org.mule.modules.freshbooks.automation.unit;
+
 /**
  * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
  *
@@ -25,12 +26,12 @@ import org.mule.modules.freshbooks.model.Response;
 import org.xml.sax.SAXException;
 
 public class ClientTest extends RequestAndResponseUtil {
-    
+
     private static Client client;
     private static ClientRequest request;
-    
+
     @BeforeClass
-    public void setUp(){
+    public void setUp() {
         client = new Client();
         client.setFirstName("Jane");
         client.setLastName("Doe");
@@ -48,9 +49,9 @@ public class ClientTest extends RequestAndResponseUtil {
         client.setState("New York");
         client.setCountry("United States");
         client.setCode("553132");
-        
+
         request = new ClientRequest();
-        request.setEmail("janedoe@freshbooks.com");  
+        request.setEmail("janedoe@freshbooks.com");
         request.setUsername("janedoe");
         request.setUpdatedFrom("2009-01-01 00:00:00");
         request.setUpdatedTo("2009-12-01 00:00:00");
@@ -86,11 +87,11 @@ public class ClientTest extends RequestAndResponseUtil {
     @Test
     public void testGetResponse() throws JAXBException, IOException, SAXException, ParserConfigurationException {
         Response response = parseResponse("model/response/client.get.xml");
-        Client cli = response.getClient();        
+        Client cli = response.getClient();
         assertThat(cli.getCredits().get(0).getCurrency(), is("USD"));
         assertThat(cli.getContacts().get(0).getId(), is("15"));
     }
-    
+
     @Test
     public void testListRequest() throws JAXBException, IOException, SAXException {
         assertRequest("model/request/client.list.xml", request);
@@ -102,6 +103,5 @@ public class ClientTest extends RequestAndResponseUtil {
         assertThat(response.getClients().get(0).getCredits().get(0).getCurrency(), is("USD"));
         assertThat(response.getClients().get(0).getContacts().get(0).getId(), is("15"));
     }
-    
-}
 
+}

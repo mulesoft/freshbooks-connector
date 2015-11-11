@@ -14,27 +14,27 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "http://www.freshbooks.com/api/", name="contact")
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "contact")
 public class Contact {
-    
+
     @XmlElement(name = "contact_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String id;
-    
+
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String username;
-    
+
     @XmlElement(name = "first_name", namespace = "http://www.freshbooks.com/api/", required = false)
     private String firstName;
-    
+
     @XmlElement(name = "last_name", namespace = "http://www.freshbooks.com/api/", required = false)
     private String lastName;
-    
+
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String email;
-    
+
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String phone1;
-    
+
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String phone2;
 
@@ -46,7 +46,8 @@ public class Contact {
     }
 
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
     public void setId(String id) {
         this.id = id;
@@ -60,7 +61,8 @@ public class Contact {
     }
 
     /**
-     * @param username the username to set
+     * @param username
+     *            the username to set
      */
     public void setUsername(String username) {
         this.username = username;
@@ -74,7 +76,8 @@ public class Contact {
     }
 
     /**
-     * @param firstName the firstName to set
+     * @param firstName
+     *            the firstName to set
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -88,7 +91,8 @@ public class Contact {
     }
 
     /**
-     * @param lastName the lastName to set
+     * @param lastName
+     *            the lastName to set
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -102,7 +106,8 @@ public class Contact {
     }
 
     /**
-     * @param email the email to set
+     * @param email
+     *            the email to set
      */
     public void setEmail(String email) {
         this.email = email;
@@ -116,7 +121,8 @@ public class Contact {
     }
 
     /**
-     * @param phone1 the phone1 to set
+     * @param phone1
+     *            the phone1 to set
      */
     public void setPhone1(String phone1) {
         this.phone1 = phone1;
@@ -130,7 +136,8 @@ public class Contact {
     }
 
     /**
-     * @param phone2 the phone2 to set
+     * @param phone2
+     *            the phone2 to set
      */
     public void setPhone2(String phone2) {
         this.phone2 = phone2;
