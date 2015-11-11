@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class ItemRequest extends BaseRequest {
-    
+
     @XmlElement(name = "item_id")
     private String itemId;
     @XmlElement(name = "item")

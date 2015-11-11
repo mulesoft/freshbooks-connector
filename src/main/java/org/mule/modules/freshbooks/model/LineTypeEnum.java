@@ -16,28 +16,28 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum LineTypeEnum {
 
-        @XmlEnumValue("Item")
-        ITEM("Item"),
-        @XmlEnumValue("Time")
-        TIME("Time");
-        
-        private final String value;
+    @XmlEnumValue("Item")
+    ITEM("Item"),
+    @XmlEnumValue("Time")
+    TIME("Time");
 
-        LineTypeEnum(String v) {
-            value = v;
-        }
+    private final String value;
 
-        public String value() {
-            return value;
-        }
+    LineTypeEnum(String v) {
+        value = v;
+    }
 
-        public static LineTypeEnum fromValue(String v) {
-            for (LineTypeEnum c: LineTypeEnum.values()) {
-                if (c.value.equals(v)) {
-                    return c;
-                }
+    public String value() {
+        return value;
+    }
+
+    public static LineTypeEnum fromValue(String v) {
+        for (LineTypeEnum c : LineTypeEnum.values()) {
+            if (c.value.equals(v)) {
+                return c;
             }
-            throw new IllegalArgumentException(v);
         }
+        throw new IllegalArgumentException(v);
+    }
 
 }

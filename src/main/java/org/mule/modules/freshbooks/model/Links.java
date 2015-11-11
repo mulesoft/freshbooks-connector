@@ -17,11 +17,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Links {
 
-    @XmlElement( name =  "view")
+    @XmlElement(name = "view")
     private String view;
-    @XmlElement( name =  "client_view")
+    @XmlElement(name = "client_view")
     private String clientView;
-    @XmlElement( name =  "edit")
+    @XmlElement(name = "edit")
     private String edit;
 
     public String getView() {

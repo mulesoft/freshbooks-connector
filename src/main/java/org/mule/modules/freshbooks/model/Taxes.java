@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType
 public class Taxes extends Paged<Tax> {
+
     @XmlElement(name = "tax", namespace = "http://www.freshbooks.com/api/")
     public ArrayList<Tax> getTaxes() {
         return getContents();

@@ -9,73 +9,67 @@
 package org.mule.modules.freshbooks.model;
 
 import org.apache.commons.lang.StringUtils;
-import org.mule.modules.freshbooks.FreshbooksException;
+import org.mule.modules.freshbooks.exception.FreshBooksException;
 
 public enum EntityType {
-    
+
     ADDON(Addon.class, "Addons", AddonRequest.class),
-    
+
     CALLBACK(Callback.class, "Callbacks", CallbackRequest.class),
-    
+
     CATEGORY(Category.class, "Categories", CategoryRequest.class),
-    
+
     CLIENT(Client.class, "Clients", ClientRequest.class),
-    
+
     INVOICE(Invoice.class, "Invoices", InvoiceRequest.class),
-    
+
     ITEM(Item.class, "Items", ItemRequest.class),
-    
+
     LICENSE(License.class, "Licenses", LicenseRequest.class),
-    
+
     PAYMENT(Payment.class, "Payments", PaymentRequest.class),
-    
+
     SESSION(Session.class, "Sessions", SessionRequest.class),
 
     STAFF(Staff.class, "Staffs", StaffRequest.class),
 
     SYSTEM(System.class, "Systems", SystemRequest.class),
-    
+
     TASK(Task.class, "Tasks", TaskRequest.class),
-    
+
     TAX(Tax.class, "Taxes", TaxRequest.class);
-    
+
     private Class<?> type;
     private String plural;
     private Class<?> requestClazz;
-    
-    private EntityType(Class<?> clazz, String plural, Class<?> requestClazz)
-    {
+
+    private EntityType(Class<?> clazz, String plural, Class<?> requestClazz) {
         this.type = clazz;
         this.plural = plural;
         this.requestClazz = requestClazz;
     }
-    
-    public Class<?> getType()
-    {
+
+    public Class<?> getType() {
         return type;
     }
-    
-    public String getSimpleName()
-    {
+
+    public String getSimpleName() {
         return type.getSimpleName();
     }
-    
-    public String getResourceName()
-    {
+
+    public String getResourceName() {
         return StringUtils.uncapitalize(getSimpleName());
     }
-    
-    public String getNameForLists()
-    {
+
+    public String getNameForLists() {
         return plural;
     }
-    
-    public BaseRequest getRequest()
-    {
+
+    public BaseRequest getRequest() {
         try {
             return (BaseRequest) requestClazz.newInstance();
         } catch (Exception e) {
-            throw new FreshbooksException(e.getMessage());
+            throw new FreshBooksException(e.getMessage());
         }
     }
 }

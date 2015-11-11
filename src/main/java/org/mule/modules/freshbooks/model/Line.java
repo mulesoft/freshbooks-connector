@@ -19,15 +19,15 @@ public class Line {
 
     @XmlElement(name = "line_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String id;
-    @XmlElement(name="amount", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name = "amount", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal amount;
-    @XmlElement(name="name", namespace = "http://www.freshbooks.com/api/", required = false)
-    private String name;    
-    @XmlElement(name="description", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name = "name", namespace = "http://www.freshbooks.com/api/", required = false)
+    private String name;
+    @XmlElement(name = "description", namespace = "http://www.freshbooks.com/api/", required = false)
     private String description;
     @XmlElement(name = "unit_cost", namespace = "http://www.freshbooks.com/api/", required = false)
     private Double unitCost;
-    @XmlElement(name="quantity", namespace = "http://www.freshbooks.com/api/", required = false)
+    @XmlElement(name = "quantity", namespace = "http://www.freshbooks.com/api/", required = false)
     private BigDecimal quantity;
     @XmlElement(name = "tax1_name", namespace = "http://www.freshbooks.com/api/", required = false)
     private String tax1Name;
@@ -39,23 +39,24 @@ public class Line {
     private BigDecimal tax2Percent;
     @XmlElement(name = "type", namespace = "http://www.freshbooks.com/api/", required = false)
     private LineTypeEnum type;
-    
+
     public String getId() {
         return id;
     }
-    
+
     public BigDecimal getAmount() {
         return amount;
     }
-    
+
     public LineTypeEnum getType() {
-        if(type == null)
+        if (type == null)
             return LineTypeEnum.ITEM;
         return type;
     }
 
     /**
-     * @param type the type to set
+     * @param type
+     *            the type to set
      */
     public void setType(LineTypeEnum type) {
         this.type = type;
@@ -69,7 +70,8 @@ public class Line {
     }
 
     /**
-     * @param name the name to set
+     * @param name
+     *            the name to set
      */
     public void setName(String name) {
         this.name = name;
@@ -83,7 +85,8 @@ public class Line {
     }
 
     /**
-     * @param description the description to set
+     * @param description
+     *            the description to set
      */
     public void setDescription(String description) {
         this.description = description;
@@ -97,7 +100,8 @@ public class Line {
     }
 
     /**
-     * @param unitCost the unitCost to set
+     * @param unitCost
+     *            the unitCost to set
      */
     public void setUnitCost(Double unitCost) {
         this.unitCost = unitCost;
@@ -111,7 +115,8 @@ public class Line {
     }
 
     /**
-     * @param quantity the quantity to set
+     * @param quantity
+     *            the quantity to set
      */
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
@@ -125,7 +130,8 @@ public class Line {
     }
 
     /**
-     * @param tax1Name the tax1Name to set
+     * @param tax1Name
+     *            the tax1Name to set
      */
     public void setTax1Name(String tax1Name) {
         this.tax1Name = tax1Name;
@@ -139,7 +145,8 @@ public class Line {
     }
 
     /**
-     * @param tax2Name the tax2Name to set
+     * @param tax2Name
+     *            the tax2Name to set
      */
     public void setTax2Name(String tax2Name) {
         this.tax2Name = tax2Name;
@@ -153,7 +160,8 @@ public class Line {
     }
 
     /**
-     * @param tax1Percent the tax1Percent to set
+     * @param tax1Percent
+     *            the tax1Percent to set
      */
     public void setTax1Percent(BigDecimal tax1Percent) {
         this.tax1Percent = tax1Percent;
@@ -167,7 +175,8 @@ public class Line {
     }
 
     /**
-     * @param tax2Percent the tax2Percent to set
+     * @param tax2Percent
+     *            the tax2Percent to set
      */
     public void setTax2Percent(BigDecimal tax2Percent) {
         this.tax2Percent = tax2Percent;

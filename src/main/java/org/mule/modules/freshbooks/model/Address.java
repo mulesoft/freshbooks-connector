@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(namespace = "http://www.freshbooks.com/api/", name="address")
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "address")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Address extends BaseRole {
 
@@ -33,37 +33,48 @@ public class Address extends BaseRole {
     public String getStreet1() {
         return street1;
     }
+
     public String getStreet2() {
         return street2;
     }
+
     public String getCity() {
         return city;
     }
+
     public String getProvince() {
         return province;
     }
+
     public String getCountry() {
         return country;
     }
+
     public String getPostalCode() {
         return postalCode;
     }
+
     public void setStreet1(String street1) {
         this.street1 = street1;
     }
+
     public void setStreet2(String street2) {
         this.street2 = street2;
     }
+
     public void setCity(String city) {
         this.city = city;
     }
+
     public void setProvince(String province) {
         this.province = province;
     }
+
     public void setCountry(String country) {
         this.country = country;
     }
+
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }    
+    }
 }

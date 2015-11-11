@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(namespace = "http://www.freshbooks.com/api/", name="client")
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "client")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Client extends BaseRole {
 
@@ -57,11 +57,11 @@ public class Client extends BaseRole {
     private Credits credits;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String updated;
-    
+
     public String getUpdated() {
         return updated;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -181,13 +181,13 @@ public class Client extends BaseRole {
     public void setSecondaryCode(String secondaryCode) {
         this.secondaryCode = secondaryCode;
     }
-    
+
     public List<Credit> getCredits() {
-        if(credits == null)
+        if (credits == null)
             credits = new Credits();
         return credits.getCredits();
     }
-    
+
     public String getCurrencyCode() {
         return currencyCode;
     }
@@ -199,17 +199,17 @@ public class Client extends BaseRole {
     public Credit getCredit() {
         return credit;
     }
-    
+
     public void setCredit(Credit credit) {
         this.credit = credit;
     }
 
     public void setCredits(List<Credit> credits) {
-        if(this.credits == null)
+        if (this.credits == null)
             this.credits = new Credits();
         this.credits.setCredits(credits);
     }
-    
+
     public void setCredits(Credits credits) {
         this.credits = credits;
     }

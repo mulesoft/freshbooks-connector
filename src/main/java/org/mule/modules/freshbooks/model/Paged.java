@@ -16,14 +16,14 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 
 public class Paged<T> implements Iterable<T> {
+
     int page;
     int perPage;
     int pages;
     int total;
     ArrayList<T> contents;
 
-    public Paged()
-    {
+    public Paged() {
         this.contents = new ArrayList<T>();
     }
 
@@ -44,7 +44,7 @@ public class Paged<T> implements Iterable<T> {
         this.page = page;
     }
 
-    @XmlAttribute(name="per_page")
+    @XmlAttribute(name = "per_page")
     public int getPerPage() {
         return perPage;
     }
@@ -72,7 +72,8 @@ public class Paged<T> implements Iterable<T> {
     }
 
     public boolean add(T e) {
-        if(contents == null) contents = new ArrayList<T>();
+        if (contents == null)
+            contents = new ArrayList<T>();
         return contents.add(e);
     }
 
@@ -85,7 +86,7 @@ public class Paged<T> implements Iterable<T> {
     }
 
     public Iterator<T> iterator() {
-        if(contents == null) {
+        if (contents == null) {
             List<T> emptyList = Collections.emptyList();
             return emptyList.iterator();
         }

@@ -13,16 +13,17 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(namespace = "http://www.freshbooks.com/api/", name="category")
+@XmlType(namespace = "http://www.freshbooks.com/api/", name = "category")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Category {
+
     @XmlElement(namespace = "http://www.freshbooks.com/api/")
     private String name;
     @XmlElement(name = "category_id", namespace = "http://www.freshbooks.com/api/")
     private String id;
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private String updated;
-    
+
     public String getUpdated() {
         return updated;
     }
@@ -42,9 +43,9 @@ public class Category {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public void setUpdated(String updated) {
         this.updated = updated;
     }
-    
+
 }

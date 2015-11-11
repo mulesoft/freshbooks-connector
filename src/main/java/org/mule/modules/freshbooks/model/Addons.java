@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType
 public class Addons extends Paged<Addon> {
+
     @XmlElement(name = "addon", namespace = "http://www.freshbooks.com/api/")
     public ArrayList<Addon> getAddons() {
         return getContents();

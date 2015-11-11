@@ -16,10 +16,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlSeeAlso({
-    Client.class,
-    Invoice.class
-})
-
+        Client.class,
+        Invoice.class })
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseRole {
 
@@ -47,10 +45,10 @@ public abstract class BaseRole {
     private String vatName;
     @XmlElement(name = "vat_number", namespace = "http://www.freshbooks.com/api/", required = false)
     private String vatNumber;
-    
+
     @XmlElement(namespace = "http://www.freshbooks.com/api/", required = false)
     private Contacts contacts;
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -74,7 +72,7 @@ public abstract class BaseRole {
     public void setOrganization(String organization) {
         this.organization = organization;
     }
-    
+
     public String getStreet1() {
         return street1;
     }
@@ -122,7 +120,7 @@ public abstract class BaseRole {
     public void setCode(String code) {
         this.code = code;
     }
-    
+
     public String getLanguage() {
         return language;
     }
@@ -130,7 +128,7 @@ public abstract class BaseRole {
     public void setLanguage(String language) {
         this.language = language;
     }
-    
+
     public String getVatName() {
         return vatName;
     }
@@ -146,15 +144,15 @@ public abstract class BaseRole {
     public void setVatNumber(String vatNumber) {
         this.vatNumber = vatNumber;
     }
-    
+
     public List<Contact> getContacts() {
-        if(contacts == null)
+        if (contacts == null)
             contacts = new Contacts();
         return contacts.getContacts();
     }
-    
+
     public void setContacts(List<Contact> contacts) {
-        if(this.contacts == null)
+        if (this.contacts == null)
             this.contacts = new Contacts();
         this.contacts.setContacts(contacts);
     }

@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class ClientRequest extends BaseRequest {
-    
+
     @XmlElement(name = "client_id")
     private String clientId;
     @XmlElement
@@ -24,7 +24,7 @@ public class ClientRequest extends BaseRequest {
     private String username;
     @XmlElement
     private String notes;
-    
+
     public String getClientId() {
         return clientId;
     }

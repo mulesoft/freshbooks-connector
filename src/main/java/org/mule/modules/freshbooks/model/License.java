@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "http://www.freshbooks.com/api/", name = "license")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class License {
-    
+
     @XmlElement(name = "license_id", namespace = "http://www.freshbooks.com/api/", required = false)
     private String id;
     @XmlElement(name = "addon_id", namespace = "http://www.freshbooks.com/api/", required = true)
@@ -33,38 +33,49 @@ public class License {
     public String getId() {
         return id;
     }
+
     public String getAddonId() {
         return addonId;
     }
+
     public String getStaffId() {
         return staffId;
     }
+
     public String getTrial() {
         return trial;
     }
+
     public String getStatus() {
         return status;
     }
+
     public Integer getRemainingTrialDays() {
         return remainingTrialDays;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public void setAddonId(String addonId) {
         this.addonId = addonId;
     }
+
     public void setStaffId(String staffId) {
         this.staffId = staffId;
     }
+
     public void setTrial(String trial) {
         this.trial = trial;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
+
     public void setRemainingTrialDays(Integer remainingTrialDays) {
         this.remainingTrialDays = remainingTrialDays;
     }
-    
+
 }

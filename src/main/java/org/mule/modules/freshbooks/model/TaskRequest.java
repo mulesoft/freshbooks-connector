@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class TaskRequest extends BaseRequest {
-    
+
     @XmlElement(name = "task_id")
     private String taskId;
     @XmlElement(name = "task")
@@ -22,14 +22,16 @@ public class TaskRequest extends BaseRequest {
     public String getTaskId() {
         return taskId;
     }
+
     public Task getTask() {
         return task;
     }
+
     public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
+
     public void setTask(Task task) {
         this.task = task;
-    }    
+    }
 }
-

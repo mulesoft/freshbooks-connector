@@ -14,20 +14,26 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.mule.api.store.ListableObjectStore;
 import org.mule.api.store.ObjectStoreException;
 
-
 /**
-*   
-*   Object Store implementation for Freshbooks connector
-*
-*   @author Mulesoft Inc.
-*
-*/
+ * 
+ * Object Store implementation for Freshbooks connector
+ *
+ * @author Mulesoft Inc.
+ *
+ */
 public class FreshBooksObjectStore implements ListableObjectStore<Serializable> {
 
-    private Map<Serializable, Serializable> values = new LinkedHashMap<Serializable, Serializable>();
+    private Map<Serializable, Serializable> values;
+
+    @PostConstruct
+    public void initialize() {
+        values = new LinkedHashMap<Serializable, Serializable>();
+    }
 
     @Override
     public boolean contains(Serializable key) throws ObjectStoreException {
@@ -35,8 +41,7 @@ public class FreshBooksObjectStore implements ListableObjectStore<Serializable> 
     }
 
     @Override
-    public void store(Serializable key, Serializable value)
-            throws ObjectStoreException {
+    public void store(Serializable key, Serializable value) throws ObjectStoreException {
         this.values.put(key, value);
 
     }
@@ -73,7 +78,13 @@ public class FreshBooksObjectStore implements ListableObjectStore<Serializable> 
     }
 
     @Override
+    public void clear() throws ObjectStoreException {
+        // NOOP
+    }
+
+    @Override
     public List<Serializable> allKeys() throws ObjectStoreException {
         return new ArrayList<Serializable>(values.keySet());
     }
+
 }

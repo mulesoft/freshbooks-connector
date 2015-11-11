@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "request")
 public class CallbackRequest extends BaseRequest {
-    
+
     @XmlElement(name = "callback_id")
     private String callbackId;
     @XmlElement(name = "callback")

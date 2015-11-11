@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:context="http://www.springframework.org/schema/context" xmlns:freshbooks="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:debugger="http://www.mulesoft.org/schema/mule/debugger" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/freshbooks http://www.mulesoft.org/schema/mule/freshbooks/1.0/mule-freshbooks.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/debugger http://www.mulesoft.org/schema/mule/debugger/current/mule-debugger.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd">
+    <context:property-placeholder location="freshbooks.properties"/>
+    <freshbooks:config name="Freshbooks" apiUrl="${config.apiUrl}" consumerKey="${config.consumerKey}" consumerSecret="${config.consumerSecret}" doc:name="FreshBooks"/>
+    <data-mapper:config name="category" transformationGraphPath="category.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="Client" transformationGraphPath="client.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="invoice" transformationGraphPath="invoice.grf" doc:name="DataMapper"/>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <flow name="Freshbooks_category" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/category" doc:name="HTTP"/>
+        <scripting:transformer doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
+                                                        
+            new Category(
+            name: "New FB Test Category -- Testing"
+            )]]></scripting:text>
+            </scripting:script>
+        </scripting:transformer>
+        <freshbooks:create-category config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <data-mapper:transform config-ref="category" doc:name="DataMapper"/>
+        <freshbooks:update-category config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <message-properties-transformer overwrite="true" scope="invocation" doc:name="Category properties">
+            <add-message-property key="CategoryId" value="#[payload.id]"/>
+            <add-message-property key="CategoryName" value="#[payload.name]"/>
+        </message-properties-transformer>
+        <freshbooks:delete-category config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <logger message="Category #[groovy:message.getInvocationProperty('categoryId')] #[groovy:message.getInvocationProperty('categoryName')] created and deleted!" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="Freshbooks_client" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/client" doc:name="HTTP"/>
+        <scripting:transformer doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
+                                                        
+            new Client(
+            firstName: "John Testing",
+            lastName: "Doe",
+            email: "testemail-1@testing.com"
+            )]]></scripting:text>
+            </scripting:script>
+        </scripting:transformer>
+        <freshbooks:create-client config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <data-mapper:transform config-ref="Client" doc:name="DataMapper"/>
+        <freshbooks:update-client config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <message-properties-transformer overwrite="true" scope="invocation" doc:name="Client properties">
+            <add-message-property key="clientFirstName" value="#[payload.firstName]"/>
+            <add-message-property key="clientId" value="#[payload.id]"/>
+            <add-message-property key="clientEmail" value="#[payload.email]"/>
+        </message-properties-transformer>
+        <freshbooks:delete-client config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <logger message="Client #[groovy:message.getInvocationProperty('clientId')] #[groovy:message.getInvocationProperty('clientEmail')] created and deleted!" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="Freshbooks_invoice" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/invoice" doc:name="HTTP"/>
+        <scripting:transformer doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
+                                                        
+            new Invoice(
+            clientId: "10",
+            lines: new Lines(
+                         lines: [ new Line( quantity: 1,
+               		                        unitCost: 4) ]
+            )
+            )]]></scripting:text>
+            </scripting:script>
+        </scripting:transformer>
+        <freshbooks:create-invoice config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <data-mapper:transform config-ref="invoice" doc:name="DataMapper"/>
+        <freshbooks:update-invoice config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <message-properties-transformer overwrite="true" scope="invocation" doc:name="Invoice properties">
+            <add-message-property key="invoiceId" value="#[payload.id]"/>
+            <add-message-property key="invoiceClientId" value="#[payload.clientId]"/>
+        </message-properties-transformer>
+        <freshbooks:delete-invoice config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <logger message="Invoice #[groovy:message.getInvocationProperty('invoiceId')] #[groovy:message.getInvocationProperty('invoiceClientId')] created and deleted!" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="Freshbooks_findClients" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/list-clients" doc:name="HTTP"/>
+        <scripting:transformer doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
+                                                        
+            new ClientRequest(
+            folder: "ACTIVE"
+            )]]></scripting:text>
+            </scripting:script>
+        </scripting:transformer>
+        <freshbooks:list-clients config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <foreach doc:name="Foreach">
+            <logger message="Client: #[payload.id], #[payload.email]" level="INFO" doc:name="Logger"/>
+        </foreach>
+    </flow>
+    <flow name="Freshbooks_findInvoices" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/list-invoices" doc:name="HTTP"/>
+        <scripting:transformer doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
+                                                        
+            new InvoiceRequest(
+            folder: "ACTIVE"
+            )]]></scripting:text>
+            </scripting:script>
+        </scripting:transformer>
+        <freshbooks:list-invoices config-ref="Freshbooks" doc:name="Freshbooks"/>
+        <foreach doc:name="Foreach">
+            <logger message="Invoice: #[payload.id], #[payload.clientId]" level="INFO" doc:name="Logger"/>
+        </foreach>
+    </flow>
+    <flow name="Freshbooks_deleteClient" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/delete-client" doc:name="HTTP"/>
+        <scripting:transformer doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
+                                                            
+                                                            new Client(
+                                                            				id: "14"
+                                                            )]]></scripting:text>
+            </scripting:script>
+        </scripting:transformer>
+        <freshbooks:delete-client config-ref="Freshbooks" doc:name="Freshbooks"/>
+    </flow>
+</mule>

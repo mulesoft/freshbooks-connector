@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:context="http://www.springframework.org/schema/context" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:freshbooks="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/freshbooks http://www.mulesoft.org/schema/mule/freshbooks/current/mule-freshbooks.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="freshbooks.properties"/>
+    <freshbooks:config name="FreshBooks" apiUrl="${config.apiUrl}" consumerKey="${config.consumerKey}" consumerSecret="${config.consumerSecret}" 
+        objectStore-ref="objectStore" doc:name="FreshBooks" />
+    <spring:beans>
+        <spring:bean id="objectStore" class="org.mule.modules.freshbooks.api.FreshBooksObjectStore"/>
+    </spring:beans>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <flow name="listClients" >
+        <scripting:transformer doc:name="ClientRequest">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[import org.mule.modules.freshbooks.model.*
+                                                                        
+                            new ClientRequest(
+                            folder: "ACTIVE"
+                            )]]></scripting:text>
+            </scripting:script>
+        </scripting:transformer>
+        <freshbooks:list-clients config-ref="FreshBooks"  doc:name="FreshBooks" accessTokenId="100">
+            <freshbooks:client-request ref="#[payload]"/>
+        </freshbooks:list-clients>
+        <foreach doc:name="Foreach">
+            <logger message="ClientId: #[payload.id], ClientName: #[payload.email]" level="INFO" doc:name="Logger"/>
+        </foreach>
+    </flow>
+    <flow name="authUser" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/auth" doc:name="HTTP"/>
+        <freshbooks:auth-user config-ref="FreshBooks" accessTokenUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_access.php" authorizationUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_authorize.php" callbackUrl="http://localhost:8082" requestTokenUrl="https://mulesoftdev.freshbooks.com/oauth/oauth_request.php" doc:name="FreshBooks"/>
+    </flow>
+    <flow name="getAccessToken" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/token" doc:name="HTTP"/>
+        <freshbooks:get-access-token config-ref="FreshBooks" apiUrl="https://mulesoftdev.freshbooks.com/api/2.1/xml-in" requestTokenId="#[groovy:message.getInboundProperty('userId')]" verifier="#[groovy:message.getInboundProperty('oauth_verifier')]" userIdentifier="100" doc:name="FreshBooks"/>
+        <flow-ref name="listClients" doc:name="listClients"/>
+    </flow>
+</mule>

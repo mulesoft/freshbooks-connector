@@ -22,32 +22,34 @@ public class OAuthCredentials implements Serializable {
     private String apiUrl;
 
     public OAuthCredentials() {
-        
+
     }
-    
+
     public OAuthCredentials(String accessToken, String accessTokenSecret) {
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
     }
-    
-    public OAuthCredentials(String accessToken, String accessTokenSecret, String requestTokenUrl,
-            String accessTokenUrl, String authUrl) {
+
+    public OAuthCredentials(String accessToken, String accessTokenSecret, String requestTokenUrl, String accessTokenUrl, String authUrl) {
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
         this.requestTokenUrl = requestTokenUrl;
         this.accessTokenUrl = accessTokenUrl;
         this.authUrl = authUrl;
     }
-    
+
     public String getAccessToken() {
         return accessToken;
     }
+
     public String getAccessTokenSecret() {
         return accessTokenSecret;
     }
+
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
+
     public void setAccessTokenSecret(String accessTokenSecret) {
         this.accessTokenSecret = accessTokenSecret;
     }
