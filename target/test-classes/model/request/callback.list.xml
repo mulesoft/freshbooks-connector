@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<request method="callback.list">  
+  <!-- Filter by event (Optional) -->  
+  <event>invoice.create</event>  
+  <!-- Filter by uri (Optional) -->  
+  <uri>http://example.com/webhooks/ready</uri>  
+</request>  

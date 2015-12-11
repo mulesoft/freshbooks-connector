@@ -1,0 +1,2031 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:ns2="http://www.mulesoft.org/schema/mule/devkit" xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/freshbooks" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
+  <xs:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"></xs:import>
+  <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-extension" name="config">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="mule:abstractExtensionType">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element type="mule:poolingProfileType" minOccurs="0" name="connection-pooling-profile">
+              <xs:annotation>
+                <xs:documentation>Characteristics of the connection pool.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" ref="mule:abstract-reconnection-strategy">
+              <xs:annotation>
+                <xs:documentation>Reconnection strategy that defines how Mule should handle a connection failure.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute type="xs:string" use="required" name="name">
+            <xs:annotation>
+              <xs:documentation>Give a name to this configuration so it can be later referenced by config-ref.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/freshbooks" type="integerType" use="optional" default="100" name="maxTotalConnection">
+            <xs:annotation>
+              <xs:documentation>Maximum number of total connections</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/freshbooks" type="integerType" use="optional" default="20" name="defaultMaxConnectionPerRoute">
+            <xs:annotation>
+              <xs:documentation>Default max number of connections per route</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="optional" name="accessTokenIdentifierPrefix">
+            <xs:annotation>
+              <xs:documentation>Prefix used for storing credentials in ObjectStore. It will be concatenated to the access token identifier.
+&lt;p&gt;
+E.g. prefix: "fb_", user identifier: "12345", key for object store "fb_12345"
+&lt;/p&gt;</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="optional" default="_defaultUserObjectStore" name="objectStore-ref">
+            <xs:annotation>
+              <xs:documentation>Object store reference</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="apiUrl">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="consumerKey">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="consumerSecret">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateCallbackType" substitutionGroup="mule:abstract-message-processor" name="create-callback">
+    <xs:annotation>
+      <xs:documentation>Create a new callback for a specific event or a set of events.
+
+&lt;p&gt;
+Valid events
+&lt;/p&gt;
+&lt;p&gt;
+* all
+&lt;/p&gt;
+&lt;p&gt;
+* category
+&lt;/p&gt;
+&lt;p&gt;
+* category.create
+&lt;/p&gt;
+&lt;p&gt;
+* category.delete
+&lt;/p&gt;
+&lt;p&gt;
+* category.update
+&lt;/p&gt;
+&lt;p&gt;
+* client
+&lt;/p&gt;
+&lt;p&gt;
+* client.create
+&lt;/p&gt;
+&lt;p&gt;
+* client.delete
+&lt;/p&gt;
+&lt;p&gt;
+* client.update
+&lt;/p&gt;
+&lt;p&gt;
+* estimate
+&lt;/p&gt;
+&lt;p&gt;
+* estimate.create
+&lt;/p&gt;
+&lt;p&gt;
+* estimate.delete
+&lt;/p&gt;
+&lt;p&gt;
+* estimate.sendByEmail
+&lt;/p&gt;
+&lt;p&gt;
+* estimate.update
+&lt;/p&gt;
+&lt;p&gt;
+* expense
+&lt;/p&gt;
+&lt;p&gt;
+* expense.create
+&lt;/p&gt;
+&lt;p&gt;
+* expense.delete
+&lt;/p&gt;
+&lt;p&gt;
+* expense.update
+&lt;/p&gt;
+&lt;p&gt;
+* invoice
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.create
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.delete
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.dispute
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.pastdue.1
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.pastdue.2
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.pastdue.3
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.sendByEmail
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.sendBySnailMail
+&lt;/p&gt;
+&lt;p&gt;
+* invoice.update
+&lt;/p&gt;
+&lt;p&gt;
+* item
+&lt;/p&gt;
+&lt;p&gt;
+* item.create
+&lt;/p&gt;
+&lt;p&gt;
+* item.delete
+&lt;/p&gt;
+&lt;p&gt;
+* item.update
+&lt;/p&gt;
+&lt;p&gt;
+* payment
+&lt;/p&gt;
+&lt;p&gt;
+* payment.create
+&lt;/p&gt;
+&lt;p&gt;
+* payment.delete
+&lt;/p&gt;
+&lt;p&gt;
+* payment.update
+&lt;/p&gt;
+&lt;p&gt;
+* project
+&lt;/p&gt;
+&lt;p&gt;
+* project.create
+&lt;/p&gt;
+&lt;p&gt;
+* project.delete
+&lt;/p&gt;
+&lt;p&gt;
+* project.update
+&lt;/p&gt;
+&lt;p&gt;
+* recurring
+&lt;/p&gt;
+&lt;p&gt;
+* recurring.create
+&lt;/p&gt;
+&lt;p&gt;
+* recurring.delete
+&lt;/p&gt;
+&lt;p&gt;
+* recurring.update
+&lt;/p&gt;
+&lt;p&gt;
+* staff
+&lt;/p&gt;
+&lt;p&gt;
+* staff.create
+&lt;/p&gt;
+&lt;p&gt;
+* staff.delete
+&lt;/p&gt;
+&lt;p&gt;
+* staff.update
+&lt;/p&gt;
+&lt;p&gt;
+* task
+&lt;/p&gt;
+&lt;p&gt;
+* task.create
+&lt;/p&gt;
+&lt;p&gt;
+* task.delete
+&lt;/p&gt;
+&lt;p&gt;
+* task.update
+&lt;/p&gt;
+&lt;p&gt;
+* time_entry
+&lt;/p&gt;
+&lt;p&gt;
+* time_entry.create
+&lt;/p&gt;
+&lt;p&gt;
+* time_entry.delete
+&lt;/p&gt;
+&lt;p&gt;
+* time_entry.update
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateCallbackType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="callback-ref">
+          <xs:annotation>
+            <xs:documentation>to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListCallbacksType" substitutionGroup="mule:abstract-message-processor" name="list-callbacks">
+    <xs:annotation>
+      <xs:documentation>Return a list of registered callbacks. You can optionally filter by event or uri.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListCallbacksType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="callbackRequest-ref">
+          <xs:annotation>
+            <xs:documentation>CallbackRequest object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteCallbackType" substitutionGroup="mule:abstract-message-processor" name="delete-callback">
+    <xs:annotation>
+      <xs:documentation>Deletes a callback.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteCallbackType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="callback-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="VerifyCallbackType" substitutionGroup="mule:abstract-message-processor" name="verify-callback">
+    <xs:annotation>
+      <xs:documentation>Verify a callback.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="VerifyCallbackType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="callback-ref">
+          <xs:annotation>
+            <xs:documentation>to be verified</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateCategoryType" substitutionGroup="mule:abstract-message-processor" name="create-category">
+    <xs:annotation>
+      <xs:documentation>Create a new category. If successful, returns the category id of the newly created item.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateCategoryType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="category-ref">
+          <xs:annotation>
+            <xs:documentation>to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateCategoryType" substitutionGroup="mule:abstract-message-processor" name="update-category">
+    <xs:annotation>
+      <xs:documentation>Update an existing expense category with the given category_id. Any category fields left out of the request will remain unchanged.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateCategoryType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="category-ref">
+          <xs:annotation>
+            <xs:documentation>to be updated</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetCategoryType" substitutionGroup="mule:abstract-message-processor" name="get-category">
+    <xs:annotation>
+      <xs:documentation>Return the complete category details associated with the given category_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetCategoryType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="categoryId">
+          <xs:annotation>
+            <xs:documentation>The category id</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteCategoryType" substitutionGroup="mule:abstract-message-processor" name="delete-category">
+    <xs:annotation>
+      <xs:documentation>Delete an existing expense category.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteCategoryType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="category-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListCategoriesType" substitutionGroup="mule:abstract-message-processor" name="list-categories">
+    <xs:annotation>
+      <xs:documentation>Returns a list of expense categories.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListCategoriesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="categoryRequest-ref">
+          <xs:annotation>
+            <xs:documentation>CategoryRequest Object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateClientType" substitutionGroup="mule:abstract-message-processor" name="create-client">
+    <xs:annotation>
+      <xs:documentation>Create a new client and return the corresponding client_id. If a password is not supplied, one will be created at random.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateClientType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="client-ref">
+          <xs:annotation>
+            <xs:documentation>to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateClientType" substitutionGroup="mule:abstract-message-processor" name="update-client">
+    <xs:annotation>
+      <xs:documentation>Update the details of the client with the given client_id. Any fields not referenced in the request will remain unchanged.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateClientType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="client-ref">
+          <xs:annotation>
+            <xs:documentation>to be updated</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetClientType" substitutionGroup="mule:abstract-message-processor" name="get-client">
+    <xs:annotation>
+      <xs:documentation>Return the client details associated with the given client_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetClientType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="clientId">
+          <xs:annotation>
+            <xs:documentation>The client id</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteClientType" substitutionGroup="mule:abstract-message-processor" name="delete-client">
+    <xs:annotation>
+      <xs:documentation>Delete the client with the given client_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteClientType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="client-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UndeleteClientType" substitutionGroup="mule:abstract-message-processor" name="undelete-client">
+    <xs:annotation>
+      <xs:documentation>Undelete a client</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UndeleteClientType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="client-ref">
+          <xs:annotation>
+            <xs:documentation>to be undeleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListClientsType" substitutionGroup="mule:abstract-message-processor" name="list-clients">
+    <xs:annotation>
+      <xs:documentation>Returns a list of client summaries in order of descending client_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListClientsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="clientRequest-ref">
+          <xs:annotation>
+            <xs:documentation>ClientRequest object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateInvoiceType" substitutionGroup="mule:abstract-message-processor" name="create-invoice">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Create a new invoice complete with line items. If successful, returns the invoice_id of the newly created invoice.
+&lt;/p&gt;
+&lt;p&gt;
+* If you don't specify an invoice number, it will increment from the last one.&lt;br/&gt;
+* You may optionally specify a different address on the invoice; otherwise the address will be pulled from your client's details.&lt;br/&gt;
+* You may optionally specify a return_uri element. If provided, users will be presented with a link to the URI when they pay the invoice.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateInvoiceType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="invoice-ref">
+          <xs:annotation>
+            <xs:documentation>to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateInvoiceType" substitutionGroup="mule:abstract-message-processor" name="update-invoice">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Update an existing invoice with the given invoice_id. Any invoice fields left out of the request will remain unchanged.
+&lt;/p&gt;
+&lt;p&gt;
+* If you do not specify a lines element, the existing lines will remain unchanged. If you do specify lines elements the original ones will be replaced by the new ones.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateInvoiceType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="invoice-ref">
+          <xs:annotation>
+            <xs:documentation>to be updated</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetInvoiceType" substitutionGroup="mule:abstract-message-processor" name="get-invoice">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Return the complete invoice details associated with the given invoice_id.
+&lt;/p&gt;
+&lt;p&gt;
+* You can use the links element to provide your customers with direct links to the invoice for editing, viewing by the client and viewing by an administrator.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetInvoiceType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="invoiceId">
+          <xs:annotation>
+            <xs:documentation>The invoice id</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteInvoiceType" substitutionGroup="mule:abstract-message-processor" name="delete-invoice">
+    <xs:annotation>
+      <xs:documentation>Delete an existing invoice.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteInvoiceType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="invoice-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UndeleteInvoiceType" substitutionGroup="mule:abstract-message-processor" name="undelete-invoice">
+    <xs:annotation>
+      <xs:documentation>Undelete an invoice</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UndeleteInvoiceType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="invoice-ref">
+          <xs:annotation>
+            <xs:documentation>to be undeleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListInvoicesType" substitutionGroup="mule:abstract-message-processor" name="list-invoices">
+    <xs:annotation>
+      <xs:documentation>Returns a list of invoice summaries. Results are ordered by descending invoice_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListInvoicesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="invoiceRequest-ref">
+          <xs:annotation>
+            <xs:documentation>InvoiceRequest object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateItemType" substitutionGroup="mule:abstract-message-processor" name="create-item">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Create a new item and return the corresponding item_id.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateItemType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="item-ref">
+          <xs:annotation>
+            <xs:documentation>to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateItemType" substitutionGroup="mule:abstract-message-processor" name="update-item">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Update an existing item. All fields aside from the item_id are optional; by omitting a field, the existing value will remain unchanged.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateItemType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="item-ref">
+          <xs:annotation>
+            <xs:documentation>to be updated</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetItemType" substitutionGroup="mule:abstract-message-processor" name="get-item">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Get an existing item with the given item_id.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetItemType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="itemId">
+          <xs:annotation>
+            <xs:documentation>The item id</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteItemType" substitutionGroup="mule:abstract-message-processor" name="delete-item">
+    <xs:annotation>
+      <xs:documentation>Delete an existing item.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteItemType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="item-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListItemsType" substitutionGroup="mule:abstract-message-processor" name="list-items">
+    <xs:annotation>
+      <xs:documentation>Returns a list of items, ordered by descending item_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListItemsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="itemRequest-ref">
+          <xs:annotation>
+            <xs:documentation>ItemRequest object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateTaxType" substitutionGroup="mule:abstract-message-processor" name="create-tax">
+    <xs:annotation>
+      <xs:documentation>Create a new tax and returns the corresponding tax_id.
+&lt;p&gt;
+*Tax “name” must be unique. You may not create more than one tax with the same name.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateTaxType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="tax-ref">
+          <xs:annotation>
+            <xs:documentation>to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateTaxType" substitutionGroup="mule:abstract-message-processor" name="update-tax">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Update an existing tax. All fields aside from the tax_id are optional; by omitting a field, the existing value will remain unchanged.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateTaxType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="tax-ref">
+          <xs:annotation>
+            <xs:documentation>to be updated</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetTaxType" substitutionGroup="mule:abstract-message-processor" name="get-tax">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Retrieve tax details according to tax_id.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetTaxType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="taxId">
+          <xs:annotation>
+            <xs:documentation>The tax id</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteTaxType" substitutionGroup="mule:abstract-message-processor" name="delete-tax">
+    <xs:annotation>
+      <xs:documentation>Permanently delete a tax.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteTaxType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="tax-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListTaxesType" substitutionGroup="mule:abstract-message-processor" name="list-taxes">
+    <xs:annotation>
+      <xs:documentation>Returns a list of taxs, ordered by descending tax_id.
+&lt;p&gt;
+Filters: Use a “compound” tag to return only compound or non-compound taxes.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListTaxesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="taxRequest-ref">
+          <xs:annotation>
+            <xs:documentation>TaxRequest object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateTaskType" substitutionGroup="mule:abstract-message-processor" name="create-task">
+    <xs:annotation>
+      <xs:documentation>Create a new task and returns the corresponding task_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateTaskType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="task-ref">
+          <xs:annotation>
+            <xs:documentation>to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdateTaskType" substitutionGroup="mule:abstract-message-processor" name="update-task">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Update an existing task.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdateTaskType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="task-ref">
+          <xs:annotation>
+            <xs:documentation>to be updated</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetTaskType" substitutionGroup="mule:abstract-message-processor" name="get-task">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Retrieve an existing task.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetTaskType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="taskId">
+          <xs:annotation>
+            <xs:documentation>The task id</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteTaskType" substitutionGroup="mule:abstract-message-processor" name="delete-task">
+    <xs:annotation>
+      <xs:documentation>Permanently delete a task.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteTaskType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="task-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListTasksType" substitutionGroup="mule:abstract-message-processor" name="list-tasks">
+    <xs:annotation>
+      <xs:documentation>Returns a list of tasks summaries.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListTasksType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="taskRequest-ref">
+          <xs:annotation>
+            <xs:documentation>TaskRequest object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreatePaymentType" substitutionGroup="mule:abstract-message-processor" name="create-payment">
+    <xs:annotation>
+      <xs:documentation>Create a new payment and returns the corresponding payment_id.
+&lt;p&gt;
+This function can have one of three possible effects depending on the presence of invoice_id and client_id:
+&lt;/p&gt;
+&lt;p&gt;
+* If you specify an invoice_id only, the payment will be recorded as an invoice payment.
+&lt;/p&gt;
+&lt;p&gt;
+* If you specify a client_id only, the payment will be recorded as a client credit.
+&lt;/p&gt;
+&lt;p&gt;
+* If you specify both an invoice_id and client_id, the payment will be recorded as an invoice payment, and the amount will be subtracted from the client's credit.
+&lt;/p&gt;
+&lt;p&gt;
+Note that 'currency_code' can only be provided when creating a credit, not a regular payment. Regular payments will default to the currency code of the invoice they are
+being made against.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreatePaymentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="payment-ref">
+          <xs:annotation>
+            <xs:documentation>to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="UpdatePaymentType" substitutionGroup="mule:abstract-message-processor" name="update-payment">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Update an existing payment. All fields besides payment_id are optional - unpassed fields will retain their existing value.
+&lt;/p&gt;
+&lt;p&gt;
+Note that 'currency_code' can only be provided when updating a credit, not a regular payment. Regular payments will default to the currency code of the invoice they are
+being made against.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="UpdatePaymentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="payment-ref">
+          <xs:annotation>
+            <xs:documentation>to be updated</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetPaymentType" substitutionGroup="mule:abstract-message-processor" name="get-payment">
+    <xs:annotation>
+      <xs:documentation>&lt;p&gt;
+Retrieve payment details according to payment_id.
+&lt;/p&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetPaymentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="paymentId">
+          <xs:annotation>
+            <xs:documentation>The payment id</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeletePaymentType" substitutionGroup="mule:abstract-message-processor" name="delete-payment">
+    <xs:annotation>
+      <xs:documentation>Permanently delete a payment. This will modify the status of the associated invoice if required.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeletePaymentType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="payment-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListPaymentsType" substitutionGroup="mule:abstract-message-processor" name="list-payments">
+    <xs:annotation>
+      <xs:documentation>Returns a list of payment summaries. Results are ordered by descending payment_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListPaymentsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="paymentRequest-ref">
+          <xs:annotation>
+            <xs:documentation>PaymentRequest object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetCurrentUserInformationType" substitutionGroup="mule:abstract-message-processor" name="get-current-user-information">
+    <xs:annotation>
+      <xs:documentation>Returns information about the current user</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="OAuthCredentialsObjectType">
+    <xs:sequence></xs:sequence>
+    <xs:attribute type="xs:string" use="optional" name="accessToken">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="accessTokenSecret">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="userId">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="requestTokenUrl">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="authUrl">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="accessTokenUrl">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="apiUrl">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute type="xs:string" use="optional" name="ref">
+      <xs:annotation>
+        <xs:documentation>The reference object for this parameter</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="GetCurrentUserInformationType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="credentials">
+            <xs:annotation>
+              <xs:documentation>provided by the app when the credentials are not stored yet</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension xmlns="http://www.mulesoft.org/schema/mule/freshbooks" base="OAuthCredentialsObjectType"></xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateSessionType" substitutionGroup="mule:abstract-message-processor" name="create-session">
+    <xs:annotation>
+      <xs:documentation>Create a session</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateSessionType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="session-ref">
+          <xs:annotation>
+            <xs:documentation>the session to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateLicenseType" substitutionGroup="mule:abstract-message-processor" name="create-license">
+    <xs:annotation>
+      <xs:documentation>Create a license</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateLicenseType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="license-ref">
+          <xs:annotation>
+            <xs:documentation>the license to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListLicensesType" substitutionGroup="mule:abstract-message-processor" name="list-licenses">
+    <xs:annotation>
+      <xs:documentation>Returns a list of licenses summaries. Results are ordered by descending license_id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListLicensesType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="licenseRequest-ref">
+          <xs:annotation>
+            <xs:documentation>LicenseRequest object</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DeleteLicenseType" substitutionGroup="mule:abstract-message-processor" name="delete-license">
+    <xs:annotation>
+      <xs:documentation>Permanently delete a license.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="DeleteLicenseType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="license-ref">
+          <xs:annotation>
+            <xs:documentation>to be deleted</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ListAddonsType" substitutionGroup="mule:abstract-message-processor" name="list-addons">
+    <xs:annotation>
+      <xs:documentation>Returns a list of addons summaries. Results are ordered by descending id.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ListAddonsType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="accessTokenId">
+          <xs:annotation>
+            <xs:documentation>accessTokenIdentifier</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CreateSystemUserType" substitutionGroup="mule:abstract-message-processor" name="create-system-user">
+    <xs:annotation>
+      <xs:documentation>Create a system user. You don't need to be authenticated to call this processor.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CreateSystemUserType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="sourceToken">
+          <xs:annotation>
+            <xs:documentation>source token value</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[payload]" name="systemUser-ref">
+          <xs:annotation>
+            <xs:documentation>the system user to be created</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="userIdentifier">
+          <xs:annotation>
+            <xs:documentation>identifier to be used for storing the accessToken</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AuthUserType" substitutionGroup="mule:abstract-message-processor" name="auth-user">
+    <xs:annotation>
+      <xs:documentation>Authorize an user using OAuth1.0a</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AuthUserType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="requestTokenUrl">
+          <xs:annotation>
+            <xs:documentation>requestTokenUrl</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="accessTokenUrl">
+          <xs:annotation>
+            <xs:documentation>accessTokenUrl</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="authorizationUrl">
+          <xs:annotation>
+            <xs:documentation>authorizationUrl</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="callbackUrl">
+          <xs:annotation>
+            <xs:documentation>callbackUrl for OAuth service</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="requestTokenId">
+          <xs:annotation>
+            <xs:documentation>Optional value for identifying the requestToken. If it is not passed the client will use a UUID</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/freshbooks" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetAccessTokenType" substitutionGroup="mule:abstract-message-processor" name="get-access-token">
+    <xs:annotation>
+      <xs:documentation>Extract accessToken</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="GetAccessTokenType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="apiUrl">
+          <xs:annotation>
+            <xs:documentation>API URL</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[header:inbound:oauth_verifier]" name="verifier">
+          <xs:annotation>
+            <xs:documentation>OAuth verifier. It comes within the callback. The default value is "#[header:inbound:oauth_verifier]"</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" default="#[header:inbound:userId]" name="requestTokenId">
+          <xs:annotation>
+            <xs:documentation>id used for identifying the authorized request token. It comes within the callback. By default the query string parameter is userId</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="userIdentifier">
+          <xs:annotation>
+            <xs:documentation>id used for store the accessToken in the Object Store. If it is not provided by the app the connector uses the username from FreshBooks</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="OnNoTokenPolicyEnumType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="EXCEPTION"></xs:enumeration>
+          <xs:enumeration value="STOP_FLOW"></xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="integerType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:integer"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="decimalType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:decimal"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="floatType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:float"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="doubleType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:double"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="dateTimeType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:dateTime"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="longType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:long"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="byteType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:byte"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="booleanType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:boolean"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="anyUriType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:anyURI"></xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="charType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"></xs:minLength>
+          <xs:maxLength value="1"></xs:maxLength>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+</xs:schema>

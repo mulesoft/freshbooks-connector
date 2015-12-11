@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<response xmlns="http://www.freshbooks.com/api/" status="ok">  
+  <clients page="1" per_page="15" pages="3" total="42">  
+    <client>  
+      <client_id>13</client_id>  
+      <first_name>Jane</first_name>  
+      <last_name>Doe</last_name>  
+      <organization>ABC Corp</organization>  
+      <email>janedoe@freshbooks.com</email>  
+      <username>janedoe</username>  
+      <contacts>
+        <contact>  
+           <contact_id>15</contact_id>  
+           <username>alex</username>  
+           <first_name></first_name>  
+           <last_name></last_name>  
+           <email>johnmcnicol@freshbooks.com</email>  
+           <phone1></phone1>  
+           <phone2></phone2>  
+        </contact>
+      </contacts>  
+      <work_phone>(555) 123-4567</work_phone>  
+      <home_phone>(555) 234-5678</home_phone>  
+      <mobile></mobile>  
+      <fax></fax>  
+      <language>en</language>  
+      <currency_code>USD</currency_code>  
+      <credit currency="USD" deprecated="true">123.45</credit>  
+      <credits>  
+          <credit currency="USD">123.45</credit>  
+          <credit currency="CAD">43.45</credit>  
+          <credit currency="EUR">12.00</credit>  
+      </credits>  
+      <notes>Prefers email over phone calls</notes>  
+  
+      <p_street1>123 Fake St.</p_street1>  
+      <p_street2>Unit 555</p_street2>  
+      <p_city>New York</p_city>  
+      <p_state>New York</p_state>  
+      <p_country>United States</p_country>  
+      <p_code>553132</p_code>  
+  
+      <s_street1></s_street1>  
+      <s_street2></s_street2>  
+      <s_city></s_city>  
+      <s_state></s_state>  
+      <s_country></s_country>  
+      <s_code></s_code>  
+      <url deprecated="true">https://sample.freshbooks.com/view/Vbbfs324trTkxer</url>  
+      <auth_url deprecated="true">https://sample.freshbooks.com/clients/13</auth_url>  
+      <links>  
+        <client_view>https://sample.freshbooks.com/view/Vbbfs324trTkxer</client_view>  
+        <view>https://sample.freshbooks.com/clients/13</view>  
+        <statement>https://sample.freshbooks.com/view/3EbEwAkJGJkuJHSN</statement>  
+      </links>  
+      <vat_name></vat_name>  
+      <vat_number></vat_number>  
+      <updated>2009-08-12 09:00:00</updated>  
+      <folder>active</folder>  
+    </client>  
+  </clients>  
+</response>  
+

@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" url="http://www.mulesoft.org/schema/mule/freshbooks" prefix="freshbooks">
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="FreshBooks" description="" icon="" localId="parentConfig" image="" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric"></global-cloud-connector>
+  <nested caption="" description="" localId="connection-pooling-profile" abstract="true">
+    <radioBoolean name="defaultPoolingProfile" caption="Use default connection pool configuration" description="Use default connection pool configuration." fillLine="true"></radioBoolean>
+    <radioBoolean name="customPoolingProfile" caption="Define connection pool configuration" description="Define connection pool configuration." fillLine="true"></radioBoolean>
+    <integer defaultValue="5" min="-1" step="0" name="maxActive" caption="Max active" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="5" min="-1" step="0" name="maxIdle" caption="Max idle" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <enum defaultValue="INITIALISE_ONE" name="initialisationPolicy" caption="Initialisation policy" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="INITIALISE_NONE"></option>
+      <option value="INITIALISE_ONE"></option>
+      <option value="INITIALISE_ALL"></option>
+    </enum>
+    <enum defaultValue="WHEN_EXHAUSTED_GROW" name="exhaustedAction" caption="Exhausted action" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="WHEN_EXHAUSTED_WAIT"></option>
+      <option value="WHEN_EXHAUSTED_FAIL"></option>
+      <option value="WHEN_EXHAUSTED_GROW"></option>
+    </enum>
+    <integer defaultValue="5" min="-1" step="0" name="maxWait" caption="Max wait" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="1800000" min="-1" step="0" name="minEvictionMillis" caption="Min eviction (ms)" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="-1" min="-1" step="0" name="evictionCheckIntervalMillis" caption="Eviction check interval (ms)" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+  </nested>
+  <nested caption="" description="" localId="reconnectionStrategyElement" abstract="true">
+    <label name="connectionLabel" caption="Define how mule should attempt to handle a connection failure" description=""></label>
+    <radioBoolean name="noReconnection" caption="Do not use a Reconnection strategy" description="Disable reconection strategy" fillLine="true"></radioBoolean>
+    <radioBoolean name="standardReconnection" caption="Standard Reconnection" description="A reconnection strategy that allows the user to configure how many times a reconnection should be attempted and how long to wait between attempts." fillLine="true"></radioBoolean>
+    <integer defaultValue="2000" min="1" max="2147483647" step="1" name="reconnectionFrequency" caption="Frequency (ms)" description="How often (in ms) to reconnect" controlled="standardReconnection" indented="true"></integer>
+    <integer defaultValue="2" min="1" max="2147483647" step="1" name="reconnectionAttemps" caption="Reconnection Attempts" description="How many reconnection attempts to make" controlled="standardReconnection,!reconnectForever" indented="true"></integer>
+    <boolean name="reconnectForever" caption="Reconnect Forever" description="A reconnection strategy that retries an infinite number of times at the specified frequency." supportsExpressions="false" controlled="standardReconnection" indented="true"></boolean>
+    <radioBoolean name="customReconnection" caption="Custom Reconnection" description="A user-defined reconnection strategy." fillLine="true"></radioBoolean>
+    <classname name="class" caption="Class" description="A class that implements the RetryPolicyTemplate interface." controlled="customReconnection" indented="true"></classname>
+    <childElement allowMultiple="true" name="http://www.springframework.org/schema/beans/property" caption="Properties" description="Property elements." controlled="customReconnection"></childElement>
+  </nested>
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="FreshBooks: Configuration" description="Global Configuration configuration information." icon="icons/small/freshbooks-connector-24x16.png" localId="config" image="icons/large/freshbooks-connector-48x32.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/freshbooks/parentConfig" connectivityTesting="off" metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="Freshbooks configuration properties.">
+      <group id="freshbooksGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+      <group id="connection" caption="Connection">
+        <string name="apiUrl" caption="Api Url" description="" required="true" javaType="java.lang.String"></string>
+        <string name="consumerKey" caption="Consumer Key" description="" required="true" javaType="java.lang.String"></string>
+        <string name="consumerSecret" caption="Consumer Secret" description="" required="true" javaType="java.lang.String"></string>
+      </group>
+      <group id="general" caption="General">
+        <integer defaultValue="20" min="0" step="1" name="defaultMaxConnectionPerRoute" caption="Default Max Connection Per Route" description="Default max number of connections per route." supportsExpressions="false" required="false" javaType="int"></integer>
+        <integer defaultValue="100" min="0" step="1" name="maxTotalConnection" caption="Max Total Connection" description="Maximum number of total connections." supportsExpressions="false" required="false" javaType="int"></integer>
+        <string name="accessTokenIdentifierPrefix" caption="Access Token Identifier Prefix" description="Prefix used for storing credentials in ObjectStore. It will be concatenated to the access token identifier.
+
+E.g. prefix: &quot;fb_&quot;, user identifier: &quot;12345&quot;, key for object store &quot;fb_12345&quot;
+." supportsExpressions="false" required="false" javaType="java.lang.String"></string>
+        <string defaultValue="_defaultUserObjectStore" name="objectStore-ref" caption="Object Store Reference" description="Object store reference." supportsExpressions="false" required="false" javaType="org.mule.api.store.ObjectStore"></string>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Pooling Profile" description="Pooling profile options.">
+      <group id="poolingProfile" caption="Pooling Profile">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/freshbooks/connection-pooling-profile" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.PoolingProfileValuePersistence"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Reconnection" description="Reconnection options.">
+      <group id="reconnectionStrategies" caption="Strategies">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/core/reconnectionStrategyElement" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.HTTPTransactionValuePersistence"></childElement>
+        <childElement allowSubTypes="true" allowedSubTypes="http://www.mulesoft.org/schema/mule/core/reconnect,http://www.mulesoft.org/schema/mule/core/reconnect-custom-strategy,http://www.mulesoft.org/schema/mule/core/reconnect-forever" name="http://www.mulesoft.org/schema/mule/core/abstractReconnectionStrategy" caption="" description="" visibleInDialog="false"></childElement>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector caption="Abstractfreshbooksconnectorgeneric" description="Interact with Freshbooks." icon="icons/small/freshbooks-connector-24x16.png" localId="abstractFreshbooksConnectorGeneric" image="icons/large/freshbooks-connector-48x32.png" abstract="true">
+    <attribute-category caption="General" description="General.">
+      <group id="abstractFreshbooksConnectorGeneric" caption="Basic Settings">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/freshbooks/config" name="config-ref" caption="Connector Configuration" description="Specify which configuration to use for this invocation." required="true"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector versions="[3.6.0,8.0.0]" aliasId="org.mule.tooling.ui.modules.core.pattern.freshbooks" caption="FreshBooks" description="FreshBooks is an online invoicing software as a service for freelancers, small businesses, agencies, and professionals. It is produced by the software company 2ndSite Inc. which
+is located in Toronto, Ontario, Canada. The product includes a myriad of other related features, such as time tracking, expense tracking, recurring billing, online payment
+collection, the ability to mail invoices through the U.S. Post, and support tickets." icon="icons/small/freshbooks-connector-24x16.png" localId="freshbooks-connector" image="icons/large/freshbooks-connector-48x32.png" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="freshbooksConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Freshbooks operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" versions="[3.6.0,8.0.0]" connector-name="processor"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/auth-user" modeLabel="Auth user"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-callback" modeLabel="Create callback"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-category" modeLabel="Create category"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-client" modeLabel="Create client"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-invoice" modeLabel="Create invoice"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-item" modeLabel="Create item"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-license" modeLabel="Create license"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-payment" modeLabel="Create payment"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-session" modeLabel="Create session"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-system-user" modeLabel="Create system user"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-task" modeLabel="Create task"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/create-tax" modeLabel="Create tax"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-callback" modeLabel="Delete callback"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-category" modeLabel="Delete category"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-client" modeLabel="Delete client"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-invoice" modeLabel="Delete invoice"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-item" modeLabel="Delete item"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-license" modeLabel="Delete license"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-payment" modeLabel="Delete payment"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-task" modeLabel="Delete task"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/delete-tax" modeLabel="Delete tax"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-access-token" modeLabel="Get access token"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-category" modeLabel="Get category"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-client" modeLabel="Get client"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-current-user-information" modeLabel="Get current user information"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-invoice" modeLabel="Get invoice"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-item" modeLabel="Get item"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-payment" modeLabel="Get payment"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-task" modeLabel="Get task"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/get-tax" modeLabel="Get tax"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-addons" modeLabel="List addons"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-callbacks" modeLabel="List callbacks"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-categories" modeLabel="List categories"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-clients" modeLabel="List clients"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-invoices" modeLabel="List invoices"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-items" modeLabel="List items"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-licenses" modeLabel="List licenses"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-payments" modeLabel="List payments"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-tasks" modeLabel="List tasks"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/list-taxes" modeLabel="List taxes"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/undelete-client" modeLabel="Undelete client"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/undelete-invoice" modeLabel="Undelete invoice"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/update-category" modeLabel="Update category"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/update-client" modeLabel="Update client"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/update-invoice" modeLabel="Update invoice"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/update-item" modeLabel="Update item"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/update-payment" modeLabel="Update payment"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/update-task" modeLabel="Update task"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/update-tax" modeLabel="Update tax"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/freshbooks/verify-callback" modeLabel="Verify callback"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Auth User" icon="icons/small/freshbooks-connector-24x16.png" localId="auth-user" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenUrl" caption="Access Token Url" description="AccessTokenUrl." required="true" javaType="java.lang.String"></string>
+        <string name="authorizationUrl" caption="Authorization Url" description="AuthorizationUrl." required="true" javaType="java.lang.String"></string>
+        <string name="callbackUrl" caption="Callback Url" description="CallbackUrl for OAuth service." required="true" javaType="java.lang.String"></string>
+        <string name="requestTokenId" caption="Request Token Id" description="Optional value for identifying the requestToken. If it is not passed the client will use a UUID." required="false" javaType="java.lang.String"></string>
+        <string name="requestTokenUrl" caption="Request Token Url" description="RequestTokenUrl." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Callback" caption="Create Callback" icon="icons/small/freshbooks-connector-24x16.png" localId="create-callback" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="callback-ref" caption="Callback Reference" description="To be created." required="false" javaType="org.mule.modules.freshbooks.model.Callback"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Category" caption="Create Category" icon="icons/small/freshbooks-connector-24x16.png" localId="create-category" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="category-ref" caption="Category Reference" description="To be created." required="false" javaType="org.mule.modules.freshbooks.model.Category"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Client" caption="Create Client" icon="icons/small/freshbooks-connector-24x16.png" localId="create-client" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="client-ref" caption="Client Reference" description="To be created." required="false" javaType="org.mule.modules.freshbooks.model.Client"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Invoice" caption="Create Invoice" icon="icons/small/freshbooks-connector-24x16.png" localId="create-invoice" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="invoice-ref" caption="Invoice Reference" description="To be created." required="false" javaType="org.mule.modules.freshbooks.model.Invoice"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Item" caption="Create Item" icon="icons/small/freshbooks-connector-24x16.png" localId="create-item" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="item-ref" caption="Item Reference" description="To be created." required="false" javaType="org.mule.modules.freshbooks.model.Item"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.License" caption="Create License" icon="icons/small/freshbooks-connector-24x16.png" localId="create-license" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="license-ref" caption="License Reference" description="The license to be created." required="false" javaType="org.mule.modules.freshbooks.model.License"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Payment" caption="Create Payment" icon="icons/small/freshbooks-connector-24x16.png" localId="create-payment" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="payment-ref" caption="Payment Reference" description="To be created." required="false" javaType="org.mule.modules.freshbooks.model.Payment"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Session" caption="Create Session" icon="icons/small/freshbooks-connector-24x16.png" localId="create-session" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="session-ref" caption="Session Reference" description="The session to be created." required="false" javaType="org.mule.modules.freshbooks.model.Session"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.System" caption="Create System User" icon="icons/small/freshbooks-connector-24x16.png" localId="create-system-user" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="systemUser-ref" caption="System User Reference" description="The system user to be created." required="false" javaType="org.mule.modules.freshbooks.model.System"></string>
+        <string name="userIdentifier" caption="User Identifier" description="Identifier to be used for storing the accessToken." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Task" caption="Create Task" icon="icons/small/freshbooks-connector-24x16.png" localId="create-task" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="task-ref" caption="Task Reference" description="To be created." required="false" javaType="org.mule.modules.freshbooks.model.Task"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Tax" caption="Create Tax" icon="icons/small/freshbooks-connector-24x16.png" localId="create-tax" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="tax-ref" caption="Tax Reference" description="To be created." required="false" javaType="org.mule.modules.freshbooks.model.Tax"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Callback" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-callback" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="callback-ref" caption="Callback Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.Callback"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Category" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-category" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="category-ref" caption="Category Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.Category"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Client" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-client" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="client-ref" caption="Client Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.Client"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Invoice" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-invoice" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="invoice-ref" caption="Invoice Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.Invoice"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Item" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-item" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="item-ref" caption="Item Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.Item"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete License" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-license" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="license-ref" caption="License Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.License"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Payment" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-payment" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="payment-ref" caption="Payment Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.Payment"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Task" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-task" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="task-ref" caption="Task Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.Task"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Tax" icon="icons/small/freshbooks-connector-24x16.png" localId="delete-tax" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="tax-ref" caption="Tax Reference" description="To be deleted." required="false" javaType="org.mule.modules.freshbooks.model.Tax"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.api.OAuthCredentials" caption="Get Access Token" icon="icons/small/freshbooks-connector-24x16.png" localId="get-access-token" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="apiUrl" caption="Api Url" description="API URL." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[header:inbound:userId]" name="requestTokenId" caption="Request Token Id" description="Id used for identifying the authorized request token. It comes within the callback. By default the query string parameter is userId." required="false" javaType="java.lang.String"></string>
+        <string name="userIdentifier" caption="User Identifier" description="Id used for store the accessToken in the Object Store. If it is not provided by the app the connector uses the username from FreshBooks." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[header:inbound:oauth_verifier]" name="verifier" caption="Verifier" description="OAuth verifier. It comes within the callback. The default value is &quot;#[header:inbound:oauth_verifier]&quot;." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Category" caption="Get Category" icon="icons/small/freshbooks-connector-24x16.png" localId="get-category" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="categoryId" caption="Category Id" description="The category id." required="true" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Client" caption="Get Client" icon="icons/small/freshbooks-connector-24x16.png" localId="get-client" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="clientId" caption="Client Id" description="The client id." required="true" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Staff" caption="Get Current User Information" icon="icons/small/freshbooks-connector-24x16.png" localId="get-current-user-information" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <childElement inplace="true" allowMultiple="false" name="http://www.mulesoft.org/schema/mule/freshbooks/credentials" caption="Credentials Reference" required="false" javaType="org.mule.modules.freshbooks.api.OAuthCredentials"></childElement>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Invoice" caption="Get Invoice" icon="icons/small/freshbooks-connector-24x16.png" localId="get-invoice" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="invoiceId" caption="Invoice Id" description="The invoice id." required="true" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Item" caption="Get Item" icon="icons/small/freshbooks-connector-24x16.png" localId="get-item" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="itemId" caption="Item Id" description="The item id." required="true" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Payment" caption="Get Payment" icon="icons/small/freshbooks-connector-24x16.png" localId="get-payment" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="paymentId" caption="Payment Id" description="The payment id." required="true" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Task" caption="Get Task" icon="icons/small/freshbooks-connector-24x16.png" localId="get-task" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string name="taskId" caption="Task Id" description="The task id." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Tax" caption="Get Tax" icon="icons/small/freshbooks-connector-24x16.png" localId="get-tax" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string name="taxId" caption="Tax Id" description="The tax id." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Addon&gt;" caption="List Addons" icon="icons/small/freshbooks-connector-24x16.png" localId="list-addons" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Callback&gt;" caption="List Callbacks" icon="icons/small/freshbooks-connector-24x16.png" localId="list-callbacks" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="callbackRequest-ref" caption="Callback Request Reference" description="CallbackRequest object." required="false" javaType="org.mule.modules.freshbooks.model.CallbackRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Category&gt;" caption="List Categories" icon="icons/small/freshbooks-connector-24x16.png" localId="list-categories" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="categoryRequest-ref" caption="Category Request Reference" description="CategoryRequest Object." required="false" javaType="org.mule.modules.freshbooks.model.CategoryRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Client&gt;" caption="List Clients" icon="icons/small/freshbooks-connector-24x16.png" localId="list-clients" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="clientRequest-ref" caption="Client Request Reference" description="ClientRequest object." required="false" javaType="org.mule.modules.freshbooks.model.ClientRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Invoice&gt;" caption="List Invoices" icon="icons/small/freshbooks-connector-24x16.png" localId="list-invoices" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="invoiceRequest-ref" caption="Invoice Request Reference" description="InvoiceRequest object." required="false" javaType="org.mule.modules.freshbooks.model.InvoiceRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Item&gt;" caption="List Items" icon="icons/small/freshbooks-connector-24x16.png" localId="list-items" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="itemRequest-ref" caption="Item Request Reference" description="ItemRequest object." required="false" javaType="org.mule.modules.freshbooks.model.ItemRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.License&gt;" caption="List Licenses" icon="icons/small/freshbooks-connector-24x16.png" localId="list-licenses" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="licenseRequest-ref" caption="License Request Reference" description="LicenseRequest object." required="false" javaType="org.mule.modules.freshbooks.model.LicenseRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Payment&gt;" caption="List Payments" icon="icons/small/freshbooks-connector-24x16.png" localId="list-payments" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="paymentRequest-ref" caption="Payment Request Reference" description="PaymentRequest object." required="false" javaType="org.mule.modules.freshbooks.model.PaymentRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Task&gt;" caption="List Tasks" icon="icons/small/freshbooks-connector-24x16.png" localId="list-tasks" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="taskRequest-ref" caption="Task Request Reference" description="TaskRequest object." required="false" javaType="org.mule.modules.freshbooks.model.TaskRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.Iterable&lt;org.mule.modules.freshbooks.model.Tax&gt;" caption="List Taxes" icon="icons/small/freshbooks-connector-24x16.png" localId="list-taxes" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="taxRequest-ref" caption="Tax Request Reference" description="TaxRequest object." required="false" javaType="org.mule.modules.freshbooks.model.TaxRequest"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Undelete Client" icon="icons/small/freshbooks-connector-24x16.png" localId="undelete-client" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="client-ref" caption="Client Reference" description="To be undeleted." required="false" javaType="org.mule.modules.freshbooks.model.Client"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Undelete Invoice" icon="icons/small/freshbooks-connector-24x16.png" localId="undelete-invoice" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="invoice-ref" caption="Invoice Reference" description="To be undeleted." required="false" javaType="org.mule.modules.freshbooks.model.Invoice"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Category" caption="Update Category" icon="icons/small/freshbooks-connector-24x16.png" localId="update-category" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="category-ref" caption="Category Reference" description="To be updated." required="false" javaType="org.mule.modules.freshbooks.model.Category"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Client" caption="Update Client" icon="icons/small/freshbooks-connector-24x16.png" localId="update-client" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="client-ref" caption="Client Reference" description="To be updated." required="false" javaType="org.mule.modules.freshbooks.model.Client"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Invoice" caption="Update Invoice" icon="icons/small/freshbooks-connector-24x16.png" localId="update-invoice" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="invoice-ref" caption="Invoice Reference" description="To be updated." required="false" javaType="org.mule.modules.freshbooks.model.Invoice"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Item" caption="Update Item" icon="icons/small/freshbooks-connector-24x16.png" localId="update-item" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="item-ref" caption="Item Reference" description="To be updated." required="false" javaType="org.mule.modules.freshbooks.model.Item"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Payment" caption="Update Payment" icon="icons/small/freshbooks-connector-24x16.png" localId="update-payment" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="payment-ref" caption="Payment Reference" description="To be updated." required="false" javaType="org.mule.modules.freshbooks.model.Payment"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Task" caption="Update Task" icon="icons/small/freshbooks-connector-24x16.png" localId="update-task" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="task-ref" caption="Task Reference" description="To be updated." required="false" javaType="org.mule.modules.freshbooks.model.Task"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Tax" caption="Update Tax" icon="icons/small/freshbooks-connector-24x16.png" localId="update-tax" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="tax-ref" caption="Tax Reference" description="To be updated." required="false" javaType="org.mule.modules.freshbooks.model.Tax"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.freshbooks.model.Callback" caption="Verify Callback" icon="icons/small/freshbooks-connector-24x16.png" localId="verify-callback" image="icons/large/freshbooks-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/freshbooks/abstractFreshbooksConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="sourceToken" caption="Source Token" description="Source token value." required="false" javaType="java.lang.String"></string>
+        <string defaultValue="#[payload]" name="callback-ref" caption="Callback Reference" description="To be verified." required="false" javaType="org.mule.modules.freshbooks.model.Callback"></string>
+        <string name="accessTokenId" caption="Access Token Id" description="AccessTokenIdentifier." required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <nested xmlname="credentials" caption="" description="" localId="credentials" abstract="false">
+    <radioBoolean name="useReference" caption="Reference or expression" description="Provide a reference to a bean or use an expression" fillLine="true"></radioBoolean>
+    <string name="ref" caption="Credentials Reference" description="" controlled="useReference"></string>
+    <radioBoolean name="complex" caption="Define attributes" description="Define this element's attributes" fillLine="true"></radioBoolean>
+    <string name="accessToken" caption="Access Token" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="accessTokenSecret" caption="Access Token Secret" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="userId" caption="User Id" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="requestTokenUrl" caption="Request Token Url" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="authUrl" caption="Auth Url" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="accessTokenUrl" caption="Access Token Url" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+    <string name="apiUrl" caption="Api Url" description="" required="false" controlled="complex" javaType="java.lang.String"></string>
+  </nested>
+</namespace>

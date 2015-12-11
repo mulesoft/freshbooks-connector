@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<request method="category.update">
+  <category>
+    <category_id>12</category_id>  <!-- Category to update -->
+    <name>Gasoline</name>  <!-- (Optional) Category name -->
+  </category>
+</request>
